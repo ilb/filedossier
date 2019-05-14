@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema elementFormDefault="qualified" xmlns="urn:ru:ilb:filedossier:core"
+            targetNamespace="urn:ru:ilb:filedossier:core"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+    <xsd:simpleType name="readOptions">
+        <xsd:annotation>
+            <xsd:documentation>read options</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="WITH_DOSSIERFILE">
+                <xsd:annotation>
+                    <xsd:documentation>with dossierfile</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+</xsd:schema>

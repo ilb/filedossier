@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema 
+    elementFormDefault="qualified" xmlns="urn:ru:ilb:global"
+    targetNamespace="urn:ru:ilb:global"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+    <xsd:simpleType name="uuid">
+        <xsd:annotation>
+            <xsd:documentation>Universally Unique Identifier</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+            <xsd:length value="36"/>
+            <xsd:pattern value="[\da-fA-F]{8}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{12}"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    
+</xsd:schema>

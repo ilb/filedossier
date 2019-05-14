@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema elementFormDefault="qualified"
+            xmlns="urn:ru:ilb:filedossier:command"
+            targetNamespace="urn:ru:ilb:filedossier:command"
+            xmlns:core="urn:ru:ilb:filedossier:core"
+            xmlns:view="urn:ru:ilb:filedossier:view"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+>
+    <xsd:import namespace="urn:ru:ilb:filedossier:core" schemaLocation="./core.xsd"/>
+    <xsd:import namespace="urn:ru:ilb:filedossier:view" schemaLocation="./view.xsd"/>
+    
+
+        
+</xsd:schema>

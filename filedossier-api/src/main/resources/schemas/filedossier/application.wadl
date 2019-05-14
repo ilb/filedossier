@@ -1,0 +1,67 @@
+<application xmlns="http://wadl.dev.java.net/2009/02" 
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+             xmlns:command="urn:ru:ilb:filedossier:command"
+             xmlns:view="urn:ru:ilb:filedossier:view"
+             xmlns:core="urn:ru:ilb:filedossier:core"
+>    
+    <grammars>
+        <include href="global.xsd" />
+        <include href="command.xsd" />
+        <include href="view.xsd" />
+    </grammars>
+    <resource_type id="dossierResource">
+        <doc title="dossier resource">
+
+        </doc>
+        <method name="GET" id="getDossier">
+            <doc>get dossier instance</doc>
+            <request></request>
+            <response>
+                <representation mediaType="application/xml" element="view:dossier">
+                    <doc>dossier data</doc>
+                </representation>
+                <representation mediaType="application/json">
+                    <doc>dossier data</doc>
+                </representation>
+                <representation mediaType="application/xhtml+xml">
+                    <doc>dossier data</doc>
+                </representation>
+            </response>
+        </method>
+        <resource path="dossierfiles">
+            <resource path="{fileCode}">
+                <param name="fileCode" style="template" type="xsd:string">
+                    <doc>file code</doc>
+                </param>
+                <method name="GET" id="getContents">
+                    <doc>get dossier file contents</doc>
+                    <request></request>
+                    <response status="200">
+                        <param name="Content-Disposition" style="header" type="xsd:string"/>
+                    </response>
+                </method>
+                <method name="PUT" id="putContents">
+                    <doc>put dossier file contents</doc>
+                    <request>
+                        <representation mediaType="*/*">
+                            <doc>file data</doc>
+                        </representation>
+                    </request>
+                    <response status="204"></response>
+                </method>
+
+            </resource>
+
+
+        </resource>
+    </resource_type>
+    <resources>
+        <resource path="dossiers">
+            <resource path="{dossierCode}" id="dossierResource" type="#dossierResource">
+                <param name="dossierCode" style="template" type="xsd:string">
+                    <doc>dossier code</doc>
+                </param>
+            </resource>
+        </resource>
+    </resources>
+</application>

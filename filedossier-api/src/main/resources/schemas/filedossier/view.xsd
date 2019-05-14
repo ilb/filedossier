@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns="urn:ru:ilb:filedossier:view"
+    attributeFormDefault="unqualified"
+    elementFormDefault="qualified"
+    targetNamespace="urn:ru:ilb:filedossier:view"
+>
+
+    <xsd:element name="dossier" type="dossier"/>
+    <xsd:complexType name="dossier">
+        <xsd:annotation>
+            <xsd:documentation>Досье</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="code" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:documentation>код досье</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="name" type="xsd:string" >
+                <xsd:annotation>
+                    <xsd:documentation>Наименование досье</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element ref="dossierFile" minOccurs="0" maxOccurs="unbounded">
+                <xsd:annotation>
+                    <xsd:documentation>Файлы досье</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:element name="dossierFile" type="dossierFile"/>
+    <xsd:complexType name="dossierFile">
+        <xsd:annotation>
+            <xsd:documentation>Файл досье</xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:sequence>
+            <xsd:element name="code" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:documentation>Код файла</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="name" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:documentation>Наименование</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="exists" type="xsd:boolean">
+                <xsd:annotation>
+                    <xsd:documentation>Наличие файла</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="readonly" type="xsd:boolean">
+                <xsd:annotation>
+                    <xsd:documentation>Только для чтения</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+
+        </xsd:sequence>
+    </xsd:complexType>
+ 
+</xsd:schema>
