@@ -27,13 +27,11 @@ import ru.ilb.filestorage.Store;
  *
  * @author SPoket
  */
-public class DossierFile implements Store {
+public class DossierFile implements File {
     
     private Store storage;
     
     private String code;
-    
-    private String key;
     
     private String name;
     
@@ -42,15 +40,10 @@ public class DossierFile implements Store {
     private boolean readOnly;
     
     
-    public DossierFile(Store storage, String key, String code, String name){
+    public DossierFile(Store storage, String code, String name){
         this.storage = storage;
-        this.key = key;
         this.code = code;
         this.name = name;
-    }
-
-    public String getKey() {
-        return key;
     }
     
     public String getCode() {
@@ -68,15 +61,15 @@ public class DossierFile implements Store {
     public boolean isReadOnly() { // TODO
         return readOnly;
     }
-    
+
     @Override
-    public byte[] getContents(String code) throws IOException {
+    public byte[] getContents() throws IOException {
         return storage.getContents(code);
     }
 
     @Override
-    public void putContents(String code, byte[] data) throws IOException {
-        storage.getContents(code);
+    public void putContents(byte[] data) throws IOException {
+        storage.putContents(code, data);
     }
     
 }

@@ -15,26 +15,16 @@
  */
 package ru.ilb.filedossier.lib;
 
-import java.util.ArrayList;
-import ru.ilb.filedossier.lib.DossierFile;
-import ru.ilb.filedossier.lib.Dossier;
+import java.io.IOException;
 
 /**
  *
  * @author develop01
  */
-public class DossierImpl implements Dossier {
+interface File {
     
-    ArrayList<DossierFile> dossierFiles = new ArrayList<>();
+    void putContents(byte[] data) throws IOException;
     
-    @Override
-    public void addFile(DossierFile file) {
-        dossierFiles.add(file);
-    }
-    
-    @Override
-    public ArrayList<DossierFile> getFiles() {
-        return dossierFiles;
-    }
+    byte[] getContents() throws IOException;
     
 }
