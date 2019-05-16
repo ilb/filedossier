@@ -16,7 +16,7 @@
 package ru.ilb.filedossier.lib;
 
 import java.util.ArrayList;
-import ru.ilb.filedossier.lib.DossierFile;
+import ru.ilb.filedossier.lib.DossierFileImpl;
 
 /**
  *
@@ -24,8 +24,8 @@ import ru.ilb.filedossier.lib.DossierFile;
  */
 public interface Dossier {
     
-    void addFile(DossierFile file);
+    void addFile(DossierFileImpl file);
     
-    ArrayList<DossierFile> getFiles();
+    ArrayList<DossierFileImpl> getFiles();
     
 }

@@ -16,7 +16,7 @@
 package ru.ilb.filedossier.lib;
 
 import java.util.ArrayList;
-import ru.ilb.filedossier.lib.DossierFile;
+import ru.ilb.filedossier.lib.DossierFileImpl;
 import ru.ilb.filedossier.lib.Dossier;
 
 /**
@@ -25,15 +25,15 @@ import ru.ilb.filedossier.lib.Dossier;
  */
 public class DossierImpl implements Dossier {
     
-    ArrayList<DossierFile> dossierFiles = new ArrayList<>();
+    ArrayList<DossierFileImpl> dossierFiles = new ArrayList<>();
     
     @Override
-    public void addFile(DossierFile file) {
+    public void addFile(DossierFileImpl file) {
         dossierFiles.add(file);
     }
     
     @Override
-    public ArrayList<DossierFile> getFiles() {
+    public ArrayList<DossierFileImpl> getFiles() {
         return dossierFiles;
     }
     

@@ -16,60 +16,15 @@
 package ru.ilb.filedossier.lib;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.function.Predicate;
-import java.util.regex.Pattern;
-import ru.ilb.filestorage.Store;
 
 /**
  *
- * @author SPoket
+ * @author develop01
  */
-public class DossierFile implements File {
+interface DossierFile {
     
-    private Store storage;
+    void putContents(byte[] data) throws IOException;
     
-    private String code;
-    
-    private String name;
-    
-    private boolean exist;
-    
-    private boolean readOnly;
-    
-    
-    public DossierFile(Store storage, String code, String name){
-        this.storage = storage;
-        this.code = code;
-        this.name = name;
-    }
-    
-    public String getCode() {
-        return code;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public boolean isExist() { // TODO
-        return exist;
-    }
-
-    public boolean isReadOnly() { // TODO
-        return readOnly;
-    }
-
-    @Override
-    public byte[] getContents() throws IOException {
-        return storage.getContents(code);
-    }
-
-    @Override
-    public void putContents(byte[] data) throws IOException {
-        storage.putContents(code, data);
-    }
+    byte[] getContents() throws IOException;
     
 }
