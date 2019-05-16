@@ -218,5 +218,6 @@
   <modules>
     <module>filedossier-api</module>
     <module>filedossier-components</module>
+    <module>filedossier-lib</module>
   </modules>
 </project>
