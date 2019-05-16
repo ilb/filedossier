@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns="urn:ru:ilb:filedossier:model"
+    attributeFormDefault="unqualified"
+    elementFormDefault="qualified"
+    targetNamespace="urn:ru:ilb:filedossier:model"
+>
+
+    <xsd:element name="dossierModel" type="dossierModel"/>
+    <xsd:complexType name="dossierModel">
+        <xsd:annotation>
+            <xsd:documentation>Модель досье</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="code" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:documentation>код досье</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="name" type="xsd:string" >
+                <xsd:annotation>
+                    <xsd:documentation>Наименование досье</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element ref="dossierModelFile" minOccurs="0" maxOccurs="unbounded">
+                <xsd:annotation>
+                    <xsd:documentation>Файлы досье</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:element name="dossierModelFile" type="dossierModelFile"/>
+    <xsd:complexType name="dossierModelFile">
+        <xsd:annotation>
+            <xsd:documentation>Модель файла досье</xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:sequence>
+            <xsd:element name="code" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:documentation>Код файла</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="name" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:documentation>Наименование</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:choice minOccurs="0">
+                <xsd:element name="readonly" type="xsd:boolean">
+                    <xsd:annotation>
+                        <xsd:documentation>Только для чтения</xsd:documentation>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element name="readonlyExpression" type="xsd:string">
+                    <xsd:annotation>
+                        <xsd:documentation>Выражение javascript для вычисления значения reaodonly</xsd:documentation>
+                    </xsd:annotation>
+                </xsd:element>
+            </xsd:choice>
+            <xsd:choice minOccurs="0">
+                <xsd:element name="required" type="xsd:boolean">
+                    <xsd:annotation>
+                        <xsd:documentation>Обязательный файл</xsd:documentation>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element name="requiredExpression" type="xsd:string">
+                    <xsd:annotation>
+                        <xsd:documentation>Выражение javascript для вычисления значения required</xsd:documentation>
+                    </xsd:annotation>
+                </xsd:element>
+            </xsd:choice>
+            <xsd:choice minOccurs="0">
+                <xsd:element name="visible" type="xsd:boolean">
+                    <xsd:annotation>
+                        <xsd:documentation>Видимый файл</xsd:documentation>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element name="visibleExpression" type="xsd:string">
+                    <xsd:annotation>
+                        <xsd:documentation>Выражение javascript для вычисления значения visible</xsd:documentation>
+                    </xsd:annotation>
+                </xsd:element>
+            </xsd:choice>
+
+
+        </xsd:sequence>
+    </xsd:complexType>
+ 
+</xsd:schema>

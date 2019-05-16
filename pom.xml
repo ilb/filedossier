@@ -217,6 +217,7 @@
     </profiles>
   <modules>
     <module>filedossier-api</module>
+    <module>filedossier-model</module>
     <module>filedossier-components</module>
     <module>filedossier-lib</module>
   </modules>

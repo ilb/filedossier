@@ -8,12 +8,12 @@
     </parent>
     
     <groupId>ru.ilb.filedossier</groupId>
-    <artifactId>filedossier-api</artifactId>
+    <artifactId>filedossier-model</artifactId>
     <packaging>jar</packaging>
     <properties>
         <eclipselink.version>2.7.4</eclipselink.version>
     </properties>
-    <name>filedossier-api</name>
+    <name>filedossier-model</name>
     <description>API shared module</description>
     <dependencies>
         <dependency>
@@ -57,11 +57,10 @@
                             <sourceRoot>${project.build.directory}/generated-sources/xjc</sourceRoot>
                             <wadlOptions>
                                 <wadlOption>
-                                    <wadl>${basedir}/src/main/resources/schemas/filedossier/application.wadl</wadl>
+                                    <wadl>${basedir}/src/main/resources/schemas/filedossier/model.wadl</wadl>
                                     <packagename>ru.ilb.filedossier.api</packagename>
                                     <bindingFiles>
                                         <bindingFile>${basedir}/src/main/resources/schemas/filedossier/global.xjb</bindingFile>
-                                        <bindingFile>${basedir}/src/main/resources/schemas/filedossier/view.xjb</bindingFile>
                                     </bindingFiles>
                                     <extraargs>
                                         <extraarg>-verbose</extraarg>

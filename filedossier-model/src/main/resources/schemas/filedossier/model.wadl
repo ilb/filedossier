@@ -1,0 +1,15 @@
+<application xmlns="http://wadl.dev.java.net/2009/02" 
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+             xmlns:command="urn:ru:ilb:filedossier:command"
+             xmlns:view="urn:ru:ilb:filedossier:view"
+             xmlns:core="urn:ru:ilb:filedossier:core"
+>    
+    <grammars>
+        <include href="global.xsd" />
+        <include href="model.xsd" />
+    </grammars>
+    <resources>
+        <resource path="dossierModels">
+        </resource>
+    </resources>
+</application>
