@@ -21,7 +21,7 @@ import java.io.IOException;
  *
  * @author develop01
  */
-interface DossierFile {
+public interface DossierFile {
     
     void putContents(byte[] data) throws IOException;
     

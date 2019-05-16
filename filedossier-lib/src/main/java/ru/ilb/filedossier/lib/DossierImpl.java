@@ -16,6 +16,7 @@
 package ru.ilb.filedossier.lib;
 
 import java.util.ArrayList;
+import java.util.List;
 import ru.ilb.filedossier.lib.DossierFileImpl;
 import ru.ilb.filedossier.lib.Dossier;
 
@@ -25,16 +26,21 @@ import ru.ilb.filedossier.lib.Dossier;
  */
 public class DossierImpl implements Dossier {
     
-    ArrayList<DossierFileImpl> dossierFiles = new ArrayList<>();
+    List<DossierFile> dossierFiles = new ArrayList<>();
     
     @Override
-    public void addFile(DossierFileImpl file) {
+    public void addFile(DossierFile file) {
         dossierFiles.add(file);
     }
     
     @Override
-    public ArrayList<DossierFileImpl> getFiles() {
+    public List<DossierFile> getFiles() {
         return dossierFiles;
+    }
+
+    @Override
+    public List<DossierFile> getContextFiles(DossierContext dossierContext) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }
