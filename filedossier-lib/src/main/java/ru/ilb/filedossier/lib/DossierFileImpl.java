@@ -36,7 +36,6 @@ public class DossierFileImpl implements DossierFile {
     
     private final boolean visible;
     
-    
     public DossierFileImpl(Store storage, String code, String name, 
             boolean required, boolean readOnly, boolean visible){
         this.storage = storage;
@@ -61,6 +60,10 @@ public class DossierFileImpl implements DossierFile {
 
     public boolean isReadOnly() {
         return readOnly;
+    }
+    
+    public boolean isVisible() {
+        return visible;
     }
 
     @Override

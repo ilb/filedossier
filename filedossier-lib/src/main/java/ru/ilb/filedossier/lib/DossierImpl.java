@@ -32,13 +32,21 @@ public class DossierImpl implements Dossier {
     
     public DossierImpl(String code, String name){
         this.code = code;
-        this.name = name;
+        this.name = name;   
     }
     
     public DossierImpl(String code, String name, List<DossierFile> dossierFiles){
         this.code = code;
         this.name = name;
         this.dossierFiles = dossierFiles;
+    }
+    
+    public String getCode() {
+        return code;
+    }
+
+    public String getName() {
+        return name;
     }
     
     @Override
@@ -53,7 +61,13 @@ public class DossierImpl implements Dossier {
 
     @Override
     public List<DossierFile> getContextFiles(DossierContext dossierContext) {
-        // TODO
+        String contextProperty = "dossierFiles";
+        List<DossierFile> contextFiles = new ArrayList<>();
+        
+        if (dossierContext.containsProperty(contextProperty)) {
+            contextFiles = (List) dossierContext.getProperty(contextProperty);
+        }
+        return contextFiles;
     }
     
 }

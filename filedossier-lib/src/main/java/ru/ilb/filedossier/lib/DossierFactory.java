@@ -40,6 +40,7 @@ public class DossierFactory {
     public Dossier fromModel(DossierModel dossierModel) {
         String code = dossierModel.getCode();
         String name = dossierModel.getName();
+        
         List<DossierModelFile> modelFiles = dossierModel.getDossierModelFiles();
         
         List<DossierFile> dossierFiles = new ArrayList<>();
