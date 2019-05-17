@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 develop01.
+ * Copyright 2019 SPoket.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +19,7 @@ import java.io.IOException;
 
 /**
  *
- * @author develop01
+ * @author SPoket
  */
 public interface DossierFile {
     

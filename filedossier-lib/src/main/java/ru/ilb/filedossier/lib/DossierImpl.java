@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 develop01.
+ * Copyright 2019 SPoket.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,16 +17,29 @@ package ru.ilb.filedossier.lib;
 
 import java.util.ArrayList;
 import java.util.List;
-import ru.ilb.filedossier.lib.DossierFileImpl;
-import ru.ilb.filedossier.lib.Dossier;
 
 /**
  *
- * @author develop01
+ * @author SPoket
  */
 public class DossierImpl implements Dossier {
     
-    List<DossierFile> dossierFiles = new ArrayList<>();
+    private List<DossierFile> dossierFiles = new ArrayList<>();
+    
+    private final String code;
+    
+    private final String name;
+    
+    public DossierImpl(String code, String name){
+        this.code = code;
+        this.name = name;
+    }
+    
+    public DossierImpl(String code, String name, List<DossierFile> dossierFiles){
+        this.code = code;
+        this.name = name;
+        this.dossierFiles = dossierFiles;
+    }
     
     @Override
     public void addFile(DossierFile file) {
@@ -40,7 +53,7 @@ public class DossierImpl implements Dossier {
 
     @Override
     public List<DossierFile> getContextFiles(DossierContext dossierContext) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        // TODO
     }
     
 }

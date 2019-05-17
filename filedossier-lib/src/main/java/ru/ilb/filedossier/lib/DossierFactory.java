@@ -15,7 +15,11 @@
  */
 package ru.ilb.filedossier.lib;
 
+import java.util.ArrayList;
+import java.util.List;
 import ru.ilb.filedossier.model.DossierModel;
+import ru.ilb.filedossier.model.DossierModelFile;
+import ru.ilb.filestorage.Store;
 
 /**
  *
@@ -23,8 +27,30 @@ import ru.ilb.filedossier.model.DossierModel;
  */
 public class DossierFactory {
 
+    private final Store store;
+    
+    private DossierFactory(Store store){
+        this.store = store;
+    }
+       
+    public static DossierFactory newInstance(Store store){
+        return new DossierFactory(store);   
+    }
+    
     public Dossier fromModel(DossierModel dossierModel) {
-        return new DossierImpl();
+        String code = dossierModel.getCode();
+        String name = dossierModel.getName();
+        List<DossierModelFile> modelFiles = dossierModel.getDossierModelFiles();
+        
+        List<DossierFile> dossierFiles = new ArrayList<>();
+        modelFiles.forEach((modelFile) -> {
+            dossierFiles.add(new DossierFileImpl(
+                    store, modelFile.getCode(), modelFile.getName(),
+                    modelFile.getRequired(), modelFile.getReadonly(),
+                    modelFile.getVisible()
+            ));
+        });
+        return new DossierImpl(code, name, dossierFiles);
     }
 
 }

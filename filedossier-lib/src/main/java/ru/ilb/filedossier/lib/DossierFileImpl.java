@@ -16,11 +16,6 @@
 package ru.ilb.filedossier.lib;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.function.Predicate;
-import java.util.regex.Pattern;
 import ru.ilb.filestorage.Store;
 
 /**
@@ -29,21 +24,27 @@ import ru.ilb.filestorage.Store;
  */
 public class DossierFileImpl implements DossierFile {
     
-    private Store storage;
+    private final Store storage;
     
-    private String code;
+    private final String code;
     
-    private String name;
+    private final String name;
     
-    private boolean exist;
+    private final boolean required;
     
-    private boolean readOnly;
+    private final boolean readOnly;
+    
+    private final boolean visible;
     
     
-    public DossierFileImpl(Store storage, String code, String name){
+    public DossierFileImpl(Store storage, String code, String name, 
+            boolean required, boolean readOnly, boolean visible){
         this.storage = storage;
         this.code = code;
         this.name = name;
+        this.required = required;
+        this.readOnly = readOnly;
+        this.visible = visible;
     }
     
     public String getCode() {
@@ -54,11 +55,11 @@ public class DossierFileImpl implements DossierFile {
         return name;
     }
 
-    public boolean isExist() { // TODO
-        return exist;
+    public boolean isRequired() {
+        return required;
     }
 
-    public boolean isReadOnly() { // TODO
+    public boolean isReadOnly() {
         return readOnly;
     }
 
