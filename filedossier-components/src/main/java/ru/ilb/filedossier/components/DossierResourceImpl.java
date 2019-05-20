@@ -30,6 +30,7 @@ public class DossierResourceImpl implements DossierResource {
     public DossierResourceImpl(String dossierKey, String dossierCode) {
         this.dossierKey = dossierKey;
         this.dossierCode = dossierCode;
+        //dosier = DossierFactory.newInstance(store);
     }
 
 

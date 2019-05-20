@@ -35,15 +35,18 @@ public class DossierFileImpl implements DossierFile {
     private final boolean readOnly;
     
     private final boolean visible;
+
+    private final boolean exists;
     
     public DossierFileImpl(Store storage, String code, String name, 
-            boolean required, boolean readOnly, boolean visible){
+            boolean required, boolean readOnly, boolean visible, boolean exists){
         this.storage = storage;
         this.code = code;
         this.name = name;
         this.required = required;
         this.readOnly = readOnly;
         this.visible = visible;
+        this.exists = exists;
     }
     
     public String getCode() {

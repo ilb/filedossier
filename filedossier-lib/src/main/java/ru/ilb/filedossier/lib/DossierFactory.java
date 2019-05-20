@@ -20,6 +20,7 @@ import java.util.List;
 import ru.ilb.filedossier.model.DossierModel;
 import ru.ilb.filedossier.model.DossierModelFile;
 import ru.ilb.filestorage.Store;
+import ru.ilb.filestorage.StoreFactory;
 
 /**
  *
@@ -27,17 +28,23 @@ import ru.ilb.filestorage.Store;
  */
 public class DossierFactory {
 
-    private final Store store;
-    
-    private DossierFactory(Store store){
-        this.store = store;
+    private final DossierModelRepository dossierModelRepository;
+
+    private final StoreFactory storeFactory;
+
+    public DossierFactory(DossierModelRepository dossierModelRepository, StoreFactory storeFactory) {
+        this.dossierModelRepository = dossierModelRepository;
+        this.storeFactory = storeFactory;
     }
-       
-    public static DossierFactory newInstance(Store store){
-        return new DossierFactory(store);   
+
+      
+    public Dossier createDossier(String dossierKey, String dossierCode) {
+        DossierModel dossierModel = dossierModelRepository.getDossierModel(dossierCode);
+        Store store = storeFactory.getFileStorage(dossierKey);
+        return createDossier(dossierModel, store);
     }
     
-    public Dossier fromModel(DossierModel dossierModel) {
+    private Dossier createDossier(DossierModel dossierModel,Store store) {
         String code = dossierModel.getCode();
         String name = dossierModel.getName();
         
@@ -48,7 +55,7 @@ public class DossierFactory {
                     dossierFiles.add(new DossierFileImpl(
                     store, modelFile.getCode(), modelFile.getName(),
                     modelFile.getRequired(), modelFile.getReadonly(),
-                    modelFile.getVisible(), store.isExist(modelFile.getCode()) 
+                    modelFile.getVisible(), store.isExist(modelFile.getCode())
             ));
         });
         return new DossierImpl(code, name, dossierFiles);
