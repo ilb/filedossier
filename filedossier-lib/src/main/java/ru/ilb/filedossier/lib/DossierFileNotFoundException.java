@@ -13,21 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ru.ilb.filedossier.components;
+package ru.ilb.filedossier.lib;
 
-import javax.ws.rs.Path;
-import ru.ilb.filedossier.api.DossierResource;
-import ru.ilb.filedossier.api.DossiersResource;
-import ru.ilb.filedossier.lib.DossierFactory;
+/**
+ *
+ * @author slavb
+ */
+public class DossierFileNotFoundException extends RuntimeException {
 
-@Path("dossiers")
-public class DossiersResourceImpl implements DossiersResource {
-
-    private DossierFactory dossierFactory;
-
-    @Override
-    public DossierResource getDossierResource(String dossierKey, String dossierCode) {
-        return new DossierResourceImpl(dossierKey, dossierCode, dossierFactory);
+    public DossierFileNotFoundException(String fileCode) {
+        super("Dossier file not found: "+ fileCode);
     }
 
 }

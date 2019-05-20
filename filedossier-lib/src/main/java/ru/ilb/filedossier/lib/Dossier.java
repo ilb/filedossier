@@ -24,7 +24,9 @@ import java.util.List;
 public interface Dossier {
     
     void addFile(DossierFile file);
-    
+
+    public DossierFile getFile(String fileCode);
+
     public List<DossierFile> getFiles();
 
     public List<DossierFile> getContextFiles(DossierContext dossierContext);

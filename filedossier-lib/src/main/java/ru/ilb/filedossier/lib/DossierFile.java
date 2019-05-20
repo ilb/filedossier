@@ -26,5 +26,9 @@ public interface DossierFile {
     void putContents(byte[] data) throws IOException;
     
     byte[] getContents() throws IOException;
+
+    public String getCode();
+
+    public String getName();
     
 }

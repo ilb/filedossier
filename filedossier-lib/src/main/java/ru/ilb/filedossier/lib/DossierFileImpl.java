@@ -16,6 +16,8 @@
 package ru.ilb.filedossier.lib;
 
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import ru.ilb.filestorage.Store;
 
 /**
@@ -23,36 +25,38 @@ import ru.ilb.filestorage.Store;
  * @author SPoket
  */
 public class DossierFileImpl implements DossierFile {
-    
+
     private final Store storage;
-    
+
     private final String code;
-    
+
     private final String name;
-    
+
     private final boolean required;
-    
-    private final boolean readOnly;
-    
+
+    private final boolean readonly;
+
     private final boolean visible;
 
     private final boolean exists;
-    
-    public DossierFileImpl(Store storage, String code, String name, 
-            boolean required, boolean readOnly, boolean visible, boolean exists){
+
+    public DossierFileImpl(Store storage, String code, String name,
+            boolean required, boolean readonly, boolean visible, boolean exists) {
         this.storage = storage;
         this.code = code;
         this.name = name;
         this.required = required;
-        this.readOnly = readOnly;
+        this.readonly = readonly;
         this.visible = visible;
         this.exists = exists;
     }
-    
+
+    @Override
     public String getCode() {
         return code;
     }
 
+    @Override
     public String getName() {
         return name;
     }
@@ -62,21 +66,21 @@ public class DossierFileImpl implements DossierFile {
     }
 
     public boolean isReadOnly() {
-        return readOnly;
+        return readonly;
     }
-    
+
     public boolean isVisible() {
         return visible;
     }
 
     @Override
-    public byte[] getContents() throws IOException {
+    public byte[] getContents() throws IOException{
         return storage.getContents(code);
     }
 
     @Override
-    public void putContents(byte[] data) throws IOException {
+    public void putContents(byte[] data) throws IOException{
         storage.putContents(code, data);
     }
-    
+
 }
