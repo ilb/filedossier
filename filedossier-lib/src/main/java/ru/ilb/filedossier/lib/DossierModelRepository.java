@@ -44,7 +44,7 @@ public class DossierModelRepository {
     public DossierModel getDossierModel(String dossierCode) {
         try {
             Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-            return (DossierModel) unmarshaller.unmarshal(Paths.get(dossierModelsPath, dossierCode).toFile());
+            return (DossierModel) unmarshaller.unmarshal(Paths.get(dossierModelsPath, dossierCode+".xml").toFile());
         } catch (JAXBException ex) {
             throw new RuntimeException(ex);
         }

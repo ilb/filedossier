@@ -34,7 +34,7 @@ public class DossierModelRepositoryTest {
     @Test
     public void testGetDossierModel() {
         System.out.println("getDossierModel");
-        String dossierCode = "model.xml";
+        String dossierCode = "testmodel";
         DossierModelRepository instance = new DossierModelRepository("src/test/resources/models");
         DossierModel result = instance.getDossierModel(dossierCode);
         assertEquals("TEST", result.getCode());

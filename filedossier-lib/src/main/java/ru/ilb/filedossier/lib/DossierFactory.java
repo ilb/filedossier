@@ -17,6 +17,7 @@ package ru.ilb.filedossier.lib;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import ru.ilb.filedossier.model.DossierModel;
 import ru.ilb.filedossier.model.DossierModelFile;
 import ru.ilb.filestorage.Store;
@@ -37,27 +38,24 @@ public class DossierFactory {
         this.storeFactory = storeFactory;
     }
 
-      
     public Dossier createDossier(String dossierKey, String dossierCode) {
         DossierModel dossierModel = dossierModelRepository.getDossierModel(dossierCode);
         Store store = storeFactory.getFileStorage(dossierKey);
         return createDossier(dossierModel, store);
     }
-    
-    private Dossier createDossier(DossierModel dossierModel,Store store) {
+
+    private Dossier createDossier(DossierModel dossierModel, Store store) {
         String code = dossierModel.getCode();
         String name = dossierModel.getName();
-        
+
         List<DossierModelFile> modelFiles = dossierModel.getDossierModelFiles();
-        
-        List<DossierFile> dossierFiles = new ArrayList<>();
-        modelFiles.forEach((modelFile) -> {
-                    dossierFiles.add(new DossierFileImpl(
-                    store, modelFile.getCode(), modelFile.getName(),
-                    modelFile.getRequired(), modelFile.getReadonly(),
-                    modelFile.getVisible(), store.isExist(modelFile.getCode())
-            ));
-        });
+
+        List<DossierFile> dossierFiles = dossierModel.getDossierModelFiles().stream().map(modelFile -> new DossierFileImpl(
+                store, modelFile.getCode(), modelFile.getName(),
+                Boolean.TRUE.equals(modelFile.getRequired()), Boolean.TRUE.equals(modelFile.getReadonly()),
+                Boolean.TRUE.equals(modelFile.getVisible()), store.isExist(modelFile.getCode())))
+                .collect(Collectors.toList());
+
         return new DossierImpl(code, name, dossierFiles);
     }
 
