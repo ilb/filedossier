@@ -220,5 +220,6 @@
     <module>filedossier-model</module>
     <module>filedossier-components</module>
     <module>filedossier-lib</module>
+    <module>filedossier-storage</module>
   </modules>
 </project>

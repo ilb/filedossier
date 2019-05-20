@@ -16,9 +16,7 @@
 package ru.ilb.filedossier.lib;
 
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import ru.ilb.filestorage.Store;
+import ru.ilb.filedossier.store.Store;
 
 /**
  *

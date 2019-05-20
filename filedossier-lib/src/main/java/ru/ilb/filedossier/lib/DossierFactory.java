@@ -15,13 +15,12 @@
  */
 package ru.ilb.filedossier.lib;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import ru.ilb.filedossier.model.DossierModel;
 import ru.ilb.filedossier.model.DossierModelFile;
-import ru.ilb.filestorage.Store;
-import ru.ilb.filestorage.StoreFactory;
+import ru.ilb.filedossier.store.Store;
+import ru.ilb.filedossier.store.StoreFactory;
 
 /**
  *

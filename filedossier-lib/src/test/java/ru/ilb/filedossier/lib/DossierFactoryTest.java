@@ -20,7 +20,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import ru.ilb.filestorage.StoreFactory;
+import ru.ilb.filedossier.store.StoreFactory;
 
 /**
  *
