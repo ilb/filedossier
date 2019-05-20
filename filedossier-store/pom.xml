@@ -22,4 +22,5 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+    <name>filedossier-store</name>
 </project>
