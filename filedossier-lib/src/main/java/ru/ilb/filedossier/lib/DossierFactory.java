@@ -45,10 +45,10 @@ public class DossierFactory {
         
         List<DossierFile> dossierFiles = new ArrayList<>();
         modelFiles.forEach((modelFile) -> {
-            dossierFiles.add(new DossierFileImpl(
+                    dossierFiles.add(new DossierFileImpl(
                     store, modelFile.getCode(), modelFile.getName(),
                     modelFile.getRequired(), modelFile.getReadonly(),
-                    modelFile.getVisible()
+                    modelFile.getVisible(), store.isExist(modelFile.getCode()) 
             ));
         });
         return new DossierImpl(code, name, dossierFiles);
