@@ -17,8 +17,6 @@ package ru.ilb.filedossier.components;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ws.rs.core.Response;
 import ru.ilb.filedossier.api.DossierResource;
 import ru.ilb.filedossier.lib.DossierFactory;
@@ -49,7 +47,7 @@ public class DossierResourceImpl implements DossierResource {
     @Override
     public Response getContents(String fileCode) {
         try {
-            byte[] contents = this.dossier.getFile(fileCode).getContents();
+            byte[] contents = this.dossier.getDossierFile(fileCode).getContents();
             return Response.ok(contents).build();
         } catch (IOException ex) {
             throw new RuntimeException(ex);
@@ -60,7 +58,7 @@ public class DossierResourceImpl implements DossierResource {
     @Override
     public void putContents(String fileCode, InputStream inputstream) {
         try {
-            this.dossier.getFile(fileCode).putContents(Util.toByteArray(inputstream));
+            this.dossier.getDossierFile(fileCode).putContents(Util.toByteArray(inputstream));
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }

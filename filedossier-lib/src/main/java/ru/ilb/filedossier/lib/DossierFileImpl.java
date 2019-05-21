@@ -59,17 +59,25 @@ public class DossierFileImpl implements DossierFile {
         return name;
     }
 
-    public boolean isRequired() {
+    @Override
+    public boolean getRequired() {
         return required;
     }
 
-    public boolean isReadOnly() {
+    @Override
+    public boolean getReadonly() {
         return readonly;
     }
 
-    public boolean isVisible() {
+    @Override
+    public boolean getVisible() {
         return visible;
     }
+
+    public boolean getExists() {
+        return exists;
+    }
+
 
     @Override
     public byte[] getContents() throws IOException{

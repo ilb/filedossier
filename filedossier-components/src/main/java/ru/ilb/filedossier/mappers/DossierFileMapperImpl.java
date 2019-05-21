@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 SPoket.
+ * Copyright 2019 slavb.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,24 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ru.ilb.filedossier.lib;
+package ru.ilb.filedossier.mappers;
 
-import java.util.List;
+import javax.inject.Named;
+import ru.ilb.filedossier.view.DossierFile;
 
-/**
- *
- * @author SPoket
- */
-public interface Dossier {
-    
-    public String getCode();
+@Named
+public class DossierFileMapperImpl implements DossierFileMapper {
 
-    public String getName();
-    
-    void addDossierFile(DossierFile file);
-
-    public DossierFile getDossierFile(String fileCode);
-
-    public List<DossierFile> getDossierFiles();
+    @Override
+    public DossierFile fromModel(ru.ilb.filedossier.lib.DossierFile model) {
+        DossierFile df = new DossierFile();
+        df.setCode(model.getCode());
+        df.setName(model.getName());
+        //df.setExists(model.get);
+        return df;
+    }
 
 }

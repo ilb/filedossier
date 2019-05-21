@@ -75,7 +75,7 @@ public class DossierFactoryTest {
         DossierFactory instance = new DossierFactory(dossierModelRepository, storeFactory, dossierContextBuilder, templateEvaluator);
         Dossier expResult = null;
         Dossier result = instance.createDossier(dossierKey, dossierCode);
-        assertEquals("Тест имя", result.getFile("file2").getName());
+        assertEquals("Тест имя", result.getDossierFile("file2").getName());
     }
 
 }

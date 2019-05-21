@@ -45,26 +45,28 @@ public class DossierImpl implements Dossier {
         this.dossierFiles = dossierFiles.stream().collect(Collectors.toMap(df -> df.getCode(), df -> df));
     }
 
+    @Override
     public String getCode() {
         return code;
     }
 
+    @Override
     public String getName() {
         return name;
     }
 
     @Override
-    public void addFile(DossierFile file) {
+    public void addDossierFile(DossierFile file) {
         dossierFiles.put(file.getCode(), file);
     }
 
     @Override
-    public List<DossierFile> getFiles() {
+    public List<DossierFile> getDossierFiles() {
         return new ArrayList<>(dossierFiles.values());
     }
 
     @Override
-    public DossierFile getFile(String fileCode) {
+    public DossierFile getDossierFile(String fileCode) {
         DossierFile file = this.dossierFiles.get(fileCode);
         if (file == null) {
             throw new DossierFileNotFoundException(fileCode);

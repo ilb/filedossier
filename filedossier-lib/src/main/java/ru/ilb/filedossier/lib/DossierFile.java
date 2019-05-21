@@ -30,5 +30,13 @@ public interface DossierFile {
     public String getCode();
 
     public String getName();
+
+    public boolean getRequired();
+
+    public boolean getReadonly();
+
+    public boolean getVisible();
+
+    public boolean getExists();
     
 }
