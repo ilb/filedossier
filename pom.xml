@@ -221,5 +221,7 @@
     <module>filedossier-components</module>
     <module>filedossier-lib</module>
     <module>filedossier-store</module>
+    <module>filedossier-context</module>
+    <module>filedossier-scripting</module>
   </modules>
 </project>

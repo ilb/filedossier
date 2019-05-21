@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 SPoket.
+ * Copyright 2019 slavb.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,23 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ru.ilb.filedossier.lib;
-
-import ru.ilb.filedossier.context.DossierContext;
-import java.util.List;
+package ru.ilb.filedossier.context;
 
 /**
- *
- * @author SPoket
+ * Построитель контекста досье
+ * @author slavb
  */
-public interface Dossier {
-    
-    void addFile(DossierFile file);
+public interface DossierContextBuilder {
 
-    public DossierFile getFile(String fileCode);
+    public DossierContext createDossierContext(String dossierKey, String dossierCode);
 
-    public List<DossierFile> getFiles();
-
-    public List<DossierFile> getContextFiles(DossierContext dossierContext);
-    
 }

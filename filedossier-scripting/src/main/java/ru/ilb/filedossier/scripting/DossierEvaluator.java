@@ -13,14 +13,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ru.ilb.filedossier.lib;
+package ru.ilb.filedossier.scripting;
+
+import ru.ilb.filedossier.context.DossierContext;
 
 /**
- * Построитель контекста досье
+ *
  * @author slavb
  */
-public interface DossierContextBuilder {
+public interface DossierEvaluator {
 
-    public DossierContext createDossierContext(String dossierKey, String dossierCode);
+    /**
+     * Расчет строкового значения
+     * @param value
+     * @param dossierContext
+     * @return
+     */
+    public String evaluateStringExpression(String value, DossierContext dossierContext);
+    /**
+     * Расчет логеского значения
+     * @param value
+     * @param dossierContext
+     * @return
+     */
+    public Boolean evaluateBooleanExpression(String value, DossierContext dossierContext);
 
 }

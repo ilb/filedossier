@@ -15,6 +15,8 @@
  */
 package ru.ilb.filedossier.lib;
 
+import ru.ilb.filedossier.context.DossierContext;
+import ru.ilb.filedossier.context.DossierContextBuilder;
 import java.util.List;
 import java.util.stream.Collectors;
 import ru.ilb.filedossier.model.DossierModel;
@@ -45,10 +47,11 @@ public class DossierFactory {
     public Dossier createDossier(String dossierKey, String dossierCode) {
         DossierModel dossierModel = dossierModelRepository.getDossierModel(dossierCode);
         Store store = storeFactory.getFileStorage(dossierKey);
-        return createDossier(dossierModel, store);
+        DossierContext dossierContext = dossierContextBuilder.createDossierContext(dossierKey, dossierCode);
+        return createDossier(dossierModel, store, dossierContext);
     }
 
-    private Dossier createDossier(DossierModel dossierModel, Store store) {
+    private Dossier createDossier(DossierModel dossierModel, Store store, DossierContext dossierContext) {
         String code = dossierModel.getCode();
         String name = dossierModel.getName();
 

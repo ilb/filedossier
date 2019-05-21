@@ -15,6 +15,8 @@
  */
 package ru.ilb.filedossier.lib;
 
+import ru.ilb.filedossier.context.EmptyDossierContextBuilder;
+import ru.ilb.filedossier.context.DossierContextBuilder;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
