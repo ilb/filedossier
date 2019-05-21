@@ -31,11 +31,13 @@ import ru.ilb.filedossier.store.StoreFactory;
  */
 public class DossierFactoryTest {
 
-    Path basePath = Paths.get("").toAbsolutePath().getParent();
+    private Path basePath = Paths.get("").toAbsolutePath().getParent();
 
-    DossierModelRepository dossierModelRepository;
+    private DossierModelRepository dossierModelRepository;
 
-    StoreFactory store;
+    private StoreFactory storeFactory;
+
+    private DossierContextBuilder dossierContextBuilder = new EmptyDossierContextBuilder();
 
     public DossierFactoryTest() {
         dossierModelRepository = new DossierModelFileRepository(basePath.resolve("filedossier-model/src/test/resources/models").toUri());
@@ -45,7 +47,7 @@ public class DossierFactoryTest {
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
-        store = StoreFactory.newInstance(tempDirWithPrefix.toString());
+        storeFactory = StoreFactory.newInstance(tempDirWithPrefix.toString());
     }
 
     /**
@@ -56,7 +58,7 @@ public class DossierFactoryTest {
         System.out.println("createDossier");
         String dossierKey = "123";
         String dossierCode = "testmodel";
-        DossierFactory instance = new DossierFactory(dossierModelRepository, store);
+        DossierFactory instance = new DossierFactory(dossierModelRepository, storeFactory, dossierContextBuilder);
         Dossier expResult = null;
         Dossier result = instance.createDossier(dossierKey, dossierCode);
         assertNotNull(result);;

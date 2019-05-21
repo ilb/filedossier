@@ -15,12 +15,12 @@
  */
 package ru.ilb.filedossier.lib;
 
-/**
- * Построитель контекста досье
- * @author slavb
- */
-public interface DossierContextBuiler {
 
-    public DossierContext createDossierContext(String dossierKey, String dossierCode);
+public class EmptyDossierContextBuilder implements DossierContextBuilder {
+
+    @Override
+    public DossierContext createDossierContext(String dossierKey, String dossierCode) {
+        return new DossierContext();
+    }
 
 }

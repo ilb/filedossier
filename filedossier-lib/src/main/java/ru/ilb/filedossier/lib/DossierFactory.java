@@ -33,10 +33,14 @@ public class DossierFactory {
 
     private final StoreFactory storeFactory;
 
-    public DossierFactory(DossierModelRepository dossierModelRepository, StoreFactory storeFactory) {
+    private final DossierContextBuilder dossierContextBuilder;
+
+    public DossierFactory(DossierModelRepository dossierModelRepository, StoreFactory storeFactory, DossierContextBuilder dossierContextBuilder) {
         this.dossierModelRepository = dossierModelRepository;
         this.storeFactory = storeFactory;
+        this.dossierContextBuilder = dossierContextBuilder;
     }
+
 
     public Dossier createDossier(String dossierKey, String dossierCode) {
         DossierModel dossierModel = dossierModelRepository.getDossierModel(dossierCode);

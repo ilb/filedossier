@@ -30,6 +30,9 @@ public class DossierContext implements Serializable {
 
     Map<String, Object> values = new LinkedHashMap<>();
 
+    public DossierContext() {
+    }
+
     public DossierContext(Map<String, Object> values) {
         this.values = values;
     }
