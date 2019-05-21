@@ -17,6 +17,7 @@ package ru.ilb.filedossier.model;
 
 import java.net.MalformedURLException;
 import java.net.URI;
+import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import javax.xml.bind.JAXBContext;
@@ -52,11 +53,15 @@ public class DossierModelFileRepository implements DossierModelRepository {
         return Paths.get(dossierModelsPath).resolve(Paths.get(dossierCode+modelFileExtension));
     }
 
+    private URL getDossierModelURL(String dossierCode) throws MalformedURLException {
+        return getDossierModelPath(dossierCode).toUri().toURL();
+    }
+
     @Override
     public DossierModel getDossierModel(String dossierCode) {
         try {
             Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-            return (DossierModel) unmarshaller.unmarshal(getDossierModelPath(dossierCode).toUri().toURL());
+            return (DossierModel) unmarshaller.unmarshal(getDossierModelURL(dossierCode));
         } catch (JAXBException | MalformedURLException ex) {
             throw new RuntimeException(ex);
         }
