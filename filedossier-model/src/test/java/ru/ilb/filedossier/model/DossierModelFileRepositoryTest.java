@@ -13,29 +13,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ru.ilb.filedossier.lib;
+package ru.ilb.filedossier.model;
 
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import ru.ilb.filedossier.model.DossierModel;
 
 /**
  *
  * @author slavb
  */
-public class DossierModelRepositoryTest {
+public class DossierModelFileRepositoryTest {
 
-    public DossierModelRepositoryTest() {
+    Path basePath = Paths.get("").toAbsolutePath().getParent();
+
+    public DossierModelFileRepositoryTest() {
     }
 
     /**
-     * Test of getDossierModel method, of class DossierModelRepository.
+     * Test of getDossierModel method, of class DossierModelFileRepository.
      */
     @Test
     public void testGetDossierModel() {
-        System.out.println("getDossierModel");
         String dossierCode = "testmodel";
-        DossierModelRepository instance = new DossierModelRepository("src/test/resources/models");
+
+        DossierModelRepository instance = new DossierModelFileRepository(basePath.resolve("filedossier-model/src/test/resources/models").toUri());
         DossierModel result = instance.getDossierModel(dossierCode);
         assertEquals("TEST", result.getCode());
         assertEquals("Тестовое досье", result.getName());

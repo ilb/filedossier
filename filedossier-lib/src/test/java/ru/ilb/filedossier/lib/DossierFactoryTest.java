@@ -18,8 +18,11 @@ package ru.ilb.filedossier.lib;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import ru.ilb.filedossier.model.DossierModelFileRepository;
+import ru.ilb.filedossier.model.DossierModelRepository;
 import ru.ilb.filedossier.store.StoreFactory;
 
 /**
@@ -28,12 +31,14 @@ import ru.ilb.filedossier.store.StoreFactory;
  */
 public class DossierFactoryTest {
 
+    Path basePath = Paths.get("").toAbsolutePath().getParent();
+
     DossierModelRepository dossierModelRepository;
 
     StoreFactory store;
 
     public DossierFactoryTest() {
-        dossierModelRepository = new DossierModelRepository("src/test/resources/models");
+        dossierModelRepository = new DossierModelFileRepository(basePath.resolve("filedossier-model/src/test/resources/models").toUri());
         Path tempDirWithPrefix;
         try {
             tempDirWithPrefix = Files.createTempDirectory("dossierFactoryTest");

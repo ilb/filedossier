@@ -13,25 +13,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ru.ilb.filedossier.lib;
+package ru.ilb.filedossier.model;
 
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
-import ru.ilb.filedossier.model.DossierModel;
 
 /**
  *
+ * Файловый репозиторий досье
+ *
  * @author slavb
  */
-public class DossierModelRepository {
+public class DossierModelFileRepository implements DossierModelRepository {
 
     final JAXBContext jaxbContext;
 
-    private final String dossierModelsPath;
+    private final URI dossierModelsPath;
 
-    public DossierModelRepository(String dossierModelsPath) {
+    private String modelFileExtension = ".xml";
+
+    public DossierModelFileRepository(URI dossierModelsPath) {
+
         this.dossierModelsPath = dossierModelsPath;
         try {
             jaxbContext = JAXBContext.newInstance("ru.ilb.filedossier.model");
@@ -41,11 +48,16 @@ public class DossierModelRepository {
 
     }
 
+    private Path getDossierModelPath(String dossierCode) {
+        return Paths.get(dossierModelsPath).resolve(Paths.get(dossierCode+modelFileExtension));
+    }
+
+    @Override
     public DossierModel getDossierModel(String dossierCode) {
         try {
             Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-            return (DossierModel) unmarshaller.unmarshal(Paths.get(dossierModelsPath, dossierCode+".xml").toFile());
-        } catch (JAXBException ex) {
+            return (DossierModel) unmarshaller.unmarshal(getDossierModelPath(dossierCode).toUri().toURL());
+        } catch (JAXBException | MalformedURLException ex) {
             throw new RuntimeException(ex);
         }
     }
