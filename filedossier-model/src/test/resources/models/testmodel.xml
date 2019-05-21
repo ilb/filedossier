@@ -13,8 +13,8 @@
     </dossierModelFile>
     <dossierModelFile>
         <code>file2</code>
-        <name>Файл 2</name>
-        <readonly>${a==false}</readonly>
+        <name>${name}</name>
+        <readonly>false</readonly>
     </dossierModelFile>
 
 </dossierModel>

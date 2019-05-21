@@ -25,6 +25,8 @@ import static org.junit.Assert.*;
 import ru.ilb.filedossier.context.DossierContext;
 import ru.ilb.filedossier.model.DossierModelFileRepository;
 import ru.ilb.filedossier.model.DossierModelRepository;
+import ru.ilb.filedossier.scripting.SubstitutorTemplateEvaluator;
+import ru.ilb.filedossier.scripting.TemplateEvaluator;
 import ru.ilb.filedossier.store.StoreFactory;
 
 /**
@@ -42,9 +44,14 @@ public class DossierFactoryTest {
     private DossierContextBuilder dossierContextBuilder = new DossierContextBuilder() {
         @Override
         public DossierContext createDossierContext(String dossierKey, String dossierCode) {
-            return new DossierContext();
+            DossierContext dc = new DossierContext();
+            dc.setProperty("name", "Тест имя");
+            dc.setProperty("prop", false);
+            return dc;
         }
     };
+
+    TemplateEvaluator templateEvaluator = new SubstitutorTemplateEvaluator();
 
     public DossierFactoryTest() {
         dossierModelRepository = new DossierModelFileRepository(basePath.resolve("filedossier-model/src/test/resources/models").toUri());
@@ -65,10 +72,10 @@ public class DossierFactoryTest {
         System.out.println("createDossier");
         String dossierKey = "123";
         String dossierCode = "testmodel";
-        DossierFactory instance = new DossierFactory(dossierModelRepository, storeFactory, dossierContextBuilder);
+        DossierFactory instance = new DossierFactory(dossierModelRepository, storeFactory, dossierContextBuilder, templateEvaluator);
         Dossier expResult = null;
         Dossier result = instance.createDossier(dossierKey, dossierCode);
-        assertNotNull(result);;
+        assertEquals("Тест имя", result.getFile("file2").getName());
     }
 
 }

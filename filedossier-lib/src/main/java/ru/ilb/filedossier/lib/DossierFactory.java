@@ -22,6 +22,7 @@ import java.util.stream.Collectors;
 import ru.ilb.filedossier.model.DossierModel;
 import ru.ilb.filedossier.model.DossierModelFile;
 import ru.ilb.filedossier.model.DossierModelRepository;
+import ru.ilb.filedossier.scripting.TemplateEvaluator;
 import ru.ilb.filedossier.store.Store;
 import ru.ilb.filedossier.store.StoreFactory;
 
@@ -31,18 +32,35 @@ import ru.ilb.filedossier.store.StoreFactory;
  */
 public class DossierFactory {
 
+    /**
+     * Репозиторий моделей досье
+     */
     private final DossierModelRepository dossierModelRepository;
 
+    /**
+     * Файловое хранилище
+     * TODO возможно реализацию нужно иметь возможность настраивать в досье
+     */
     private final StoreFactory storeFactory;
 
+    /**
+     * Построитель контекста досье
+     * TODO возможно реализацию нужно иметь возможность настраивать в досье
+     */
     private final DossierContextBuilder dossierContextBuilder;
 
-    public DossierFactory(DossierModelRepository dossierModelRepository, StoreFactory storeFactory, DossierContextBuilder dossierContextBuilder) {
+    /**
+     * Движок вычисления выражений по-умолчанию
+     * TODO возможно реализацию нужно иметь возможность настраивать в досье
+     */
+    private final TemplateEvaluator templateEvaluator;
+
+    public DossierFactory(DossierModelRepository dossierModelRepository, StoreFactory storeFactory, DossierContextBuilder dossierContextBuilder, TemplateEvaluator templateEvaluator) {
         this.dossierModelRepository = dossierModelRepository;
         this.storeFactory = storeFactory;
         this.dossierContextBuilder = dossierContextBuilder;
+        this.templateEvaluator = templateEvaluator;
     }
-
 
     public Dossier createDossier(String dossierKey, String dossierCode) {
         DossierModel dossierModel = dossierModelRepository.getDossierModel(dossierCode);
@@ -64,9 +82,13 @@ public class DossierFactory {
 
     private DossierFile createDossierFile(DossierModelFile modelFile, Store store, DossierContext dossierContext) {
         DossierFileImpl df = new DossierFileImpl(
-                store, modelFile.getCode(), modelFile.getName(),
-                Boolean.TRUE.equals(modelFile.getRequired()), Boolean.TRUE.equals(modelFile.getReadonly()),
-                Boolean.TRUE.equals(modelFile.getVisible()), store.isExist(modelFile.getCode()));
+                store,
+                templateEvaluator.evaluateStringExpression(modelFile.getCode(), dossierContext),
+                templateEvaluator.evaluateStringExpression(modelFile.getName(), dossierContext),
+                Boolean.FALSE.equals(templateEvaluator.evaluateBooleanExpression(modelFile.getRequired(), dossierContext)),
+                Boolean.FALSE.equals(templateEvaluator.evaluateBooleanExpression(modelFile.getReadonly(), dossierContext)),
+                Boolean.TRUE.equals(templateEvaluator.evaluateBooleanExpression(modelFile.getVisible(), dossierContext)),
+                store.isExist(modelFile.getCode()));
         return df;
     }
 

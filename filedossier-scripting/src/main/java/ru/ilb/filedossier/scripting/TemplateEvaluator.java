@@ -18,7 +18,7 @@ package ru.ilb.filedossier.scripting;
 import ru.ilb.filedossier.context.DossierContext;
 
 /**
- *
+ * Движок вычисления выражений
  * @author slavb
  */
 public interface TemplateEvaluator {

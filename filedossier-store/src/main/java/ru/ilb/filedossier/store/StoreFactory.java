@@ -16,7 +16,7 @@
 package ru.ilb.filedossier.store;
 
 /**
- *
+ * Файловое хранилище
  * @author slavb
  */
 public class StoreFactory {

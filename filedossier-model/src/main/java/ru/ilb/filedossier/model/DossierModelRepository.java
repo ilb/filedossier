@@ -16,7 +16,7 @@
 package ru.ilb.filedossier.model;
 
 /**
- * Репозиторий досье
+ * Репозиторий моделей досье
  * @author slavb
  */
 public interface DossierModelRepository {
