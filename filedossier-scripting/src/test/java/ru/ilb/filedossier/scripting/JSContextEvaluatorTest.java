@@ -24,7 +24,7 @@ import ru.ilb.filedossier.context.DossierContextBuilder;
  *
  * @author slavb
  */
-public class JSDossierEvaluatorTest {
+public class JSContextEvaluatorTest {
 
     private final DossierContextBuilder dossierContextBuilder = new DossierContextBuilder() {
         @Override
@@ -36,32 +36,32 @@ public class JSDossierEvaluatorTest {
         }
     };
 
-    public JSDossierEvaluatorTest() {
+    public JSContextEvaluatorTest() {
     }
 
     /**
-     * Test of evaluateStringExpression method, of class JSDossierEvaluator.
+     * Test of evaluateStringExpression method, of class JSTemplateEvaluator.
      */
     @org.junit.Test
     public void testEvaluateStringExpression() {
         System.out.println("evaluateStringExpression");
         String value = "\"test \" + name";
         DossierContext dossierContext = dossierContextBuilder.createDossierContext(null, null);
-        JSDossierEvaluator instance = new JSDossierEvaluator();
+        JSTemplateEvaluator instance = new JSTemplateEvaluator();
         String expResult = "test Тест имя";
         String result = instance.evaluateStringExpression(value, dossierContext);
         assertEquals(expResult, result);
     }
 
     /**
-     * Test of evaluateBooleanExpression method, of class JSDossierEvaluator.
+     * Test of evaluateBooleanExpression method, of class JSTemplateEvaluator.
      */
     @org.junit.Test
     public void testEvaluateBooleanExpression() {
         System.out.println("evaluateBooleanExpression");
         String value = "!prop";
         DossierContext dossierContext = dossierContextBuilder.createDossierContext(null, null);
-        JSDossierEvaluator instance = new JSDossierEvaluator();
+        JSTemplateEvaluator instance = new JSTemplateEvaluator();
         Boolean expResult = true;
         Boolean result = instance.evaluateBooleanExpression(value, dossierContext);
         assertEquals(expResult, result);

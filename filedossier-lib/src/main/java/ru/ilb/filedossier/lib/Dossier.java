@@ -15,7 +15,6 @@
  */
 package ru.ilb.filedossier.lib;
 
-import ru.ilb.filedossier.context.DossierContext;
 import java.util.List;
 
 /**
@@ -30,6 +29,4 @@ public interface Dossier {
 
     public List<DossierFile> getFiles();
 
-    public List<DossierFile> getContextFiles(DossierContext dossierContext);
-    
 }

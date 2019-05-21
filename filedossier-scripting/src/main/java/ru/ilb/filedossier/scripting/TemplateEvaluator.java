@@ -21,21 +21,21 @@ import ru.ilb.filedossier.context.DossierContext;
  *
  * @author slavb
  */
-public interface DossierEvaluator {
+public interface TemplateEvaluator {
 
     /**
      * Расчет строкового значения
-     * @param value
+     * @param template
      * @param dossierContext
      * @return
      */
-    public String evaluateStringExpression(String value, DossierContext dossierContext);
+    public String evaluateStringExpression(String template, DossierContext dossierContext);
     /**
      * Расчет логеского значения
-     * @param value
+     * @param template
      * @param dossierContext
      * @return
      */
-    public Boolean evaluateBooleanExpression(String value, DossierContext dossierContext);
+    public Boolean evaluateBooleanExpression(String template, DossierContext dossierContext);
 
 }

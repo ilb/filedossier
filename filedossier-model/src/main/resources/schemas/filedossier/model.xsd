@@ -48,44 +48,21 @@
                     <xsd:documentation>Наименование</xsd:documentation>
                 </xsd:annotation>
             </xsd:element>
-            <xsd:choice minOccurs="0">
-                <xsd:element name="readonly" type="xsd:boolean">
-                    <xsd:annotation>
-                        <xsd:documentation>Только для чтения</xsd:documentation>
-                    </xsd:annotation>
-                </xsd:element>
-                <xsd:element name="readonlyExpression" type="xsd:string">
-                    <xsd:annotation>
-                        <xsd:documentation>Выражение javascript для вычисления значения reaodonly</xsd:documentation>
-                    </xsd:annotation>
-                </xsd:element>
-            </xsd:choice>
-            <xsd:choice minOccurs="0">
-                <xsd:element name="required" type="xsd:boolean">
-                    <xsd:annotation>
-                        <xsd:documentation>Обязательный файл</xsd:documentation>
-                    </xsd:annotation>
-                </xsd:element>
-                <xsd:element name="requiredExpression" type="xsd:string">
-                    <xsd:annotation>
-                        <xsd:documentation>Выражение javascript для вычисления значения required</xsd:documentation>
-                    </xsd:annotation>
-                </xsd:element>
-            </xsd:choice>
-            <xsd:choice minOccurs="0">
-                <xsd:element name="visible" type="xsd:boolean">
-                    <xsd:annotation>
-                        <xsd:documentation>Видимый файл</xsd:documentation>
-                    </xsd:annotation>
-                </xsd:element>
-                <xsd:element name="visibleExpression" type="xsd:string">
-                    <xsd:annotation>
-                        <xsd:documentation>Выражение javascript для вычисления значения visible</xsd:documentation>
-                    </xsd:annotation>
-                </xsd:element>
-            </xsd:choice>
-
-
+            <xsd:element name="readonly" type="xsd:string"  minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>Только для чтения</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="required" type="xsd:string"  minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>Обязательный файл</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="visible" type="xsd:string"  minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>Видимый файл</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
         </xsd:sequence>
     </xsd:complexType>
  

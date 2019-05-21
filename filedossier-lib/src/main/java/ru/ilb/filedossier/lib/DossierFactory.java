@@ -55,15 +55,19 @@ public class DossierFactory {
         String code = dossierModel.getCode();
         String name = dossierModel.getName();
 
-        List<DossierModelFile> modelFiles = dossierModel.getDossierModelFiles();
-
-        List<DossierFile> dossierFiles = dossierModel.getDossierModelFiles().stream().map(modelFile -> new DossierFileImpl(
-                store, modelFile.getCode(), modelFile.getName(),
-                Boolean.TRUE.equals(modelFile.getRequired()), Boolean.TRUE.equals(modelFile.getReadonly()),
-                Boolean.TRUE.equals(modelFile.getVisible()), store.isExist(modelFile.getCode())))
+        List<DossierFile> dossierFiles = dossierModel.getDossierModelFiles().stream()
+                .map(modelFile -> createDossierFile(modelFile, store, dossierContext))
                 .collect(Collectors.toList());
 
         return new DossierImpl(code, name, dossierFiles);
+    }
+
+    private DossierFile createDossierFile(DossierModelFile modelFile, Store store, DossierContext dossierContext) {
+        DossierFileImpl df = new DossierFileImpl(
+                store, modelFile.getCode(), modelFile.getName(),
+                Boolean.TRUE.equals(modelFile.getRequired()), Boolean.TRUE.equals(modelFile.getReadonly()),
+                Boolean.TRUE.equals(modelFile.getVisible()), store.isExist(modelFile.getCode()));
+        return df;
     }
 
 }

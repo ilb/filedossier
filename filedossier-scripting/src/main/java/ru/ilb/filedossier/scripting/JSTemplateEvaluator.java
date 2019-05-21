@@ -22,7 +22,7 @@ import javax.script.ScriptException;
 import javax.script.SimpleBindings;
 import ru.ilb.filedossier.context.DossierContext;
 
-public class JSDossierEvaluator implements DossierEvaluator {
+public class JSTemplateEvaluator implements TemplateEvaluator {
 
     //private String engineName = "javascript";
     // using rhino by default, since nashorn deprecated
@@ -37,20 +37,20 @@ public class JSDossierEvaluator implements DossierEvaluator {
     }
 
     @Override
-    public String evaluateStringExpression(String value, DossierContext dossierContext) {
+    public String evaluateStringExpression(String template, DossierContext dossierContext) {
         ScriptEngine engine = scriptEngineManager.getEngineByName(engineName);
         try {
-            return engine.eval(value, getBindings(dossierContext)).toString();
+            return engine.eval(template, getBindings(dossierContext)).toString();
         } catch (ScriptException ex) {
             throw new RuntimeException(ex);
         }
     }
 
     @Override
-    public Boolean evaluateBooleanExpression(String value, DossierContext dossierContext) {
+    public Boolean evaluateBooleanExpression(String template, DossierContext dossierContext) {
         ScriptEngine engine = scriptEngineManager.getEngineByName(engineName);
         try {
-            return (Boolean) engine.eval(value, getBindings(dossierContext));
+            return (Boolean) engine.eval(template, getBindings(dossierContext));
         } catch (ScriptException ex) {
             throw new RuntimeException(ex);
         }

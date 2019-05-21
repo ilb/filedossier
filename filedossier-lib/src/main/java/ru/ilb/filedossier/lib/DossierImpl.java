@@ -64,17 +64,6 @@ public class DossierImpl implements Dossier {
     }
 
     @Override
-    public List<DossierFile> getContextFiles(DossierContext dossierContext) {
-        String contextProperty = "dossierFiles";
-        List<DossierFile> contextFiles = new ArrayList<>();
-
-        if (dossierContext.containsProperty(contextProperty)) {
-            contextFiles = (List) dossierContext.getProperty(contextProperty);
-        }
-        return contextFiles;
-    }
-
-    @Override
     public DossierFile getFile(String fileCode) {
         DossierFile file = this.dossierFiles.get(fileCode);
         if (file == null) {

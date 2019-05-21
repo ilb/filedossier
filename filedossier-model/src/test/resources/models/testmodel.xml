@@ -2,7 +2,7 @@
 <dossierModel
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns="urn:ru:ilb:filedossier:model"
-    xsi:schemaLocation="urn:ru:ilb:filedossier:model ../../../../../filedossier-api/src/main/resources/schemas/filedossier/model.xsd">
+    xsi:schemaLocation="urn:ru:ilb:filedossier:model ../../../../../filedossier-model/src/main/resources/schemas/filedossier/model.xsd">
     <code>TEST</code>
     <name>Тестовое досье</name>
     <dossierModelFile>
@@ -14,7 +14,7 @@
     <dossierModelFile>
         <code>file2</code>
         <name>Файл 2</name>
-        <readonlyExpression>a=false</readonlyExpression>
+        <readonly>${a==false}</readonly>
     </dossierModelFile>
 
 </dossierModel>
