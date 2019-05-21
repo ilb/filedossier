@@ -37,6 +37,10 @@ public class DossierContext implements Serializable {
         this.values = values;
     }
 
+    public Map<String, Object> asMap() {
+        return values;
+    }
+
     public void setProperty(String name, Object value) {
         values.put(name, value);
     }

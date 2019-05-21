@@ -15,7 +15,6 @@
  */
 package ru.ilb.filedossier.lib;
 
-import ru.ilb.filedossier.context.EmptyDossierContextBuilder;
 import ru.ilb.filedossier.context.DossierContextBuilder;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -23,6 +22,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import ru.ilb.filedossier.context.DossierContext;
 import ru.ilb.filedossier.model.DossierModelFileRepository;
 import ru.ilb.filedossier.model.DossierModelRepository;
 import ru.ilb.filedossier.store.StoreFactory;
@@ -39,7 +39,12 @@ public class DossierFactoryTest {
 
     private StoreFactory storeFactory;
 
-    private DossierContextBuilder dossierContextBuilder = new EmptyDossierContextBuilder();
+    private DossierContextBuilder dossierContextBuilder = new DossierContextBuilder() {
+        @Override
+        public DossierContext createDossierContext(String dossierKey, String dossierCode) {
+            return new DossierContext();
+        }
+    };
 
     public DossierFactoryTest() {
         dossierModelRepository = new DossierModelFileRepository(basePath.resolve("filedossier-model/src/test/resources/models").toUri());
