@@ -20,6 +20,7 @@ import java.io.InputStream;
 import javax.ws.rs.core.Response;
 import ru.ilb.filedossier.api.DossierResource;
 import ru.ilb.filedossier.lib.DossierFactory;
+import ru.ilb.filedossier.mappers.DossierMapper;
 import ru.ilb.filedossier.view.Dossier;
 
 public class DossierResourceImpl implements DossierResource {
@@ -32,16 +33,19 @@ public class DossierResourceImpl implements DossierResource {
 
     private final ru.ilb.filedossier.lib.Dossier dossier;
 
-    public DossierResourceImpl(String dossierKey, String dossierCode, DossierFactory dossierFactory) {
+    private final DossierMapper dossierMapper;
+
+    public DossierResourceImpl(String dossierKey, String dossierCode, DossierFactory dossierFactory, DossierMapper dossierMapper) {
         this.dossierKey = dossierKey;
         this.dossierCode = dossierCode;
         this.dossierFactory = dossierFactory;
         this.dossier = dossierFactory.createDossier(dossierKey, dossierCode);
+        this.dossierMapper = dossierMapper;
     }
 
     @Override
     public Dossier getDossier() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return dossierMapper.fromModel(dossier);
     }
 
     @Override
