@@ -15,8 +15,8 @@
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.mozilla</groupId>
-            <artifactId>rhino</artifactId>
+            <groupId>cat.inspiracio</groupId>
+            <artifactId>rhino-js-engine</artifactId>
             <version>1.7.10</version>
         </dependency>
         <dependency>

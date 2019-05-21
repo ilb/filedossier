@@ -24,7 +24,9 @@ import ru.ilb.filedossier.context.DossierContext;
 
 public class JSDossierEvaluator implements DossierEvaluator {
 
-    private String engineName = "javascript"; //"rhino"
+    //private String engineName = "javascript";
+    // using rhino by default, since nashorn deprecated
+    private String engineName = "rhino";
 
     private final ScriptEngineManager scriptEngineManager = new ScriptEngineManager();
 
@@ -52,7 +54,7 @@ public class JSDossierEvaluator implements DossierEvaluator {
         } catch (ScriptException ex) {
             throw new RuntimeException(ex);
         }
-        
+
     }
 
 }
