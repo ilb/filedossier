@@ -223,5 +223,6 @@
     <module>filedossier-store</module>
     <module>filedossier-context</module>
     <module>filedossier-scripting</module>
+    <module>filedossier-representation</module>
   </modules>
 </project>

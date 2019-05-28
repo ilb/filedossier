@@ -15,7 +15,7 @@
  */
 package ru.ilb.filedossier.lib;
 
-import ru.ilb.filedossier.context.DossierContext;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -72,6 +72,12 @@ public class DossierImpl implements Dossier {
             throw new DossierFileNotFoundException(fileCode);
         }
         return file;
+    }
+
+    @Override
+    public byte[] getDossierFileContents(String fileCode, String representation) throws IOException {
+        byte[] contents = getDossierFile(fileCode).getContents();
+        return contents;
     }
 
 }

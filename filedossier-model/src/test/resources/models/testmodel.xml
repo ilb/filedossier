@@ -15,6 +15,11 @@
         <code>file2</code>
         <name>${name}</name>
         <readonly>false</readonly>
+        <representation>
+            <mediaType>application/vnd.oasis.opendocument.spreadsheet</mediaType>
+            <stylesheet>representations/fairpriceorder/content.xsl</stylesheet>
+            <template>representations/fairpriceorder/template.ods</template>
+        </representation>
     </dossierModelFile>
 
 </dossierModel>

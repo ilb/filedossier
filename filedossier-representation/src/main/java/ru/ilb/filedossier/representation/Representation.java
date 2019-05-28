@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 SPoket.
+ * Copyright 2019 slavb.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,26 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ru.ilb.filedossier.lib;
+package ru.ilb.filedossier.representation;
 
 import java.io.IOException;
-import java.util.List;
 
 /**
  *
- * @author SPoket
+ * @author slavb
  */
-public interface Dossier {
-    
-    public String getCode();
+public interface Representation {
 
-    public String getName();
-    
-    void addDossierFile(DossierFile file);
-
-    public DossierFile getDossierFile(String fileCode);
-    byte[] getDossierFileContents(String fileCode, String representation) throws IOException;
-
-    public List<DossierFile> getDossierFiles();
+    public byte[] processContent(byte[] source) throws IOException;
 
 }

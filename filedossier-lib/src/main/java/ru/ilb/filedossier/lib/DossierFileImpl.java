@@ -74,6 +74,7 @@ public class DossierFileImpl implements DossierFile {
         return visible;
     }
 
+    @Override
     public boolean getExists() {
         return exists;
     }
