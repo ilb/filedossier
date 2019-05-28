@@ -76,7 +76,11 @@ public class DossierImpl implements Dossier {
 
     @Override
     public byte[] getDossierFileContents(String fileCode, String representation) throws IOException {
-        byte[] contents = getDossierFile(fileCode).getContents();
+        DossierFile dossierFile = getDossierFile(fileCode);
+        byte[] contents = dossierFile.getContents();
+        if (representation != null) {
+
+        }
         return contents;
     }
 

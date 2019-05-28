@@ -15,6 +15,7 @@
  */
 package ru.ilb.filedossier.lib;
 
+import java.net.URI;
 import ru.ilb.filedossier.context.DossierContext;
 import ru.ilb.filedossier.context.DossierContextBuilder;
 import java.util.List;
@@ -72,23 +73,28 @@ public class DossierFactory {
 
     public Dossier createDossier(String dossierKey, String dossierCode) {
         DossierModel dossierModel = dossierModelRepository.getDossierModel(dossierCode);
+        URI dossierModelUri = dossierModelRepository.getDossierModelUri(dossierCode);
         Store store = storeFactory.getFileStorage(dossierKey);
         DossierContext dossierContext = dossierContextBuilder.createDossierContext(dossierKey, dossierCode);
-        return createDossier(dossierModel, store, dossierContext);
+        return createDossier(dossierModelUri, dossierModel, store, dossierContext);
     }
 
-    private Dossier createDossier(DossierModel dossierModel, Store store, DossierContext dossierContext) {
+    private Dossier createDossier(URI dossierModelUri, DossierModel dossierModel, Store store, DossierContext dossierContext) {
         String code = dossierModel.getCode();
         String name = dossierModel.getName();
 
         List<DossierFile> dossierFiles = dossierModel.getDossierFiles().stream()
-                .map(modelFile -> createDossierFile(modelFile, store, dossierContext))
+                .map(modelFile -> createDossierFile(dossierModelUri, modelFile, store, dossierContext))
                 .collect(Collectors.toList());
 
         return new DossierImpl(code, name, dossierFiles);
     }
 
-    private DossierFile createDossierFile(DossierFileModel modelFile, Store store, DossierContext dossierContext) {
+    private DossierFile createDossierFile(URI dossierModelUri, DossierFileModel modelFile, Store store, DossierContext dossierContext) {
+
+        List<Representation> representations = modelFile.getRepresentations().stream().map(representationModel -> createRepresentation(dossierModelUri, representationModel))
+                .collect(Collectors.toList());
+
         DossierFileImpl df = new DossierFileImpl(
                 store,
                 templateEvaluator.evaluateStringExpression(modelFile.getCode(), dossierContext),
@@ -100,8 +106,8 @@ public class DossierFactory {
         return df;
     }
 
-//    private Representation createRepresentation(RepresentationModel representationModel, Store store) {
-//        return representationFactory.createRepresentation(representationModel.getMediaType(), stylesheet, template);
-//    }
+    private Representation createRepresentation(URI dossierModelUri, RepresentationModel representationModel) {
+        return representationFactory.createRepresentation(representationModel.getMediaType(), dossierModelUri.resolve(representationModel.getStylesheet()), dossierModelUri.resolve(representationModel.getTemplate()));
+    }
 
 }

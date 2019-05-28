@@ -53,15 +53,15 @@ public class FileDossierModelRepository implements DossierModelRepository {
         return Paths.get(dossierModelsPath).resolve(Paths.get(dossierCode+modelFileExtension));
     }
 
-    private URL getDossierModelURL(String dossierCode) throws MalformedURLException {
-        return getDossierModelPath(dossierCode).toUri().toURL();
+    public URI getDossierModelUri(String dossierCode) {
+        return getDossierModelPath(dossierCode).toUri();
     }
 
     @Override
     public DossierModel getDossierModel(String dossierCode) {
         try {
             Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-            return (DossierModel) unmarshaller.unmarshal(getDossierModelURL(dossierCode));
+            return (DossierModel) unmarshaller.unmarshal(getDossierModelUri(dossierCode).toURL());
         } catch (JAXBException | MalformedURLException ex) {
             throw new RuntimeException(ex);
         }

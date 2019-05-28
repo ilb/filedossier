@@ -15,12 +15,16 @@
  */
 package ru.ilb.filedossier.model;
 
+import java.net.URI;
+
 /**
  * Репозиторий моделей досье
  * @author slavb
  */
 public interface DossierModelRepository {
 
-    DossierModel getDossierModel(String dossierCode);
+    public URI getDossierModelUri(String dossierCode);
+
+    public DossierModel getDossierModel(String dossierCode);
 
 }
