@@ -20,8 +20,11 @@ import ru.ilb.filedossier.context.DossierContextBuilder;
 import java.util.List;
 import java.util.stream.Collectors;
 import ru.ilb.filedossier.model.DossierModel;
-import ru.ilb.filedossier.model.DossierModelFile;
+import ru.ilb.filedossier.model.DossierFileModel;
 import ru.ilb.filedossier.model.DossierModelRepository;
+import ru.ilb.filedossier.model.RepresentationModel;
+import ru.ilb.filedossier.representation.Representation;
+import ru.ilb.filedossier.representation.RepresentationFactory;
 import ru.ilb.filedossier.scripting.TemplateEvaluator;
 import ru.ilb.filedossier.store.Store;
 import ru.ilb.filedossier.store.StoreFactory;
@@ -55,6 +58,11 @@ public class DossierFactory {
      */
     private final TemplateEvaluator templateEvaluator;
 
+    /**
+     * Фабрика представлений
+     */
+    private final RepresentationFactory representationFactory = new RepresentationFactory();
+
     public DossierFactory(DossierModelRepository dossierModelRepository, StoreFactory storeFactory, DossierContextBuilder dossierContextBuilder, TemplateEvaluator templateEvaluator) {
         this.dossierModelRepository = dossierModelRepository;
         this.storeFactory = storeFactory;
@@ -73,14 +81,14 @@ public class DossierFactory {
         String code = dossierModel.getCode();
         String name = dossierModel.getName();
 
-        List<DossierFile> dossierFiles = dossierModel.getDossierModelFiles().stream()
+        List<DossierFile> dossierFiles = dossierModel.getDossierFileModels().stream()
                 .map(modelFile -> createDossierFile(modelFile, store, dossierContext))
                 .collect(Collectors.toList());
 
         return new DossierImpl(code, name, dossierFiles);
     }
 
-    private DossierFile createDossierFile(DossierModelFile modelFile, Store store, DossierContext dossierContext) {
+    private DossierFile createDossierFile(DossierFileModel modelFile, Store store, DossierContext dossierContext) {
         DossierFileImpl df = new DossierFileImpl(
                 store,
                 templateEvaluator.evaluateStringExpression(modelFile.getCode(), dossierContext),
@@ -91,5 +99,9 @@ public class DossierFactory {
                 store.isExist(modelFile.getCode()));
         return df;
     }
+
+//    private Representation createRepresentation(RepresentationModel representationModel, Store store) {
+//        return representationFactory.createRepresentation(representationModel.getMediaType(), stylesheet, template);
+//    }
 
 }

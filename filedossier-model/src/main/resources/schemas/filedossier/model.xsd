@@ -23,7 +23,7 @@
                     <xsd:documentation>Наименование досье</xsd:documentation>
                 </xsd:annotation>
             </xsd:element>
-            <xsd:element ref="dossierModelFile" minOccurs="0" maxOccurs="unbounded">
+            <xsd:element ref="dossierFileModel" minOccurs="0" maxOccurs="unbounded">
                 <xsd:annotation>
                     <xsd:documentation>Файлы досье</xsd:documentation>
                 </xsd:annotation>
@@ -31,8 +31,8 @@
         </xsd:sequence>
     </xsd:complexType>
 
-    <xsd:element name="dossierModelFile" type="dossierModelFile"/>
-    <xsd:complexType name="dossierModelFile">
+    <xsd:element name="dossierFileModel" type="dossierFileModel"/>
+    <xsd:complexType name="dossierFileModel">
         <xsd:annotation>
             <xsd:documentation>Модель файла досье</xsd:documentation>
         </xsd:annotation>
@@ -63,15 +63,15 @@
                     <xsd:documentation>Видимый файл</xsd:documentation>
                 </xsd:annotation>
             </xsd:element>
-            <xsd:element name="representation" type="representation"  minOccurs="0" maxOccurs="unbounded">
+            <xsd:element name="representationModel" type="representationModel"  minOccurs="0" maxOccurs="unbounded">
                 <xsd:annotation>
                     <xsd:documentation>Представления файла</xsd:documentation>
                 </xsd:annotation>
             </xsd:element>
         </xsd:sequence>
     </xsd:complexType>
-    <xsd:element name="representation" type="representation"/>
-    <xsd:complexType name="representation">
+    <xsd:element name="representationModel" type="representationModel"/>
+    <xsd:complexType name="representationModel">
         <xsd:annotation>
             <xsd:documentation>Преставление файла досье</xsd:documentation>
         </xsd:annotation>

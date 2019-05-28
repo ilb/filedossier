@@ -44,7 +44,7 @@ public class DossierModelFileRepositoryTest {
         DossierModel result = instance.getDossierModel(dossierCode);
         assertEquals("TEST", result.getCode());
         assertEquals("Тестовое досье", result.getName());
-        assertEquals(2, result.getDossierModelFiles().size());
+        assertEquals(2, result.getDossierFileModels().size());
     }
 
 }
