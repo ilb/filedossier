@@ -30,7 +30,7 @@ import javax.xml.bind.Unmarshaller;
  *
  * @author slavb
  */
-public class DossierModelFileRepository implements DossierModelRepository {
+public class FileDossierModelRepository implements DossierModelRepository {
 
     final JAXBContext jaxbContext;
 
@@ -38,7 +38,7 @@ public class DossierModelFileRepository implements DossierModelRepository {
 
     private String modelFileExtension = ".xml";
 
-    public DossierModelFileRepository(URI dossierModelsPath) {
+    public FileDossierModelRepository(URI dossierModelsPath) {
 
         this.dossierModelsPath = dossierModelsPath;
         try {

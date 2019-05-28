@@ -5,21 +5,21 @@
     xsi:schemaLocation="urn:ru:ilb:filedossier:model ../../../../../filedossier-model/src/main/resources/schemas/filedossier/model.xsd">
     <code>TEST</code>
     <name>Тестовое досье</name>
-    <dossierModelFile>
+    <dossierFileModel>
         <code>file1</code>
         <name>Файл 1</name>
         <readonly>false</readonly>
         <required>true</required>
-    </dossierModelFile>
-    <dossierModelFile>
+    </dossierFileModel>
+    <dossierFileModel>
         <code>file2</code>
         <name>${name}</name>
         <readonly>false</readonly>
-        <representation>
+        <representationModel>
             <mediaType>application/vnd.oasis.opendocument.spreadsheet</mediaType>
             <stylesheet>representations/fairpriceorder/content.xsl</stylesheet>
             <template>representations/fairpriceorder/template.ods</template>
-        </representation>
-    </dossierModelFile>
+        </representationModel>
+    </dossierFileModel>
 
 </dossierModel>

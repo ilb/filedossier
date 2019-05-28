@@ -15,8 +15,6 @@
  */
 package ru.ilb.filedossier.model;
 
-import java.net.MalformedURLException;
-import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import org.junit.Test;
@@ -26,21 +24,21 @@ import static org.junit.Assert.*;
  *
  * @author slavb
  */
-public class DossierModelFileRepositoryTest {
+public class FileDossierModelRepositoryTest {
 
     Path basePath = Paths.get("").toAbsolutePath().getParent();
 
-    public DossierModelFileRepositoryTest() {
+    public FileDossierModelRepositoryTest() {
     }
 
     /**
-     * Test of getDossierModel method, of class DossierModelFileRepository.
+     * Test of getDossierModel method, of class FileDossierModelRepository.
      */
     @Test
     public void testGetDossierModel() {
         String dossierCode = "testmodel";
 
-        DossierModelRepository instance = new DossierModelFileRepository(basePath.resolve("filedossier-model/src/test/resources/models").toUri());
+        DossierModelRepository instance = new FileDossierModelRepository(basePath.resolve("filedossier-model/src/test/resources/models").toUri());
         DossierModel result = instance.getDossierModel(dossierCode);
         assertEquals("TEST", result.getCode());
         assertEquals("Тестовое досье", result.getName());

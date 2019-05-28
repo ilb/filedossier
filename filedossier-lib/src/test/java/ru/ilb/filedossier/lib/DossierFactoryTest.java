@@ -23,7 +23,7 @@ import java.nio.file.Paths;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import ru.ilb.filedossier.context.DossierContext;
-import ru.ilb.filedossier.model.DossierModelFileRepository;
+import ru.ilb.filedossier.model.FileDossierModelRepository;
 import ru.ilb.filedossier.model.DossierModelRepository;
 import ru.ilb.filedossier.scripting.SubstitutorTemplateEvaluator;
 import ru.ilb.filedossier.scripting.TemplateEvaluator;
@@ -54,7 +54,7 @@ public class DossierFactoryTest {
     TemplateEvaluator templateEvaluator = new SubstitutorTemplateEvaluator();
 
     public DossierFactoryTest() {
-        dossierModelRepository = new DossierModelFileRepository(basePath.resolve("filedossier-model/src/test/resources/models").toUri());
+        dossierModelRepository = new FileDossierModelRepository(basePath.resolve("filedossier-model/src/test/resources/models").toUri());
         Path tempDirWithPrefix;
         try {
             tempDirWithPrefix = Files.createTempDirectory("dossierFactoryTest");
