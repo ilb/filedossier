@@ -67,6 +67,7 @@
                                     <packagename>ru.ilb.filedossier.api</packagename>
                                     <bindingFiles>
                                         <bindingFile>${basedir}/src/main/resources/schemas/filedossier/global.xjb</bindingFile>
+                                        <bindingFile>${basedir}/src/main/resources/schemas/filedossier/model.xjb</bindingFile>
                                     </bindingFiles>
                                     <extraargs>
                                         <extraarg>-verbose</extraarg>

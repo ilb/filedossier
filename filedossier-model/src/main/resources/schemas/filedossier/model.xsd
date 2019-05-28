@@ -7,8 +7,8 @@
     targetNamespace="urn:ru:ilb:filedossier:model"
 >
 
-    <xsd:element name="dossierModel" type="dossierModel"/>
-    <xsd:complexType name="dossierModel">
+    <xsd:element name="dossier" type="dossier"/>
+    <xsd:complexType name="dossier">
         <xsd:annotation>
             <xsd:documentation>Модель досье</xsd:documentation>
         </xsd:annotation>
@@ -23,7 +23,7 @@
                     <xsd:documentation>Наименование досье</xsd:documentation>
                 </xsd:annotation>
             </xsd:element>
-            <xsd:element ref="dossierFileModel" minOccurs="0" maxOccurs="unbounded">
+            <xsd:element ref="dossierFile" minOccurs="0" maxOccurs="unbounded">
                 <xsd:annotation>
                     <xsd:documentation>Файлы досье</xsd:documentation>
                 </xsd:annotation>
@@ -31,8 +31,8 @@
         </xsd:sequence>
     </xsd:complexType>
 
-    <xsd:element name="dossierFileModel" type="dossierFileModel"/>
-    <xsd:complexType name="dossierFileModel">
+    <xsd:element name="dossierFile" type="dossierFile"/>
+    <xsd:complexType name="dossierFile">
         <xsd:annotation>
             <xsd:documentation>Модель файла досье</xsd:documentation>
         </xsd:annotation>
@@ -63,15 +63,15 @@
                     <xsd:documentation>Видимый файл</xsd:documentation>
                 </xsd:annotation>
             </xsd:element>
-            <xsd:element name="representationModel" type="representationModel"  minOccurs="0" maxOccurs="unbounded">
+            <xsd:element name="representation" type="representation"  minOccurs="0" maxOccurs="unbounded">
                 <xsd:annotation>
                     <xsd:documentation>Представления файла</xsd:documentation>
                 </xsd:annotation>
             </xsd:element>
         </xsd:sequence>
     </xsd:complexType>
-    <xsd:element name="representationModel" type="representationModel"/>
-    <xsd:complexType name="representationModel">
+    <xsd:element name="representation" type="representation"/>
+    <xsd:complexType name="representation">
         <xsd:annotation>
             <xsd:documentation>Преставление файла досье</xsd:documentation>
         </xsd:annotation>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jaxb:bindings elementFormDefault="qualified"
+               xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+               xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+               xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+               xmlns:annox="http://annox.dev.java.net"
+               xmlns:inheritance="http://jaxb2-commons.dev.java.net/basic/inheritance"
+               xmlns:global="urn:ru:ilb:global"
+               jaxb:version="2.1"
+               jaxb:extensionBindingPrefixes="xjc annox inheritance"
+               schemaLocation="model.xsd" node="/xsd:schema"
+>
+
+    <jaxb:schemaBindings>
+        <jaxb:nameXmlTransform>
+            <jaxb:elementName suffix="Model"/>
+        </jaxb:nameXmlTransform>
+    </jaxb:schemaBindings>
+    
+
+</jaxb:bindings>
+

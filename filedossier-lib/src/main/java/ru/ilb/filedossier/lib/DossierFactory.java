@@ -81,7 +81,7 @@ public class DossierFactory {
         String code = dossierModel.getCode();
         String name = dossierModel.getName();
 
-        List<DossierFile> dossierFiles = dossierModel.getDossierFileModels().stream()
+        List<DossierFile> dossierFiles = dossierModel.getDossierFiles().stream()
                 .map(modelFile -> createDossierFile(modelFile, store, dossierContext))
                 .collect(Collectors.toList());
 
