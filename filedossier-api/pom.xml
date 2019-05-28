@@ -65,6 +65,9 @@
                                         <extraarg>-xjc-Xjavadoc</extraarg>
                                         <extraarg>-repMap</extraarg>
                                         <extraarg>*/*=java.io.InputStream</extraarg>
+                                        <extraarg>-jaxbClassNameSuffix</extraarg>
+                                        <extraarg>View</extraarg>
+
 
                                         <!-- repMap examples 
                                         <extraarg>-repMap</extraarg>

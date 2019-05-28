@@ -16,14 +16,14 @@
 package ru.ilb.filedossier.mappers;
 
 import javax.inject.Named;
-import ru.ilb.filedossier.view.DossierFile;
+import ru.ilb.filedossier.view.DossierFileView;
 
 @Named
 public class DossierFileMapperImpl implements DossierFileMapper {
 
     @Override
-    public DossierFile fromModel(ru.ilb.filedossier.lib.DossierFile model) {
-        DossierFile df = new DossierFile();
+    public DossierFileView fromModel(ru.ilb.filedossier.lib.DossierFile model) {
+        DossierFileView df = new DossierFileView();
         df.setCode(model.getCode());
         df.setName(model.getName());
         //df.setExists(model.get);

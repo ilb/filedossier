@@ -21,6 +21,6 @@ package ru.ilb.filedossier.mappers;
  */
 public interface DossierFileMapper {
 
-    public ru.ilb.filedossier.view.DossierFile fromModel(ru.ilb.filedossier.lib.DossierFile model);
+    public ru.ilb.filedossier.view.DossierFileView fromModel(ru.ilb.filedossier.lib.DossierFile model);
 
 }

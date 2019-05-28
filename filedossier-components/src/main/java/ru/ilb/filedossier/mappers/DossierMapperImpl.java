@@ -19,8 +19,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 import javax.inject.Inject;
 import javax.inject.Named;
-import ru.ilb.filedossier.view.Dossier;
-import ru.ilb.filedossier.view.DossierFile;
+import ru.ilb.filedossier.view.DossierView;
+import ru.ilb.filedossier.view.DossierFileView;
 
 @Named
 public class DossierMapperImpl implements DossierMapper {
@@ -29,11 +29,11 @@ public class DossierMapperImpl implements DossierMapper {
     DossierFileMapper dossierFileMapper;
 
     @Override
-    public Dossier fromModel(ru.ilb.filedossier.lib.Dossier model) {
-        Dossier view = new Dossier();
+    public DossierView fromModel(ru.ilb.filedossier.lib.Dossier model) {
+        DossierView view = new DossierView();
         view.setCode(model.getCode());
         view.setName(model.getName());
-        List<DossierFile> files = model.getDossierFiles().stream().map(mf -> dossierFileMapper.fromModel(mf)).collect(Collectors.toList());
+        List<DossierFileView> files = model.getDossierFiles().stream().map(mf -> dossierFileMapper.fromModel(mf)).collect(Collectors.toList());
         view.setDossierFiles(files);
         return view;
     }

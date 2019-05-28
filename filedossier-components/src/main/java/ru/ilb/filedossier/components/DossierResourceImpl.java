@@ -21,7 +21,7 @@ import javax.ws.rs.core.Response;
 import ru.ilb.filedossier.api.DossierResource;
 import ru.ilb.filedossier.lib.DossierFactory;
 import ru.ilb.filedossier.mappers.DossierMapper;
-import ru.ilb.filedossier.view.Dossier;
+import ru.ilb.filedossier.view.DossierView;
 
 public class DossierResourceImpl implements DossierResource {
 
@@ -44,7 +44,7 @@ public class DossierResourceImpl implements DossierResource {
     }
 
     @Override
-    public Dossier getDossier() {
+    public DossierView getDossier() {
         return dossierMapper.fromModel(dossier);
     }
 
