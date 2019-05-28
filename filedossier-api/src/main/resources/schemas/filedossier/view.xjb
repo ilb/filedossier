@@ -10,6 +10,7 @@
                jaxb:extensionBindingPrefixes="xjc annox inheritance"
                schemaLocation="view.xsd" node="/xsd:schema"
 >
+    <!-- https://docs.oracle.com/cd/E17802_01/webservices/webservices/docs/1.5/tutorial/doc/JAXBUsing4.html#wp148550 -->
     <jaxb:schemaBindings>
         <jaxb:nameXmlTransform>
             <jaxb:elementName suffix="View"/>
