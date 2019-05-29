@@ -63,6 +63,11 @@
                     <xsd:documentation>Видимый файл</xsd:documentation>
                 </xsd:annotation>
             </xsd:element>
+            <xsd:element name="mediaType" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:documentation>Тип содержимого</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
             <xsd:element name="representation" type="representation"  minOccurs="0" maxOccurs="unbounded">
                 <xsd:annotation>
                     <xsd:documentation>Представления файла</xsd:documentation>

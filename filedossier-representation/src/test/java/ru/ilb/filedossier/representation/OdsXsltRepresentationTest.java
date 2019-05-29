@@ -43,15 +43,16 @@ public class OdsXsltRepresentationTest {
         URI stylesheet = getClass().getClassLoader().getResource("fairpriceorder/content.xsl").toURI();
         URI dataUri = getClass().getClassLoader().getResource("fairpriceorder/data.xml").toURI();
         URI template = getClass().getClassLoader().getResource("fairpriceorder/template.ods").toURI();
-        //URI template = URI.create("jar:file:/home/slavb/work/filedossier/filedossier-representation/src/test/resources/fairpriceorder/template.ods");
+        
 
 
         byte[] source = Files.readAllBytes(Paths.get(dataUri));
         OdsXsltRepresentation instance = new OdsXsltRepresentation(stylesheet, template);
-        byte[] expResult = null;
-        byte[] result = instance.processContent(source);
+//        URI testUri = getClass().getClassLoader().getResource("fairpriceorder/test.ods").toURI();
+//        byte[] expResult = Files.readAllBytes(Paths.get(testUri));
+        byte[] result = instance.processContent(source, "application/xml");
         assertNotNull(result);
-        //assertArrayEquals(expResult, result);
+//        assertArrayEquals(expResult, result);
     }
 
 }

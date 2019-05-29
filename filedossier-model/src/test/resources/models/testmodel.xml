@@ -10,11 +10,13 @@
         <name>Файл 1</name>
         <readonly>false</readonly>
         <required>true</required>
+        <mediaType>application/xml</mediaType>
     </dossierFile>
     <dossierFile>
         <code>file2</code>
         <name>${name}</name>
         <readonly>false</readonly>
+        <mediaType>application/xml</mediaType>
         <representation>
             <mediaType>application/vnd.oasis.opendocument.spreadsheet</mediaType>
             <stylesheet>representations/fairpriceorder/content.xsl</stylesheet>

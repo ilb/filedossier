@@ -23,6 +23,6 @@ import java.io.IOException;
  */
 public interface Representation {
 
-    public byte[] processContent(byte[] source) throws IOException;
+    public byte[] processContent(byte[] source, String mediaType) throws IOException;
 
 }

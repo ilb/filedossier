@@ -15,16 +15,11 @@
  */
 package ru.ilb.filedossier.representation;
 
-import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.Reader;
 import java.net.URI;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.DirectoryStream;
 import java.nio.file.FileSystem;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
@@ -32,12 +27,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.xml.transform.Result;
 import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
@@ -54,7 +46,7 @@ public class OdsXsltRepresentation implements Representation {
     }
 
     @Override
-    public byte[] processContent(byte[] source) throws IOException {
+    public byte[] processContent(byte[] source, String mediaType) throws IOException {
         Map<String, String> attributes = new HashMap<>();
         Path tempDir = Files.createTempDirectory(getClass().getSimpleName());
         Path templatePath = tempDir.resolve("template.ods");
