@@ -13,23 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ru.ilb.filedossier.representation;
-
-import java.net.URI;
+package ru.ilb.filedossier.lib;
 
 /**
  *
  * @author slavb
  */
-public class RepresentationFactory {
+public class RepresentationNotFoundException extends IllegalArgumentException {
 
-    public Representation createRepresentation(String mediaType, URI stylesheet, URI template) {
-        switch (mediaType) {
-            case "application/vnd.oasis.opendocument.spreadsheet":
-                return new OdsXsltRepresentation(mediaType, stylesheet, template);
-            default:
-                throw new IllegalArgumentException("unsupported media type " + mediaType);
-        }
-
+    public RepresentationNotFoundException(String mediaType) {
+        super("Representation not found: "+ mediaType);
     }
+
 }

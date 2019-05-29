@@ -31,7 +31,6 @@ public interface Dossier {
     void addDossierFile(DossierFile file);
 
     public DossierFile getDossierFile(String fileCode);
-    byte[] getDossierFileContents(String fileCode, String representation) throws IOException;
 
     public List<DossierFile> getDossierFiles();
 

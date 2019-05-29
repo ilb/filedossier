@@ -25,4 +25,6 @@ public interface Representation {
 
     public byte[] processContent(byte[] source, String mediaType) throws IOException;
 
+    public String getMediaType();
+
 }

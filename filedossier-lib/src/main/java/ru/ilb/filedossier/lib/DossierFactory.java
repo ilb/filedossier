@@ -92,7 +92,8 @@ public class DossierFactory {
 
     private DossierFile createDossierFile(URI dossierModelUri, DossierFileModel modelFile, Store store, DossierContext dossierContext) {
 
-        List<Representation> representations = modelFile.getRepresentations().stream().map(representationModel -> createRepresentation(dossierModelUri, representationModel))
+        List<Representation> representations = modelFile.getRepresentations().stream()
+                .map(representationModel -> createRepresentation(dossierModelUri, representationModel))
                 .collect(Collectors.toList());
 
         DossierFileImpl df = new DossierFileImpl(
@@ -102,7 +103,9 @@ public class DossierFactory {
                 Boolean.FALSE.equals(templateEvaluator.evaluateBooleanExpression(modelFile.getRequired(), dossierContext)),
                 Boolean.FALSE.equals(templateEvaluator.evaluateBooleanExpression(modelFile.getReadonly(), dossierContext)),
                 Boolean.TRUE.equals(templateEvaluator.evaluateBooleanExpression(modelFile.getVisible(), dossierContext)),
-                store.isExist(modelFile.getCode()));
+                store.isExist(modelFile.getCode()),
+                modelFile.getMediaType(),
+                representations);
         return df;
     }
 

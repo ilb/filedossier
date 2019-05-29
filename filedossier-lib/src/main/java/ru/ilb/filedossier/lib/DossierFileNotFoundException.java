@@ -19,7 +19,7 @@ package ru.ilb.filedossier.lib;
  *
  * @author slavb
  */
-public class DossierFileNotFoundException extends RuntimeException {
+public class DossierFileNotFoundException extends IllegalArgumentException {
 
     public DossierFileNotFoundException(String fileCode) {
         super("Dossier file not found: "+ fileCode);

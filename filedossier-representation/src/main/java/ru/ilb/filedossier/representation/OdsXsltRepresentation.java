@@ -37,12 +37,19 @@ import javax.xml.transform.stream.StreamSource;
 
 public class OdsXsltRepresentation implements Representation {
 
+    private final String mediaType;
     private final URI stylesheetUri;
     private final URI templateUri;
 
-    public OdsXsltRepresentation(URI stylesheetUri, URI templateUri) {
+    public OdsXsltRepresentation(String mediaType, URI stylesheetUri, URI templateUri) {
         this.stylesheetUri = stylesheetUri;
         this.templateUri = templateUri;
+        this.mediaType = mediaType;
+    }
+
+    @Override
+    public String getMediaType() {
+        return mediaType;
     }
 
     @Override

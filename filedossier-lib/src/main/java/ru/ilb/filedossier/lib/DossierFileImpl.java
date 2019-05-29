@@ -16,6 +16,10 @@
 package ru.ilb.filedossier.lib;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+import ru.ilb.filedossier.representation.Representation;
 import ru.ilb.filedossier.store.Store;
 
 /**
@@ -38,8 +42,13 @@ public class DossierFileImpl implements DossierFile {
 
     private final boolean exists;
 
+    private final String mediaType;
+
+    private final Map<String, Representation> representations;
+
     public DossierFileImpl(Store storage, String code, String name,
-            boolean required, boolean readonly, boolean visible, boolean exists) {
+            boolean required, boolean readonly, boolean visible, boolean exists, String mediaType,
+            List<Representation> representations) {
         this.storage = storage;
         this.code = code;
         this.name = name;
@@ -47,6 +56,8 @@ public class DossierFileImpl implements DossierFile {
         this.readonly = readonly;
         this.visible = visible;
         this.exists = exists;
+        this.mediaType = mediaType;
+        this.representations = representations.stream().collect(Collectors.toMap(r -> r.getMediaType(), r -> r));
     }
 
     @Override
@@ -79,15 +90,32 @@ public class DossierFileImpl implements DossierFile {
         return exists;
     }
 
-
     @Override
-    public byte[] getContents() throws IOException{
+    public byte[] getContents() throws IOException {
         return storage.getContents(code);
     }
 
     @Override
-    public void putContents(byte[] data) throws IOException{
+    public byte[] getContents(String mediaType) throws IOException {
+        byte[] contents = getContents();
+        if (mediaType != null && !mediaType.equals(this.mediaType)) {
+            Representation representation = representations.get(mediaType);
+            if (representation == null) {
+                throw new RepresentationNotFoundException(mediaType);
+            }
+            contents = representation.processContent(contents, this.mediaType);
+        }
+        return contents;
+    }
+
+    @Override
+    public void putContents(byte[] data) throws IOException {
         storage.putContents(code, data);
+    }
+
+    @Override
+    public String getMediaType() {
+        return mediaType;
     }
 
 }

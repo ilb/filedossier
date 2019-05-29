@@ -47,7 +47,7 @@ public class OdsXsltRepresentationTest {
 
 
         byte[] source = Files.readAllBytes(Paths.get(dataUri));
-        OdsXsltRepresentation instance = new OdsXsltRepresentation(stylesheet, template);
+        OdsXsltRepresentation instance = new OdsXsltRepresentation("application/vnd.oasis.opendocument.spreadsheet", stylesheet, template);
 //        URI testUri = getClass().getClassLoader().getResource("fairpriceorder/test.ods").toURI();
 //        byte[] expResult = Files.readAllBytes(Paths.get(testUri));
         byte[] result = instance.processContent(source, "application/xml");

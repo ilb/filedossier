@@ -27,6 +27,8 @@ public interface DossierFile {
     
     byte[] getContents() throws IOException;
 
+    byte[] getContents(String mediaType) throws IOException;
+
     public String getCode();
 
     public String getName();
@@ -38,5 +40,7 @@ public interface DossierFile {
     public boolean getVisible();
 
     public boolean getExists();
+
+    public String getMediaType();
     
 }
