@@ -15,6 +15,8 @@
  */
 package ru.ilb.filedossier.model;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import org.junit.Test;
@@ -26,8 +28,6 @@ import static org.junit.Assert.*;
  */
 public class FileDossierModelRepositoryTest {
 
-    Path basePath = Paths.get("").toAbsolutePath().getParent();
-
     public FileDossierModelRepositoryTest() {
     }
 
@@ -35,10 +35,11 @@ public class FileDossierModelRepositoryTest {
      * Test of getDossierModel method, of class FileDossierModelRepository.
      */
     @Test
-    public void testGetDossierModel() {
+    public void testGetDossierModel() throws URISyntaxException {
         String dossierCode = "testmodel";
+        URI modelsUri = getClass().getClassLoader().getResource("models").toURI();
 
-        DossierModelRepository instance = new FileDossierModelRepository(basePath.resolve("filedossier-model/src/test/resources/models").toUri());
+        DossierModelRepository instance = new FileDossierModelRepository(modelsUri);
         DossierModel result = instance.getDossierModel(dossierCode);
         assertEquals("TEST", result.getCode());
         assertEquals("Тестовое досье", result.getName());
