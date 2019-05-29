@@ -33,26 +33,20 @@ import ru.ilb.filedossier.store.StoreFactory;
  */
 public class DossierFactoryTest {
 
-    private final DossierModelRepository dossierModelRepository;
-
-    private final StoreFactory storeFactory;
-
-    private final DossierContextBuilder dossierContextBuilder = (String dossierKey, String dossierCode) -> {
-        DossierContext dc = new DossierContext();
-        dc.setProperty("name", "Тест имя");
-        dc.setProperty("prop", false);
-        return dc;
-    };
-
-    TemplateEvaluator templateEvaluator = new SubstitutorTemplateEvaluator();
+    private final DossierFactory dossierFactory;
 
     public DossierFactoryTest() throws URISyntaxException {
-        URI modelsUri = getClass().getClassLoader().getResource("models").toURI();
-        URI storeUri = getClass().getClassLoader().getResource("teststoreroot").toURI();
+        DossierModelRepository dossierModelRepository = new FileDossierModelRepository(getClass().getClassLoader().getResource("models").toURI());
+        StoreFactory storeFactory = StoreFactory.newInstance(getClass().getClassLoader().getResource("teststoreroot").toURI());
 
-        dossierModelRepository = new FileDossierModelRepository(modelsUri);
-        storeFactory = StoreFactory.newInstance(storeUri);
-
+        DossierContextBuilder dossierContextBuilder = (String dossierKey, String dossierCode) -> {
+            DossierContext dc = new DossierContext();
+            dc.setProperty("name", "Тест имя");
+            dc.setProperty("prop", false);
+            return dc;
+        };
+        TemplateEvaluator templateEvaluator = new SubstitutorTemplateEvaluator();
+        dossierFactory = new DossierFactory(dossierModelRepository, storeFactory, dossierContextBuilder, templateEvaluator);
     }
 
     /**
@@ -63,10 +57,10 @@ public class DossierFactoryTest {
         System.out.println("createDossier");
         String dossierKey = "123";
         String dossierCode = "testmodel";
-        DossierFactory instance = new DossierFactory(dossierModelRepository, storeFactory, dossierContextBuilder, templateEvaluator);
-        Dossier expResult = null;
-        Dossier result = instance.createDossier(dossierKey, dossierCode);
-        assertEquals("Тест имя", result.getDossierFile("file2").getName());
+
+        String expResult = "Тест имя";
+        Dossier result = dossierFactory.createDossier(dossierKey, dossierCode);
+        assertEquals(expResult, result.getDossierFile("file2").getName());
     }
 
 }
