@@ -15,7 +15,6 @@
  */
 package ru.ilb.filedossier.lib;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -55,10 +54,10 @@ public class DossierImpl implements Dossier {
         return name;
     }
 
-    @Override
-    public void addDossierFile(DossierFile file) {
-        dossierFiles.put(file.getCode(), file);
-    }
+//    @Override
+//    public void addDossierFile(DossierFile file) {
+//        dossierFiles.put(file.getCode(), file);
+//    }
 
     @Override
     public List<DossierFile> getDossierFiles() {

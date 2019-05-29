@@ -39,7 +39,7 @@ public class DossierResourceImpl implements DossierResource {
         this.dossierKey = dossierKey;
         this.dossierCode = dossierCode;
         this.dossierFactory = dossierFactory;
-        this.dossier = dossierFactory.createDossier(dossierKey, dossierCode);
+        this.dossier = dossierFactory.getDossier(dossierKey, dossierCode);
         this.dossierMapper = dossierMapper;
     }
 

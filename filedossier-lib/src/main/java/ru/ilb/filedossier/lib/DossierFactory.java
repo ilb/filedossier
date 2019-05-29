@@ -71,15 +71,15 @@ public class DossierFactory {
         this.templateEvaluator = templateEvaluator;
     }
 
-    public Dossier createDossier(String dossierKey, String dossierCode) {
+    public Dossier getDossier(String dossierKey, String dossierCode) {
         DossierModel dossierModel = dossierModelRepository.getDossierModel(dossierCode);
         URI dossierModelUri = dossierModelRepository.getDossierModelUri(dossierCode);
         Store store = storeFactory.getFileStorage(dossierKey);
         DossierContext dossierContext = dossierContextBuilder.createDossierContext(dossierKey, dossierCode);
-        return createDossier(dossierModelUri, dossierModel, store, dossierContext);
+        return getDossier(dossierModelUri, dossierModel, store, dossierContext);
     }
 
-    private Dossier createDossier(URI dossierModelUri, DossierModel dossierModel, Store store, DossierContext dossierContext) {
+    private Dossier getDossier(URI dossierModelUri, DossierModel dossierModel, Store store, DossierContext dossierContext) {
         String code = dossierModel.getCode();
         String name = dossierModel.getName();
 

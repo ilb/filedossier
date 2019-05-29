@@ -15,7 +15,6 @@
  */
 package ru.ilb.filedossier.lib;
 
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -28,7 +27,7 @@ public interface Dossier {
 
     public String getName();
     
-    void addDossierFile(DossierFile file);
+//    void addDossierFile(DossierFile file);
 
     public DossierFile getDossierFile(String fileCode);
 

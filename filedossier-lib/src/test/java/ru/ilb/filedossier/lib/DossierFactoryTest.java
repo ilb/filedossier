@@ -18,6 +18,8 @@ package ru.ilb.filedossier.lib;
 import ru.ilb.filedossier.context.DossierContextBuilder;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import ru.ilb.filedossier.context.DossierContext;
@@ -35,9 +37,15 @@ public class DossierFactoryTest {
 
     private final DossierFactory dossierFactory;
 
-    public DossierFactoryTest() throws URISyntaxException {
-        DossierModelRepository dossierModelRepository = new FileDossierModelRepository(getClass().getClassLoader().getResource("models").toURI());
-        StoreFactory storeFactory = StoreFactory.newInstance(getClass().getClassLoader().getResource("teststoreroot").toURI());
+    public static DossierFactory getDossierFactory() {
+        DossierModelRepository dossierModelRepository;
+        StoreFactory storeFactory;
+        try {
+            dossierModelRepository = new FileDossierModelRepository(DossierFactoryTest.class.getClassLoader().getResource("models").toURI());
+            storeFactory = StoreFactory.newInstance(DossierFactoryTest.class.getClassLoader().getResource("teststoreroot").toURI());
+        } catch (URISyntaxException ex) {
+            throw new RuntimeException(ex);
+        }
 
         DossierContextBuilder dossierContextBuilder = (String dossierKey, String dossierCode) -> {
             DossierContext dc = new DossierContext();
@@ -46,11 +54,16 @@ public class DossierFactoryTest {
             return dc;
         };
         TemplateEvaluator templateEvaluator = new SubstitutorTemplateEvaluator();
-        dossierFactory = new DossierFactory(dossierModelRepository, storeFactory, dossierContextBuilder, templateEvaluator);
+        return new DossierFactory(dossierModelRepository, storeFactory, dossierContextBuilder, templateEvaluator);
+
+    }
+
+    public DossierFactoryTest()  {
+        dossierFactory = getDossierFactory();
     }
 
     /**
-     * Test of createDossier method, of class DossierFactory.
+     * Test of getDossier method, of class DossierFactory.
      */
     @Test
     public void testCreateDossier() {
@@ -59,7 +72,7 @@ public class DossierFactoryTest {
         String dossierCode = "testmodel";
 
         String expResult = "Тест имя";
-        Dossier result = dossierFactory.createDossier(dossierKey, dossierCode);
+        Dossier result = dossierFactory.getDossier(dossierKey, dossierCode);
         assertEquals(expResult, result.getDossierFile("file2").getName());
     }
 
