@@ -17,6 +17,8 @@ package ru.ilb.filedossier.lib;
 
 import ru.ilb.filedossier.context.DossierContextBuilder;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -53,15 +55,13 @@ public class DossierFactoryTest {
 
     TemplateEvaluator templateEvaluator = new SubstitutorTemplateEvaluator();
 
-    public DossierFactoryTest() {
-        dossierModelRepository = new FileDossierModelRepository(basePath.resolve("filedossier-model/src/test/resources/models").toUri());
-        Path tempDirWithPrefix;
-        try {
-            tempDirWithPrefix = Files.createTempDirectory("dossierFactoryTest");
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
-        }
-        storeFactory = StoreFactory.newInstance(tempDirWithPrefix.toUri());
+    public DossierFactoryTest() throws URISyntaxException {
+        URI modelsUri = getClass().getClassLoader().getResource("models").toURI();
+        URI storeUri = getClass().getClassLoader().getResource("teststoreroot").toURI();
+
+        dossierModelRepository = new FileDossierModelRepository(modelsUri);
+        storeFactory = StoreFactory.newInstance(storeUri);
+
     }
 
     /**
