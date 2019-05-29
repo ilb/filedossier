@@ -16,12 +16,8 @@
 package ru.ilb.filedossier.lib;
 
 import ru.ilb.filedossier.context.DossierContextBuilder;
-import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import ru.ilb.filedossier.context.DossierContext;
@@ -37,20 +33,15 @@ import ru.ilb.filedossier.store.StoreFactory;
  */
 public class DossierFactoryTest {
 
-    private Path basePath = Paths.get("").toAbsolutePath().getParent();
+    private final DossierModelRepository dossierModelRepository;
 
-    private DossierModelRepository dossierModelRepository;
+    private final StoreFactory storeFactory;
 
-    private StoreFactory storeFactory;
-
-    private DossierContextBuilder dossierContextBuilder = new DossierContextBuilder() {
-        @Override
-        public DossierContext createDossierContext(String dossierKey, String dossierCode) {
-            DossierContext dc = new DossierContext();
-            dc.setProperty("name", "Тест имя");
-            dc.setProperty("prop", false);
-            return dc;
-        }
+    private final DossierContextBuilder dossierContextBuilder = (String dossierKey, String dossierCode) -> {
+        DossierContext dc = new DossierContext();
+        dc.setProperty("name", "Тест имя");
+        dc.setProperty("prop", false);
+        return dc;
     };
 
     TemplateEvaluator templateEvaluator = new SubstitutorTemplateEvaluator();
