@@ -61,7 +61,7 @@ public class DossierFactoryTest {
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
-        storeFactory = StoreFactory.newInstance(tempDirWithPrefix.toString());
+        storeFactory = StoreFactory.newInstance(tempDirWithPrefix.toUri());
     }
 
     /**

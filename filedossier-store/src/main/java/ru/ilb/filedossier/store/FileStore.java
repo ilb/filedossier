@@ -16,6 +16,7 @@
 package ru.ilb.filedossier.store;
 
 import java.io.IOException;
+import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -32,11 +33,11 @@ class FileStore implements Store {
 
     private final String storeKey;
 
-    private final String storeRoot;
+    private final URI storeRoot;
 
-    public FileStore(String storeKey, String storeRoot) {
+    public FileStore(String storeKey, URI storeRoot) {
         this.storeKey = storeKey;
-        this.storeRoot = storeRoot;
+        this.storeRoot = URI.create(storeRoot.toString()+"/");
     }
 
 
@@ -45,7 +46,7 @@ class FileStore implements Store {
      * @return
      */
     private Path getStorePath() {
-        return Paths.get(storeRoot, storeKey);
+        return Paths.get(storeRoot.resolve(storeKey));
     }
 
     /**
@@ -60,7 +61,7 @@ class FileStore implements Store {
         if (!FILENAME_PREDICATE.test(key)) {
             throw new InvalidFileNameException(key);
         }
-        return Paths.get(storeRoot, storeKey, key);
+        return getStorePath().resolve(key);
     }
 
     @Override
@@ -79,4 +80,8 @@ class FileStore implements Store {
         return getFilePath(key).toFile().exists();
     }
 
+    @Override
+    public String toString() {
+        return "FileStore{" + "storeKey=" + storeKey + ", storeRoot=" + storeRoot + '}';
+    }
 }

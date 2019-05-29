@@ -15,20 +15,22 @@
  */
 package ru.ilb.filedossier.store;
 
+import java.net.URI;
+
 /**
  * Файловое хранилище
  * @author slavb
  */
 public class StoreFactory {
 
-    private final String storageRoot;
+    private final URI storageRoot;
 
-    private StoreFactory(String storageRoot) {
+    private StoreFactory(URI storageRoot) {
         this.storageRoot = storageRoot;
     }
 
 
-    public static StoreFactory newInstance(String storageRoot) {
+    public static StoreFactory newInstance(URI storageRoot) {
         return new StoreFactory(storageRoot);
     }
 

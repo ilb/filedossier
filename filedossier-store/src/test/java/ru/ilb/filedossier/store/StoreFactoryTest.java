@@ -5,6 +5,8 @@
  */
 package ru.ilb.filedossier.store;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -17,6 +19,17 @@ import static org.junit.Assert.*;
  * @author develop01
  */
 public class StoreFactoryTest {
+
+    private static final URI TEST_STORE_ROOT;
+
+    static {
+        try {
+            TEST_STORE_ROOT = FileStoreTest.class.getClassLoader().getResource("teststoreroot").toURI();
+        } catch (URISyntaxException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
     
     public StoreFactoryTest() {
     }
@@ -43,8 +56,7 @@ public class StoreFactoryTest {
     @org.junit.Test
     public void testNewInstance() {
         System.out.println("newInstance");
-        String storageRoot = "";
-        StoreFactory result = StoreFactory.newInstance(storageRoot);
+        StoreFactory result = StoreFactory.newInstance(TEST_STORE_ROOT);
         assertTrue(result instanceof StoreFactory);
     }
 
@@ -55,8 +67,7 @@ public class StoreFactoryTest {
     public void testGetFileStorage() {
         System.out.println("getFileStorage");
         String storeKey = "";
-        String storageRoot = "";
-        StoreFactory instance = StoreFactory.newInstance(storageRoot);
+        StoreFactory instance = StoreFactory.newInstance(TEST_STORE_ROOT);
         Store result = instance.getFileStorage(storeKey);
         assertTrue(result instanceof FileStore);
     }
