@@ -100,9 +100,9 @@ public class DossierFactory {
                 store,
                 templateEvaluator.evaluateStringExpression(modelFile.getCode(), dossierContext),
                 templateEvaluator.evaluateStringExpression(modelFile.getName(), dossierContext),
-                Boolean.FALSE.equals(templateEvaluator.evaluateBooleanExpression(modelFile.getRequired(), dossierContext)),
-                Boolean.FALSE.equals(templateEvaluator.evaluateBooleanExpression(modelFile.getReadonly(), dossierContext)),
-                Boolean.TRUE.equals(templateEvaluator.evaluateBooleanExpression(modelFile.getVisible(), dossierContext)),
+                Boolean.TRUE.equals(templateEvaluator.evaluateBooleanExpression(modelFile.getRequired(), dossierContext)),
+                Boolean.TRUE.equals(templateEvaluator.evaluateBooleanExpression(modelFile.getReadonly(), dossierContext)),
+                Boolean.TRUE.equals(templateEvaluator.evaluateBooleanExpression(modelFile.getHidden(), dossierContext)),
                 store.isExist(modelFile.getCode()),
                 modelFile.getMediaType(),
                 representations);

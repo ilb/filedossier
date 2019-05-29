@@ -58,9 +58,9 @@
                     <xsd:documentation>Обязательный файл</xsd:documentation>
                 </xsd:annotation>
             </xsd:element>
-            <xsd:element name="visible" type="xsd:string"  minOccurs="0">
+            <xsd:element name="hidden" type="xsd:string"  minOccurs="0">
                 <xsd:annotation>
-                    <xsd:documentation>Видимый файл</xsd:documentation>
+                    <xsd:documentation>Скрытый файл</xsd:documentation>
                 </xsd:annotation>
             </xsd:element>
             <xsd:element name="mediaType" type="xsd:string">

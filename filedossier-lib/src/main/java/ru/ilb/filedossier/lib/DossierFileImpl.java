@@ -16,6 +16,7 @@
 package ru.ilb.filedossier.lib;
 
 import java.io.IOException;
+import java.nio.file.NoSuchFileException;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -38,7 +39,7 @@ public class DossierFileImpl implements DossierFile {
 
     private final boolean readonly;
 
-    private final boolean visible;
+    private final boolean hidden;
 
     private final boolean exists;
 
@@ -47,14 +48,14 @@ public class DossierFileImpl implements DossierFile {
     private final Map<String, Representation> representations;
 
     public DossierFileImpl(Store storage, String code, String name,
-            boolean required, boolean readonly, boolean visible, boolean exists, String mediaType,
+            boolean required, boolean readonly, boolean hidden, boolean exists, String mediaType,
             List<Representation> representations) {
         this.storage = storage;
         this.code = code;
         this.name = name;
         this.required = required;
         this.readonly = readonly;
-        this.visible = visible;
+        this.hidden = hidden;
         this.exists = exists;
         this.mediaType = mediaType;
         this.representations = representations.stream().collect(Collectors.toMap(r -> r.getMediaType(), r -> r));
@@ -81,8 +82,8 @@ public class DossierFileImpl implements DossierFile {
     }
 
     @Override
-    public boolean getVisible() {
-        return visible;
+    public boolean getHidden() {
+        return hidden;
     }
 
     @Override
@@ -92,7 +93,11 @@ public class DossierFileImpl implements DossierFile {
 
     @Override
     public byte[] getContents() throws IOException {
-        return storage.getContents(code);
+        try {
+            return storage.getContents(code);
+        } catch (NoSuchFileException ex) {
+            throw new FileNotExistsException(code);
+        }
     }
 
     @Override

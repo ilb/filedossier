@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 SPoket.
+ * Copyright 2019 slavb.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,32 +15,14 @@
  */
 package ru.ilb.filedossier.lib;
 
-import java.io.IOException;
-
 /**
  *
- * @author SPoket
+ * @author slavb
  */
-public interface DossierFile {
-    
-    void putContents(byte[] data) throws IOException;
-    
-    byte[] getContents() throws IOException;
+public class FileNotExistsException extends IllegalArgumentException {
 
-    byte[] getContents(String mediaType) throws IOException;
+    public FileNotExistsException(String fileCode) {
+        super("File not exists: "+ fileCode);
+    }
 
-    public String getCode();
-
-    public String getName();
-
-    public boolean getRequired();
-
-    public boolean getReadonly();
-
-    public boolean getHidden();
-
-    public boolean getExists();
-
-    public String getMediaType();
-    
 }
