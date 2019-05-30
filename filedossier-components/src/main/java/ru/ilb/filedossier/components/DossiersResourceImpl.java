@@ -18,6 +18,7 @@ package ru.ilb.filedossier.components;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import ru.ilb.filedossier.api.DossierResource;
 import ru.ilb.filedossier.api.DossiersResource;
 import ru.ilb.filedossier.lib.DossierFactory;
@@ -34,7 +35,8 @@ public class DossiersResourceImpl implements DossiersResource {
     private DossierMapper dossierMapper;
 
     @Override
-    public DossierResource getDossierResource(String dossierKey,  String dossierPackage, String dossierCode) {
+    @Path("/{dossierKey}/{dossierPackage}/{dossierCode}")
+    public DossierResource getDossierResource(@PathParam("dossierKey") String dossierKey, @PathParam("dossierPackage") String dossierPackage, @PathParam("dossierCode") String dossierCode) {
         return new DossierResourceImpl(dossierKey, dossierPackage, dossierCode, dossierFactory, dossierMapper);
     }
 

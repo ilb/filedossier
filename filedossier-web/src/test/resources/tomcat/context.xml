@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context path="/filedossier-web">
+    <Loader loaderClass="org.springframework.instrument.classloading.tomcat.TomcatInstrumentableClassLoader"/>
+    <Resource name="jdbc/filedossier"
+              auth="Container" type="javax.sql.DataSource"
+              maxActive="10" maxIdle="1" maxWait="20000"
+              removeAbandoned="true" removeAbandonedTimeout="100" logAbandoned="true"
+              driverClassName="com.mysql.jdbc.Driver"
+              validationQuery="SELECT 1"
+              username="filedossier" password="filedossier"
+              url="jdbc:mysql://devel:3306/filedossier?autoReconnect=true&amp;elideSetAutoCommits=true&amp;useLocalSessionState=true&amp;maintainTimeStats=false&amp;serverTimezone=Europe/Moscow"
+    />
+</Context>

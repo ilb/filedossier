@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aspectj>
+    <aspects>
+        <!-- to make tx:annotation-driven mode="aspectj" work -->
+        <aspect name="org.springframework.transaction.aspectj.AnnotationTransactionAspect" />
+        <!-- to make cache:annotation-driven mode="aspectj" work -->
+        <aspect name="org.springframework.cache.aspectj.AnnotationCacheAspect" />
+        <!-- to make @com.jcabi.aspects.Loggable work -->
+        <aspect name="com.jcabi.aspects.aj.MethodLogger" />
+    </aspects>
+    <weaver options="-XnoInline -Xreweavable -verbose -showWeaveInfo">
+        <include within="ru.ilb..*" />
+    </weaver>
+</aspectj>

@@ -225,5 +225,6 @@
     <module>filedossier-scripting</module>
     <module>filedossier-representation</module>
     <module>filedossier-mimetype</module>
+    <module>filedossier-web</module>
   </modules>
 </project>

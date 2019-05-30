@@ -15,19 +15,8 @@
  */
 package ru.ilb.filedossier.mimetype;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 /**
  *
@@ -35,24 +24,10 @@ import java.util.stream.Collectors;
  */
 public class MimeTypeUtil {
 
-    //private static final URI MIME_TYPES_URI = URI.create("classpath:mimetype/mime.types");
-    private static final Map<String, List<String>> MIME_TYPES;
-
-    static {
-        List<String> lines = new ArrayList<>();
-        try {
-            lines = Files.readAllLines(Paths.get(MimeTypeUtil.class.getClassLoader().getResource("mimetype/mime.types").toURI()));
-        } catch (IOException | URISyntaxException ex) {
-            Logger.getLogger(MimeTypeUtil.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        MIME_TYPES = lines.stream()
-                .filter(l -> !l.startsWith("#"))
-                .map(l -> l.split("\\s+"))
-                .collect(Collectors.toMap(l -> l[0], l -> Arrays.asList(Arrays.copyOfRange(l, 1, l.length))));
-    }
+    private static MimeTypeRepository mimeTypeRepository = new MimeTypeRepository();
 
     public static String getExtension(String mimeType) {
-        Iterator<String> itr = MIME_TYPES.getOrDefault(mimeType, Collections.<String>emptyList()).iterator();
+        Iterator<String> itr = mimeTypeRepository.getMimeTypes().getOrDefault(mimeType, Collections.<String>emptyList()).iterator();
         return itr.hasNext() ? itr.next() : null;
     }
 

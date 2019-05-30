@@ -1,0 +1,46 @@
+{"document":[{
+        "id": 1,
+        "displayName": "Subscription documents",
+        "description": "Desctiption follows",
+        "docDate": "2015-01-01"
+    }, {
+        "id": 2,
+        "displayName": "Loan treaty",
+        "description": "Some document",
+        "docDate": "2015-04-25"
+    }, {
+        "id": 3,
+        "displayName": "Loan application",
+        "description": "Client loan application form",
+        "docDate": "2015-06-14"
+    }, {
+        "id": 4,
+        "displayName": "Drivers License",
+        "description": "",
+        "docDate": "2015-08-16"
+    }, {
+        "id": 5,
+        "displayName": "ID Card",
+        "description": "",
+        "docDate": "2015-02-01"
+    }, {
+        "id": 6,
+        "displayName": "Passport",
+        "description": "",
+        "docDate": "2015-10-06"
+    }, {
+        "id": 7,
+        "displayName": "Loan checks",
+        "description": "Check results",
+        "docDate": "2015-04-25"
+    }, {
+        "id": 8,
+        "displayName": "Questionnaire",
+        "description": "Client questionnaire",
+        "docDate": "2015-01-10"
+    }, {
+        "id": 9,
+        "displayName": "Subscription documents",
+        "description": "Desctiption follows",
+        "docDate": "2015-01-01"
+    }]}
