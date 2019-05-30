@@ -42,8 +42,6 @@ public class DossierFileImpl implements DossierFile {
 
     private final boolean hidden;
 
-    private final boolean exists;
-
     private final String mediaType;
 
     private final String extension;
@@ -51,7 +49,7 @@ public class DossierFileImpl implements DossierFile {
     private final Map<String, Representation> representations;
 
     public DossierFileImpl(Store storage, String code, String name,
-            boolean required, boolean readonly, boolean hidden, boolean exists, String mediaType,
+            boolean required, boolean readonly, boolean hidden, String mediaType,
             List<Representation> representations) {
         this.storage = storage;
         this.code = code;
@@ -59,7 +57,6 @@ public class DossierFileImpl implements DossierFile {
         this.required = required;
         this.readonly = readonly;
         this.hidden = hidden;
-        this.exists = exists;
         this.mediaType = mediaType;
         this.extension = MimeTypeUtil.getExtension(mediaType);
         this.representations = representations.stream().collect(Collectors.toMap(r -> r.getMediaType(), r -> r));
@@ -96,7 +93,7 @@ public class DossierFileImpl implements DossierFile {
 
     @Override
     public boolean getExists() {
-        return exists;
+        return storage.isExist(getFileName());
     }
 
     @Override
