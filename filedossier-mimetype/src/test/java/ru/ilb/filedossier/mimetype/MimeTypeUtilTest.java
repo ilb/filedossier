@@ -22,22 +22,22 @@ import static org.junit.Assert.*;
  *
  * @author slavb
  */
-public class MimeTypeTest {
+public class MimeTypeUtilTest {
 
-    public MimeTypeTest() {
+    public MimeTypeUtilTest() {
     }
 
     /**
-     * Test of getExtension method, of class MimeType.
+     * Test of getExtension method, of class MimeTypeUtil.
      */
     @Test
     public void testGetExtension() {
         System.out.println("getExtension");
-        assertEquals("ods", MimeType.getExtension("application/vnd.oasis.opendocument.spreadsheet"));
-        assertEquals("xslt", MimeType.getExtension("text/x-xslt"));
-        assertEquals("xml", MimeType.getExtension("application/xml"));
-        assertEquals("json", MimeType.getExtension("application/json"));
-        assertNull(MimeType.getExtension("application/unknown"));
-        assertNull(MimeType.getExtension("text/xmcd"));
+        assertEquals("ods", MimeTypeUtil.getExtension("application/vnd.oasis.opendocument.spreadsheet"));
+        assertEquals("xslt", MimeTypeUtil.getExtension("text/x-xslt"));
+        assertEquals("xml", MimeTypeUtil.getExtension("application/xml"));
+        assertEquals("json", MimeTypeUtil.getExtension("application/json"));
+        assertNull(MimeTypeUtil.getExtension("application/unknown"));
+        assertNull(MimeTypeUtil.getExtension("text/xmcd"));
     }
 }

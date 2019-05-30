@@ -31,13 +31,15 @@ public class DossierFileImplTest {
 
     private final Dossier dossier;
 
-    private final DossierFile dossierFile;
+    private final DossierFile dossierFile1;
+    private final DossierFile dossierFile2;
 
 
     public DossierFileImplTest() {
         dossierFactory = getDossierFactory();
         dossier = dossierFactory.getDossier("teststorekey", "testmodel", "TEST");
-        dossierFile = dossier.getDossierFile("file1");
+        dossierFile1 = dossier.getDossierFile("file1");
+        dossierFile2 = dossier.getDossierFile("fairpricecalc");
     }
 
     /**
@@ -47,7 +49,7 @@ public class DossierFileImplTest {
     public void testGetCode() {
         System.out.println("getCode");
         String expResult = "file1";
-        String result = dossierFile.getCode();
+        String result = dossierFile1.getCode();
         assertEquals(expResult, result);
     }
 
@@ -58,7 +60,7 @@ public class DossierFileImplTest {
     public void testGetName() {
         System.out.println("getName");
         String expResult = "Файл 1";
-        String result = dossierFile.getName();
+        String result = dossierFile1.getName();
         assertEquals(expResult, result);
     }
 
@@ -69,7 +71,7 @@ public class DossierFileImplTest {
     public void testGetRequired() {
         System.out.println("getRequired");
         boolean expResult = true;
-        boolean result = dossierFile.getRequired();
+        boolean result = dossierFile1.getRequired();
         assertEquals(expResult, result);
     }
 
@@ -80,7 +82,7 @@ public class DossierFileImplTest {
     public void testGetReadonly() {
         System.out.println("getReadonly");
         boolean expResult = false;
-        boolean result = dossierFile.getReadonly();
+        boolean result = dossierFile1.getReadonly();
         assertEquals(expResult, result);
     }
 
@@ -91,7 +93,7 @@ public class DossierFileImplTest {
     public void testGetHidden() {
         System.out.println("getHidden");
         boolean expResult = false;
-        boolean result = dossierFile.getHidden();
+        boolean result = dossierFile1.getHidden();
         assertEquals(expResult, result);
     }
 
@@ -102,7 +104,7 @@ public class DossierFileImplTest {
     public void ztestGetExists() {
         System.out.println("getExists");
         boolean expResult = true;
-        boolean result = dossierFile.getExists();
+        boolean result = dossierFile1.getExists();
         assertEquals(expResult, result);
     }
 
@@ -113,21 +115,29 @@ public class DossierFileImplTest {
     public void ztestGetContents_0args() throws Exception {
         System.out.println("getContents");
         byte[] expResult = "test".getBytes();
-        byte[] result = dossierFile.getContents();
+        byte[] result = dossierFile1.getContents();
         assertArrayEquals(expResult, result);
     }
 
     /**
      * Test of getContents method, of class DossierFileImpl.
      */
-    @Test // (expected = FileNotExistsException.class)
-    public void ztestGetContents_String() throws Exception {
+    @Test
+    public void testGetContentsXml() throws Exception {
         System.out.println("getContents");
         String mediaType = "application/xml";
-        byte[] expResult = "test".getBytes();
-        byte[] result = dossierFile.getContents(mediaType);
-        assertArrayEquals(expResult, result);
+        byte[] result = dossierFile2.getContents(mediaType);
+        assertEquals(2983, result.length);
     }
+
+    @Test
+    public void testGetContentsOds() throws Exception {
+        System.out.println("getContents");
+        String mediaType = "application/vnd.oasis.opendocument.spreadsheet";
+        byte[] result = dossierFile2.getContents(mediaType);
+        assertEquals(33817, result.length);
+    }
+
 
     /**
      * Test of putContents method, of class DossierFileImpl.
@@ -136,7 +146,7 @@ public class DossierFileImplTest {
     public void testPutContents() throws Exception {
         System.out.println("putContents");
         byte[] data = "test".getBytes();
-        dossierFile.putContents(data);
+        dossierFile1.putContents(data);
     }
 
     /**
@@ -146,7 +156,7 @@ public class DossierFileImplTest {
     public void testGetMediaType() {
         System.out.println("getMediaType");
         String expResult = "application/xml";
-        String result = dossierFile.getMediaType();
+        String result = dossierFile1.getMediaType();
         assertEquals(expResult, result);
     }
 

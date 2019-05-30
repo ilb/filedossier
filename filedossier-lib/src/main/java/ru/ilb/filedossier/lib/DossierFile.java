@@ -42,5 +42,7 @@ public interface DossierFile {
     public boolean getExists();
 
     public String getMediaType();
+
+    public String getExtension();
     
 }

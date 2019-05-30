@@ -20,6 +20,7 @@ import java.nio.file.NoSuchFileException;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import ru.ilb.filedossier.mimetype.MimeTypeUtil;
 import ru.ilb.filedossier.representation.Representation;
 import ru.ilb.filedossier.store.Store;
 
@@ -45,6 +46,8 @@ public class DossierFileImpl implements DossierFile {
 
     private final String mediaType;
 
+    private final String extension;
+
     private final Map<String, Representation> representations;
 
     public DossierFileImpl(Store storage, String code, String name,
@@ -58,6 +61,7 @@ public class DossierFileImpl implements DossierFile {
         this.hidden = hidden;
         this.exists = exists;
         this.mediaType = mediaType;
+        this.extension = MimeTypeUtil.getExtension(mediaType);
         this.representations = representations.stream().collect(Collectors.toMap(r -> r.getMediaType(), r -> r));
     }
 
@@ -69,6 +73,10 @@ public class DossierFileImpl implements DossierFile {
     @Override
     public String getName() {
         return name;
+    }
+
+    private String getFileName() {
+        return extension == null ? code : code + "." + extension;
     }
 
     @Override
@@ -94,9 +102,9 @@ public class DossierFileImpl implements DossierFile {
     @Override
     public byte[] getContents() throws IOException {
         try {
-            return storage.getContents(code);
+            return storage.getContents(getFileName());
         } catch (NoSuchFileException ex) {
-            throw new FileNotExistsException(code);
+            throw new FileNotExistsException(getFileName());
         }
     }
 
@@ -115,12 +123,17 @@ public class DossierFileImpl implements DossierFile {
 
     @Override
     public void putContents(byte[] data) throws IOException {
-        storage.putContents(code, data);
+        storage.putContents(getFileName(), data);
     }
 
     @Override
     public String getMediaType() {
         return mediaType;
+    }
+
+    @Override
+    public String getExtension() {
+        return extension;
     }
 
 }

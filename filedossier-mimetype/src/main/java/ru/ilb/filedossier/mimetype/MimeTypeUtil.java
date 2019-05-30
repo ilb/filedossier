@@ -16,14 +16,12 @@
 package ru.ilb.filedossier.mimetype;
 
 import java.io.IOException;
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -35,7 +33,7 @@ import java.util.stream.Collectors;
  *
  * @author slavb
  */
-public class MimeType {
+public class MimeTypeUtil {
 
     //private static final URI MIME_TYPES_URI = URI.create("classpath:mimetype/mime.types");
     private static final Map<String, List<String>> MIME_TYPES;
@@ -43,9 +41,9 @@ public class MimeType {
     static {
         List<String> lines = new ArrayList<>();
         try {
-            lines = Files.readAllLines(Paths.get(MimeType.class.getClassLoader().getResource("mimetype/mime.types").toURI()));
+            lines = Files.readAllLines(Paths.get(MimeTypeUtil.class.getClassLoader().getResource("mimetype/mime.types").toURI()));
         } catch (IOException | URISyntaxException ex) {
-            Logger.getLogger(MimeType.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MimeTypeUtil.class.getName()).log(Level.SEVERE, null, ex);
         }
         MIME_TYPES = lines.stream()
                 .filter(l -> !l.startsWith("#"))
