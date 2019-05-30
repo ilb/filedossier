@@ -66,7 +66,7 @@ public class StoreFactoryTest {
     @org.junit.Test
     public void testGetFileStorage() {
         System.out.println("getFileStorage");
-        String storeKey = "";
+        String storeKey = "testkey";
         StoreFactory instance = StoreFactory.newInstance(TEST_STORE_ROOT);
         Store result = instance.getFileStorage(storeKey);
         assertTrue(result instanceof FileStore);

@@ -36,6 +36,9 @@ class FileStore implements Store {
     private final URI storeRoot;
 
     public FileStore(String storeKey, URI storeRoot) {
+        if (!FILENAME_PREDICATE.test(storeKey)) {
+            throw new InvalidFileNameException(storeKey);
+        }
         this.storeKey = storeKey;
         this.storeRoot = URI.create(storeRoot.toString()+"/");
     }
