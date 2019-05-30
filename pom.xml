@@ -224,5 +224,6 @@
     <module>filedossier-context</module>
     <module>filedossier-scripting</module>
     <module>filedossier-representation</module>
+    <module>filedossier-mimetype</module>
   </modules>
 </project>

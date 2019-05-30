@@ -71,7 +71,7 @@ public class DossierFactoryTest {
 
         String expResult = "Тест имя";
         Dossier result = dossierFactory.getDossier(dossierKey, dossierPackage, dossierCode);
-        assertEquals(expResult, result.getDossierFile("file2").getName());
+        assertEquals(expResult, result.getDossierFile("fairpricecalc").getName());
     }
 
 }

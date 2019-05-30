@@ -16,7 +16,7 @@
             <mediaType>application/xml</mediaType>
         </dossierFile>
         <dossierFile>
-            <code>file2</code>
+            <code>fairpricecalc</code>
             <name>${name}</name>
             <readonly>false</readonly>
             <mediaType>application/xml</mediaType>
