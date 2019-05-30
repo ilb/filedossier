@@ -31,7 +31,7 @@ public class DossierImplTest {
 
     public DossierImplTest() {
         dossierFactory = getDossierFactory();
-        dossier = dossierFactory.getDossier("teststorekey", "testmodel");
+        dossier = dossierFactory.getDossier("teststorekey", "testmodel", "TEST");
     }
 
     /**

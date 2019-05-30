@@ -34,8 +34,8 @@ public class DossiersResourceImpl implements DossiersResource {
     private DossierMapper dossierMapper;
 
     @Override
-    public DossierResource getDossierResource(String dossierKey, String dossierCode) {
-        return new DossierResourceImpl(dossierKey, dossierCode, dossierFactory, dossierMapper);
+    public DossierResource getDossierResource(String dossierKey,  String dossierPackage, String dossierCode) {
+        return new DossierResourceImpl(dossierKey, dossierPackage, dossierCode, dossierFactory, dossierMapper);
     }
 
 }

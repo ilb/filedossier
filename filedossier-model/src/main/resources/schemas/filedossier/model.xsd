@@ -6,7 +6,29 @@
     elementFormDefault="qualified"
     targetNamespace="urn:ru:ilb:filedossier:model"
 >
-
+    <xsd:element name="package" type="package"/>
+    <xsd:complexType name="package">
+        <xsd:annotation>
+            <xsd:documentation>Пакет досье</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="code" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:documentation>код пакета</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="name" type="xsd:string" >
+                <xsd:annotation>
+                    <xsd:documentation>Наименование пакета</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element ref="dossier" minOccurs="0" maxOccurs="unbounded">
+                <xsd:annotation>
+                    <xsd:documentation>Досье</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
     <xsd:element name="dossier" type="dossier"/>
     <xsd:complexType name="dossier">
         <xsd:annotation>

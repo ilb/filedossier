@@ -71,29 +71,29 @@ public class DossierFactory {
         this.templateEvaluator = templateEvaluator;
     }
 
-    public Dossier getDossier(String dossierKey, String dossierCode) {
-        DossierModel dossierModel = dossierModelRepository.getDossierModel(dossierCode);
-        URI dossierModelUri = dossierModelRepository.getDossierModelUri(dossierCode);
+    public Dossier getDossier(String dossierKey, String dossierPackage, String dossierCode) {
+        DossierModel dossierModel = dossierModelRepository.getDossierModel(dossierPackage, dossierCode);
+        URI baseUri = dossierModelRepository.getDossierModelUri(dossierPackage);
         Store store = storeFactory.getFileStorage(dossierKey);
         DossierContext dossierContext = dossierContextBuilder.createDossierContext(dossierKey, dossierCode);
-        return getDossier(dossierModelUri, dossierModel, store, dossierContext);
+        return getDossier(baseUri, dossierModel, store, dossierContext);
     }
 
-    private Dossier getDossier(URI dossierModelUri, DossierModel dossierModel, Store store, DossierContext dossierContext) {
+    private Dossier getDossier(URI baseUri, DossierModel dossierModel, Store store, DossierContext dossierContext) {
         String code = dossierModel.getCode();
         String name = dossierModel.getName();
 
         List<DossierFile> dossierFiles = dossierModel.getDossierFiles().stream()
-                .map(modelFile -> createDossierFile(dossierModelUri, modelFile, store, dossierContext))
+                .map(modelFile -> createDossierFile(baseUri, modelFile, store, dossierContext))
                 .collect(Collectors.toList());
 
         return new DossierImpl(code, name, dossierFiles);
     }
 
-    private DossierFile createDossierFile(URI dossierModelUri, DossierFileModel modelFile, Store store, DossierContext dossierContext) {
+    private DossierFile createDossierFile(URI baseUri, DossierFileModel modelFile, Store store, DossierContext dossierContext) {
 
         List<Representation> representations = modelFile.getRepresentations().stream()
-                .map(representationModel -> createRepresentation(dossierModelUri, representationModel))
+                .map(representationModel -> createRepresentation(baseUri, representationModel))
                 .collect(Collectors.toList());
 
         DossierFileImpl df = new DossierFileImpl(
@@ -109,8 +109,8 @@ public class DossierFactory {
         return df;
     }
 
-    private Representation createRepresentation(URI dossierModelUri, RepresentationModel representationModel) {
-        return representationFactory.createRepresentation(representationModel.getMediaType(), dossierModelUri.resolve(representationModel.getStylesheet()), dossierModelUri.resolve(representationModel.getTemplate()));
+    private Representation createRepresentation(URI baseUri, RepresentationModel representationModel) {
+        return representationFactory.createRepresentation(representationModel.getMediaType(), baseUri.resolve(representationModel.getStylesheet()), baseUri.resolve(representationModel.getTemplate()));
     }
 
 }

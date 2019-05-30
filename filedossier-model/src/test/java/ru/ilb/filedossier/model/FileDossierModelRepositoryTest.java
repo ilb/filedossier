@@ -33,14 +33,16 @@ public class FileDossierModelRepositoryTest {
 
     /**
      * Test of getDossierModel method, of class FileDossierModelRepository.
+     * @throws java.net.URISyntaxException
      */
     @Test
     public void testGetDossierModel() throws URISyntaxException {
-        String dossierCode = "testmodel";
+        String dossierPackage = "testmodel";
+        String dossierCode = "TEST";
         URI modelsUri = getClass().getClassLoader().getResource("models").toURI();
 
         DossierModelRepository instance = new FileDossierModelRepository(modelsUri);
-        DossierModel result = instance.getDossierModel(dossierCode);
+        DossierModel result = instance.getDossierModel(dossierPackage, dossierCode);
         assertEquals("TEST", result.getCode());
         assertEquals("Тестовое досье", result.getName());
         assertEquals(2, result.getDossierFiles().size());

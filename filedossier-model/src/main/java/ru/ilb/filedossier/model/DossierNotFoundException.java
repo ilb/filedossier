@@ -15,16 +15,14 @@
  */
 package ru.ilb.filedossier.model;
 
-import java.net.URI;
-
 /**
- * Репозиторий моделей досье
+ *
  * @author slavb
  */
-public interface DossierModelRepository {
+public class DossierNotFoundException extends IllegalArgumentException {
 
-    public URI getDossierModelUri(String dossierPackage);
-
-    public DossierModel getDossierModel(String dossierPackage, String dossierCode);
+    public DossierNotFoundException(String dossierCode) {
+        super("Dossier not found: "+ dossierCode);
+    }
 
 }

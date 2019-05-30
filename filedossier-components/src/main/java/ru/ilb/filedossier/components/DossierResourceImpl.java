@@ -35,11 +35,11 @@ public class DossierResourceImpl implements DossierResource {
 
     private final DossierMapper dossierMapper;
 
-    public DossierResourceImpl(String dossierKey, String dossierCode, DossierFactory dossierFactory, DossierMapper dossierMapper) {
+    public DossierResourceImpl(String dossierKey, String dossierPackage, String dossierCode, DossierFactory dossierFactory, DossierMapper dossierMapper) {
         this.dossierKey = dossierKey;
         this.dossierCode = dossierCode;
         this.dossierFactory = dossierFactory;
-        this.dossier = dossierFactory.getDossier(dossierKey, dossierCode);
+        this.dossier = dossierFactory.getDossier(dossierKey, dossierPackage, dossierCode);
         this.dossierMapper = dossierMapper;
     }
 

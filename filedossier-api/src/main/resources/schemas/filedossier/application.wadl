@@ -57,9 +57,12 @@
     </resource_type>
     <resources>
         <resource path="dossiers">
-            <resource path="{dossierKey}/{dossierCode}" id="dossierResource" type="#dossierResource">
+            <resource path="{dossierKey}/{dossierPackage}/{dossierCode}" id="dossierResource" type="#dossierResource">
                 <param name="dossierKey" style="template" type="xsd:string">
                     <doc>dossier key</doc>
+                </param>
+                <param name="dossierPackage" style="template" type="xsd:string">
+                    <doc>dossier package</doc>
                 </param>
                 <param name="dossierCode" style="template" type="xsd:string">
                     <doc>dossier code</doc>

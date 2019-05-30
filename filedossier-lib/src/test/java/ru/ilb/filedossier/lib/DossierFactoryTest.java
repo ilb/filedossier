@@ -16,10 +16,7 @@
 package ru.ilb.filedossier.lib;
 
 import ru.ilb.filedossier.context.DossierContextBuilder;
-import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import ru.ilb.filedossier.context.DossierContext;
@@ -58,7 +55,7 @@ public class DossierFactoryTest {
 
     }
 
-    public DossierFactoryTest()  {
+    public DossierFactoryTest() {
         dossierFactory = getDossierFactory();
     }
 
@@ -69,10 +66,11 @@ public class DossierFactoryTest {
     public void testCreateDossier() {
         System.out.println("createDossier");
         String dossierKey = "123";
-        String dossierCode = "testmodel";
+        String dossierPackage = "testmodel";
+        String dossierCode = "TEST";
 
         String expResult = "Тест имя";
-        Dossier result = dossierFactory.getDossier(dossierKey, dossierCode);
+        Dossier result = dossierFactory.getDossier(dossierKey, dossierPackage, dossierCode);
         assertEquals(expResult, result.getDossierFile("file2").getName());
     }
 

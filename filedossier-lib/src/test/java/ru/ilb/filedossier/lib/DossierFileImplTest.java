@@ -17,12 +17,15 @@ package ru.ilb.filedossier.lib;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.FixMethodOrder;
+import org.junit.runners.MethodSorters;
 import static ru.ilb.filedossier.lib.DossierFactoryTest.getDossierFactory;
 
 /**
  *
  * @author slavb
  */
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class DossierFileImplTest {
     private final DossierFactory dossierFactory;
 
@@ -33,7 +36,7 @@ public class DossierFileImplTest {
 
     public DossierFileImplTest() {
         dossierFactory = getDossierFactory();
-        dossier = dossierFactory.getDossier("teststorekey", "testmodel");
+        dossier = dossierFactory.getDossier("teststorekey", "testmodel", "TEST");
         dossierFile = dossier.getDossierFile("file1");
     }
 
@@ -96,7 +99,7 @@ public class DossierFileImplTest {
      * Test of getExists method, of class DossierFileImpl.
      */
     @Test
-    public void testGetExists() {
+    public void ztestGetExists() {
         System.out.println("getExists");
         boolean expResult = true;
         boolean result = dossierFile.getExists();
@@ -107,7 +110,7 @@ public class DossierFileImplTest {
      * Test of getContents method, of class DossierFileImpl.
      */
     @Test// (expected = FileNotExistsException.class)
-    public void testGetContents_0args() throws Exception {
+    public void ztestGetContents_0args() throws Exception {
         System.out.println("getContents");
         byte[] expResult = "test".getBytes();
         byte[] result = dossierFile.getContents();
@@ -118,7 +121,7 @@ public class DossierFileImplTest {
      * Test of getContents method, of class DossierFileImpl.
      */
     @Test // (expected = FileNotExistsException.class)
-    public void testGetContents_String() throws Exception {
+    public void ztestGetContents_String() throws Exception {
         System.out.println("getContents");
         String mediaType = "application/xml";
         byte[] expResult = "test".getBytes();

@@ -17,12 +17,16 @@ package ru.ilb.filedossier.model;
 
 import java.net.MalformedURLException;
 import java.net.URI;
-import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.validation.Schema;
+import javax.xml.validation.SchemaFactory;
+import org.xml.sax.SAXException;
 
 /**
  *
@@ -31,6 +35,11 @@ import javax.xml.bind.Unmarshaller;
  * @author slavb
  */
 public class FileDossierModelRepository implements DossierModelRepository {
+
+    private static final String URI_2001_SCHEMA_XSD = "http://www.w3.org/2001/XMLSchema";
+    private static final String MODEL_SCHEMA_XSD_PATH = "schemas/filedossier/model.xsd";
+    private final SchemaFactory schemaFactory = SchemaFactory.newInstance(URI_2001_SCHEMA_XSD);
+    private final Schema schema;
 
     final JAXBContext jaxbContext;
 
@@ -43,25 +52,29 @@ public class FileDossierModelRepository implements DossierModelRepository {
         this.dossierModelsPath = dossierModelsPath;
         try {
             jaxbContext = JAXBContext.newInstance("ru.ilb.filedossier.model");
-        } catch (JAXBException ex) {
+            schema = schemaFactory.newSchema(getClass().getClassLoader().getResource(MODEL_SCHEMA_XSD_PATH));
+        } catch (JAXBException | SAXException ex) {
             throw new RuntimeException(ex);
         }
-
     }
 
-    private Path getDossierModelPath(String dossierCode) {
-        return Paths.get(dossierModelsPath).resolve(Paths.get(dossierCode+modelFileExtension));
-    }
-
-    public URI getDossierModelUri(String dossierCode) {
-        return getDossierModelPath(dossierCode).toUri();
+    private Path getDossierModelPath(String dossierPackage) {
+        return Paths.get(dossierModelsPath).resolve(Paths.get(dossierPackage + modelFileExtension));
     }
 
     @Override
-    public DossierModel getDossierModel(String dossierCode) {
+    public URI getDossierModelUri(String dossierPackage) {
+        return getDossierModelPath(dossierPackage).toUri();
+    }
+
+    @Override
+    public DossierModel getDossierModel(String dossierPackage, String dossierCode) {
         try {
             Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-            return (DossierModel) unmarshaller.unmarshal(getDossierModelUri(dossierCode).toURL());
+            unmarshaller.setSchema(schema);
+            PackageModel dossierPackageModel = (PackageModel) unmarshaller.unmarshal(getDossierModelUri(dossierPackage).toURL());
+            return dossierPackageModel.getDossiers().stream()
+                    .filter(d -> d.getCode().equals(dossierCode)).findFirst().orElseThrow(() -> new DossierNotFoundException(dossierCode));
         } catch (JAXBException | MalformedURLException ex) {
             throw new RuntimeException(ex);
         }
