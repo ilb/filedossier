@@ -27,10 +27,10 @@
         <html xml:lang="ru">
             <head>
                 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-                <title>Document</title>
+                <title>Досье</title>
             </head>
             <body>
-                <h1>Document <xsl:value-of select="$documentId"/></h1>
+                <h1>Досье <xsl:value-of select="$documentId"/></h1>
                 <xsl:apply-templates />
                 
                 
