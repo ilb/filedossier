@@ -99,15 +99,24 @@ public class DossierFileImpl implements DossierFile {
     @Override
     public byte[] getContents() throws IOException {
         try {
-            return storage.getContents(getFileName());
+            byte[] contents = storage.getContents(getFileName());
+            Representation representation = getDefaultRepresentation();
+            if (representation != null) {
+                contents = representation.processContent(contents, this.mediaType);
+            }
+            return contents;
         } catch (NoSuchFileException ex) {
             throw new FileNotExistsException(getFileName());
         }
     }
 
+    private Representation getDefaultRepresentation() {
+        return representations.isEmpty() ? null : representations.values().iterator().next();
+    }
+
     @Override
     public byte[] getContents(String mediaType) throws IOException {
-        byte[] contents = getContents();
+        byte[] contents = storage.getContents(getFileName());
         if (mediaType != null && !mediaType.equals(this.mediaType)) {
             Representation representation = representations.get(mediaType);
             if (representation == null) {
