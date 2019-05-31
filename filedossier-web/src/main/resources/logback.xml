@@ -26,6 +26,7 @@
     
     <!--<logger name="com.github.sadstool.redissonaspectlock" level="trace"/>-->
 
+    <logger name="org.apache.cxf" level="debug"/>
     <root level="info">
         <appender-ref ref="STDOUT" />
         <!--<appender-ref ref="FILE" />-->
