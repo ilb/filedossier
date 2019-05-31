@@ -16,11 +16,13 @@
 package ru.ilb.filedossier;
 
 import java.net.URISyntaxException;
+import java.util.Arrays;
 import org.apache.cxf.Bus;
 import org.apache.cxf.jaxrs.provider.XSLTJaxbProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import ru.ilb.common.jaxrs.jaxb.JaxbContextResolver;
@@ -42,7 +44,7 @@ import ru.ilb.filedossier.store.StoreFactory;
 @ComponentScan(basePackages = {
     "ru.ilb.filedossier.components",
     "ru.ilb.filedossier.mappers"})
-public class Application  { // extends JpaBaseConfiguration
+public class Application { // extends JpaBaseConfiguration
 
     @Autowired
     private Bus bus;
@@ -61,13 +63,13 @@ public class Application  { // extends JpaBaseConfiguration
 //        endpoint.setFeatures(Arrays.asList(new LoggingFeature()));
 //        return endpoint.create();
 //    }
-    
     @Bean
     public ru.ilb.common.jaxrs.json.MOXyJsonProvider jsonProvider() {
         // lacks @Provider annotation
         //return new org.eclipse.persistence.jaxb.rs.MOXyJsonProvider();
         return new ru.ilb.common.jaxrs.json.MOXyJsonProvider();
     }
+
     @Bean
     public JaxbContextResolver jaxbContextResolver() {
         return new JaxbContextResolver();
@@ -95,22 +97,23 @@ public class Application  { // extends JpaBaseConfiguration
 
     }
 
+
     @Bean
-    public XSLTJaxbProvider xsltJaxbProvider(){
+    @ConditionalOnExpression("'${ILB_SYSID}'=='DEVEL'")
+    public XSLTRequestFilter xsltRequestFilter() {
+        // REFRESH TEMPLATES
+        return new XSLTRequestFilter();
+    }
+    
+    @Bean
+    public XSLTJaxbProvider xsltJaxbProvider() {
         XSLTJaxbProvider xsltJaxbProvider = new XSLTJaxbProvider();
         xsltJaxbProvider.setResolver(new ServletContextURIResolver());
-        //xsltJaxbProvider.setSecureProcessing(false);
         xsltJaxbProvider.setRefreshTemplates(true);
-        //xsltJaxbProvider.setProduceMediaTypes(Arrays.asList("application/xml,application/*+xml,text/xml,text/html,text/csv,application/pdf");
+        xsltJaxbProvider.setProduceMediaTypes(Arrays.asList("application/xhtml+xml,text/csv,application/pdf"));
         xsltJaxbProvider.setOutTemplate("classpath:/stylesheets/filedossier/dossier.xsl");
+        xsltJaxbProvider.setRefreshTemplates(true);
         return xsltJaxbProvider;
     }
 
-
-//    @Bean
-//    public LoggingFeature loggingFeature() {
-//        return new LoggingFeature();
-//    }
-
-    
 }

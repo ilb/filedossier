@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+    <!-- uncomment to enable container security -->
+    <!--
+    <security-constraint>
+        <display-name>Tomcat Server Configuration Security Constraint</display-name>
+        <web-resource-collection>
+            <web-resource-name>filedossier</web-resource-name>
+            <url-pattern>/web/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>*</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <login-config>
+        <auth-method>BASIC</auth-method>
+        <realm-name>filedossier</realm-name>
+    </login-config>
+    <security-role>
+        <description>anyrole</description>
+        <role-name>*</role-name>
+    </security-role>
+    -->
+    
+</web-app>

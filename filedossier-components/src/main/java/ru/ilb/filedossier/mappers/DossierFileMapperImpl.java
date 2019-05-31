@@ -26,7 +26,9 @@ public class DossierFileMapperImpl implements DossierFileMapper {
         DossierFileView df = new DossierFileView();
         df.setCode(model.getCode());
         df.setName(model.getName());
-        //df.setExists(model.get);
+        df.setExists(model.getExists());
+        df.setReadonly(model.getReadonly());
+        df.setRequired(model.getRequired());
         return df;
     }
 

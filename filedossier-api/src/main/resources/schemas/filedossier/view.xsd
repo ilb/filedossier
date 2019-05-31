@@ -58,6 +58,11 @@
                     <xsd:documentation>Только для чтения</xsd:documentation>
                 </xsd:annotation>
             </xsd:element>
+            <xsd:element name="required" type="xsd:boolean">
+                <xsd:annotation>
+                    <xsd:documentation>Обязательный</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
 
         </xsd:sequence>
     </xsd:complexType>
