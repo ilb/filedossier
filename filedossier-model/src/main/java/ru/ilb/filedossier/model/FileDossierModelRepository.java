@@ -15,10 +15,14 @@
  */
 package ru.ilb.filedossier.model;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URI;
+import java.nio.file.FileSystemNotFoundException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.spi.FileSystemProvider;
+import java.util.Collections;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.bind.JAXBContext;
@@ -27,6 +31,7 @@ import javax.xml.bind.Unmarshaller;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import org.xml.sax.SAXException;
+import ru.ilb.filedossier.utils.FSUtils;
 
 /**
  *
@@ -48,8 +53,7 @@ public class FileDossierModelRepository implements DossierModelRepository {
     private String modelFileExtension = ".xml";
 
     public FileDossierModelRepository(URI dossierModelsPath) {
-
-        this.dossierModelsPath = dossierModelsPath;
+        this.dossierModelsPath = FSUtils.loadFileSystemProvider(dossierModelsPath);
         try {
             jaxbContext = JAXBContext.newInstance("ru.ilb.filedossier.model");
             schema = schemaFactory.newSchema(getClass().getClassLoader().getResource(MODEL_SCHEMA_XSD_PATH));
@@ -59,7 +63,7 @@ public class FileDossierModelRepository implements DossierModelRepository {
     }
 
     private Path getDossierModelPath(String dossierPackage) {
-        return Paths.get(dossierModelsPath).resolve(Paths.get(dossierPackage + modelFileExtension));
+        return Paths.get(dossierModelsPath).resolve(dossierPackage + modelFileExtension);
     }
 
     @Override

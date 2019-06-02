@@ -219,5 +219,6 @@
         <module>filedossier-mimetype</module>
         <module>filedossier-web</module>
         <module>filedossier-test</module>
+        <module>filedossier-utils</module>
     </modules>
 </project>
