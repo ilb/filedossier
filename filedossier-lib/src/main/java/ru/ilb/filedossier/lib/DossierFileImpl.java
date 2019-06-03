@@ -44,8 +44,6 @@ public class DossierFileImpl implements DossierFile {
 
     private final boolean hidden;
 
-    private final boolean attachment;
-
     private final String mediaType;
 
     private final String extension;
@@ -64,7 +62,6 @@ public class DossierFileImpl implements DossierFile {
         this.readonly = readonly;
         this.hidden = hidden;
         this.mediaType = mediaType;
-        this.attachment = true;
         this.extension = MimeTypeUtil.getExtension(mediaType);
         this.representationsMap = representations.stream()
                 .peek(r -> r.setParent(this))
@@ -82,7 +79,8 @@ public class DossierFileImpl implements DossierFile {
         return name;
     }
 
-    private String getFileName() {
+    @Override
+    public String getFileName() {
         return extension == null ? code : code + "." + extension;
     }
 
@@ -99,11 +97,6 @@ public class DossierFileImpl implements DossierFile {
     @Override
     public boolean getHidden() {
         return hidden;
-    }
-
-    @Override
-    public boolean getAttachment() {
-        return attachment;
     }
 
     @Override
@@ -140,6 +133,11 @@ public class DossierFileImpl implements DossierFile {
     @Override
     public String getExtension() {
         return extension;
+    }
+
+    @Override
+    public Representation getRepresentation() {
+        return representation;
     }
 
 }

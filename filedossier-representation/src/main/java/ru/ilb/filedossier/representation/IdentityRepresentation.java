@@ -50,7 +50,12 @@ public class IdentityRepresentation implements Representation {
 
     @Override
     public void setContents(byte[] data) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        parent.setContents(data);
+    }
+
+    @Override
+    public String getFileName() {
+        return parent.getFileName();
     }
 
 }

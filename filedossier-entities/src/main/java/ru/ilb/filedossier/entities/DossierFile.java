@@ -44,12 +44,6 @@ public interface DossierFile extends DossierContents {
     public boolean getHidden();
 
     /**
-     * file shuld be served as attachment (Content-Disposition: attachment)
-     * @return
-     */
-    public boolean getAttachment();
-
-    /**
      * file is exsits
      * @return
      */
@@ -61,5 +55,11 @@ public interface DossierFile extends DossierContents {
      * @return 
      */
     public String getExtension();
+
+    /**
+     * get file default representation
+     * @return
+     */
+    public Representation getRepresentation();
 
 }

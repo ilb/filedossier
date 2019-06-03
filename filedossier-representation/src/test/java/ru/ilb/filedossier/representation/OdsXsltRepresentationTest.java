@@ -47,13 +47,15 @@ public class OdsXsltRepresentationTest {
 
 
         byte[] source = Files.readAllBytes(Paths.get(dataUri));
-        DossierContentsHolder contents = new DossierContentsHolder(source, "application/xml");
+        DossierContentsHolder contents = new DossierContentsHolder(source, "application/xml","fairpriceorder.xml");
 
         OdsXsltRepresentation instance = new OdsXsltRepresentation(contents, "application/vnd.oasis.opendocument.spreadsheet", stylesheet, template);
 //        URI testUri = getClass().getClassLoader().getResource("fairpriceorder/test.ods").toURI();
 //        byte[] expResult = Files.readAllBytes(Paths.get(testUri));
         byte[] result = instance.getContents();
         assertNotNull(result);
+        assertEquals("fairpriceorder.ods",instance.getFileName());
+        assertEquals("application/vnd.oasis.opendocument.spreadsheet", instance.getMediaType());
 //        assertArrayEquals(expResult, result);
     }
 

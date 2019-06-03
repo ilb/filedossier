@@ -21,11 +21,14 @@ public class DossierContentsHolder implements DossierContents {
 
     private byte[] contents;
 
-    private final String mediaType;
+    private String mediaType;
 
-    public DossierContentsHolder(byte[] contents, String mediaType) {
+    private String fileName;
+
+    public DossierContentsHolder(byte[] contents, String mediaType, String fileName) {
         this.contents = contents;
         this.mediaType = mediaType;
+        this.fileName = fileName;
     }
 
     @Override
@@ -34,13 +37,26 @@ public class DossierContentsHolder implements DossierContents {
     }
 
     @Override
+    public void setContents(byte[] data) {
+        this.contents = data;
+    }
+
+    @Override
     public String getMediaType() {
         return mediaType;
     }
 
+    public void setMediaType(String mediaType) {
+        this.mediaType = mediaType;
+    }
+
     @Override
-    public void setContents(byte[] data) {
-        this.contents = data;
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 
 }

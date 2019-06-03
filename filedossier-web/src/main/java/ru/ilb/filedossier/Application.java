@@ -18,6 +18,7 @@ package ru.ilb.filedossier;
 import java.net.URISyntaxException;
 import java.util.Arrays;
 import org.apache.cxf.Bus;
+import org.apache.cxf.ext.logging.LoggingFeature;
 import org.apache.cxf.jaxrs.provider.XSLTJaxbProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -114,6 +115,12 @@ public class Application { // extends JpaBaseConfiguration
         xsltJaxbProvider.setOutTemplate("classpath:/stylesheets/filedossier/dossier.xsl");
         xsltJaxbProvider.setRefreshTemplates(true);
         return xsltJaxbProvider;
+    }
+    @Bean
+    public LoggingFeature loggingFeature() {
+        LoggingFeature lf = new LoggingFeature();
+        lf.addBinaryContentMediaTypes("application/vnd.oasis.opendocument.spreadsheet");;
+        return lf;
     }
 
 }

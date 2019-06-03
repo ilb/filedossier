@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import javax.ws.rs.core.Response;
 import ru.ilb.filedossier.api.DossierResource;
+import ru.ilb.filedossier.entities.Representation;
 import ru.ilb.filedossier.lib.DossierFactory;
 import ru.ilb.filedossier.mappers.DossierMapper;
 import ru.ilb.filedossier.view.DossierView;
@@ -50,8 +51,10 @@ public class DossierResourceImpl implements DossierResource {
 
     @Override
     public Response getContents(String fileCode) {
-        byte[] contents = this.dossier.getDossierFile(fileCode).getContents();
-        return Response.ok(contents).build();
+        Representation representation = this.dossier.getDossierFile(fileCode).getRepresentation();
+        return Response.ok(representation.getContents())
+                .header("Content-Type",representation.getMediaType())
+                .header("Content-Disposition", "attachment; filename=" + representation.getFileName()).build();
 
     }
 

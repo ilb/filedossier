@@ -28,16 +28,23 @@ public interface DossierContents {
     byte[] getContents();
 
     /**
-     * file media type (based on default representation)
-     * @return
-     */
-    String getMediaType();
-
-    /**
      * store contents to file
      *
      * @param contents
      */
     void setContents(byte[] contents);
+
+    /**
+     * get file name
+     * @return
+     */
+    String getFileName();
+
+    /**
+     * file media type (based on default representation)
+     * @return
+     */
+    String getMediaType();
+
 
 }
