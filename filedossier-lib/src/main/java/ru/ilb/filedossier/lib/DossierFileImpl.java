@@ -21,6 +21,8 @@ import java.nio.file.NoSuchFileException;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import ru.ilb.filedossier.entities.Dossier;
+import ru.ilb.filedossier.entities.DossierPath;
 import ru.ilb.filedossier.mimetype.MimeTypeUtil;
 import ru.ilb.filedossier.representation.IdentityRepresentation;
 import ru.ilb.filedossier.entities.Representation;
@@ -31,6 +33,8 @@ import ru.ilb.filedossier.store.Store;
  * @author SPoket
  */
 public class DossierFileImpl implements DossierFile {
+
+    private Dossier parent;
 
     private final Store storage;
 
@@ -78,12 +82,9 @@ public class DossierFileImpl implements DossierFile {
     public String getName() {
         return name;
     }
-
-    @Override
-    public String getFileName() {
+    private String getStoreFileName() {
         return extension == null ? code : code + "." + extension;
     }
-
     @Override
     public boolean getRequired() {
         return required;
@@ -101,15 +102,15 @@ public class DossierFileImpl implements DossierFile {
 
     @Override
     public boolean getExists() {
-        return storage.isExist(getFileName());
+        return storage.isExist(getStoreFileName());
     }
 
     @Override
     public byte[] getContents() {
         try {
-            return storage.getContents(getFileName());
+            return storage.getContents(getStoreFileName());
         } catch (NoSuchFileException ex) {
-            throw new FileNotExistsException(getFileName());
+            throw new FileNotExistsException(getStoreFileName());
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
@@ -118,7 +119,7 @@ public class DossierFileImpl implements DossierFile {
     @Override
     public void setContents(byte[] data) {
         try {
-            storage.setContents(getFileName(), data);
+            storage.setContents(getStoreFileName(), data);
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
@@ -138,6 +139,17 @@ public class DossierFileImpl implements DossierFile {
     @Override
     public Representation getRepresentation() {
         return representation;
+    }
+
+    @Override
+    public Dossier getParent() {
+        return parent;
+    }
+
+    @Override
+    public void setParent(DossierPath parent) {
+        assert Dossier.class.isAssignableFrom(parent.getClass()) : "Dossier instance should be passed as argument instead of " + parent.getClass().getCanonicalName();
+        this.parent = (Dossier) parent;
     }
 
 }

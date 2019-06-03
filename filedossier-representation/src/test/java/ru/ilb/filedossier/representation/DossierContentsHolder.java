@@ -16,6 +16,7 @@
 package ru.ilb.filedossier.representation;
 
 import ru.ilb.filedossier.entities.DossierContents;
+import ru.ilb.filedossier.entities.DossierPath;
 
 public class DossierContentsHolder implements DossierContents {
 
@@ -23,13 +24,20 @@ public class DossierContentsHolder implements DossierContents {
 
     private String mediaType;
 
-    private String fileName;
+    private String code;
 
-    public DossierContentsHolder(byte[] contents, String mediaType, String fileName) {
+    private String name;
+
+    private String extension;
+
+    public DossierContentsHolder(byte[] contents, String mediaType, String code, String name, String extension) {
         this.contents = contents;
         this.mediaType = mediaType;
-        this.fileName = fileName;
+        this.code = code;
+        this.name = name;
+        this.extension = extension;
     }
+
 
     @Override
     public byte[] getContents() {
@@ -51,12 +59,41 @@ public class DossierContentsHolder implements DossierContents {
     }
 
     @Override
-    public String getFileName() {
-        return fileName;
+    public String getCode() {
+        return code;
     }
 
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
+    public void setCode(String code) {
+        this.code = code;
     }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public String getExtension() {
+        return extension;
+    }
+
+    public void setExtension(String extension) {
+        this.extension = extension;
+    }
+
+    @Override
+    public DossierPath getParent() {
+        return null;
+    }
+
+    @Override
+    public void setParent(DossierPath parent) {
+        
+    }
+
 
 }

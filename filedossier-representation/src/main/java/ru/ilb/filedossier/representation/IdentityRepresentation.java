@@ -17,6 +17,7 @@ package ru.ilb.filedossier.representation;
 
 import ru.ilb.filedossier.entities.Representation;
 import ru.ilb.filedossier.entities.DossierContents;
+import ru.ilb.filedossier.entities.DossierPath;
 
 
 /**
@@ -25,8 +26,8 @@ import ru.ilb.filedossier.entities.DossierContents;
  */
 public class IdentityRepresentation implements Representation {
 
-    private DossierContents parent;
-    private final String mediaType;
+    protected DossierContents parent;
+    protected final String mediaType;
 
     public IdentityRepresentation(DossierContents parent, String mediaType) {
         this.parent = parent;
@@ -34,8 +35,24 @@ public class IdentityRepresentation implements Representation {
     }
 
     @Override
-    public void setParent(DossierContents parent) {
-        this.parent = parent;
+    public String getCode() {
+        return parent.getCode();
+    }
+
+    @Override
+    public String getName() {
+        return parent.getName();
+    }
+
+    @Override
+    public void setParent(DossierPath parent) {
+        assert DossierContents.class.isAssignableFrom(parent.getClass()) : "DossierContents instance should be passed as argument instead of " + parent.getClass().getCanonicalName();
+        this.parent = (DossierContents) parent;
+    }
+
+    @Override
+    public DossierContents getParent() {
+        return parent;
     }
 
     @Override
@@ -54,8 +71,8 @@ public class IdentityRepresentation implements Representation {
     }
 
     @Override
-    public String getFileName() {
-        return parent.getFileName();
+    public String getExtension() {
+        return parent.getExtension();
     }
 
 }

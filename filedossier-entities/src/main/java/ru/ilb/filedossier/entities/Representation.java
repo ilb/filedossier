@@ -21,6 +21,6 @@ package ru.ilb.filedossier.entities;
  */
 public interface Representation extends DossierContents {
 
-    void setParent(DossierContents parent);
+    
 
 }

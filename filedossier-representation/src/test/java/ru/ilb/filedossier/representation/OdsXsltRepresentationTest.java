@@ -35,6 +35,7 @@ public class OdsXsltRepresentationTest {
     /**
      * Test of processContent method, of class OdsXsltRepresentation.
      * @throws java.net.URISyntaxException
+     * @throws java.io.IOException
      */
     @Test
     public void testProcessContent() throws URISyntaxException, IOException {
@@ -47,7 +48,7 @@ public class OdsXsltRepresentationTest {
 
 
         byte[] source = Files.readAllBytes(Paths.get(dataUri));
-        DossierContentsHolder contents = new DossierContentsHolder(source, "application/xml","fairpriceorder.xml");
+        DossierContentsHolder contents = new DossierContentsHolder(source, "application/xml","fairpriceorder", "Отчет","xml");
 
         OdsXsltRepresentation instance = new OdsXsltRepresentation(contents, "application/vnd.oasis.opendocument.spreadsheet", stylesheet, template);
 //        URI testUri = getClass().getClassLoader().getResource("fairpriceorder/test.ods").toURI();

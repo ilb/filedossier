@@ -15,7 +15,6 @@
  */
 package ru.ilb.filedossier.representation;
 
-import ru.ilb.filedossier.entities.Representation;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
@@ -37,24 +36,17 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 import ru.ilb.filedossier.entities.DossierContents;
 
-public class OdsXsltRepresentation implements Representation {
+public class OdsXsltRepresentation extends IdentityRepresentation {
 
-    private DossierContents parent;
-    private final String mediaType;
-    private final URI stylesheetUri;
-    private final URI templateUri;
+    protected final URI stylesheetUri;
+    protected final URI templateUri;
 
     public OdsXsltRepresentation(DossierContents parent, String mediaType, URI stylesheetUri, URI templateUri) {
-        this.parent = parent;
+        super(parent, mediaType);
         this.stylesheetUri = stylesheetUri;
         this.templateUri = templateUri;
-        this.mediaType = mediaType;
     }
 
-    @Override
-    public void setParent(DossierContents parent) {
-        this.parent = parent;
-    }
 
     @Override
     public String getMediaType() {
@@ -129,8 +121,10 @@ public class OdsXsltRepresentation implements Representation {
     }
 
     @Override
-    public String getFileName() {
-        return parent.getFileName().replaceAll("\\.[^.]*$", ".ods");
+    public String getExtension() {
+        return "ods";
     }
+
+
 
 }

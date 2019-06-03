@@ -21,11 +21,7 @@ import java.util.List;
  * File dossier
  * @author SPoket
  */
-public interface Dossier {
-    
-    public String getCode();
-
-    public String getName();
+public interface Dossier extends DossierPath {
     
     public DossierFile getDossierFile(String fileCode);
 

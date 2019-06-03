@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 SPoket.
+ * Copyright 2019 slavb.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,42 +16,37 @@
 package ru.ilb.filedossier.entities;
 
 /**
- * Dossier file
- * @author SPoket
+ *
+ * @author slavb
  */
-public interface DossierFile extends DossierContents {
-
+public interface DossierPath {
+    
+    /**
+     * store (permanent) file name
+     * @return
+     */
+    public String getCode();
 
 
     /**
-     * file is required to be present
+     * display (changeable) file name
      * @return
      */
-    public boolean getRequired();
+    public String getName();
 
+    public DossierPath getParent();
+
+    public void setParent(DossierPath parent);
+    
     /**
-     * file is readonly (cannot be uploaded by user)
+     * file extension
      * @return
      */
-    public boolean getReadonly();
+    public String getExtension();
 
-    /**
-     * file id hidden (not shown to user)
-     * @return
-     */
-    public boolean getHidden();
-
-    /**
-     * file is exsits
-     * @return
-     */
-    public boolean getExists();
-
-
-    /**
-     * get file default representation
-     * @return
-     */
-    public Representation getRepresentation();
+    default public String getFileName() {
+        String extension = getExtension();
+        return extension == null ? getCode() : getCode() + "." + extension;
+    }
 
 }
