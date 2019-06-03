@@ -20,7 +20,8 @@ import ru.ilb.filedossier.context.DossierContextBuilder;
 import java.net.URISyntaxException;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import ru.ilb.filedossier.context.DossierContext;
+import ru.ilb.filedossier.context.DossierContextImpl;
+import ru.ilb.filedossier.entities.DossierContext;
 import ru.ilb.filedossier.model.FileDossierModelRepository;
 import ru.ilb.filedossier.model.DossierModelRepository;
 import ru.ilb.filedossier.scripting.SubstitutorTemplateEvaluator;
@@ -46,7 +47,7 @@ public class DossierFactoryTest {
         }
 
         DossierContextBuilder dossierContextBuilder = (String dossierKey, String dossierCode) -> {
-            DossierContext dc = new DossierContext();
+            DossierContext dc = new DossierContextImpl();
             dc.setProperty("name", "Тест имя");
             dc.setProperty("prop", false);
             return dc;

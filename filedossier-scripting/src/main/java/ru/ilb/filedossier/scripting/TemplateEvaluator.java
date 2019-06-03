@@ -15,7 +15,7 @@
  */
 package ru.ilb.filedossier.scripting;
 
-import ru.ilb.filedossier.context.DossierContext;
+import ru.ilb.filedossier.entities.DossierContext;
 
 /**
  * Движок вычисления выражений

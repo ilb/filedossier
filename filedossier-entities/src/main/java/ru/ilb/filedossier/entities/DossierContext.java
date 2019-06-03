@@ -13,16 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ru.ilb.filedossier.context;
+package ru.ilb.filedossier.entities;
 
-import ru.ilb.filedossier.entities.DossierContext;
+import java.util.Map;
 
 /**
- * Построитель контекста досье
+ *
  * @author slavb
  */
-public interface DossierContextBuilder {
+public interface DossierContext {
 
-    public DossierContext createDossierContext(String dossierKey, String dossierCode);
+    Map<String, Object> asMap();
+
+    boolean containsProperty(String name);
+
+    Object getProperty(String name);
+
+    void setProperty(String name, Object value);
 
 }

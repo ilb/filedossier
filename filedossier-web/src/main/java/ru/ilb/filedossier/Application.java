@@ -28,8 +28,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import ru.ilb.common.jaxrs.jaxb.JaxbContextResolver;
 import ru.ilb.common.jaxrs.xml.transform.ServletContextURIResolver;
-import ru.ilb.filedossier.context.DossierContext;
+import ru.ilb.filedossier.entities.DossierContext;
 import ru.ilb.filedossier.context.DossierContextBuilder;
+import ru.ilb.filedossier.context.DossierContextImpl;
 import ru.ilb.filedossier.lib.DossierFactory;
 import ru.ilb.filedossier.model.DossierModelRepository;
 import ru.ilb.filedossier.model.FileDossierModelRepository;
@@ -88,7 +89,7 @@ public class Application { // extends JpaBaseConfiguration
         }
 
         DossierContextBuilder dossierContextBuilder = (String dossierKey, String dossierCode) -> {
-            DossierContext dc = new DossierContext();
+            DossierContext dc = new DossierContextImpl();
             dc.setProperty("name", "Тест имя");
             dc.setProperty("prop", false);
             return dc;

@@ -18,7 +18,7 @@ package ru.ilb.filedossier.lib;
 import ru.ilb.filedossier.entities.DossierFile;
 import ru.ilb.filedossier.entities.Dossier;
 import java.net.URI;
-import ru.ilb.filedossier.context.DossierContext;
+import ru.ilb.filedossier.entities.DossierContext;
 import ru.ilb.filedossier.context.DossierContextBuilder;
 import java.util.List;
 import java.util.stream.Collectors;

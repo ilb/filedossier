@@ -17,8 +17,9 @@ package ru.ilb.filedossier.scripting;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
-import ru.ilb.filedossier.context.DossierContext;
+import ru.ilb.filedossier.entities.DossierContext;
 import ru.ilb.filedossier.context.DossierContextBuilder;
+import ru.ilb.filedossier.context.DossierContextImpl;
 
 /**
  *
@@ -29,7 +30,7 @@ public class JSContextEvaluatorTest {
     private final DossierContextBuilder dossierContextBuilder = new DossierContextBuilder() {
         @Override
         public DossierContext createDossierContext(String dossierKey, String dossierCode) {
-            DossierContext dc = new DossierContext();
+            DossierContext dc = new DossierContextImpl();
             dc.setProperty("name", "Тест имя");
             dc.setProperty("prop", false);
             return dc;

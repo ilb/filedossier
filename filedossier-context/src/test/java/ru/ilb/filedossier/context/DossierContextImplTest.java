@@ -22,14 +22,15 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import ru.ilb.filedossier.entities.DossierContext;
 
 /**
  *
  * @author develop01
  */
-public class DossierContextTest {
+public class DossierContextImplTest {
     
-    public DossierContextTest() {
+    public DossierContextImplTest() {
     }
     
     @BeforeClass
@@ -54,7 +55,7 @@ public class DossierContextTest {
     @Test
     public void testAsMap() {
         System.out.println("asMap");
-        DossierContext instance = new DossierContext();
+        DossierContext instance = new DossierContextImpl();
         instance.setProperty("testkey", "testvalue");
         Map<String, Object> expResult = null;
         Map<String, Object> result = instance.asMap();
@@ -69,7 +70,7 @@ public class DossierContextTest {
         System.out.println("setProperty");
         String name = "testkey";
         Object value = "testvalue";
-        DossierContext instance = new DossierContext();
+        DossierContext instance = new DossierContextImpl();
         instance.setProperty(name, value);
         assertEquals(value, instance.getProperty(name));
     }
@@ -81,7 +82,7 @@ public class DossierContextTest {
     public void testContainsProperty() {
         System.out.println("containsProperty");
         String name = "notexist";
-        DossierContext instance = new DossierContext();
+        DossierContext instance = new DossierContextImpl();
         boolean expResult = false;
         boolean result = instance.containsProperty(name);
         assertEquals(expResult, result);
@@ -99,7 +100,7 @@ public class DossierContextTest {
     public void testGetProperty() {
         System.out.println("getProperty");
         String name = "";
-        DossierContext instance = new DossierContext();
+        DossierContext instance = new DossierContextImpl();
         Object expResult = null;
         Object result = instance.getProperty(name);
         assertEquals(expResult, result);
@@ -113,11 +114,11 @@ public class DossierContextTest {
     public void testEquals() {
         System.out.println("equals");
         Object obj = null;
-        DossierContext instance = new DossierContext();
+        DossierContext instance = new DossierContextImpl();
 //        boolean expResult = false;
 //        boolean result = instance.equals(obj);
 //        assertEquals(expResult, result);
-        DossierContext instance2 = new DossierContext();
+        DossierContext instance2 = new DossierContextImpl();
         instance2.setProperty("key", obj);
         instance.setProperty("key", obj);
         boolean expResult2 = true;
@@ -132,7 +133,7 @@ public class DossierContextTest {
     @Test
     public void testHashCode() {
         System.out.println("hashCode");
-        DossierContext instance = new DossierContext();
+        DossierContext instance = new DossierContextImpl();
         instance.setProperty("key", "testvalue");
         int expResult = -1159346624;
         int result = instance.hashCode();

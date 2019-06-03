@@ -20,7 +20,7 @@ import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 import javax.script.SimpleBindings;
-import ru.ilb.filedossier.context.DossierContext;
+import ru.ilb.filedossier.entities.DossierContext;
 
 public class JSTemplateEvaluator implements TemplateEvaluator {
 

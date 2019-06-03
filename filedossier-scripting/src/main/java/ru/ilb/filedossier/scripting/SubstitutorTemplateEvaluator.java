@@ -16,7 +16,7 @@
 package ru.ilb.filedossier.scripting;
 
 import org.apache.commons.text.StringSubstitutor;
-import ru.ilb.filedossier.context.DossierContext;
+import ru.ilb.filedossier.entities.DossierContext;
 
 /**
  * Реализация с использованием Apache Commons Text

@@ -19,36 +19,41 @@ import java.io.Serializable;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
+import ru.ilb.filedossier.entities.DossierContext;
 
 /**
  *
  * @author slavb
  */
-public class DossierContext implements Serializable {
+public class DossierContextImpl implements Serializable, DossierContext {
 
     private static final long serialVersionUID = 2342354656266614361L;
 
     Map<String, Object> values = new LinkedHashMap<>();
 
-    public DossierContext() {
+    public DossierContextImpl() {
     }
 
-    public DossierContext(Map<String, Object> values) {
+    public DossierContextImpl(Map<String, Object> values) {
         this.values = values;
     }
 
+    @Override
     public Map<String, Object> asMap() {
         return values;
     }
 
+    @Override
     public void setProperty(String name, Object value) {
         values.put(name, value);
     }
 
+    @Override
     public boolean containsProperty(String name) {
         return values.containsKey(name);
     }
 
+    @Override
     public Object getProperty(String name) {
         return values.get(name);
     }
@@ -64,7 +69,7 @@ public class DossierContext implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final DossierContext other = (DossierContext) obj;
+        final DossierContextImpl other = (DossierContextImpl) obj;
         if (!Objects.equals(this.values, other.values)) {
             return false;
         }
