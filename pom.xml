@@ -54,7 +54,7 @@
         <doclint>none</doclint>
         <apache-cxf.version>3.3.1</apache-cxf.version>
         <eclipselink.version>2.7.4</eclipselink.version>
-        <ilb-common.version>1.27</ilb-common.version>
+        <ilb-common.version>1.29</ilb-common.version>
         <maven-source-plugin.version>2.4</maven-source-plugin.version>
         <maven-javadoc-plugin.version>3.0.1</maven-javadoc-plugin.version>
     </properties>
