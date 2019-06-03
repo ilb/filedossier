@@ -15,6 +15,7 @@
  */
 package ru.ilb.filedossier.lib;
 
+import ru.ilb.filedossier.entities.Dossier;
 import ru.ilb.filedossier.context.DossierContextBuilder;
 import java.net.URISyntaxException;
 import org.junit.Test;

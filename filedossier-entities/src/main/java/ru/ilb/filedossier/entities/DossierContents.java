@@ -13,14 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ru.ilb.filedossier.mappers;
+package ru.ilb.filedossier.entities;
 
 /**
  *
  * @author slavb
  */
-public interface DossierMapper {
+public interface DossierContents {
 
-    public ru.ilb.filedossier.view.DossierView fromModel(ru.ilb.filedossier.entities.Dossier model);
+    /**
+     * get contents using default representation
+     * @return
+     */
+    byte[] getContents();
+
+    /**
+     * file media type (based on default representation)
+     * @return
+     */
+    String getMediaType();
+
+    /**
+     * store contents to file
+     *
+     * @param contents
+     */
+    void setContents(byte[] contents);
 
 }

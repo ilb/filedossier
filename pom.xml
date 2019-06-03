@@ -220,5 +220,6 @@
         <module>filedossier-web</module>
         <module>filedossier-test</module>
         <module>filedossier-utils</module>
+        <module>filedossier-entities</module>
     </modules>
 </project>

@@ -15,23 +15,32 @@
  */
 package ru.ilb.filedossier.representation;
 
-import ru.ilb.filedossier.entities.Representation;
-import java.net.URI;
-import java.util.function.Supplier;
+import ru.ilb.filedossier.entities.DossierContents;
 
-/**
- *
- * @author slavb
- */
-public class RepresentationFactory {
+public class DossierContentsHolder implements DossierContents {
 
-    public Representation createRepresentation(String mediaType, URI stylesheet, URI template) {
-        switch (mediaType) {
-            case "application/vnd.oasis.opendocument.spreadsheet":
-                return new OdsXsltRepresentation(null, mediaType, stylesheet, template);
-            default:
-                throw new IllegalArgumentException("unsupported media type " + mediaType);
-        }
+    private byte[] contents;
 
+    private final String mediaType;
+
+    public DossierContentsHolder(byte[] contents, String mediaType) {
+        this.contents = contents;
+        this.mediaType = mediaType;
     }
+
+    @Override
+    public byte[] getContents() {
+        return contents;
+    }
+
+    @Override
+    public String getMediaType() {
+        return mediaType;
+    }
+
+    @Override
+    public void setContents(byte[] data) {
+        this.contents = data;
+    }
+
 }

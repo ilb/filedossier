@@ -15,6 +15,8 @@
  */
 package ru.ilb.filedossier.lib;
 
+import ru.ilb.filedossier.entities.DossierFile;
+import ru.ilb.filedossier.entities.Dossier;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.FixMethodOrder;
@@ -120,33 +122,13 @@ public class DossierFileImplTest {
     }
 
     /**
-     * Test of getContents method, of class DossierFileImpl.
-     */
-    @Test
-    public void testGetContentsXml() throws Exception {
-        System.out.println("getContents");
-        String mediaType = "application/xml";
-        byte[] result = dossierFile2.getContents(mediaType);
-        assertEquals(2983, result.length);
-    }
-
-    @Test
-    public void testGetContentsOds() throws Exception {
-        System.out.println("getContents");
-        String mediaType = "application/vnd.oasis.opendocument.spreadsheet";
-        byte[] result = dossierFile2.getContents(mediaType);
-        assertEquals(33817, result.length);
-    }
-
-
-    /**
-     * Test of putContents method, of class DossierFileImpl.
+     * Test of setContents method, of class DossierFileImpl.
      */
     @Test
     public void testPutContents() throws Exception {
         System.out.println("putContents");
         byte[] data = "test".getBytes();
-        dossierFile1.putContents(data);
+        dossierFile1.setContents(data);
     }
 
     /**

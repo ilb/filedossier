@@ -15,6 +15,8 @@
  */
 package ru.ilb.filedossier.lib;
 
+import ru.ilb.filedossier.entities.DossierFile;
+import ru.ilb.filedossier.entities.Dossier;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;

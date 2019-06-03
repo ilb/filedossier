@@ -15,6 +15,7 @@
  */
 package ru.ilb.filedossier.representation;
 
+import ru.ilb.filedossier.entities.Representation;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
@@ -27,6 +28,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Supplier;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.xml.transform.Result;
 import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
@@ -34,17 +38,25 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
+import ru.ilb.filedossier.entities.DossierContents;
 
 public class OdsXsltRepresentation implements Representation {
 
+    private DossierContents parent;
     private final String mediaType;
     private final URI stylesheetUri;
     private final URI templateUri;
 
-    public OdsXsltRepresentation(String mediaType, URI stylesheetUri, URI templateUri) {
+    public OdsXsltRepresentation(DossierContents parent, String mediaType, URI stylesheetUri, URI templateUri) {
+        this.parent = parent;
         this.stylesheetUri = stylesheetUri;
         this.templateUri = templateUri;
         this.mediaType = mediaType;
+    }
+
+    @Override
+    public void setParent(DossierContents parent) {
+        this.parent = parent;
     }
 
     @Override
@@ -53,9 +65,17 @@ public class OdsXsltRepresentation implements Representation {
     }
 
     @Override
-    public byte[] processContent(byte[] source, String mediaType) throws IOException {
+    public byte[] getContents() {
+        try {
+            return prepareContent(parent.getContents(), stylesheetUri, templateUri);
+        } catch (IOException | TransformerException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
+    private static byte[] prepareContent(byte[] source, URI stylesheetUri, URI templateUri) throws IOException, TransformerException {
         Map<String, String> attributes = new HashMap<>();
-        Path tempDir = Files.createTempDirectory(getClass().getSimpleName());
+        Path tempDir = Files.createTempDirectory("OdsXsltRepresentation");
         Path templatePath = tempDir.resolve("template.ods");
         Files.copy(Paths.get(templateUri), templatePath);
         URI templateUriJar = URI.create("jar:" + templatePath.toUri().toString());
@@ -64,11 +84,7 @@ public class OdsXsltRepresentation implements Representation {
             Path path = zipFileSys.getPath("content.xml");
             byte[] content = Files.readAllBytes(path);
             byte[] stylesheet = Files.readAllBytes(Paths.get(stylesheetUri));
-            try {
-                content = processContent(tempDir, source, content, stylesheet);
-            } catch (TransformerException ex) {
-                throw new RuntimeException(ex);
-            }
+            content = processContent(tempDir, source, content, stylesheet);
             Files.delete(path);
             Files.write(path, content);
             result = Files.readAllBytes(templatePath);
@@ -80,9 +96,10 @@ public class OdsXsltRepresentation implements Representation {
                     .forEach(File::delete);
         }
         return result;
+
     }
 
-    private byte[] processContent(Path tempDir, byte[] source, byte[] content, byte[] stylesheet) throws IOException, TransformerException {
+    private static byte[] processContent(Path tempDir, byte[] source, byte[] content, byte[] stylesheet) throws IOException, TransformerException {
         //File.createTe
 
         Source aStyleSheetInputSource = new StreamSource(new InputStreamReader(new ByteArrayInputStream(stylesheet)));
@@ -105,6 +122,11 @@ public class OdsXsltRepresentation implements Representation {
 
         return Files.readAllBytes(aOutputFile.toPath());
 
+    }
+
+    @Override
+    public void setContents(byte[] data) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
 }

@@ -68,9 +68,9 @@ class FileStore implements Store {
     }
 
     @Override
-    public void putContents(String key, byte[] data) throws IOException {
+    public void setContents(String key, byte[] contents) throws IOException {
         createStorePath();
-        Files.write(getFilePath(key), data);
+        Files.write(getFilePath(key), contents);
     }
 
     @Override

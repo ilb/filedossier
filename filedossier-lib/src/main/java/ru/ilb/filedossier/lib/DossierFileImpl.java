@@ -15,13 +15,15 @@
  */
 package ru.ilb.filedossier.lib;
 
+import ru.ilb.filedossier.entities.DossierFile;
 import java.io.IOException;
 import java.nio.file.NoSuchFileException;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import ru.ilb.filedossier.mimetype.MimeTypeUtil;
-import ru.ilb.filedossier.representation.Representation;
+import ru.ilb.filedossier.representation.IdentityRepresentation;
+import ru.ilb.filedossier.entities.Representation;
 import ru.ilb.filedossier.store.Store;
 
 /**
@@ -42,11 +44,15 @@ public class DossierFileImpl implements DossierFile {
 
     private final boolean hidden;
 
+    private final boolean attachment;
+
     private final String mediaType;
 
     private final String extension;
 
-    private final Map<String, Representation> representations;
+    private final Map<String, Representation> representationsMap;
+
+    private final Representation representation;
 
     public DossierFileImpl(Store storage, String code, String name,
             boolean required, boolean readonly, boolean hidden, String mediaType,
@@ -58,8 +64,12 @@ public class DossierFileImpl implements DossierFile {
         this.readonly = readonly;
         this.hidden = hidden;
         this.mediaType = mediaType;
+        this.attachment = true;
         this.extension = MimeTypeUtil.getExtension(mediaType);
-        this.representations = representations.stream().collect(Collectors.toMap(r -> r.getMediaType(), r -> r));
+        this.representationsMap = representations.stream()
+                .peek(r -> r.setParent(this))
+                .collect(Collectors.toMap(r -> r.getMediaType(), r -> r));
+        this.representation = representations.isEmpty() ? new IdentityRepresentation(this, mediaType) : representations.iterator().next();
     }
 
     @Override
@@ -92,49 +102,39 @@ public class DossierFileImpl implements DossierFile {
     }
 
     @Override
+    public boolean getAttachment() {
+        return attachment;
+    }
+
+    @Override
     public boolean getExists() {
         return storage.isExist(getFileName());
     }
 
     @Override
-    public byte[] getContents() throws IOException {
+    public byte[] getContents() {
         try {
-            byte[] contents = storage.getContents(getFileName());
-            Representation representation = getDefaultRepresentation();
-            if (representation != null) {
-                contents = representation.processContent(contents, this.mediaType);
-            }
-            return contents;
+            return storage.getContents(getFileName());
         } catch (NoSuchFileException ex) {
             throw new FileNotExistsException(getFileName());
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
         }
     }
 
-    private Representation getDefaultRepresentation() {
-        return representations.isEmpty() ? null : representations.values().iterator().next();
-    }
-
     @Override
-    public byte[] getContents(String mediaType) throws IOException {
-        byte[] contents = storage.getContents(getFileName());
-        if (mediaType != null && !mediaType.equals(this.mediaType)) {
-            Representation representation = representations.get(mediaType);
-            if (representation == null) {
-                throw new RepresentationNotFoundException(mediaType);
-            }
-            contents = representation.processContent(contents, this.mediaType);
+    public void setContents(byte[] data) {
+        try {
+            storage.setContents(getFileName(), data);
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
         }
-        return contents;
-    }
 
-    @Override
-    public void putContents(byte[] data) throws IOException {
-        storage.putContents(getFileName(), data);
     }
 
     @Override
     public String getMediaType() {
-        return mediaType;
+        return representation.getMediaType();
     }
 
     @Override

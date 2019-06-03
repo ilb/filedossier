@@ -15,6 +15,8 @@
  */
 package ru.ilb.filedossier.lib;
 
+import ru.ilb.filedossier.entities.DossierFile;
+import ru.ilb.filedossier.entities.Dossier;
 import java.net.URI;
 import ru.ilb.filedossier.context.DossierContext;
 import ru.ilb.filedossier.context.DossierContextBuilder;
@@ -24,7 +26,7 @@ import ru.ilb.filedossier.model.DossierModel;
 import ru.ilb.filedossier.model.DossierFileModel;
 import ru.ilb.filedossier.model.DossierModelRepository;
 import ru.ilb.filedossier.model.RepresentationModel;
-import ru.ilb.filedossier.representation.Representation;
+import ru.ilb.filedossier.entities.Representation;
 import ru.ilb.filedossier.representation.RepresentationFactory;
 import ru.ilb.filedossier.scripting.TemplateEvaluator;
 import ru.ilb.filedossier.store.Store;

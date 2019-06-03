@@ -15,7 +15,7 @@ public interface Store {
 
     byte[] getContents(String key) throws IOException;
 
-    void putContents(String key, byte[] value) throws IOException;
+    void setContents(String key, byte[] contents) throws IOException;
 
     boolean isExist(String key); 
 

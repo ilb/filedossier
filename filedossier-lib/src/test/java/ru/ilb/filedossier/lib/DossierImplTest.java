@@ -15,6 +15,8 @@
  */
 package ru.ilb.filedossier.lib;
 
+import ru.ilb.filedossier.entities.DossierFile;
+import ru.ilb.filedossier.entities.Dossier;
 import java.util.List;
 import org.junit.Test;
 import static org.junit.Assert.*;

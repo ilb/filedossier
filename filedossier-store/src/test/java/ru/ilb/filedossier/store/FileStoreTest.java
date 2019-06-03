@@ -54,7 +54,7 @@ public class FileStoreTest {
     }
 
     /**
-     * Test of putContents method, of class FileStore.
+     * Test of setContents method, of class FileStore.
      */
     @Test(expected = InvalidFileNameException.class)
     public void testPutContentsThrowsException() throws IOException {
@@ -62,18 +62,18 @@ public class FileStoreTest {
         String key = "";
         String storeKey = "";
         FileStore instance = new FileStore(storeKey, TEST_STORE_ROOT);
-        instance.putContents(key, TEST_DATA);
+        instance.setContents(key, TEST_DATA);
     }
     
     /**
-     * Test of putContents method, of class FileStore.
+     * Test of setContents method, of class FileStore.
      * @throws java.io.IOException
      */
     @Test
     public void testPutContents() throws IOException {
         System.out.println("putContents");
         FileStore instance = new FileStore(TEST_STORE_KEY, TEST_STORE_ROOT);
-        instance.putContents(TEST_KEY, TEST_DATA);
+        instance.setContents(TEST_KEY, TEST_DATA);
     }
 
     /**

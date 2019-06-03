@@ -31,7 +31,7 @@ public class DossierResourceImpl implements DossierResource {
 
     private final DossierFactory dossierFactory;
 
-    private final ru.ilb.filedossier.lib.Dossier dossier;
+    private final ru.ilb.filedossier.entities.Dossier dossier;
 
     private final DossierMapper dossierMapper;
 
@@ -50,19 +50,15 @@ public class DossierResourceImpl implements DossierResource {
 
     @Override
     public Response getContents(String fileCode) {
-        try {
-            byte[] contents = this.dossier.getDossierFile(fileCode).getContents();
-            return Response.ok(contents).build();
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
-        }
+        byte[] contents = this.dossier.getDossierFile(fileCode).getContents();
+        return Response.ok(contents).build();
 
     }
 
     @Override
-    public void putContents(String fileCode, InputStream inputstream) {
+    public void setContents(String fileCode, InputStream inputstream) {
         try {
-            this.dossier.getDossierFile(fileCode).putContents(Util.toByteArray(inputstream));
+            this.dossier.getDossierFile(fileCode).setContents(Util.toByteArray(inputstream));
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }

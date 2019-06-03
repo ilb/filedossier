@@ -13,36 +13,53 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ru.ilb.filedossier.lib;
-
-import java.io.IOException;
+package ru.ilb.filedossier.entities;
 
 /**
  *
  * @author SPoket
  */
-public interface DossierFile {
-    
-    void putContents(byte[] data) throws IOException;
-    
-    byte[] getContents() throws IOException;
-
-    byte[] getContents(String mediaType) throws IOException;
+public interface DossierFile extends DossierContents {
 
     public String getCode();
 
     public String getName();
 
+    /**
+     * file is required to be present
+     * @return
+     */
     public boolean getRequired();
 
+    /**
+     * file is readonly (cannot be uploaded by user)
+     * @return
+     */
     public boolean getReadonly();
 
+    /**
+     * file id hidden (not shown to user)
+     * @return
+     */
     public boolean getHidden();
 
+    /**
+     * file shuld be served as attachment (Content-Disposition: attachment)
+     * @return
+     */
+    public boolean getAttachment();
+
+    /**
+     * file is exsits
+     * @return
+     */
     public boolean getExists();
 
-    public String getMediaType();
 
+    /**
+     * file extension
+     * @return 
+     */
     public String getExtension();
-    
+
 }

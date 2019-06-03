@@ -22,7 +22,7 @@ import ru.ilb.filedossier.view.DossierFileView;
 public class DossierFileMapperImpl implements DossierFileMapper {
 
     @Override
-    public DossierFileView fromModel(ru.ilb.filedossier.lib.DossierFile model) {
+    public DossierFileView fromModel(ru.ilb.filedossier.entities.DossierFile model) {
         DossierFileView df = new DossierFileView();
         df.setCode(model.getCode());
         df.setName(model.getName());

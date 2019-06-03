@@ -15,7 +15,6 @@
  */
 package ru.ilb.filedossier.components;
 
-import java.util.ServiceLoader;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.ws.rs.Path;

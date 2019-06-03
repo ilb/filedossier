@@ -29,7 +29,7 @@ public class DossierMapperImpl implements DossierMapper {
     DossierFileMapper dossierFileMapper;
 
     @Override
-    public DossierView fromModel(ru.ilb.filedossier.lib.Dossier model) {
+    public DossierView fromModel(ru.ilb.filedossier.entities.Dossier model) {
         DossierView view = new DossierView();
         view.setCode(model.getCode());
         view.setName(model.getName());

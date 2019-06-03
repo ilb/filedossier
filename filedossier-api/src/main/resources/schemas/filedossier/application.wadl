@@ -40,8 +40,8 @@
                         <param name="Content-Disposition" style="header" type="xsd:string"/>
                     </response>
                 </method>
-                <method name="PUT" id="putContents">
-                    <doc>put dossier file contents</doc>
+                <method name="PUT" id="setContents">
+                    <doc>store dossier file contents</doc>
                     <request>
                         <representation mediaType="*/*">
                             <doc>file data</doc>
