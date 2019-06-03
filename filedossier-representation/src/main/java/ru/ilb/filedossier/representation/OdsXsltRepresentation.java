@@ -28,9 +28,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Supplier;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.xml.transform.Result;
 import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
@@ -87,6 +84,8 @@ public class OdsXsltRepresentation implements Representation {
             content = processContent(tempDir, source, content, stylesheet);
             Files.delete(path);
             Files.write(path, content);
+            //should close zip file before read
+            zipFileSys.close();
             result = Files.readAllBytes(templatePath);
         } finally {
             // remove temp dir with contents solution from https://stackoverflow.com/a/42267494/3141736
@@ -127,6 +126,11 @@ public class OdsXsltRepresentation implements Representation {
     @Override
     public void setContents(byte[] data) {
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public String getFileName() {
+        return parent.getFileName().replaceAll("\\.[^.]*$", ".ods");
     }
 
 }
