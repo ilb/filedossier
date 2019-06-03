@@ -16,7 +16,7 @@
 package ru.ilb.filedossier.entities;
 
 /**
- *
+ * Dossier file representation
  * @author slavb
  */
 public interface Representation extends DossierContents {

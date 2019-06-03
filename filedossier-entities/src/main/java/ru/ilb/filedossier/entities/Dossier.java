@@ -18,7 +18,7 @@ package ru.ilb.filedossier.entities;
 import java.util.List;
 
 /**
- *
+ * File dossier
  * @author SPoket
  */
 public interface Dossier {
@@ -27,8 +27,6 @@ public interface Dossier {
 
     public String getName();
     
-//    void addDossierFile(DossierFile file);
-
     public DossierFile getDossierFile(String fileCode);
 
     public List<DossierFile> getDossierFiles();

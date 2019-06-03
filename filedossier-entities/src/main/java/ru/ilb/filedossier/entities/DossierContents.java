@@ -16,7 +16,7 @@
 package ru.ilb.filedossier.entities;
 
 /**
- *
+ * Dossier file contents
  * @author slavb
  */
 public interface DossierContents {

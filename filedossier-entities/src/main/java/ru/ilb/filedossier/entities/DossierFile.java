@@ -16,7 +16,7 @@
 package ru.ilb.filedossier.entities;
 
 /**
- *
+ * Dossier file
  * @author SPoket
  */
 public interface DossierFile extends DossierContents {
