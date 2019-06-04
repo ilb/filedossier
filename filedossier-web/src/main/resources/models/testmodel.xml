@@ -13,7 +13,7 @@
             <name>Файл 1</name>
             <readonly>false</readonly>
             <required>true</required>
-            <mediaType>application/xml</mediaType>
+            <mediaType>application/json</mediaType>
         </dossierFile>
         <dossierFile>
             <code>fairpricecalc</code>

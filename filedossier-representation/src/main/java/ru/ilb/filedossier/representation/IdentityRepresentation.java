@@ -29,8 +29,7 @@ public class IdentityRepresentation implements Representation {
     protected DossierContents parent;
     protected final String mediaType;
 
-    public IdentityRepresentation(DossierContents parent, String mediaType) {
-        this.parent = parent;
+    public IdentityRepresentation(String mediaType) {
         this.mediaType = mediaType;
     }
 

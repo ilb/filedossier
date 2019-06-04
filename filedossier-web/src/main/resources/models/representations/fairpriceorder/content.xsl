@@ -47,7 +47,7 @@
             <xsl:apply-templates select="@*[local-name(.)!='value' and local-name(.)!='string-value']"/>
         </xsl:copy>
     </xsl:template>
-    
+
 
     <xsl:template match="table:table[@table:name='1 уровень']/table:table-row[position()=2]/table:table-cell[position()=3]">
         <xsl:apply-templates select="." mode="replace">
@@ -96,7 +96,7 @@
     <xsl:template match="table:table[@table:name='Данные']/table:table-row[position() >= 4 and not(position() > 33)]/table:table-cell[position()=3]">
         <xsl:param name="row"/>
             <xsl:apply-templates select="." mode="replace">
-                <xsl:with-param name="value" select="$data/marketDatas/marketData[position()=$row]/countDeals"/> 
+                <xsl:with-param name="value" select="$data/marketData[position()=$row]/countDeals"/>
       <!-- <xsl:with-param name="value" select="$row"/> -->
             </xsl:apply-templates>
     </xsl:template>
@@ -104,7 +104,7 @@
     <xsl:template match="table:table[@table:name='Данные']/table:table-row[position() >= 4 and not(position() > 33)]/table:table-cell[position()=4]">
         <xsl:param name="row"/>
             <xsl:apply-templates select="." mode="replace">
-                <xsl:with-param name="value" select="$data/marketDatas/marketData[position()=$row]/tradingVolume"/> 
+                <xsl:with-param name="value" select="$data/marketData[position()=$row]/tradingVolume"/>
       <!-- <xsl:with-param name="value" select="$row"/> -->
             </xsl:apply-templates>
     </xsl:template>
@@ -112,7 +112,7 @@
     <xsl:template match="table:table[@table:name='Данные']/table:table-row[position() >= 4 and not(position() > 33)]/table:table-cell[position()=5]">
         <xsl:param name="row"/>
             <xsl:apply-templates select="." mode="replace">
-                <xsl:with-param name="value" select="$data/marketDatas/marketData[position()=$row]/weightedAverage"/> 
+                <xsl:with-param name="value" select="$data/marketData[position()=$row]/weightedAverage"/>
       <!-- <xsl:with-param name="value" select="$row"/> -->
             </xsl:apply-templates>
     </xsl:template>

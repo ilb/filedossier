@@ -70,7 +70,8 @@ public class DossierFileImpl implements DossierFile {
         this.representationsMap = representations.stream()
                 .peek(r -> r.setParent(this))
                 .collect(Collectors.toMap(r -> r.getMediaType(), r -> r));
-        this.representation = representations.isEmpty() ? new IdentityRepresentation(this, mediaType) : representations.iterator().next();
+        this.representation = representations.isEmpty() ? new IdentityRepresentation(mediaType) : representations.iterator().next();
+        this.representation.setParent(this);
     }
 
     @Override
@@ -128,7 +129,7 @@ public class DossierFileImpl implements DossierFile {
 
     @Override
     public String getMediaType() {
-        return representation.getMediaType();
+        return mediaType;
     }
 
     @Override

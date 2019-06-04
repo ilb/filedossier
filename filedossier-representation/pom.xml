@@ -26,5 +26,18 @@
             <artifactId>filedossier-entities</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20180813</version>
+        </dependency>
+
+<!--        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-rs-json-basic</artifactId>
+            <version>${apache-cxf.version}</version>
+            <optional>true</optional>
+        </dependency>-->
+
     </dependencies>
 </project>

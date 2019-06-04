@@ -15,22 +15,37 @@
  */
 package ru.ilb.filedossier.representation;
 
-import ru.ilb.filedossier.entities.Representation;
-import java.net.URI;
+import org.json.JSONObject;
+import org.json.XML;
 
 /**
- *
+ * Json to XML conversion
  * @author slavb
  */
-public class RepresentationFactory {
+public class JsonXmlRepresentation extends IdentityRepresentation {
 
-    public Representation createRepresentation(String mediaType, URI stylesheet, URI template) {
-        switch (mediaType) {
-            case "application/vnd.oasis.opendocument.spreadsheet":
-                return new OdsXsltRepresentation(mediaType, stylesheet, template);
-            default:
-                throw new IllegalArgumentException("unsupported media type " + mediaType);
-        }
-
+    public JsonXmlRepresentation() {
+        super("application/xml");
     }
+
+    @Override
+    public String getMediaType() {
+        return mediaType;
+    }
+
+    @Override
+    public byte[] getContents() {
+        JSONObject json = new JSONObject(new String(parent.getContents()));
+        String xml = XML.toString(json,"root");
+        return xml.getBytes();
+    }
+
+
+    @Override
+    public String getExtension() {
+        return "xml";
+    }
+
+
+
 }

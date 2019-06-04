@@ -35,18 +35,18 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 import ru.ilb.filedossier.entities.DossierContents;
+import ru.ilb.filedossier.entities.DossierPath;
 
 public class OdsXsltRepresentation extends IdentityRepresentation {
 
     protected final URI stylesheetUri;
     protected final URI templateUri;
 
-    public OdsXsltRepresentation(DossierContents parent, String mediaType, URI stylesheetUri, URI templateUri) {
-        super(parent, mediaType);
+    public OdsXsltRepresentation(String mediaType, URI stylesheetUri, URI templateUri) {
+        super(mediaType);
         this.stylesheetUri = stylesheetUri;
         this.templateUri = templateUri;
     }
-
 
     @Override
     public String getMediaType() {
@@ -125,6 +125,25 @@ public class OdsXsltRepresentation extends IdentityRepresentation {
         return "ods";
     }
 
+    @Override
+    public void setParent(DossierPath parent) {
+        assert DossierContents.class.isAssignableFrom(parent.getClass()) : "DossierContents instance should be passed as argument instead of " + parent.getClass().getCanonicalName();
 
+        DossierContents dossierContents = (DossierContents) parent;
+        switch (dossierContents.getMediaType()) {
+            case "application/xml":
+                this.parent = dossierContents;
+                break;
+            case "application/json":
+                JsonXmlRepresentation jsonXmlRepresentation = new JsonXmlRepresentation();
+                jsonXmlRepresentation.setParent(parent);
+                this.parent = jsonXmlRepresentation;
+                break;
+            default:
+                throw new IllegalArgumentException("Media type " + dossierContents.getMediaType() + " is unsupported by OdsXsltRepresentation");
+        }
+
+        
+    }
 
 }
