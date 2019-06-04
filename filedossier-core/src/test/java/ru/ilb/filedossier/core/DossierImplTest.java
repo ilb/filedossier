@@ -13,14 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ru.ilb.filedossier.lib;
+package ru.ilb.filedossier.core;
 
+import ru.ilb.filedossier.core.DossierFactory;
 import ru.ilb.filedossier.entities.DossierFile;
 import ru.ilb.filedossier.entities.Dossier;
 import java.util.List;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import static ru.ilb.filedossier.lib.DossierFactoryTest.getDossierFactory;
+import static ru.ilb.filedossier.core.DossierFactoryTest.getDossierFactory;
 
 /**
  *

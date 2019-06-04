@@ -13,16 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ru.ilb.filedossier.lib;
+package ru.ilb.filedossier.core;
 
 /**
  *
  * @author slavb
  */
-public class DossierFileNotFoundException extends IllegalArgumentException {
+public class FileNotExistsException extends IllegalArgumentException {
 
-    public DossierFileNotFoundException(String fileCode) {
-        super("Dossier file not found: "+ fileCode);
+    public FileNotExistsException(String fileCode) {
+        super("File not exists: "+ fileCode);
     }
 
 }

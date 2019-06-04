@@ -13,8 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ru.ilb.filedossier.lib;
+package ru.ilb.filedossier.core;
 
+import ru.ilb.filedossier.core.DossierFactory;
 import ru.ilb.filedossier.entities.Dossier;
 import ru.ilb.filedossier.context.DossierContextBuilder;
 import java.net.URISyntaxException;
