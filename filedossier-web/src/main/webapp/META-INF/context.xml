@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Context path="/filedossier-web"/>
+<Context path="/filedossier-web">
+  <Resource auth="Container" driverClassName="com.mysql.jdbc.Driver" logAbandoned="true" maxWaitMillis="20000" name="jdbc/filedossier" 
+            password="filedossier" removeAbandonedOnBorrow="true" removeAbandonedTimeout="100" type="javax.sql.DataSource"
+            url="jdbc:mysql://localhost:3306/filedossier?autoReconnect=true&amp;elideSetAutoCommits=true&amp;useLocalSessionState=true&amp;maintainTimeStats=false&amp;rewriteBatchedStatements=true"
+            username="filedossier" validationQuery="SELECT 1"/>
+</Context>

@@ -17,9 +17,9 @@
     </appender>-->
     
     <!-- log JdbcTemplate queries -->
-    <!--<logger name="org.springframework.jdbc.core.JdbcTemplate" level="debug"/>-->
+    <logger name="org.springframework.jdbc.core.JdbcTemplate" level="debug"/>
     <!-- log JdbcTemplate query parameters -->
-    <!--<logger name="org.springframework.jdbc.core.StatementCreatorUtils" level="trace"/>-->
+    <logger name="org.springframework.jdbc.core.StatementCreatorUtils" level="trace"/>
 
     <!-- log jpa history classes creation -->
     <!--<logger name="ru.ilb.common.jpa.history" level="debug"/>-->

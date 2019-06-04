@@ -24,6 +24,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.relational.core.mapping.NamingStrategy;
+import org.springframework.data.relational.core.mapping.RelationalPersistentProperty;
+import org.springframework.util.Assert;
 import ru.ilb.common.jaxrs.jaxb.JaxbContextResolver;
 import ru.ilb.common.jaxrs.xml.transform.ServletContextURIResolver;
 import ru.ilb.filedossier.entities.DossierContext;
@@ -109,4 +112,25 @@ public class Application { // extends JpaBaseConfiguration
         return lf;
     }
 
+    /**
+     * JPA-like NamingStrategy
+     * @return
+     */
+    @Bean
+    public NamingStrategy namingStrategy() {
+        return new NamingStrategy() {
+            @Override
+            public String getColumnName(RelationalPersistentProperty property) {
+                Assert.notNull(property, "Property must not be null.");
+                return property.getName().toUpperCase();
+            }
+
+            @Override
+            public String getTableName(Class<?> type) {
+                Assert.notNull(type, "Type must not be null.");
+                return type.getSimpleName().toUpperCase();
+            }
+
+        };
+    }
 }
