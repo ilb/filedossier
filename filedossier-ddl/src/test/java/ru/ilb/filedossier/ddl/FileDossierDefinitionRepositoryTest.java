@@ -22,7 +22,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import ru.ilb.filedossier.ddl.DossierModel;
+import ru.ilb.filedossier.ddl.DossierDefinition;
 import ru.ilb.filedossier.ddl.DossierDefinitionRepository;
 
 /**
@@ -35,17 +35,17 @@ public class FileDossierDefinitionRepositoryTest {
     }
 
     /**
-     * Test of getDossierModel method, of class FileDossierModelRepository.
+     * Test of getDossierDefinition method, of class FileDossierDefinitionRepository.
      * @throws java.net.URISyntaxException
      */
     @Test
-    public void testGetDossierModel() throws URISyntaxException {
+    public void testGetDossierDefinition() throws URISyntaxException {
         String dossierPackage = "testmodel";
         String dossierCode = "TEST";
         URI modelsUri = getClass().getClassLoader().getResource("models").toURI();
 
         DossierDefinitionRepository instance = new FileDossierDefinitionRepository(modelsUri);
-        DossierModel result = instance.getDossierModel(dossierPackage, dossierCode);
+        DossierDefinition result = instance.getDossierDefinition(dossierPackage, dossierCode);
         assertEquals("TEST", result.getCode());
         assertEquals("Тестовое досье", result.getName());
         assertEquals(2, result.getDossierFiles().size());

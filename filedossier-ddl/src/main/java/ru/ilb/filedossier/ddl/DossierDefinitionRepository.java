@@ -16,7 +16,7 @@
 package ru.ilb.filedossier.ddl;
 
 import java.net.URI;
-import ru.ilb.filedossier.ddl.DossierModel;
+import ru.ilb.filedossier.ddl.DossierDefinition;
 
 /**
  * Репозиторий моделей досье
@@ -24,8 +24,8 @@ import ru.ilb.filedossier.ddl.DossierModel;
  */
 public interface DossierDefinitionRepository {
 
-    public URI getDossierModelUri(String dossierPackage);
+    public URI getDossierDefinitionUri(String dossierPackage);
 
-    public DossierModel getDossierModel(String dossierPackage, String dossierCode);
+    public DossierDefinition getDossierDefinition(String dossierPackage, String dossierCode);
 
 }

@@ -22,10 +22,10 @@ import ru.ilb.filedossier.entities.DossierContext;
 import ru.ilb.filedossier.context.DossierContextBuilder;
 import java.util.List;
 import java.util.stream.Collectors;
-import ru.ilb.filedossier.ddl.DossierModel;
-import ru.ilb.filedossier.ddl.DossierFileModel;
+import ru.ilb.filedossier.ddl.DossierDefinition;
+import ru.ilb.filedossier.ddl.DossierFileDefinition;
 import ru.ilb.filedossier.ddl.DossierDefinitionRepository;
-import ru.ilb.filedossier.ddl.RepresentationModel;
+import ru.ilb.filedossier.ddl.RepresentationDefinition;
 import ru.ilb.filedossier.entities.Representation;
 import ru.ilb.filedossier.representation.RepresentationFactory;
 import ru.ilb.filedossier.scripting.TemplateEvaluator;
@@ -74,14 +74,14 @@ public class DossierFactory {
     }
 
     public Dossier getDossier(String dossierKey, String dossierPackage, String dossierCode) {
-        DossierModel dossierModel = dossierModelRepository.getDossierModel(dossierPackage, dossierCode);
-        URI baseUri = dossierModelRepository.getDossierModelUri(dossierPackage);
+        DossierDefinition dossierModel = dossierModelRepository.getDossierDefinition(dossierPackage, dossierCode);
+        URI baseUri = dossierModelRepository.getDossierDefinitionUri(dossierPackage);
         Store store = storeFactory.getFileStorage(dossierKey);
         DossierContext dossierContext = dossierContextBuilder.createDossierContext(dossierKey, dossierCode);
         return getDossier(baseUri, dossierModel, store, dossierContext);
     }
 
-    private Dossier getDossier(URI baseUri, DossierModel dossierModel, Store store, DossierContext dossierContext) {
+    private Dossier getDossier(URI baseUri, DossierDefinition dossierModel, Store store, DossierContext dossierContext) {
         String code = dossierModel.getCode();
         String name = dossierModel.getName();
 
@@ -92,7 +92,7 @@ public class DossierFactory {
         return new DossierImpl(code, name, dossierFiles);
     }
 
-    private DossierFile createDossierFile(URI baseUri, DossierFileModel modelFile, Store store, DossierContext dossierContext) {
+    private DossierFile createDossierFile(URI baseUri, DossierFileDefinition modelFile, Store store, DossierContext dossierContext) {
 
         List<Representation> representations = modelFile.getRepresentations().stream()
                 .map(representationModel -> createRepresentation(baseUri, representationModel))
@@ -110,7 +110,7 @@ public class DossierFactory {
         return df;
     }
 
-    private Representation createRepresentation(URI baseUri, RepresentationModel representationModel) {
+    private Representation createRepresentation(URI baseUri, RepresentationDefinition representationModel) {
         return representationFactory.createRepresentation(representationModel.getMediaType(), baseUri.resolve(representationModel.getStylesheet()), baseUri.resolve(representationModel.getTemplate()));
     }
 

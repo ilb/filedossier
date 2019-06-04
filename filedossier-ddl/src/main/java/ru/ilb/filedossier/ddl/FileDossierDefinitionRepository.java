@@ -31,8 +31,8 @@ import javax.xml.bind.Unmarshaller;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import org.xml.sax.SAXException;
-import ru.ilb.filedossier.ddl.DossierModel;
-import ru.ilb.filedossier.ddl.PackageModel;
+import ru.ilb.filedossier.ddl.DossierDefinition;
+import ru.ilb.filedossier.ddl.PackageDefinition;
 import ru.ilb.filedossier.utils.FSUtils;
 
 /**
@@ -64,22 +64,22 @@ public class FileDossierDefinitionRepository implements DossierDefinitionReposit
         }
     }
 
-    private Path getDossierModelPath(String dossierPackage) {
+    private Path getDossierDefinitionPath(String dossierPackage) {
         return Paths.get(dossierModelsPath).resolve(dossierPackage + modelFileExtension);
     }
 
     @Override
-    public URI getDossierModelUri(String dossierPackage) {
-        return getDossierModelPath(dossierPackage).toUri();
+    public URI getDossierDefinitionUri(String dossierPackage) {
+        return getDossierDefinitionPath(dossierPackage).toUri();
     }
 
     @Override
-    public DossierModel getDossierModel(String dossierPackage, String dossierCode) {
+    public DossierDefinition getDossierDefinition(String dossierPackage, String dossierCode) {
         try {
             Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
             unmarshaller.setSchema(schema);
-            PackageModel dossierPackageModel = (PackageModel) unmarshaller.unmarshal(getDossierModelUri(dossierPackage).toURL());
-            return dossierPackageModel.getDossiers().stream()
+            PackageDefinition dossierPackageDefinition = (PackageDefinition) unmarshaller.unmarshal(getDossierDefinitionUri(dossierPackage).toURL());
+            return dossierPackageDefinition.getDossiers().stream()
                     .filter(d -> d.getCode().equals(dossierCode)).findFirst().orElseThrow(() -> new DossierNotFoundException(dossierCode));
         } catch (JAXBException | MalformedURLException ex) {
             throw new RuntimeException(ex);

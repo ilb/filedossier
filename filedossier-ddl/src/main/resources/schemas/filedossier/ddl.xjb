@@ -13,7 +13,7 @@
 
     <jaxb:schemaBindings>
         <jaxb:nameXmlTransform>
-            <jaxb:elementName suffix="Model"/>
+            <jaxb:elementName suffix="Definition"/>
         </jaxb:nameXmlTransform>
     </jaxb:schemaBindings>
     
