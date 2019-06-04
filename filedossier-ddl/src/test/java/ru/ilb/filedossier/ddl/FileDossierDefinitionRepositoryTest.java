@@ -29,9 +29,9 @@ import ru.ilb.filedossier.ddl.DossierDefinitionRepository;
  *
  * @author slavb
  */
-public class FileDossierModelRepositoryTest {
+public class FileDossierDefinitionRepositoryTest {
 
-    public FileDossierModelRepositoryTest() {
+    public FileDossierDefinitionRepositoryTest() {
     }
 
     /**
