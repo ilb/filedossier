@@ -17,10 +17,8 @@ package ru.ilb.filedossier;
 
 import java.net.URISyntaxException;
 import java.util.Arrays;
-import org.apache.cxf.Bus;
 import org.apache.cxf.ext.logging.LoggingFeature;
 import org.apache.cxf.jaxrs.provider.XSLTJaxbProvider;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
@@ -48,23 +46,10 @@ import ru.ilb.filedossier.store.StoreFactory;
     "ru.ilb.filedossier.mappers"})
 public class Application { // extends JpaBaseConfiguration
 
-    @Autowired
-    private Bus bus;
-
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }
 
-//    @Bean
-//    public Server rsServer() {
-//        JAXRSServerFactoryBean endpoint = new JAXRSServerFactoryBean();
-//        endpoint.setBus(bus);
-//
-//        //endpoint.setServiceBeans(Arrays.<Object>asList(new HelloServiceImpl1(), new HelloServiceImpl2()));
-//        endpoint.setAddress("/");
-//        endpoint.setFeatures(Arrays.asList(new LoggingFeature()));
-//        return endpoint.create();
-//    }
     @Bean
     public ru.ilb.common.jaxrs.json.MOXyJsonProvider jsonProvider() {
         // lacks @Provider annotation
@@ -99,14 +84,13 @@ public class Application { // extends JpaBaseConfiguration
 
     }
 
-
     @Bean
     @ConditionalOnExpression("'${ILB_SYSID}'=='DEVEL'")
     public XSLTRequestFilter xsltRequestFilter() {
         // REFRESH TEMPLATES
         return new XSLTRequestFilter();
     }
-    
+
     @Bean
     public XSLTJaxbProvider xsltJaxbProvider() {
         XSLTJaxbProvider xsltJaxbProvider = new XSLTJaxbProvider();
@@ -117,6 +101,7 @@ public class Application { // extends JpaBaseConfiguration
         xsltJaxbProvider.setRefreshTemplates(true);
         return xsltJaxbProvider;
     }
+
     @Bean
     public LoggingFeature loggingFeature() {
         LoggingFeature lf = new LoggingFeature();
