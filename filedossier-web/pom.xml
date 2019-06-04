@@ -21,7 +21,6 @@
         <javax.ws.rs-api.version>2.1</javax.ws.rs-api.version>
         <org.springframework.version>5.1.5.RELEASE</org.springframework.version>
         <spring.boot.version>2.1.4.RELEASE</spring.boot.version>
-        <!--<swagger.ui.version>2.2.10-1</swagger.ui.version>-->
         <swagger.ui.version>3.22.2</swagger.ui.version>
         <maven.test.skip>false</maven.test.skip>
         <maven.tomcat.skip>true</maven.tomcat.skip>
@@ -34,7 +33,6 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <!-- Import dependency management from Spring Boot -->
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
                 <version>${spring.boot.version}</version>
@@ -162,8 +160,6 @@
             <artifactId>org.eclipse.persistence.moxy</artifactId>
             <version>${eclipselink.version}</version>
         </dependency>
-
-        <!-- caffeine @Cacheable support -->
         <dependency>
             <groupId>com.github.ben-manes.caffeine</groupId>
             <artifactId>caffeine</artifactId>
@@ -183,23 +179,11 @@
 
     <build>
         <finalName>${project.name}</finalName>
-
-        
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>${spring.boot.version}</version>
-                <!--                <configuration>
-                    <mainClass>ru.ilb.filedossier.Application</mainClass>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
-                </executions>-->
             </plugin>
             
             <plugin>
@@ -209,11 +193,6 @@
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
-                    <!--                    <fork>true</fork>
-                    <proc>none</proc>
-                    <compilerArgs>
-                        <arg>-XDignore.symbol.file</arg>
-                    </compilerArgs>-->
                     <annotationProcessorPaths>
                         <path>
                             <groupId>org.mapstruct</groupId>
@@ -250,14 +229,6 @@
                                     <outputDirectory>${project.build.directory}/classes</outputDirectory>
                                     <includes>org/eclipse/persistence/jaxb/rs/*.class</includes>
                                 </artifactItem>
-                                <!--                                <artifactItem>
-                                    <groupId>org.eclipse.persistence</groupId>
-                                    <artifactId>org.eclipse.persistence.dbws</artifactId>
-                                    <version>${eclipselink.version}</version>
-                                    <type>jar</type>
-                                    <overWrite>false</overWrite>
-                                    <outputDirectory>${project.build.directory}/classes</outputDirectory>
-                                </artifactItem>-->
                             </artifactItems>
                         </configuration>
                     </execution>
@@ -268,7 +239,6 @@
                 <artifactId>maven-war-plugin</artifactId>
                 <version>3.2.2</version>
                 <configuration>
-                    <!-- WEB-INF/lib/eclipselink-*.jar -->
                     <packagingExcludes>WEB-INF/lib/org.eclipse.persistence*.jar,WEB-INF/lib/javax.persistence-*.jar,WEB-INF/lib/jakarta.persistence-*.jar,WEB-INF/lib/mysql-connector-java-*.jar</packagingExcludes>
                 </configuration>
             </plugin>
