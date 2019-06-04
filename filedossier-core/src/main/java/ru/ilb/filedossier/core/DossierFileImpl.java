@@ -26,7 +26,7 @@ import ru.ilb.filedossier.entities.DossierPath;
 import ru.ilb.filedossier.mimetype.MimeTypeUtil;
 import ru.ilb.filedossier.representation.IdentityRepresentation;
 import ru.ilb.filedossier.entities.Representation;
-import ru.ilb.filedossier.store.Store;
+import ru.ilb.filedossier.entities.Store;
 
 /**
  *

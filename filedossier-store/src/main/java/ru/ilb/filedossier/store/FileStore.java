@@ -15,6 +15,7 @@
  */
 package ru.ilb.filedossier.store;
 
+import ru.ilb.filedossier.entities.Store;
 import java.io.IOException;
 import java.net.URI;
 import java.nio.file.Files;
@@ -22,6 +23,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.function.Predicate;
 import java.util.regex.Pattern;
+import ru.ilb.filedossier.entities.DossierContext;
 
 /**
  * Store using files
@@ -86,5 +88,15 @@ class FileStore implements Store {
     @Override
     public String toString() {
         return "FileStore{" + "storeKey=" + storeKey + ", storeRoot=" + storeRoot + '}';
+    }
+
+    @Override
+    public DossierContext getContext(String key) throws IOException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void setContext(String key, DossierContext context) throws IOException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

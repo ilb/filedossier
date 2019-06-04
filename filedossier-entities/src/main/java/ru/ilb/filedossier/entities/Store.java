@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ru.ilb.filedossier.store;
+package ru.ilb.filedossier.entities;
 
 import java.io.IOException;
 
@@ -17,6 +17,10 @@ public interface Store {
 
     void setContents(String key, byte[] contents) throws IOException;
 
-    boolean isExist(String key); 
+    boolean isExist(String key);
+
+    DossierContext getContext(String key) throws IOException;
+
+    void setContext(String key, DossierContext context) throws IOException;
 
 }

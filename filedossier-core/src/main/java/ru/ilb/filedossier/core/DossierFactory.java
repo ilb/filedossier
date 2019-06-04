@@ -29,7 +29,7 @@ import ru.ilb.filedossier.model.RepresentationModel;
 import ru.ilb.filedossier.entities.Representation;
 import ru.ilb.filedossier.representation.RepresentationFactory;
 import ru.ilb.filedossier.scripting.TemplateEvaluator;
-import ru.ilb.filedossier.store.Store;
+import ru.ilb.filedossier.entities.Store;
 import ru.ilb.filedossier.store.StoreFactory;
 
 /**

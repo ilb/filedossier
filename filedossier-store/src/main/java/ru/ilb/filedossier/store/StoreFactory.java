@@ -15,6 +15,7 @@
  */
 package ru.ilb.filedossier.store;
 
+import ru.ilb.filedossier.entities.Store;
 import java.net.URI;
 
 /**
