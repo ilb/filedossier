@@ -71,11 +71,11 @@
                             <sourceRoot>${project.build.directory}/generated-sources/xjc</sourceRoot>
                             <wadlOptions>
                                 <wadlOption>
-                                    <wadl>${basedir}/src/main/resources/schemas/filedossier/model.wadl</wadl>
+                                    <wadl>${basedir}/src/main/resources/schemas/filedossier/ddl.wadl</wadl>
                                     <packagename>ru.ilb.filedossier.api</packagename>
                                     <bindingFiles>
                                         <bindingFile>${basedir}/src/main/resources/schemas/filedossier/global.xjb</bindingFile>
-                                        <bindingFile>${basedir}/src/main/resources/schemas/filedossier/model.xjb</bindingFile>
+                                        <bindingFile>${basedir}/src/main/resources/schemas/filedossier/ddl.xjb</bindingFile>
                                     </bindingFiles>
                                     <extraargs>
                                         <extraarg>-verbose</extraarg>

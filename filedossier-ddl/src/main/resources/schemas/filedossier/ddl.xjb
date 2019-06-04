@@ -8,7 +8,7 @@
                xmlns:global="urn:ru:ilb:global"
                jaxb:version="2.1"
                jaxb:extensionBindingPrefixes="xjc annox inheritance"
-               schemaLocation="model.xsd" node="/xsd:schema"
+               schemaLocation="ddl.xsd" node="/xsd:schema"
 >
 
     <jaxb:schemaBindings>

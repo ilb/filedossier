@@ -6,7 +6,7 @@
 >    
     <grammars>
         <include href="global.xsd" />
-        <include href="model.xsd" />
+        <include href="ddl.xsd" />
     </grammars>
     <resources>
         <resource path="dossierModels">

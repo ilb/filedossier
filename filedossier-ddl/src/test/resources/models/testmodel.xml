@@ -2,7 +2,7 @@
 <package
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns="urn:ru:ilb:filedossier:ddl"
-    xsi:schemaLocation="urn:ru:ilb:filedossier:ddl ../../../../../filedossier-ddl/src/main/resources/schemas/filedossier/model.xsd">
+    xsi:schemaLocation="urn:ru:ilb:filedossier:ddl ../../../../../filedossier-ddl/src/main/resources/schemas/filedossier/ddl.xsd">
     <code>testmodel</code>
     <name>Тестовый пакет досье</name>
     <dossier>

@@ -44,7 +44,7 @@ import ru.ilb.filedossier.utils.FSUtils;
 public class FileDossierDefinitionRepository implements DossierDefinitionRepository {
 
     private static final String URI_2001_SCHEMA_XSD = "http://www.w3.org/2001/XMLSchema";
-    private static final String MODEL_SCHEMA_XSD_PATH = "schemas/filedossier/model.xsd";
+    private static final String MODEL_SCHEMA_XSD_PATH = "schemas/filedossier/ddl.xsd";
     private final SchemaFactory schemaFactory = SchemaFactory.newInstance(URI_2001_SCHEMA_XSD);
     private final Schema schema;
 
