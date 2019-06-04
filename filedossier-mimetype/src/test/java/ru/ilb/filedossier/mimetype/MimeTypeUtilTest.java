@@ -34,7 +34,6 @@ public class MimeTypeUtilTest {
     public void testGetExtension() {
         System.out.println("getExtension");
         assertEquals("ods", MimeTypeUtil.getExtension("application/vnd.oasis.opendocument.spreadsheet"));
-        assertEquals("xslt", MimeTypeUtil.getExtension("text/x-xslt"));
         assertEquals("xml", MimeTypeUtil.getExtension("application/xml"));
         assertEquals("json", MimeTypeUtil.getExtension("application/json"));
         assertNull(MimeTypeUtil.getExtension("application/unknown"));
