@@ -21,7 +21,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import ru.ilb.filedossier.api.DossierResource;
 import ru.ilb.filedossier.api.DossiersResource;
-import ru.ilb.filedossier.lib.DossierFactory;
+import ru.ilb.filedossier.core.DossierFactory;
 import ru.ilb.filedossier.mappers.DossierMapper;
 
 @Named

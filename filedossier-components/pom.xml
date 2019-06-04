@@ -16,7 +16,7 @@
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>filedossier-lib</artifactId>
+            <artifactId>filedossier-core</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>

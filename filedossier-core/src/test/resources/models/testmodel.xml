@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <package
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns="urn:ru:ilb:filedossier:model"
-    xsi:schemaLocation="urn:ru:ilb:filedossier:model ../../../../../filedossier-model/src/main/resources/schemas/filedossier/model.xsd">
+    xmlns="urn:ru:ilb:filedossier:ddl"
+    xsi:schemaLocation="urn:ru:ilb:filedossier:ddl ../../../../../filedossier-ddl/src/main/resources/schemas/filedossier/model.xsd">
     <code>testmodel</code>
     <name>Тестовый пакет досье</name>
     <dossier>

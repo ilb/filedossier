@@ -23,7 +23,7 @@
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>filedossier-model</artifactId>
+            <artifactId>filedossier-ddl</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>

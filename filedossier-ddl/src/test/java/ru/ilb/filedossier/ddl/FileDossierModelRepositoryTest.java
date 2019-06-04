@@ -13,14 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ru.ilb.filedossier.model;
+package ru.ilb.filedossier.ddl;
 
+import ru.ilb.filedossier.ddl.FileDossierDefinitionRepository;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import ru.ilb.filedossier.ddl.DossierModel;
+import ru.ilb.filedossier.ddl.DossierDefinitionRepository;
 
 /**
  *
@@ -41,7 +44,7 @@ public class FileDossierModelRepositoryTest {
         String dossierCode = "TEST";
         URI modelsUri = getClass().getClassLoader().getResource("models").toURI();
 
-        DossierModelRepository instance = new FileDossierModelRepository(modelsUri);
+        DossierDefinitionRepository instance = new FileDossierDefinitionRepository(modelsUri);
         DossierModel result = instance.getDossierModel(dossierPackage, dossierCode);
         assertEquals("TEST", result.getCode());
         assertEquals("Тестовое досье", result.getName());

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ru.ilb.filedossier.model;
+package ru.ilb.filedossier.ddl;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -31,6 +31,8 @@ import javax.xml.bind.Unmarshaller;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import org.xml.sax.SAXException;
+import ru.ilb.filedossier.ddl.DossierModel;
+import ru.ilb.filedossier.ddl.PackageModel;
 import ru.ilb.filedossier.utils.FSUtils;
 
 /**
@@ -39,7 +41,7 @@ import ru.ilb.filedossier.utils.FSUtils;
  *
  * @author slavb
  */
-public class FileDossierModelRepository implements DossierModelRepository {
+public class FileDossierDefinitionRepository implements DossierDefinitionRepository {
 
     private static final String URI_2001_SCHEMA_XSD = "http://www.w3.org/2001/XMLSchema";
     private static final String MODEL_SCHEMA_XSD_PATH = "schemas/filedossier/model.xsd";
@@ -52,10 +54,10 @@ public class FileDossierModelRepository implements DossierModelRepository {
 
     private String modelFileExtension = ".xml";
 
-    public FileDossierModelRepository(URI dossierModelsPath) {
+    public FileDossierDefinitionRepository(URI dossierModelsPath) {
         this.dossierModelsPath = FSUtils.loadFileSystemProvider(dossierModelsPath);
         try {
-            jaxbContext = JAXBContext.newInstance("ru.ilb.filedossier.model");
+            jaxbContext = JAXBContext.newInstance("ru.ilb.filedossier.ddl");
             schema = schemaFactory.newSchema(getClass().getClassLoader().getResource(MODEL_SCHEMA_XSD_PATH));
         } catch (JAXBException | SAXException ex) {
             throw new RuntimeException(ex);

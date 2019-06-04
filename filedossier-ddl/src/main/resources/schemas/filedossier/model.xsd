@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema
     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-    xmlns="urn:ru:ilb:filedossier:model"
+    xmlns="urn:ru:ilb:filedossier:ddl"
     attributeFormDefault="unqualified"
     elementFormDefault="qualified"
-    targetNamespace="urn:ru:ilb:filedossier:model"
+    targetNamespace="urn:ru:ilb:filedossier:ddl"
 >
     <xsd:element name="package" type="package"/>
     <xsd:complexType name="package">

@@ -8,9 +8,9 @@
     </parent>
     
     <groupId>ru.ilb.filedossier</groupId>
-    <artifactId>filedossier-model</artifactId>
+    <artifactId>filedossier-ddl</artifactId>
     <packaging>jar</packaging>
-    <name>filedossier-model</name>
+    <name>filedossier-ddl</name>
     <description>API shared module</description>
     <dependencies>
         <dependency>

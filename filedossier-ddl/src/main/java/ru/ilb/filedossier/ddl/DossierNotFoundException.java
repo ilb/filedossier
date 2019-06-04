@@ -13,18 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ru.ilb.filedossier.model;
-
-import java.net.URI;
+package ru.ilb.filedossier.ddl;
 
 /**
- * Репозиторий моделей досье
+ *
  * @author slavb
  */
-public interface DossierModelRepository {
+public class DossierNotFoundException extends IllegalArgumentException {
 
-    public URI getDossierModelUri(String dossierPackage);
-
-    public DossierModel getDossierModel(String dossierPackage, String dossierCode);
+    public DossierNotFoundException(String dossierCode) {
+        super("Dossier not found: "+ dossierCode);
+    }
 
 }

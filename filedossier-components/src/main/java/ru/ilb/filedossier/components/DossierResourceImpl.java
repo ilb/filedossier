@@ -20,7 +20,7 @@ import java.io.InputStream;
 import javax.ws.rs.core.Response;
 import ru.ilb.filedossier.api.DossierResource;
 import ru.ilb.filedossier.entities.Representation;
-import ru.ilb.filedossier.lib.DossierFactory;
+import ru.ilb.filedossier.core.DossierFactory;
 import ru.ilb.filedossier.mappers.DossierMapper;
 import ru.ilb.filedossier.view.DossierView;
 

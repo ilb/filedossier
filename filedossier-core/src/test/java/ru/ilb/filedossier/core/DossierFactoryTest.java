@@ -23,8 +23,8 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import ru.ilb.filedossier.context.DossierContextImpl;
 import ru.ilb.filedossier.entities.DossierContext;
-import ru.ilb.filedossier.model.FileDossierModelRepository;
-import ru.ilb.filedossier.model.DossierModelRepository;
+import ru.ilb.filedossier.ddl.FileDossierDefinitionRepository;
+import ru.ilb.filedossier.ddl.DossierDefinitionRepository;
 import ru.ilb.filedossier.scripting.SubstitutorTemplateEvaluator;
 import ru.ilb.filedossier.scripting.TemplateEvaluator;
 import ru.ilb.filedossier.store.StoreFactory;
@@ -38,10 +38,10 @@ public class DossierFactoryTest {
     private final DossierFactory dossierFactory;
 
     public static DossierFactory getDossierFactory() {
-        DossierModelRepository dossierModelRepository;
+        DossierDefinitionRepository dossierModelRepository;
         StoreFactory storeFactory;
         try {
-            dossierModelRepository = new FileDossierModelRepository(DossierFactoryTest.class.getClassLoader().getResource("models").toURI());
+            dossierModelRepository = new FileDossierDefinitionRepository(DossierFactoryTest.class.getClassLoader().getResource("models").toURI());
             storeFactory = StoreFactory.newInstance(DossierFactoryTest.class.getClassLoader().getResource("teststoreroot").toURI());
         } catch (URISyntaxException ex) {
             throw new RuntimeException(ex);

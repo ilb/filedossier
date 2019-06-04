@@ -22,10 +22,10 @@ import ru.ilb.filedossier.entities.DossierContext;
 import ru.ilb.filedossier.context.DossierContextBuilder;
 import java.util.List;
 import java.util.stream.Collectors;
-import ru.ilb.filedossier.model.DossierModel;
-import ru.ilb.filedossier.model.DossierFileModel;
-import ru.ilb.filedossier.model.DossierModelRepository;
-import ru.ilb.filedossier.model.RepresentationModel;
+import ru.ilb.filedossier.ddl.DossierModel;
+import ru.ilb.filedossier.ddl.DossierFileModel;
+import ru.ilb.filedossier.ddl.DossierDefinitionRepository;
+import ru.ilb.filedossier.ddl.RepresentationModel;
 import ru.ilb.filedossier.entities.Representation;
 import ru.ilb.filedossier.representation.RepresentationFactory;
 import ru.ilb.filedossier.scripting.TemplateEvaluator;
@@ -41,7 +41,7 @@ public class DossierFactory {
     /**
      * Репозиторий моделей досье
      */
-    private final DossierModelRepository dossierModelRepository;
+    private final DossierDefinitionRepository dossierModelRepository;
 
     /**
      * Файловое хранилище
@@ -66,7 +66,7 @@ public class DossierFactory {
      */
     private final RepresentationFactory representationFactory = new RepresentationFactory();
 
-    public DossierFactory(DossierModelRepository dossierModelRepository, StoreFactory storeFactory, DossierContextBuilder dossierContextBuilder, TemplateEvaluator templateEvaluator) {
+    public DossierFactory(DossierDefinitionRepository dossierModelRepository, StoreFactory storeFactory, DossierContextBuilder dossierContextBuilder, TemplateEvaluator templateEvaluator) {
         this.dossierModelRepository = dossierModelRepository;
         this.storeFactory = storeFactory;
         this.dossierContextBuilder = dossierContextBuilder;

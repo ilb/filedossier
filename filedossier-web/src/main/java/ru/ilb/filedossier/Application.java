@@ -31,9 +31,9 @@ import ru.ilb.common.jaxrs.xml.transform.ServletContextURIResolver;
 import ru.ilb.filedossier.entities.DossierContext;
 import ru.ilb.filedossier.context.DossierContextBuilder;
 import ru.ilb.filedossier.context.DossierContextImpl;
-import ru.ilb.filedossier.lib.DossierFactory;
-import ru.ilb.filedossier.model.DossierModelRepository;
-import ru.ilb.filedossier.model.FileDossierModelRepository;
+import ru.ilb.filedossier.core.DossierFactory;
+import ru.ilb.filedossier.ddl.DossierDefinitionRepository;
+import ru.ilb.filedossier.ddl.FileDossierDefinitionRepository;
 import ru.ilb.filedossier.scripting.SubstitutorTemplateEvaluator;
 import ru.ilb.filedossier.scripting.TemplateEvaluator;
 import ru.ilb.filedossier.store.StoreFactory;
@@ -79,10 +79,10 @@ public class Application { // extends JpaBaseConfiguration
 
     @Bean
     public DossierFactory dossierFactory() {
-        DossierModelRepository dossierModelRepository;
+        DossierDefinitionRepository dossierModelRepository;
         StoreFactory storeFactory;
         try {
-            dossierModelRepository = new FileDossierModelRepository(getClass().getClassLoader().getResource("models").toURI());
+            dossierModelRepository = new FileDossierDefinitionRepository(getClass().getClassLoader().getResource("models").toURI());
             storeFactory = StoreFactory.newInstance(getClass().getClassLoader().getResource("teststoreroot").toURI());
         } catch (URISyntaxException ex) {
             throw new RuntimeException(ex);
