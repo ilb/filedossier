@@ -222,7 +222,6 @@
         <module>filedossier-api</module>
         <module>filedossier-model</module>
         <module>filedossier-components</module>
-        <module>filedossier-lib</module>
         <module>filedossier-store</module>
         <module>filedossier-context</module>
         <module>filedossier-scripting</module>
@@ -232,5 +231,6 @@
         <module>filedossier-test</module>
         <module>filedossier-utils</module>
         <module>filedossier-entities</module>
+        <module>filedossier-core</module>
     </modules>
 </project>

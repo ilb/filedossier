@@ -6,7 +6,7 @@
         <artifactId>filedossier</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <artifactId>filedossier-lib</artifactId>
+    <artifactId>filedossier-core</artifactId>
     <packaging>jar</packaging>
     <dependencies>
         <dependency>
@@ -63,4 +63,5 @@
             <version>${project.version}</version>
         </dependency>
     </dependencies>
+    <name>filedossier-core</name>
 </project>
