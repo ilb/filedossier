@@ -19,8 +19,8 @@ public interface Store {
 
     boolean isExist(String key);
 
-    DossierContext getContext(String key) throws IOException;
-
-    void setContext(String key, DossierContext context) throws IOException;
+//    DossierContext getContext(String key) throws IOException;
+//
+//    void setContext(String key, DossierContext context) throws IOException;
 
 }

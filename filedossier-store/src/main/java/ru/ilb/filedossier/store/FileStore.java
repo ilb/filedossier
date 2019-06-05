@@ -55,7 +55,7 @@ class FileStore implements Store {
     }
 
     /**
-     * Создлать каталоги
+     * Создать каталоги
      */
     private void createStorePath() {
         getStorePath().toFile().mkdirs();
@@ -90,13 +90,5 @@ class FileStore implements Store {
         return "FileStore{" + "storeKey=" + storeKey + ", storeRoot=" + storeRoot + '}';
     }
 
-    @Override
-    public DossierContext getContext(String key) throws IOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
-    @Override
-    public void setContext(String key, DossierContext context) throws IOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }

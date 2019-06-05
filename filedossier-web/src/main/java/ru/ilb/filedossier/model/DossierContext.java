@@ -15,6 +15,8 @@
  */
 package ru.ilb.filedossier.model;
 
+import java.util.HashSet;
+import java.util.Set;
 import org.springframework.data.annotation.Id;
 
 /**
@@ -25,7 +27,9 @@ public class DossierContext {
 
     @Id
     private Long id;
+    
     private String dossierKey;
+    private Set<DossierContextData> dossierContextDatas = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -42,6 +46,14 @@ public class DossierContext {
     public void setDossierKey(String dossierKey) {
         this.dossierKey = dossierKey;
     }
-
-
+    
+    public void addDossierContextData(String key, String value) {
+        dossierContextDatas.add(createContextData(key, value));
+    }
+    
+    private DossierContextData createContextData(String key, String value) {
+        DossierContextData contextData = new DossierContextData(key, value);
+        return contextData;
+    }
+    
 }

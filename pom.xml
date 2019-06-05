@@ -232,5 +232,6 @@
         <module>filedossier-entities</module>
         <module>filedossier-core</module>
         <module>filedossier-ddl</module>
+        <module>filedossier-context-persistance</module>
     </modules>
 </project>

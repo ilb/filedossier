@@ -120,6 +120,11 @@ public class Application { // extends JpaBaseConfiguration
     public NamingStrategy namingStrategy() {
         return new NamingStrategy() {
             @Override
+            public String getReverseColumnName(RelationalPersistentProperty property) {
+		return property.getOwner().getTableName() + "_ID";
+            }
+            
+            @Override
             public String getColumnName(RelationalPersistentProperty property) {
                 Assert.notNull(property, "Property must not be null.");
                 return property.getName().toUpperCase();

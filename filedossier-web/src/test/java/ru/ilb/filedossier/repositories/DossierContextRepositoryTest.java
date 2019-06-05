@@ -17,7 +17,7 @@ package ru.ilb.filedossier.repositories;
 
 import javax.transaction.Transactional;
 import org.junit.Test;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -39,18 +39,21 @@ import ru.ilb.filedossier.model.DossierContext;
 public class DossierContextRepositoryTest {
 
     @Autowired
-    DossierContextRepository dossierContextRepository;
+    DossierContextRepository repository;
 
     public DossierContextRepositoryTest() {
     }
 
     @Test
-    public void testSomeMethod() {
-        DossierContext dc = new DossierContext();
-        dc.setDossierKey("testkey");
-
-        dc = dossierContextRepository.save(dc);
-        System.out.println("dc.id=" + dc.getId());
+    public void testDossierContextWithDataSaved() {
+        DossierContext dossierContext = new DossierContext();
+        dossierContext.setDossierKey("testDossierKey");
+        dossierContext.addDossierContextData("testDataKey", "testValue");
+        dossierContext.addDossierContextData("testDataKey1", "testValue1");
+        
+        dossierContext = repository.save(dossierContext);
+        assertEquals(1, repository.countItemsInDossierContext());
+        assertEquals(2, repository.countItemsInDossierContextData());
     }
 
 }

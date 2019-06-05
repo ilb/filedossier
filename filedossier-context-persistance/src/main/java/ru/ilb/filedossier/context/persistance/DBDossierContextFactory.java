@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 slavb.
+ * Copyright 2019 kuznetsov_me.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,22 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ru.ilb.filedossier.repositories;
+package ru.ilb.filedossier.context.persistance;
 
-import org.springframework.data.jdbc.repository.query.Query;
-import org.springframework.data.repository.CrudRepository;
-import ru.ilb.filedossier.model.DossierContext;
+import ru.ilb.filedossier.entities.DossierContext;
+import ru.ilb.filedossier.entities.DossierContextFactory;
 
-/**
- *
- * @author slavb
- */
-public interface DossierContextRepository extends CrudRepository<DossierContext, Long> {
 
-    @Query("select count(*) from DOSSIERCONTEXT")
-    int countItemsInDossierContext();
-    
-    @Query("select count(*) from DOSSIERCONTEXTDATA")
-    int countItemsInDossierContextData();
+public class DBDossierContextFactory implements DossierContextFactory {
+
+    @Override
+    public DossierContext getContext(String contextKey) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

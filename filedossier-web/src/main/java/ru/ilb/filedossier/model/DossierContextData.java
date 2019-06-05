@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 slavb.
+ * Copyright 2019 kuznetsov_me.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,22 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ru.ilb.filedossier.repositories;
+package ru.ilb.filedossier.model;
 
-import org.springframework.data.jdbc.repository.query.Query;
-import org.springframework.data.repository.CrudRepository;
-import ru.ilb.filedossier.model.DossierContext;
+import org.springframework.data.annotation.Id;
 
 /**
  *
- * @author slavb
+ * @author kuznetsov_me
  */
-public interface DossierContextRepository extends CrudRepository<DossierContext, Long> {
-
-    @Query("select count(*) from DOSSIERCONTEXT")
-    int countItemsInDossierContext();
+public class DossierContextData {
     
-    @Query("select count(*) from DOSSIERCONTEXTDATA")
-    int countItemsInDossierContextData();
+    @Id
+    private Long Id;
     
+    private String contextKey;
+    
+    private String contextValue;
+    
+    DossierContextData(String contextKey, String contextValue) {
+        this.contextKey = contextKey;
+        this.contextValue = contextValue;
+    }
+  
 }
