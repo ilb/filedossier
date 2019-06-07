@@ -23,6 +23,6 @@ import ru.ilb.filedossier.entities.DossierContext;
  */
 public interface DossierContextBuilder {
 
-    public DossierContext createDossierContext(String dossierKey, String dossierCode);
+    public DossierContext createDossierContext(String dossierKey, String dossierPackage, String dossierCode);
 
 }

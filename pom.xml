@@ -57,6 +57,7 @@
         <ilb-common.version>1.29</ilb-common.version>
         <maven-source-plugin.version>2.4</maven-source-plugin.version>
         <maven-javadoc-plugin.version>3.0.1</maven-javadoc-plugin.version>
+        <javax-xml-bind-jaxb-api.version>2.3.1</javax-xml-bind-jaxb-api.version>
     </properties>
     <build>
         <pluginManagement>

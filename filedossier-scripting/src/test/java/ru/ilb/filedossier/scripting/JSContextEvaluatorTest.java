@@ -29,7 +29,7 @@ public class JSContextEvaluatorTest {
 
     private final DossierContextBuilder dossierContextBuilder = new DossierContextBuilder() {
         @Override
-        public DossierContext createDossierContext(String dossierKey, String dossierCode) {
+        public DossierContext createDossierContext(String dossierKey, String dossierPackage, String dossierCode) {
             DossierContext dc = new DossierContextImpl();
             dc.setProperty("name", "Тест имя");
             dc.setProperty("prop", false);
@@ -47,7 +47,7 @@ public class JSContextEvaluatorTest {
     public void testEvaluateStringExpression() {
         System.out.println("evaluateStringExpression");
         String value = "\"test \" + name";
-        DossierContext dossierContext = dossierContextBuilder.createDossierContext(null, null);
+        DossierContext dossierContext = dossierContextBuilder.createDossierContext(null, null, null);
         JSTemplateEvaluator instance = new JSTemplateEvaluator();
         String expResult = "test Тест имя";
         String result = instance.evaluateStringExpression(value, dossierContext);
@@ -61,7 +61,7 @@ public class JSContextEvaluatorTest {
     public void testEvaluateBooleanExpression() {
         System.out.println("evaluateBooleanExpression");
         String value = "!prop";
-        DossierContext dossierContext = dossierContextBuilder.createDossierContext(null, null);
+        DossierContext dossierContext = dossierContextBuilder.createDossierContext(null, null, null);
         JSTemplateEvaluator instance = new JSTemplateEvaluator();
         Boolean expResult = true;
         Boolean result = instance.evaluateBooleanExpression(value, dossierContext);
