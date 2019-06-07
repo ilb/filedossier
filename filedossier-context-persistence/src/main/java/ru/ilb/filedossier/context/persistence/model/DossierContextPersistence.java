@@ -13,9 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ru.ilb.filedossier.model;
+package ru.ilb.filedossier.context.persistence.model;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import org.springframework.data.annotation.Id;
 
@@ -23,12 +24,13 @@ import org.springframework.data.annotation.Id;
  *
  * @author slavb
  */
-public class DossierContext {
+public class DossierContextPersistence {
 
     @Id
     private Long id;
     
-    private String dossierKey;
+    private String contextKey;
+    
     private Set<DossierContextData> dossierContextDatas = new HashSet<>();
 
     public Long getId() {
@@ -39,12 +41,16 @@ public class DossierContext {
         this.id = id;
     }
 
-    public String getDossierKey() {
-        return dossierKey;
+    public String getContextKey() {
+        return contextKey;
     }
 
-    public void setDossierKey(String dossierKey) {
-        this.dossierKey = dossierKey;
+    public void setContextKey(String contextKey) {
+        this.contextKey = contextKey;
+    }
+    
+    public List<DossierContextData> getDossierContextData() {
+        return (List<DossierContextData>) dossierContextDatas;
     }
     
     public void addDossierContextData(String key, String value) {

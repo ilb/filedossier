@@ -13,14 +13,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ru.ilb.filedossier.entities;
+package ru.ilb.filedossier.context.persistence.model;
+
+import org.springframework.data.annotation.Id;
 
 /**
  *
  * @author kuznetsov_me
  */
-public interface DossierContextFactory {
+public class DossierContextData {
     
-    DossierContext getContext(String contextKey);
+    @Id
+    private Long Id;
     
+    private String dataKey;
+    
+    private String dataValue;
+    
+    DossierContextData(String dataKey, String dataValue) {
+        this.dataKey = dataKey;
+        this.dataValue = dataValue;
+    }
+    
+    public String getDataKey() {
+        return dataKey;
+    }
+
+    public String getDataValue() {
+        return dataValue;
+    }
+  
 }

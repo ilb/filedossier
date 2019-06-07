@@ -13,17 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ru.ilb.filedossier.context.persistance;
+package ru.ilb.filedossier.entities;
 
-import ru.ilb.filedossier.entities.DossierContext;
-import ru.ilb.filedossier.entities.DossierContextFactory;
-
-
-public class DBDossierContextFactory implements DossierContextFactory {
-
-    @Override
-    public DossierContext getContext(String contextKey) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+/**
+ *
+ * @author kuznetsov_me
+ */
+public interface DossierContextService {
+    
+    DossierContext getContext(String contextKey);
+    
+    void putContext(DossierContext context);
     
 }

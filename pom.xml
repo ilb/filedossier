@@ -111,18 +111,6 @@
                         </execution>
                     </executions>
                 </plugin>
-                <plugin>
-                    <artifactId>maven-failsafe-plugin</artifactId>
-                    <configuration>
-                        <useSystemClassLoader>false</useSystemClassLoader>
-                    </configuration>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-surefire-plugin</artifactId>
-                    <configuration>
-                        <useSystemClassLoader>false</useSystemClassLoader>
-                    </configuration>
-                </plugin>    
             </plugins>
         </pluginManagement>        
         <!-- to publish site to webdav endpoint -->
@@ -232,6 +220,6 @@
         <module>filedossier-entities</module>
         <module>filedossier-core</module>
         <module>filedossier-ddl</module>
-        <module>filedossier-context-persistance</module>
+        <module>filedossier-context-persistence</module>
     </modules>
 </project>

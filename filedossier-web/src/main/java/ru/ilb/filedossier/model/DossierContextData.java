@@ -26,13 +26,21 @@ public class DossierContextData {
     @Id
     private Long Id;
     
-    private String contextKey;
+    private String dataKey;
     
-    private String contextValue;
+    private String dataValue;
     
-    DossierContextData(String contextKey, String contextValue) {
-        this.contextKey = contextKey;
-        this.contextValue = contextValue;
+    DossierContextData(String dataKey, String dataValue) {
+        this.dataKey = dataKey;
+        this.dataValue = dataValue;
+    }
+    
+    public String getDataKey() {
+        return dataKey;
+    }
+
+    public String getDataValue() {
+        return dataValue;
     }
   
 }

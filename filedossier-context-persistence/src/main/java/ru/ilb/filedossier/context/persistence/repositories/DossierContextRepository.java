@@ -13,20 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ru.ilb.filedossier.repositories;
+package ru.ilb.filedossier.context.persistence.repositories;
 
 import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
+import ru.ilb.filedossier.context.persistence.model.DossierContextPersistence;
 import ru.ilb.filedossier.entities.DossierContext;
-import ru.ilb.filedossier.model.DossierContextPersistence;
-
 
 /**
  *
  * @author slavb
  */
-public interface DossierContextRepository extends CrudRepository<DossierContextPersistence, Long> {
+public interface DossierContextRepository extends CrudRepository<DossierContext, Long> {
 
     @Query("SELECT * FROM filedossier.DOSSIERCONTEXT WHERE CONTEXTKEY=:contextKey") // TODO: change to method query
     DossierContextPersistence findByContextKey(@Param("contextKey") String contextKey);
