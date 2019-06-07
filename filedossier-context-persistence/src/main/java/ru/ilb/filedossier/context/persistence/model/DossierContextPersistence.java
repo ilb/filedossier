@@ -15,19 +15,22 @@
  */
 package ru.ilb.filedossier.context.persistence.model;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Table;
 
 /**
  *
  * @author slavb
  */
+@Table(value = "DOSSIERCONTEXT")
 public class DossierContextPersistence {
 
     @Id
-    private Long id;
+    Long id;
     
     private String contextKey;
     
@@ -50,7 +53,7 @@ public class DossierContextPersistence {
     }
     
     public List<DossierContextData> getDossierContextData() {
-        return (List<DossierContextData>) dossierContextDatas;
+        return new ArrayList<> (dossierContextDatas);
     }
     
     public void addDossierContextData(String key, String value) {

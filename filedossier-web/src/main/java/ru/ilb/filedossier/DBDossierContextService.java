@@ -58,9 +58,6 @@ public class DBDossierContextService implements DossierContextService {
             }
             contextPersistence.addDossierContextData(key, (String) value);
         });
-        
         repository.save(contextPersistence);
     }
-    
-    
 }

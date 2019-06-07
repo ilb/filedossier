@@ -25,8 +25,12 @@ import ru.ilb.filedossier.entities.DossierContextService;
 
 public class DBDossierContextService implements DossierContextService {
 
-    @Autowired //?
-    DossierContextRepository repository;
+    //@Autowired
+    private DossierContextRepository repository;
+
+    public DBDossierContextService(DossierContextRepository repository) {
+        this.repository = repository;
+    }
     
     @Override
     public DossierContext getContext(String contextKey) {
@@ -35,14 +39,23 @@ public class DBDossierContextService implements DossierContextService {
         context.setProperty("contextKey", contextPersistence.getContextKey());
         
         contextPersistence.getDossierContextData().forEach((data) -> {
-            context.setProperty(data.getDataKey(), data.getDataValue());
+            String key = data.getDataKey();
+            String value = data.getDataValue();
+            context.setProperty(key, value);
         });
         return context;
     }
 
-    @Override
+    @Override // exception handling
     public void putContext(DossierContext context) {
-        repository.save(context);
+        DossierContextPersistence contextPersistence = new DossierContextPersistence();
+        context.asMap().forEach((key, value) -> {
+            if (key.equals("contextKey")){
+                contextPersistence.setContextKey((String) value);
+                return;
+            }
+            contextPersistence.addDossierContextData(key, (String) value);
+        });
+        repository.save(contextPersistence);
     }
-    
 }
