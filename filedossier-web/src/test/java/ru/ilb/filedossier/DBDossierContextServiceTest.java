@@ -49,13 +49,16 @@ public class DBDossierContextServiceTest {
     public void testPutDossierContextWithData() {
         
        DBDossierContextService contextService = new DBDossierContextService(dossierContextRepository);
+       
+       // Create test dossier context
        DossierContext context = new DossierContextImpl();
        context.setProperty("contextKey", "testContextKey");
        context.setProperty("testDataKey", "testDataValue");
        context.setProperty("testDataKey1", "testDataValue1");
-       contextService.putContext(context);
        
+       contextService.putContext(context);
        DossierContext result = contextService.getContext("testContextKey");
+       
        assertEquals("testContextKey", result.getProperty("contextKey"));
        assertEquals("testDataValue", result.getProperty("testDataKey"));
     }
@@ -64,7 +67,6 @@ public class DBDossierContextServiceTest {
     public void testGetDossierContextWithData() {
         
        DBDossierContextService contextService = new DBDossierContextService(dossierContextRepository);
-       DossierContext context = new DossierContextImpl();
        
        DossierContext result = contextService.getContext("testContextKey");
        assertEquals("testContextKey", result.getProperty("contextKey"));
