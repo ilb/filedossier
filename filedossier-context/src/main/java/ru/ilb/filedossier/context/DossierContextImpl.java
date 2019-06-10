@@ -28,16 +28,25 @@ import ru.ilb.filedossier.entities.DossierContext;
 public class DossierContextImpl implements Serializable, DossierContext {
 
     private static final long serialVersionUID = 2342354656266614361L;
+    
+    String contextKey;
 
     Map<String, Object> values = new LinkedHashMap<>();
 
-    public DossierContextImpl() {
+    public DossierContextImpl(String contextKey) {
+        this.contextKey = contextKey;
     }
 
-    public DossierContextImpl(Map<String, Object> values) {
+    public DossierContextImpl(String contextKey, Map<String, Object> values) {
+        this.contextKey = contextKey;
         this.values = values;
     }
 
+    @Override
+    public String getContextKey() {
+        return contextKey;
+    }
+    
     @Override
     public Map<String, Object> asMap() {
         return values;

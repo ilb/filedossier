@@ -22,6 +22,8 @@ import java.util.Map;
  * @author slavb
  */
 public interface DossierContext {
+    
+    String getContextKey();
 
     Map<String, Object> asMap();
 

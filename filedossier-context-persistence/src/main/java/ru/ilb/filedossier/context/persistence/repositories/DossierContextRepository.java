@@ -19,6 +19,7 @@ import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import ru.ilb.filedossier.context.persistence.model.DossierContextPersistence;
+import ru.ilb.filedossier.entities.DossierContext;
 
 /**
  *

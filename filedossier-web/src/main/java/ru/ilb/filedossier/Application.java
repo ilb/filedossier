@@ -77,7 +77,7 @@ public class Application { // extends JpaBaseConfiguration
         }
 
         DossierContextBuilder dossierContextBuilder = (String dossierKey, String dossierPackage, String dossierCode) -> {
-            DossierContext dc = new DossierContextImpl();
+            DossierContext dc = new DossierContextImpl("contextKey");
             dc.setProperty("name", "Тест имя");
             dc.setProperty("prop", false);
             return dc;

@@ -28,9 +28,9 @@ public class DossierContextData {
     
     private String dataKey;
     
-    private String dataValue;
+    private Object dataValue;
     
-    DossierContextData(String dataKey, String dataValue) {
+    DossierContextData(String dataKey, Object dataValue) {
         this.dataKey = dataKey;
         this.dataValue = dataValue;
     }
@@ -39,7 +39,7 @@ public class DossierContextData {
         return dataKey;
     }
 
-    public String getDataValue() {
+    public Object getDataValue() {
         return dataValue;
     }
   

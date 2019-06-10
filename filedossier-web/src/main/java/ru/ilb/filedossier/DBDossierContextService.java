@@ -37,7 +37,7 @@ public class DBDossierContextService implements DossierContextService {
     @Override
     public DossierContext getContext(String contextKey) {
         DossierContextPersistence contextPersistence = repository.findByContextKey(contextKey);
-        DossierContext context = new DossierContextImpl();
+        DossierContext context = new DossierContextImpl("contextKey");
         context.setProperty("contextKey", contextPersistence.getContextKey());
         
         contextPersistence.getDossierContextData().forEach((data) -> {

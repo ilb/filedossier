@@ -30,7 +30,7 @@ public class JSContextEvaluatorTest {
     private final DossierContextBuilder dossierContextBuilder = new DossierContextBuilder() {
         @Override
         public DossierContext createDossierContext(String dossierKey, String dossierPackage, String dossierCode) {
-            DossierContext dc = new DossierContextImpl();
+            DossierContext dc = new DossierContextImpl("testContextKey");
             dc.setProperty("name", "Тест имя");
             dc.setProperty("prop", false);
             return dc;

@@ -43,32 +43,35 @@ public class DBDossierContextServiceTest {
     @Autowired
     DossierContextRepository dossierContextRepository;
 
+    public DBDossierContextServiceTest() {
+    }
+
     @Test
     public void testPutDossierContextWithData() {
-        
-       DBDossierContextService contextService = new DBDossierContextService(dossierContextRepository);
-       
        // Create test dossier context
-       DossierContext context = new DossierContextImpl();
-       context.setProperty("contextKey", "testContextKey");
+       DBDossierContextService contextService = new DBDossierContextService(dossierContextRepository);
+       DossierContext context = new DossierContextImpl("testContextKey");
        context.setProperty("testDataKey", "testDataValue");
        context.setProperty("testDataKey1", "testDataValue1");
        
        contextService.putContext(context);
        DossierContext result = contextService.getContext("testContextKey");
        
-       assertEquals("testContextKey", result.getProperty("contextKey"));
+       assertEquals("testContextKey", result.getContextKey());
        assertEquals("testDataValue", result.getProperty("testDataKey"));
     }
     
     @Test
-    public void testGetDossierContextWithData() {
-        
+    public void testMergeDossierContexts() {       
        DBDossierContextService contextService = new DBDossierContextService(dossierContextRepository);
+       DossierContext context = new DossierContextImpl("testContextKey");
+       context.setProperty("testDataKey2", "testDataValue2");
+       context.setProperty("testDataKey3", "testDataValue3");
+       contextService.mergeContexts(context);
        
        DossierContext result = contextService.getContext("testContextKey");
-       assertEquals("testContextKey", result.getProperty("contextKey"));
-       assertEquals("testDataValue", result.getProperty("testDataKey"));
+       assertEquals("testContextKey", result.getContextKey());
+       assertEquals("testDataValue2", result.getProperty("testDataKey2"));
     }
     
 }
