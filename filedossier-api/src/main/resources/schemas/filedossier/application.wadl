@@ -49,7 +49,15 @@
                     </request>
                     <response status="204"></response>
                 </method>
-
+<!--                <method name="POST" id="uploadContents">
+                    <doc>store dossier file contents</doc>
+                    <request>
+                        <representation mediaType="multipart/form-data" >
+                            <doc>file data</doc>
+                        </representation>
+                    </request>
+                    <response status="204"></response>
+                </method>-->
             </resource>
 
 

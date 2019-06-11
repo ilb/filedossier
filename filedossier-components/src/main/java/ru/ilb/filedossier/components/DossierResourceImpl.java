@@ -18,6 +18,7 @@ package ru.ilb.filedossier.components;
 import java.io.IOException;
 import java.io.InputStream;
 import javax.ws.rs.core.Response;
+import org.apache.cxf.jaxrs.ext.multipart.MultipartBody;
 import ru.ilb.filedossier.api.DossierResource;
 import ru.ilb.filedossier.entities.Representation;
 import ru.ilb.filedossier.core.DossierFactory;
@@ -53,7 +54,7 @@ public class DossierResourceImpl implements DossierResource {
     public Response getContents(String fileCode) {
         Representation representation = this.dossier.getDossierFile(fileCode).getRepresentation();
         return Response.ok(representation.getContents())
-                .header("Content-Type",representation.getMediaType())
+                .header("Content-Type", representation.getMediaType())
                 .header("Content-Disposition", "attachment; filename=" + representation.getFileName()).build();
 
     }
@@ -65,6 +66,11 @@ public class DossierResourceImpl implements DossierResource {
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
+    }
+
+    @Override
+    public void uploadContents(String fileCode, MultipartBody body) {
+        this.dossier.getDossierFile(fileCode).setContents(body.getRootAttachment().getObject(byte[].class));
     }
 
 }

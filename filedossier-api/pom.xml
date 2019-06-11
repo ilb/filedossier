@@ -27,15 +27,12 @@
             <artifactId>jaxb-api</artifactId>
             <version>${javax-xml-bind-jaxb-api.version}</version>
         </dependency> 
-        <!-- dependency for <representation mediaType="multipart/form-data" />  
-        <dependency>
+        <!-- dependency for <representation mediaType="multipart/form-data" />  -->
+        <!--        <dependency>
             <groupId>org.apache.cxf</groupId>
             <artifactId>cxf-rt-frontend-jaxrs</artifactId>
             <version>${apache-cxf.version}</version>
-            <scope>compile</scope>
-        </dependency>        
-        -->
-        
+        </dependency>        -->
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
@@ -156,11 +153,12 @@
         <profile>
             <id>swagger-maven-plugin</id>
             <activation>
-                <activeByDefault>false</activeByDefault>
+                <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
                 <!--<openapi.generated.path>${project.build.outputDirectory}/META-INF/resources/filedossier</openapi.generated.path>-->
-                <openapi.generated.path>${project.build.outputDirectory}/filedossier-api</openapi.generated.path>
+                <!--<openapi.generated.path>${project.build.outputDirectory}/filedossier-api</openapi.generated.path>-->
+                <openapi.generated.path>${project.build.directory}/generated-sources/openapi-spec</openapi.generated.path>
             </properties>
             <build>
                 <plugins>
@@ -176,6 +174,7 @@
                                 <package>ru.ilb.filedossier.api</package>
                             </resourcePackages>
                             <prettyPrint>TRUE</prettyPrint>
+                            <objectMapperProcessorClass>ru.ilb.common.openapi.generator.JaxbObjectMapperProcessor</objectMapperProcessorClass>
                         </configuration>
                         <executions>
                             <execution>
@@ -186,6 +185,13 @@
                                 </goals>
                             </execution>
                         </executions>
+                        <dependencies>
+                            <dependency>
+                                <groupId>ru.ilb.common</groupId>
+                                <artifactId>common-openapi</artifactId>
+                                <version>${ilb-common.version}</version>
+                            </dependency>
+                        </dependencies>
                     </plugin>
                 </plugins>
             </build>
@@ -193,7 +199,7 @@
         <profile>
             <id>openapi-generator-maven-plugin</id>
             <activation>
-                <activeByDefault>false</activeByDefault>
+                <activeByDefault>true</activeByDefault>
             </activation>
             <build>
                 <plugins>
@@ -210,9 +216,11 @@
                                 <configuration>
                                     <inputSpec>${openapi.generated.path}/openapi.json</inputSpec>
                                     <skipValidateSpec>true</skipValidateSpec>
-                                    <generatorName>php</generatorName>
+                                    <!--<generatorName>php</generatorName>-->
+                                    <!--<generatorName>typescript-fetch</generatorName>-->
+                                    <generatorName>javascript</generatorName>
                                     <configOptions>
-                                        <!--<sourceFolder>src/gen/java/main</sourceFolder>-->
+                                        <usePromises>true</usePromises>
                                     </configOptions>
                                 </configuration>
                             </execution>
