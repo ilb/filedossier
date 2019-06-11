@@ -39,8 +39,7 @@ public class JsonXmlRepresentation extends IdentityRepresentation {
         String xml = XML.toString(json,"root");
         return xml.getBytes();
     }
-
-
+    
     @Override
     public String getExtension() {
         return "xml";

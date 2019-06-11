@@ -46,6 +46,7 @@ public class JsonXmlRepresentationTest {
 
         JsonXmlRepresentation instance = new JsonXmlRepresentation();
         instance.setParent(contents);
+        
 
         String expResult = new String(Files.readAllBytes(Paths.get(dataXmlUri)));
         String result = new String(instance.getContents());

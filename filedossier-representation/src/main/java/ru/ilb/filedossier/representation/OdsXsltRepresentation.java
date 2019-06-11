@@ -116,15 +116,10 @@ public class OdsXsltRepresentation extends IdentityRepresentation {
     }
 
     @Override
-    public void setContents(byte[] data) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
     public String getExtension() {
         return "ods";
     }
-
+    
     @Override
     public void setParent(DossierPath parent) {
         assert DossierContents.class.isAssignableFrom(parent.getClass()) : "DossierContents instance should be passed as argument instead of " + parent.getClass().getCanonicalName();
@@ -142,8 +137,5 @@ public class OdsXsltRepresentation extends IdentityRepresentation {
             default:
                 throw new IllegalArgumentException("Media type " + dossierContents.getMediaType() + " is unsupported by OdsXsltRepresentation");
         }
-
-        
     }
-
 }
