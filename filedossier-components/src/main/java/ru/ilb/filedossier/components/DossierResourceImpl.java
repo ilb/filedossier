@@ -17,6 +17,10 @@ package ru.ilb.filedossier.components;
 
 import java.io.IOException;
 import java.io.InputStream;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
 import org.apache.cxf.jaxrs.ext.multipart.MultipartBody;
 import ru.ilb.filedossier.api.DossierResource;
@@ -68,8 +72,10 @@ public class DossierResourceImpl implements DossierResource {
         }
     }
 
-    @Override
-    public void uploadContents(String fileCode, MultipartBody body) {
+    @POST
+    @Consumes("multipart/form-data")
+    @Path("/dossierfiles/{fileCode}")
+    public void uploadContents(@PathParam("fileCode") String fileCode, MultipartBody body) {
         this.dossier.getDossierFile(fileCode).setContents(body.getRootAttachment().getObject(byte[].class));
     }
 

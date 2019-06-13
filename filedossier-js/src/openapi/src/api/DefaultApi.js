@@ -13,7 +13,7 @@
 
 
 import ApiClient from "../ApiClient";
-import DossierView from '../model/DossierView';
+import Dossier from '../model/Dossier';
 
 /**
 * Default service.
@@ -34,22 +34,15 @@ export default class DefaultApi {
     }
 
 
-    /**
-     * Callback function to receive the result of the getContents operation.
-     * @callback module:api/DefaultApi~getContentsCallback
-     * @param {String} error Error message, if any.
-     * @param data This operation does not return a value.
-     * @param {String} response The complete HTTP response.
-     */
 
     /**
      * @param {String} fileCode 
      * @param {String} dossierKey 
      * @param {String} dossierPackage 
      * @param {String} dossierCode 
-     * @param {module:api/DefaultApi~getContentsCallback} callback The callback function, accepting three arguments: error, data, response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
      */
-    getContents(fileCode, dossierKey, dossierPackage, dossierCode, callback) {
+    getContentsWithHttpInfo(fileCode, dossierKey, dossierPackage, dossierCode) {
       let postBody = null;
       // verify the required parameter 'fileCode' is set
       if (fileCode === undefined || fileCode === null) {
@@ -88,26 +81,32 @@ export default class DefaultApi {
       return this.apiClient.callApi(
         '/dossiers/{dossierKey}/{dossierPackage}/{dossierCode}/dossierfiles/{fileCode}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the getDossier operation.
-     * @callback module:api/DefaultApi~getDossierCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/DossierView} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * @param {String} fileCode 
+     * @param {String} dossierKey 
+     * @param {String} dossierPackage 
+     * @param {String} dossierCode 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
+    getContents(fileCode, dossierKey, dossierPackage, dossierCode) {
+      return this.getContentsWithHttpInfo(fileCode, dossierKey, dossierPackage, dossierCode)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * @param {String} dossierKey 
      * @param {String} dossierPackage 
      * @param {String} dossierCode 
-     * @param {module:api/DefaultApi~getDossierCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/DossierView}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Dossier} and HTTP response
      */
-    getDossier(dossierKey, dossierPackage, dossierCode, callback) {
+    getDossierWithHttpInfo(dossierKey, dossierPackage, dossierCode) {
       let postBody = null;
       // verify the required parameter 'dossierKey' is set
       if (dossierKey === undefined || dossierKey === null) {
@@ -137,21 +136,27 @@ export default class DefaultApi {
       let authNames = [];
       let contentTypes = [];
       let accepts = ['application/xml', 'application/json', 'application/xhtml+xml'];
-      let returnType = DossierView;
+      let returnType = Dossier;
       return this.apiClient.callApi(
         '/dossiers/{dossierKey}/{dossierPackage}/{dossierCode}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the setContents operation.
-     * @callback module:api/DefaultApi~setContentsCallback
-     * @param {String} error Error message, if any.
-     * @param data This operation does not return a value.
-     * @param {String} response The complete HTTP response.
+     * @param {String} dossierKey 
+     * @param {String} dossierPackage 
+     * @param {String} dossierCode 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Dossier}
      */
+    getDossier(dossierKey, dossierPackage, dossierCode) {
+      return this.getDossierWithHttpInfo(dossierKey, dossierPackage, dossierCode)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * @param {String} fileCode 
@@ -160,9 +165,9 @@ export default class DefaultApi {
      * @param {String} dossierCode 
      * @param {Object} opts Optional parameters
      * @param {Object} opts.body 
-     * @param {module:api/DefaultApi~setContentsCallback} callback The callback function, accepting three arguments: error, data, response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
      */
-    setContents(fileCode, dossierKey, dossierPackage, dossierCode, opts, callback) {
+    setContentsWithHttpInfo(fileCode, dossierKey, dossierPackage, dossierCode, opts) {
       opts = opts || {};
       let postBody = opts['body'];
       // verify the required parameter 'fileCode' is set
@@ -202,8 +207,24 @@ export default class DefaultApi {
       return this.apiClient.callApi(
         '/dossiers/{dossierKey}/{dossierPackage}/{dossierCode}/dossierfiles/{fileCode}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
+    }
+
+    /**
+     * @param {String} fileCode 
+     * @param {String} dossierKey 
+     * @param {String} dossierPackage 
+     * @param {String} dossierCode 
+     * @param {Object} opts Optional parameters
+     * @param {Object} opts.body 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     */
+    setContents(fileCode, dossierKey, dossierPackage, dossierCode, opts) {
+      return this.setContentsWithHttpInfo(fileCode, dossierKey, dossierPackage, dossierCode, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
     }
 
 

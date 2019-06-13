@@ -1,43 +1,20 @@
 import React, { Suspense, useState, useEffect, useRef } from 'react';
-import { Table, Button } from 'semantic-ui-react'
+import { Table, Button,Message,Loader } from 'semantic-ui-react';
+import {dossierApi} from './Config';
+import {useResource} from './ReactHelper';
 
-
-
-        function useDossier(props) {
-            const [dossier, setDossier] = useState(null);
-            const {dossierKey, dossierPackage, dossierCode} = props;
-
-
-
-            const getDossier = async function () {
-                const response = await fetch('/filedossier-web/web/dossiers/' + dossierKey + '/' + dossierPackage + '/' + dossierCode + '.json'); // Uses dossierId prop
-                const json = await response.json();
-                setDossier(json);
-            };
-
-            const setContents = async function (fileCode, formData) {
-                const response = await fetch('/filedossier-web/web/dossiers/' + dossierKey + '/' + dossierPackage + '/' + dossierCode + '/dossierfiles/' + fileCode,
-                        {
-                            method: 'POST',
-                            body: formData
-                        });
-            };
-
-            useEffect(() => {
-                getDossier();
-            }, [dossierKey, dossierPackage, dossierCode]); // Or [] if effect doesn't need props or state
-
-            return {dossier, resource: {getDossier, setContents}};
-        }
 
 function Dossier( { dossierKey, dossierPackage, dossierCode }) {
-    const {dossier, resource} = useDossier({dossierKey, dossierPackage, dossierCode})
 
+    const [dossier, resource] = useResource(dossierApi, "getDossier", [dossierKey, dossierPackage, dossierCode]);
+    console.log('dossier', dossier);
     return (
             <div className="fileDosser">
-                {dossier && <div>
-                    Name: {dossier.name}
-                    {dossier.dossierFile &&
+                {dossier.loading && <Loader active /> }
+                {dossier.error && <Message error visible content={dossier.error}/> }
+                {dossier.value && <div>
+                    Name: {dossier.value.name}
+                    {dossier.value.dossierFile &&
                                     <Table celled>
                                         <Table.Header>
                                             <Table.Row>
@@ -47,20 +24,14 @@ function Dossier( { dossierKey, dossierPackage, dossierCode }) {
                                         </Table.Header>
 
                                         <Table.Body>
-                                            {dossier.dossierFile.map((file) => <DossierFile file={file} key={file.code} resource={resource}/>)}
+                                            {dossier.value.dossierFile.map((file) => <DossierFile file={file} key={file.code} resource={resource}/>)}
                                         </Table.Body>
                                     </Table>
                     }
 
-
-
                 </div>}
             </div>
             );
-
-
-
-    //return <div>1111</div>;
 }
 
 function DossierFile( { file: { code, name }, resource }) {

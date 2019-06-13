@@ -13,8 +13,8 @@
 
 
 import ApiClient from './ApiClient';
-import DossierFileView from './model/DossierFileView';
-import DossierView from './model/DossierView';
+import Dossier from './model/Dossier';
+import DossierFile from './model/DossierFile';
 import DefaultApi from './api/DefaultApi';
 
 
@@ -57,16 +57,16 @@ export {
     ApiClient,
 
     /**
-     * The DossierFileView model constructor.
-     * @property {module:model/DossierFileView}
+     * The Dossier model constructor.
+     * @property {module:model/Dossier}
      */
-    DossierFileView,
+    Dossier,
 
     /**
-     * The DossierView model constructor.
-     * @property {module:model/DossierView}
+     * The DossierFile model constructor.
+     * @property {module:model/DossierFile}
      */
-    DossierView,
+    DossierFile,
 
     /**
     * The DefaultApi service constructor.

@@ -26,13 +26,12 @@ let fileCode = "fileCode_example"; // String |
 let dossierKey = "dossierKey_example"; // String | 
 let dossierPackage = "dossierPackage_example"; // String | 
 let dossierCode = "dossierCode_example"; // String | 
-apiInstance.getContents(fileCode, dossierKey, dossierPackage, dossierCode, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully.');
-  }
+apiInstance.getContents(fileCode, dossierKey, dossierPackage, dossierCode).then(() => {
+  console.log('API called successfully.');
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -61,7 +60,7 @@ No authorization required
 
 ## getDossier
 
-> DossierView getDossier(dossierKey, dossierPackage, dossierCode)
+> Dossier getDossier(dossierKey, dossierPackage, dossierCode)
 
 
 
@@ -74,13 +73,12 @@ let apiInstance = new OpenapiJsClient.DefaultApi();
 let dossierKey = "dossierKey_example"; // String | 
 let dossierPackage = "dossierPackage_example"; // String | 
 let dossierCode = "dossierCode_example"; // String | 
-apiInstance.getDossier(dossierKey, dossierPackage, dossierCode, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getDossier(dossierKey, dossierPackage, dossierCode).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -94,7 +92,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DossierView**](DossierView.md)
+[**Dossier**](Dossier.md)
 
 ### Authorization
 
@@ -125,13 +123,12 @@ let dossierCode = "dossierCode_example"; // String |
 let opts = {
   'body': null // Object | 
 };
-apiInstance.setContents(fileCode, dossierKey, dossierPackage, dossierCode, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully.');
-  }
+apiInstance.setContents(fileCode, dossierKey, dossierPackage, dossierCode, opts).then(() => {
+  console.log('API called successfully.');
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters

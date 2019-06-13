@@ -105,14 +105,12 @@ var fileCode = "fileCode_example"; // {String}
 var dossierKey = "dossierKey_example"; // {String} 
 var dossierPackage = "dossierPackage_example"; // {String} 
 var dossierCode = "dossierCode_example"; // {String} 
-var callback = function(error, data, response) {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully.');
-  }
-};
-api.getContents(fileCode, dossierKey, dossierPackage, dossierCode, callback);
+api.getContents(fileCode, dossierKey, dossierPackage, dossierCode).then(function() {
+  console.log('API called successfully.');
+}, function(error) {
+  console.error(error);
+});
+
 
 ```
 
@@ -129,8 +127,8 @@ Class | Method | HTTP request | Description
 
 ## Documentation for Models
 
- - [OpenapiJsClient.DossierFileView](docs/DossierFileView.md)
- - [OpenapiJsClient.DossierView](docs/DossierView.md)
+ - [OpenapiJsClient.Dossier](docs/Dossier.md)
+ - [OpenapiJsClient.DossierFile](docs/DossierFile.md)
 
 
 ## Documentation for Authorization
