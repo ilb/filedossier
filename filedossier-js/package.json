@@ -1,7 +1,32 @@
 {
   "name": "@ilb/filedossier-js",
+  "version": "0.1.3",
+  "description": "Файловое досье",
+  "main": "lib/index.js",
+  "module": "lib/index.js",
+  "author": "slavb18 <slavb@bystrobank.ru>",
   "homepage": "/filedossier-js",
-  "version": "0.1.2",
+  "proxy": "http://localhost:8080",
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "build-lib": "cross-env NODE_ENV=production && rimraf lib && mkdir lib && npx babel src --out-dir lib --copy-files",
+    "prepack": "npm run build-lib",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ilb/filedossier/tree/master/filedossier-js"
+  },
+  "babel": {
+    "presets": [
+      "@babel/react"
+    ],
+    "plugins": [
+      "@babel/plugin-proposal-class-properties"
+    ]
+  },
   "dependencies": {
     "@bb/semantic-ui-css": "^2.2.12",
     "@ilb/filedossier-api": "^1.0.0",
@@ -13,16 +38,17 @@
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.0.1",
     "semantic-ui-react": "^0.87.1",
-    "superagent": "^5.0.6",
     "whatwg-fetch": "^3.0.0"
   },
-  "proxy": "http://localhost:8080",
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+  "devDependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/plugin-proposal-class-properties": "^7.4.4",
+    "cross-env": "^5.2.0",
+    "rimraf": "^2.6.3"
   },
+  "files": [
+    "lib"
+  ],
   "eslintConfig": {
     "extends": "react-app"
   },

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { ApiClient, DefaultApi } from './openapi/src';
 import { Table, Button } from 'semantic-ui-react'
 
-        class Dossier extends Component {
+class Dossier extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -67,32 +67,29 @@ import { Table, Button } from 'semantic-ui-react'
         }
 
         return (
-                <div className="fileDosser">
-                    {value && <div>
-                        Name: {value.name}
-                        {value.dossierFile &&
-                                            <Table celled>
-                                                <Table.Header>
-                                                    <Table.Row>
-                                                        <Table.HeaderCell>Файл</Table.HeaderCell>
-                                                        <Table.HeaderCell>Действие</Table.HeaderCell>
-                                                    </Table.Row>
-                                                </Table.Header>
+            <div className="fileDosser">
+                {value && <div>
+                    Name: {value.name}
+                    {value.dossierFile &&
+                        <Table celled>
+                            <Table.Header>
+                                <Table.Row>
+                                    <Table.HeaderCell>Файл</Table.HeaderCell>
+                                    <Table.HeaderCell>Действие</Table.HeaderCell>
+                                </Table.Row>
+                            </Table.Header>
 
-                                                <Table.Body>
-                                                    {value.dossierFile.map((file, index) => <Table.Row key={index}>
-                                                        <Table.Cell>{file.name}</Table.Cell>
-                                                        <Table.Cell><Button data-code={file.code} onClick={this.removeDossierFile} content="Удалить"/></Table.Cell>
-                                                    </Table.Row>)}
-                                                </Table.Body>
-                                            </Table>
-                        }
-
-
-
-                    </div>}
-                </div>
-                );
+                            <Table.Body>
+                                {value.dossierFile.map((file, index) => <Table.Row key={index}>
+                                    <Table.Cell>{file.name}</Table.Cell>
+                                    <Table.Cell><Button data-code={file.code} onClick={this.removeDossierFile} content="Удалить"/></Table.Cell>
+                                </Table.Row>)}
+                            </Table.Body>
+                        </Table>
+                    }
+                </div>}
+            </div>
+        );
     }
 }
 

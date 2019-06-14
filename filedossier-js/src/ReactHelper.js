@@ -1,4 +1,4 @@
-import { useState, useEffect} from 'react';
+import { useState } from 'react';
 
 export function useResource(source) {
     const [data, setData] = useState({value: null, error: null, loading: false});
@@ -13,6 +13,6 @@ export function useResource(source) {
             setData({value: null, error: e.statusText, loading: false});
         }
     };
-    
+
     return [data, fetch];
 }
