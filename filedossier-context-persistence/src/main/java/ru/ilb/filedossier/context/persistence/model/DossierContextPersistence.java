@@ -15,15 +15,12 @@
  */
 package ru.ilb.filedossier.context.persistence.model;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
-import ru.ilb.filedossier.entities.DossierContext;
 
 /**
  *
@@ -34,40 +31,41 @@ public class DossierContextPersistence {
 
     @Id
     Long id;
-    
+
     private String contextKey;
-    
+
     private Set<DossierContextData> dossierContextDatas = new HashSet<>();
 
-    public DossierContextPersistence(){}
-    
+    public DossierContextPersistence() {
+    }
+
     public DossierContextPersistence(String contextKey, Map<String, Object> properties) {
-        this.contextKey = contextKey;
-        properties.forEach((key, value)-> {
-            dossierContextDatas.add(new DossierContextData(key, (String) value));
-        });
+	this.contextKey = contextKey;
+	properties.forEach((key, value) -> {
+	    dossierContextDatas.add(new DossierContextData(key, (String) value));
+	});
     }
 
     public Long getId() {
-        return id;
+	return id;
     }
 
     public void setId(Long id) {
-        this.id = id;
+	this.id = id;
     }
-    
+
     public String getContextKey() {
-        return contextKey;
+	return contextKey;
     }
 
     public Map<String, Object> asMap() {
-        return dossierContextDatas.stream()
-                .collect(Collectors.toMap(data -> data.getDataKey(), data -> data.getDataValue()));
+	return dossierContextDatas.stream()
+		.collect(Collectors.toMap(data -> data.getDataKey(), data -> data.getDataValue()));
     }
-    
+
     private DossierContextData createContextData(String key, Object value) {
-        DossierContextData contextData = new DossierContextData(key, value);
-        return contextData;
+	DossierContextData contextData = new DossierContextData(key, value);
+	return contextData;
     }
-    
+
 }

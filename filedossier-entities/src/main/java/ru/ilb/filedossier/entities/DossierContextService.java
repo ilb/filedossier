@@ -20,9 +20,11 @@ package ru.ilb.filedossier.entities;
  * @author kuznetsov_me
  */
 public interface DossierContextService {
-    
+
     DossierContext getContext(String contextKey);
-    
+
     void putContext(DossierContext context);
-    
+
+    void mergeContext(DossierContext context);
+
 }

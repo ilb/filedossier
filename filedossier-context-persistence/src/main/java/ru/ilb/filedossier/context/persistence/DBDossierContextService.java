@@ -22,37 +22,35 @@ import ru.ilb.filedossier.context.persistence.repositories.DossierContextReposit
 import ru.ilb.filedossier.entities.DossierContext;
 import ru.ilb.filedossier.entities.DossierContextService;
 
-
 public class DBDossierContextService implements DossierContextService {
-    
+
     private DossierContextRepository repository;
 
     public DBDossierContextService(DossierContextRepository repository) {
-        this.repository = repository;
+	this.repository = repository;
     }
-    
+
     @Override
     public DossierContext getContext(String contextKey) {
-        DossierContextPersistence contextPersistence = repository.findByContextKey(contextKey);
-        DossierContextImpl context = 
-                new DossierContextImpl(contextPersistence.getContextKey(), contextPersistence.asMap());
-        return context;
+	DossierContextPersistence contextPersistence = repository.findByContextKey(contextKey);
+	DossierContextImpl context = new DossierContextImpl(contextPersistence.getContextKey(),
+		contextPersistence.asMap());
+	return context;
     }
 
     @Override
     public void putContext(DossierContext context) throws DbActionExecutionException {
-        DossierContextPersistence contextPersistence = 
-                new DossierContextPersistence(context.getContextKey(), context.asMap());
-        repository.save(contextPersistence);
+	DossierContextPersistence contextPersistence = new DossierContextPersistence(context.getContextKey(),
+		context.asMap());
+	repository.save(contextPersistence);
     }
-    
-    public void mergeContexts(DossierContext context) {
-        DossierContextPersistence oldContext = 
-                repository.findByContextKey(context.getContextKey());
-        DossierContextPersistence newContext = 
-                new DossierContextPersistence(context.getContextKey(), context.asMap());
-        newContext.setId(oldContext.getId());
-        repository.save(newContext);
+
+    @Override
+    public void mergeContext(DossierContext context) {
+	DossierContextPersistence oldContext = repository.findByContextKey(context.getContextKey());
+	DossierContextPersistence newContext = new DossierContextPersistence(context.getContextKey(), context.asMap());
+	newContext.setId(oldContext.getId());
+	repository.save(newContext);
     }
-    
+
 }
