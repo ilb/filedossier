@@ -23,37 +23,11 @@
     exclude-result-prefixes="fo pt"
     version="1.0">
 
-    <!-- <xsl:import href="subdirtest1/imagetest.xsl" /> -->
-    <!-- <xsl:import href="subdirtest1/documenttest.xsl" /> -->
+    <xsl:import href="subdirtest1/imagetest.xsl" />
+    <xsl:import href="subdirtest1/documenttest.xsl" />
     <xsl:output method="xml" version="1.0" omit-xml-declaration="no" indent="yes"/>
     <xsl:param name="versionParam" select="'1.0'"/>
-	
-	<xsl:template name="big.jpg">
-        <fo:block text-align="right">
-            <!--
-            путь в src относительно xml-документа, к которому применяется xsl, не самого xsl-шаблона!
-            -->
-            <fo:external-graphic
-                src='url("images/big.jpg")'
-                content-height="scale-to-fit"
-                content-width="scale-to-fit"
-                scaling="uniform"
-                width="10cm" />
-        </fo:block>
-    </xsl:template>
-	
-	<xsl:template name="fopconf.xml">
-        <!--
-        The current directory for xsl:import, xsl:include, and the document() function is the directory containing the transform that uses them.
-        путь в document() относительно текущего шаблона!
-        -->
-        <!--
-        <fo:block background-color="yellow">
-            document():<xsl:value-of select="document('../../fopconf.xml')"/>
-        </fo:block>
-        -->
-    </xsl:template>
-	
+    
     <!-- ========================= -->
     <!-- root element: projectteam -->
     <!-- ========================= -->

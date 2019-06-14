@@ -36,6 +36,16 @@
         <artifactId>httpclient</artifactId>
         <version>4.5.8</version>
         </dependency>
+        <dependency>
+            <groupId>ru.bb.pdfgen</groupId>
+            <artifactId>pdfgen-resources</artifactId>
+            <version>1.16-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.xmlgraphics</groupId>
+            <artifactId>fop</artifactId>
+            <version>2.2</version>
+        </dependency>
 <!--        <dependency>
             <groupId>org.apache.cxf</groupId>
             <artifactId>cxf-rt-rs-json-basic</artifactId>
@@ -44,4 +54,35 @@
         </dependency>-->
 
     </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>2.10</version>
+                <executions>
+                    <execution>
+                        <id>unpack</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>ru.bb.pdfgen</groupId>
+                                    <artifactId>pdfgen-resources</artifactId>
+                                    <version>${pdfgen.version}</version>
+                                    <type>jar</type>
+                                    <overWrite>false</overWrite>
+                                    <outputDirectory>${project.build.directory}/test-classes</outputDirectory>
+                                    <includes>fop/**</includes>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build> 
 </project>

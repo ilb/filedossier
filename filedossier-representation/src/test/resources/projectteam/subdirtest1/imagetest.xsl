@@ -11,7 +11,7 @@
             путь в src относительно xml-документа, к которому применяется xsl, не самого xsl-шаблона!
             -->
             <fo:external-graphic
-                src='url("images/big.jpg")'
+                src="url('../projectteam/images/big.jpg')"
                 content-height="scale-to-fit"
                 content-width="scale-to-fit"
                 scaling="uniform"
