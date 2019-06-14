@@ -1,4 +1,4 @@
-import { ApiClient, DefaultApi } from './openapi/src';
+import { ApiClient, DefaultApi } from '@ilb/filedossier-api/dist';
 
 const client = new ApiClient();
 client.basePath = '/filedossier-web/web';

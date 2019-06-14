@@ -1,8 +1,10 @@
 {
-  "name": "filedossier-js",
+  "name": "@ilb/filedossier-js",
   "homepage": "/filedossier-js",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "dependencies": {
+    "@bb/semantic-ui-css": "^2.2.12",
+    "@ilb/filedossier-api": "^1.0.0",
     "formik": "^1.5.7",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",

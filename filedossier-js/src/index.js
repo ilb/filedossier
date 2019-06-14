@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import 'whatwg-fetch';
-//import '../public/semantic-ui/semantic.min.css';
+import '@bb/semantic-ui-css/semantic.min.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
