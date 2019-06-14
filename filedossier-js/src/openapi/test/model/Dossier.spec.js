@@ -20,15 +20,15 @@
     factory(require('expect.js'), require(process.cwd()+'/src/index'));
   } else {
     // Browser globals (root is window)
-    factory(root.expect, root.OpenapiJsClient);
+    factory(root.expect, root.FiledossierApi);
   }
-}(this, function(expect, OpenapiJsClient) {
+}(this, function(expect, FiledossierApi) {
   'use strict';
 
   var instance;
 
   beforeEach(function() {
-    instance = new OpenapiJsClient.Dossier();
+    instance = new FiledossierApi.Dossier();
   });
 
   var getProperty = function(object, getter, property) {
@@ -50,25 +50,25 @@
   describe('Dossier', function() {
     it('should create an instance of Dossier', function() {
       // uncomment below and update the code to test Dossier
-      //var instane = new OpenapiJsClient.Dossier();
-      //expect(instance).to.be.a(OpenapiJsClient.Dossier);
+      //var instane = new FiledossierApi.Dossier();
+      //expect(instance).to.be.a(FiledossierApi.Dossier);
     });
 
     it('should have the property code (base name: "code")', function() {
       // uncomment below and update the code to test the property code
-      //var instane = new OpenapiJsClient.Dossier();
+      //var instane = new FiledossierApi.Dossier();
       //expect(instance).to.be();
     });
 
     it('should have the property name (base name: "name")', function() {
       // uncomment below and update the code to test the property name
-      //var instane = new OpenapiJsClient.Dossier();
+      //var instane = new FiledossierApi.Dossier();
       //expect(instance).to.be();
     });
 
     it('should have the property dossierFile (base name: "dossierFile")', function() {
       // uncomment below and update the code to test the property dossierFile
-      //var instane = new OpenapiJsClient.Dossier();
+      //var instane = new FiledossierApi.Dossier();
       //expect(instance).to.be();
     });
 

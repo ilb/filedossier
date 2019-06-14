@@ -1,4 +1,4 @@
-# OpenapiJsClient.DefaultApi
+# FiledossierApi.DefaultApi
 
 All URIs are relative to *http://localhost*
 
@@ -7,6 +7,7 @@ Method | HTTP request | Description
 [**getContents**](DefaultApi.md#getContents) | **GET** /dossiers/{dossierKey}/{dossierPackage}/{dossierCode}/dossierfiles/{fileCode} | 
 [**getDossier**](DefaultApi.md#getDossier) | **GET** /dossiers/{dossierKey}/{dossierPackage}/{dossierCode} | 
 [**setContents**](DefaultApi.md#setContents) | **PUT** /dossiers/{dossierKey}/{dossierPackage}/{dossierCode}/dossierfiles/{fileCode} | 
+[**uploadContents**](DefaultApi.md#uploadContents) | **POST** /dossiers/{dossierKey}/{dossierPackage}/{dossierCode}/dossierfiles/{fileCode} | 
 
 
 
@@ -19,9 +20,9 @@ Method | HTTP request | Description
 ### Example
 
 ```javascript
-import OpenapiJsClient from 'openapi-js-client';
+import FiledossierApi from 'filedossier-api';
 
-let apiInstance = new OpenapiJsClient.DefaultApi();
+let apiInstance = new FiledossierApi.DefaultApi();
 let fileCode = "fileCode_example"; // String | 
 let dossierKey = "dossierKey_example"; // String | 
 let dossierPackage = "dossierPackage_example"; // String | 
@@ -67,9 +68,9 @@ No authorization required
 ### Example
 
 ```javascript
-import OpenapiJsClient from 'openapi-js-client';
+import FiledossierApi from 'filedossier-api';
 
-let apiInstance = new OpenapiJsClient.DefaultApi();
+let apiInstance = new FiledossierApi.DefaultApi();
 let dossierKey = "dossierKey_example"; // String | 
 let dossierPackage = "dossierPackage_example"; // String | 
 let dossierCode = "dossierCode_example"; // String | 
@@ -113,9 +114,9 @@ No authorization required
 ### Example
 
 ```javascript
-import OpenapiJsClient from 'openapi-js-client';
+import FiledossierApi from 'filedossier-api';
 
-let apiInstance = new OpenapiJsClient.DefaultApi();
+let apiInstance = new FiledossierApi.DefaultApi();
 let fileCode = "fileCode_example"; // String | 
 let dossierKey = "dossierKey_example"; // String | 
 let dossierPackage = "dossierPackage_example"; // String | 
@@ -153,5 +154,57 @@ No authorization required
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: */*
+
+
+## uploadContents
+
+> uploadContents(fileCode, dossierKey, dossierPackage, dossierCode, opts)
+
+
+
+### Example
+
+```javascript
+import FiledossierApi from 'filedossier-api';
+
+let apiInstance = new FiledossierApi.DefaultApi();
+let fileCode = "fileCode_example"; // String | 
+let dossierKey = "dossierKey_example"; // String | 
+let dossierPackage = "dossierPackage_example"; // String | 
+let dossierCode = "dossierCode_example"; // String | 
+let opts = {
+  'file': "/path/to/file" // File | 
+};
+apiInstance.uploadContents(fileCode, dossierKey, dossierPackage, dossierCode, opts).then(() => {
+  console.log('API called successfully.');
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **fileCode** | **String**|  | 
+ **dossierKey** | **String**|  | 
+ **dossierPackage** | **String**|  | 
+ **dossierCode** | **String**|  | 
+ **file** | **File**|  | [optional] 
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: multipart/form-data
 - **Accept**: */*
 

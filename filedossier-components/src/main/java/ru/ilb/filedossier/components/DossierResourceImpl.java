@@ -15,17 +15,10 @@
  */
 package ru.ilb.filedossier.components;
 
-import java.io.IOException;
-import java.io.InputStream;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.core.Response;
-import org.apache.cxf.jaxrs.ext.multipart.MultipartBody;
+import ru.ilb.filedossier.api.DossierFileResource;
 import ru.ilb.filedossier.api.DossierResource;
-import ru.ilb.filedossier.entities.Representation;
 import ru.ilb.filedossier.core.DossierFactory;
+import ru.ilb.filedossier.entities.DossierFile;
 import ru.ilb.filedossier.mappers.DossierMapper;
 import ru.ilb.filedossier.view.DossierView;
 
@@ -54,29 +47,11 @@ public class DossierResourceImpl implements DossierResource {
         return dossierMapper.fromModel(dossier);
     }
 
-    @Override
-    public Response getContents(String fileCode) {
-        Representation representation = this.dossier.getDossierFile(fileCode).getRepresentation();
-        return Response.ok(representation.getContents())
-                .header("Content-Type", representation.getMediaType())
-                .header("Content-Disposition", "attachment; filename=" + representation.getFileName()).build();
-
-    }
 
     @Override
-    public void setContents(String fileCode, InputStream inputstream) {
-        try {
-            this.dossier.getDossierFile(fileCode).setContents(Util.toByteArray(inputstream));
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
-        }
-    }
-
-    @POST
-    @Consumes("multipart/form-data")
-    @Path("/dossierfiles/{fileCode}")
-    public void uploadContents(@PathParam("fileCode") String fileCode, MultipartBody body) {
-        this.dossier.getDossierFile(fileCode).setContents(body.getRootAttachment().getObject(byte[].class));
+    public DossierFileResource getDossierFileResource(String fileCode) {
+        DossierFile dossierFile = this.dossier.getDossierFile(fileCode);
+        return new DossierFileResourceImpl(dossierFile);
     }
 
 }

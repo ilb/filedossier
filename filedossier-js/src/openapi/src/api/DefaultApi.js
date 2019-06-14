@@ -18,7 +18,7 @@ import Dossier from '../model/Dossier';
 /**
 * Default service.
 * @module api/DefaultApi
-* @version 1.0.0
+* @version 1.0-SNAPSHOT
 */
 export default class DefaultApi {
 
@@ -222,6 +222,77 @@ export default class DefaultApi {
      */
     setContents(fileCode, dossierKey, dossierPackage, dossierCode, opts) {
       return this.setContentsWithHttpInfo(fileCode, dossierKey, dossierPackage, dossierCode, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * @param {String} fileCode 
+     * @param {String} dossierKey 
+     * @param {String} dossierPackage 
+     * @param {String} dossierCode 
+     * @param {Object} opts Optional parameters
+     * @param {File} opts.file 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
+     */
+    uploadContentsWithHttpInfo(fileCode, dossierKey, dossierPackage, dossierCode, opts) {
+      opts = opts || {};
+      let postBody = null;
+      // verify the required parameter 'fileCode' is set
+      if (fileCode === undefined || fileCode === null) {
+        throw new Error("Missing the required parameter 'fileCode' when calling uploadContents");
+      }
+      // verify the required parameter 'dossierKey' is set
+      if (dossierKey === undefined || dossierKey === null) {
+        throw new Error("Missing the required parameter 'dossierKey' when calling uploadContents");
+      }
+      // verify the required parameter 'dossierPackage' is set
+      if (dossierPackage === undefined || dossierPackage === null) {
+        throw new Error("Missing the required parameter 'dossierPackage' when calling uploadContents");
+      }
+      // verify the required parameter 'dossierCode' is set
+      if (dossierCode === undefined || dossierCode === null) {
+        throw new Error("Missing the required parameter 'dossierCode' when calling uploadContents");
+      }
+
+      let pathParams = {
+        'fileCode': fileCode,
+        'dossierKey': dossierKey,
+        'dossierPackage': dossierPackage,
+        'dossierCode': dossierCode
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+        'file': opts['file']
+      };
+
+      let authNames = [];
+      let contentTypes = ['multipart/form-data'];
+      let accepts = ['*/*'];
+      let returnType = null;
+      return this.apiClient.callApi(
+        '/dossiers/{dossierKey}/{dossierPackage}/{dossierCode}/dossierfiles/{fileCode}', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * @param {String} fileCode 
+     * @param {String} dossierKey 
+     * @param {String} dossierPackage 
+     * @param {String} dossierCode 
+     * @param {Object} opts Optional parameters
+     * @param {File} opts.file 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     */
+    uploadContents(fileCode, dossierKey, dossierPackage, dossierCode, opts) {
+      return this.uploadContentsWithHttpInfo(fileCode, dossierKey, dossierPackage, dossierCode, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

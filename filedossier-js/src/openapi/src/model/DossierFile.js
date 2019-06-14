@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The DossierFile model module.
  * @module model/DossierFile
- * @version 1.0.0
+ * @version 1.0-SNAPSHOT
  */
 class DossierFile {
     /**

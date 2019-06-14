@@ -20,15 +20,15 @@
     factory(require('expect.js'), require(process.cwd()+'/src/index'));
   } else {
     // Browser globals (root is window)
-    factory(root.expect, root.OpenapiJsClient);
+    factory(root.expect, root.FiledossierApi);
   }
-}(this, function(expect, OpenapiJsClient) {
+}(this, function(expect, FiledossierApi) {
   'use strict';
 
   var instance;
 
   beforeEach(function() {
-    instance = new OpenapiJsClient.DossierView();
+    instance = new FiledossierApi.InlineObject();
   });
 
   var getProperty = function(object, getter, property) {
@@ -47,28 +47,16 @@
       object[property] = value;
   }
 
-  describe('DossierView', function() {
-    it('should create an instance of DossierView', function() {
-      // uncomment below and update the code to test DossierView
-      //var instane = new OpenapiJsClient.DossierView();
-      //expect(instance).to.be.a(OpenapiJsClient.DossierView);
+  describe('InlineObject', function() {
+    it('should create an instance of InlineObject', function() {
+      // uncomment below and update the code to test InlineObject
+      //var instane = new FiledossierApi.InlineObject();
+      //expect(instance).to.be.a(FiledossierApi.InlineObject);
     });
 
-    it('should have the property code (base name: "code")', function() {
-      // uncomment below and update the code to test the property code
-      //var instane = new OpenapiJsClient.DossierView();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property name (base name: "name")', function() {
-      // uncomment below and update the code to test the property name
-      //var instane = new OpenapiJsClient.DossierView();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property dossierFiles (base name: "dossierFiles")', function() {
-      // uncomment below and update the code to test the property dossierFiles
-      //var instane = new OpenapiJsClient.DossierView();
+    it('should have the property file (base name: "file")', function() {
+      // uncomment below and update the code to test the property file
+      //var instane = new FiledossierApi.InlineObject();
       //expect(instance).to.be();
     });
 

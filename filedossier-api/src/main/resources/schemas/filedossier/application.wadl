@@ -29,39 +29,40 @@
             </response>
         </method>
         <resource path="dossierfiles">
-            <resource path="{fileCode}">
+            <resource path="{fileCode}" id="dossierFileResource" type="#dossierFileResource">
                 <param name="fileCode" style="template" type="xsd:string">
                     <doc>file code</doc>
                 </param>
-                <method name="GET" id="getContents">
-                    <doc>get dossier file contents</doc>
-                    <request></request>
-                    <response status="200">
-                        <param name="Content-Disposition" style="header" type="xsd:string"/>
-                    </response>
-                </method>
-                <method name="PUT" id="setContents">
-                    <doc>store dossier file contents</doc>
-                    <request>
-                        <representation mediaType="*/*">
-                            <doc>file data</doc>
-                        </representation>
-                    </request>
-                    <response status="204"></response>
-                </method>
-<!--                <method name="POST" id="uploadContents">
-                    <doc>store dossier file contents</doc>
-                    <request>
-                        <representation mediaType="multipart/form-data" >
-                            <doc>file data</doc>
-                        </representation>
-                    </request>
-                    <response status="204"></response>
-                </method>-->
             </resource>
-
-
         </resource>
+    </resource_type>
+    <resource_type id="dossierFileResource">
+        <method name="GET" id="getContents">
+            <doc>get dossier file contents</doc>
+            <request></request>
+            <response status="200">
+                <param name="Content-Disposition" style="header" type="xsd:string"/>
+            </response>
+        </method>
+        <method name="PUT" id="setContents">
+            <doc>store dossier file contents</doc>
+            <request>
+                <representation mediaType="*/*">
+                    <doc>file data</doc>
+                </representation>
+            </request>
+            <response status="204"></response>
+        </method>
+        <method name="POST" id="uploadContents">
+            <doc>store dossier file contents</doc>
+            <request>
+                <representation mediaType="multipart/form-data">
+                    <param style="query" name="file" type="java.io.File" />
+                </representation>
+            </request>
+            <response status="204"></response>
+        </method>
+
     </resource_type>
     <resources>
         <resource path="dossiers">

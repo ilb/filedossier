@@ -15,18 +15,19 @@
 import ApiClient from './ApiClient';
 import Dossier from './model/Dossier';
 import DossierFile from './model/DossierFile';
+import InlineObject from './model/InlineObject';
 import DefaultApi from './api/DefaultApi';
 
 
 /**
-* Client library of openapi-js-client.<br>
+* Client library of filedossier-api.<br>
 * The <code>index</code> module provides access to constructors for all the classes which comprise the public API.
 * <p>
 * An AMD (recommended!) or CommonJS application will generally do something equivalent to the following:
 * <pre>
-* var OpenapiJsClient = require('index'); // See note below*.
-* var xxxSvc = new OpenapiJsClient.XxxApi(); // Allocate the API class we're going to use.
-* var yyyModel = new OpenapiJsClient.Yyy(); // Construct a model instance.
+* var FiledossierApi = require('index'); // See note below*.
+* var xxxSvc = new FiledossierApi.XxxApi(); // Allocate the API class we're going to use.
+* var yyyModel = new FiledossierApi.Yyy(); // Construct a model instance.
 * yyyModel.someProperty = 'someValue';
 * ...
 * var zzz = xxxSvc.doSomething(yyyModel); // Invoke the service.
@@ -38,8 +39,8 @@ import DefaultApi from './api/DefaultApi';
 * <p>
 * A non-AMD browser application (discouraged) might do something like this:
 * <pre>
-* var xxxSvc = new OpenapiJsClient.XxxApi(); // Allocate the API class we're going to use.
-* var yyy = new OpenapiJsClient.Yyy(); // Construct a model instance.
+* var xxxSvc = new FiledossierApi.XxxApi(); // Allocate the API class we're going to use.
+* var yyy = new FiledossierApi.Yyy(); // Construct a model instance.
 * yyyModel.someProperty = 'someValue';
 * ...
 * var zzz = xxxSvc.doSomething(yyyModel); // Invoke the service.
@@ -47,7 +48,7 @@ import DefaultApi from './api/DefaultApi';
 * </pre>
 * </p>
 * @module index
-* @version 1.0.0
+* @version 1.0-SNAPSHOT
 */
 export {
     /**
@@ -67,6 +68,12 @@ export {
      * @property {module:model/DossierFile}
      */
     DossierFile,
+
+    /**
+     * The InlineObject model constructor.
+     * @property {module:model/InlineObject}
+     */
+    InlineObject,
 
     /**
     * The DefaultApi service constructor.

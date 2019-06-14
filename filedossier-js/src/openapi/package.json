@@ -1,7 +1,7 @@
 {
-  "name": "openapi-js-client",
-  "version": "1.0.0",
-  "description": "Client library of openapi-js-client",
+  "name": "filedossier-api",
+  "version": "1.0-SNAPSHOT",
+  "description": "Client library of filedossier-api",
   "license": "Unlicense",
   "main": "dist/index.js",
   "scripts": {

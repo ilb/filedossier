@@ -20,15 +20,15 @@
     factory(require('expect.js'), require(process.cwd()+'/src/index'));
   } else {
     // Browser globals (root is window)
-    factory(root.expect, root.OpenapiJsClient);
+    factory(root.expect, root.FiledossierApi);
   }
-}(this, function(expect, OpenapiJsClient) {
+}(this, function(expect, FiledossierApi) {
   'use strict';
 
   var instance;
 
   beforeEach(function() {
-    instance = new OpenapiJsClient.DefaultApi();
+    instance = new FiledossierApi.DefaultApi();
   });
 
   var getProperty = function(object, getter, property) {
@@ -72,6 +72,16 @@
       it('should call setContents successfully', function(done) {
         //uncomment below and update the code to test setContents
         //instance.setContents(function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
+    });
+    describe('uploadContents', function() {
+      it('should call uploadContents successfully', function(done) {
+        //uncomment below and update the code to test uploadContents
+        //instance.uploadContents(function(error) {
         //  if (error) throw error;
         //expect().to.be();
         //});

@@ -17,7 +17,7 @@ import DossierFile from './DossierFile';
 /**
  * The Dossier model module.
  * @module model/Dossier
- * @version 1.0.0
+ * @version 1.0-SNAPSHOT
  */
 class Dossier {
     /**

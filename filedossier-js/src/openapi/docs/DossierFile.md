@@ -1,4 +1,4 @@
-# OpenapiJsClient.DossierFile
+# FiledossierApi.DossierFile
 
 ## Properties
 

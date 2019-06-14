@@ -1,13 +1,16 @@
 import React, { Suspense, useState, useEffect, useRef } from 'react';
-import { Table, Button,Message,Loader } from 'semantic-ui-react';
+import { Table, Button, Message, Loader } from 'semantic-ui-react';
 import {dossierApi} from './Config';
+import DossierResource from './DossierResource';
 import {useResource} from './ReactHelper';
 
-
 function Dossier( { dossierKey, dossierPackage, dossierCode }) {
+    const dossierResource = new DossierResource(dossierApi, {dossierKey, dossierPackage, dossierCode});
 
-    const [dossier, resource] = useResource(dossierApi, "getDossier", [dossierKey, dossierPackage, dossierCode]);
-    console.log('dossier', dossier);
+    const [dossier, getDossier] = useResource(() => dossierResource.getDossier());
+
+    useEffect(() => {getDossier();} , [dossierKey, dossierPackage, dossierCode]);
+
     return (
             <div className="fileDosser">
                 {dossier.loading && <Loader active /> }
@@ -24,7 +27,7 @@ function Dossier( { dossierKey, dossierPackage, dossierCode }) {
                                         </Table.Header>
 
                                         <Table.Body>
-                                            {dossier.value.dossierFile.map((file) => <DossierFile file={file} key={file.code} resource={resource}/>)}
+                                            {dossier.value.dossierFile.map((file) => <DossierFile file={file} key={file.code} onChange={getDossier} resource={dossierResource.getDossierFileResource(file.code)}/>)}
                                         </Table.Body>
                                     </Table>
                     }
@@ -34,36 +37,36 @@ function Dossier( { dossierKey, dossierPackage, dossierCode }) {
             );
 }
 
-function DossierFile( { file: { code, name }, resource }) {
+function DossierFile( { file: { code, name }, onChange, resource }) {
 
-    const inputFileEl = useRef(null)
+    const inputFileEl = useRef(null);
 
     const remove = () => {
         console.log('code', code);
-        resource.getDossier();
+        onChange();
     };
 
     const upload = () => {
-        console.log('code', code, inputFileEl.current.files);
+        //console.log('upload', code, inputFileEl.current.files);
         const files = inputFileEl.current.files;
 
-        const formData = new FormData();
+//        const formData = new FormData();
+//
+//        for (var i = 0; i < files.length; i++) {
+//            formData.append(i, files.item(i));
+//        }
 
-        for (var i = 0; i < files.length; i++) {
-            formData.append(i, files.item(i));
-        }
-
-        resource.setContents(code, formData);
-        resource.getDossier();
+        resource.uploadContents(inputFileEl.current.files[0]);
+        onChange();
     };
 
 
     return <Table.Row>
-        <Table.Cell>{name}</Table.Cell>
-        <Table.Cell><Button content="Удалить" onClick={remove}/>
-            <input ref={inputFileEl} type='file' onChange={upload}  />
-        </Table.Cell>
-    </Table.Row>;
+    <Table.Cell>{name}</Table.Cell>
+    <Table.Cell><Button content="Удалить" onClick={remove}/>
+        <input ref={inputFileEl} type="file" name="file" onChange={upload}  />
+    </Table.Cell>
+</Table.Row>;
 }
 
 export default Dossier;

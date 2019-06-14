@@ -12,6 +12,7 @@
     <packaging>jar</packaging>
     <properties>
         <eclipselink.version>2.7.4</eclipselink.version>
+        <swagger-version>2.0.8</swagger-version>
     </properties>
     <name>filedossier-api</name>
     <description>API shared module</description>
@@ -28,11 +29,11 @@
             <version>${javax-xml-bind-jaxb-api.version}</version>
         </dependency> 
         <!-- dependency for <representation mediaType="multipart/form-data" />  -->
-        <!--        <dependency>
+        <dependency>
             <groupId>org.apache.cxf</groupId>
             <artifactId>cxf-rt-frontend-jaxrs</artifactId>
             <version>${apache-cxf.version}</version>
-        </dependency>        -->
+        </dependency>        
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
@@ -121,6 +122,11 @@
                 </executions>
                 <dependencies>
                     <dependency>
+                        <groupId>ch.qos.logback</groupId>
+                        <artifactId>logback-classic</artifactId>
+                        <version>1.2.3</version>
+                    </dependency>
+                    <dependency>
                         <groupId>org.jvnet.jaxb2_commons</groupId>
                         <artifactId>jaxb2-basics</artifactId>
                         <version>0.9.4</version>
@@ -165,16 +171,18 @@
                     <plugin>
                         <groupId>io.swagger.core.v3</groupId>
                         <artifactId>swagger-maven-plugin</artifactId>
-                        <version>2.0.8</version>
+                        <version>${swagger-version}</version>
                         <configuration>
                             <outputFileName>openapi</outputFileName>
                             <outputPath>${openapi.generated.path}</outputPath>
-                            <outputFormat>JSONANDYAML</outputFormat>
+                            <outputFormat>JSON</outputFormat>
                             <resourcePackages>
                                 <package>ru.ilb.filedossier.api</package>
                             </resourcePackages>
-                            <prettyPrint>TRUE</prettyPrint>
-                            <objectMapperProcessorClass>ru.ilb.common.openapi.generator.JaxbObjectMapperProcessor</objectMapperProcessorClass>
+                            <prettyPrint>true</prettyPrint>
+                            <filterClass>ru.ilb.common.openapi.generator.OpenAPISpecFilterImpl</filterClass>
+                            <modelConverterClasses>ru.ilb.common.openapi.generator.ModelConverterImpl</modelConverterClasses>
+                            <objectMapperProcessorClass>ru.ilb.common.openapi.generator.ObjectMapperProcessorImpl</objectMapperProcessorClass>
                         </configuration>
                         <executions>
                             <execution>
@@ -215,12 +223,17 @@
                                 </goals>
                                 <configuration>
                                     <inputSpec>${openapi.generated.path}/openapi.json</inputSpec>
+                                    <!--<inputSpec>${basedir}/src/main/resources/openapi.json</inputSpec>-->
                                     <skipValidateSpec>true</skipValidateSpec>
                                     <!--<generatorName>php</generatorName>-->
                                     <!--<generatorName>typescript-fetch</generatorName>-->
+                                    <!--<generatorName>jaxrs-cxf</generatorName>-->
                                     <generatorName>javascript</generatorName>
                                     <configOptions>
                                         <usePromises>true</usePromises>
+                                        <sortParamsByRequiredFlag>false</sortParamsByRequiredFlag>
+                                        <projectName>${project.name}</projectName>
+                                        <projectVersion>${project.version}</projectVersion>
                                     </configOptions>
                                 </configuration>
                             </execution>

@@ -20,15 +20,15 @@
     factory(require('expect.js'), require(process.cwd()+'/src/index'));
   } else {
     // Browser globals (root is window)
-    factory(root.expect, root.OpenapiJsClient);
+    factory(root.expect, root.FiledossierApi);
   }
-}(this, function(expect, OpenapiJsClient) {
+}(this, function(expect, FiledossierApi) {
   'use strict';
 
   var instance;
 
   beforeEach(function() {
-    instance = new OpenapiJsClient.DossierFile();
+    instance = new FiledossierApi.DossierFile();
   });
 
   var getProperty = function(object, getter, property) {
@@ -50,37 +50,37 @@
   describe('DossierFile', function() {
     it('should create an instance of DossierFile', function() {
       // uncomment below and update the code to test DossierFile
-      //var instane = new OpenapiJsClient.DossierFile();
-      //expect(instance).to.be.a(OpenapiJsClient.DossierFile);
+      //var instane = new FiledossierApi.DossierFile();
+      //expect(instance).to.be.a(FiledossierApi.DossierFile);
     });
 
     it('should have the property code (base name: "code")', function() {
       // uncomment below and update the code to test the property code
-      //var instane = new OpenapiJsClient.DossierFile();
+      //var instane = new FiledossierApi.DossierFile();
       //expect(instance).to.be();
     });
 
     it('should have the property name (base name: "name")', function() {
       // uncomment below and update the code to test the property name
-      //var instane = new OpenapiJsClient.DossierFile();
+      //var instane = new FiledossierApi.DossierFile();
       //expect(instance).to.be();
     });
 
     it('should have the property exists (base name: "exists")', function() {
       // uncomment below and update the code to test the property exists
-      //var instane = new OpenapiJsClient.DossierFile();
+      //var instane = new FiledossierApi.DossierFile();
       //expect(instance).to.be();
     });
 
     it('should have the property readonly (base name: "readonly")', function() {
       // uncomment below and update the code to test the property readonly
-      //var instane = new OpenapiJsClient.DossierFile();
+      //var instane = new FiledossierApi.DossierFile();
       //expect(instance).to.be();
     });
 
     it('should have the property required (base name: "required")', function() {
       // uncomment below and update the code to test the property required
-      //var instane = new OpenapiJsClient.DossierFile();
+      //var instane = new FiledossierApi.DossierFile();
       //expect(instance).to.be();
     });
 
