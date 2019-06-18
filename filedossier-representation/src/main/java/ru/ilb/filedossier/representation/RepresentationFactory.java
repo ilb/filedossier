@@ -25,12 +25,14 @@ import java.net.URI;
 public class RepresentationFactory {
 
     public Representation createRepresentation(String mediaType, URI stylesheet, URI template) {
-        switch (mediaType) {
-            case "application/vnd.oasis.opendocument.spreadsheet":
-                return new OdsXsltRepresentation(mediaType, stylesheet, template);
-            default:
-                throw new IllegalArgumentException("unsupported media type " + mediaType);
-        }
+	switch (mediaType) {
+	case "application/vnd.oasis.opendocument.spreadsheet":
+	    return new OdsXsltRepresentation(mediaType, stylesheet, template);
+	case "application/pdf":
+	    return new XmlPdfRepresentation(mediaType, template);
+	default:
+	    throw new IllegalArgumentException("unsupported media type " + mediaType);
+	}
 
     }
 }

@@ -33,8 +33,8 @@ public class DossierImplTest {
     private final Dossier dossier;
 
     public DossierImplTest() {
-        dossierFactory = getDossierFactory();
-        dossier = dossierFactory.getDossier("teststorekey", "testmodel", "TEST");
+	dossierFactory = getDossierFactory();
+	dossier = dossierFactory.getDossier("teststorekey", "testmodel", "TEST");
     }
 
     /**
@@ -42,10 +42,10 @@ public class DossierImplTest {
      */
     @Test
     public void testGetCode() {
-        System.out.println("getCode");
-        String expResult = "TEST";
-        String result = dossier.getCode();
-        assertEquals(expResult, result);
+	System.out.println("getCode");
+	String expResult = "TEST";
+	String result = dossier.getCode();
+	assertEquals(expResult, result);
     }
 
     /**
@@ -53,10 +53,10 @@ public class DossierImplTest {
      */
     @Test
     public void testGetName() {
-        System.out.println("getName");
-        String expResult = "Тестовое досье";
-        String result = dossier.getName();
-        assertEquals(expResult, result);
+	System.out.println("getName");
+	String expResult = "Тестовое досье";
+	String result = dossier.getName();
+	assertEquals(expResult, result);
     }
 
     /**
@@ -64,9 +64,9 @@ public class DossierImplTest {
      */
     @Test
     public void testGetDossierFiles() {
-        System.out.println("getDossierFiles");
-        List<DossierFile> result = dossier.getDossierFiles();
-        assertEquals(2, result.size());
+	System.out.println("getDossierFiles");
+	List<DossierFile> result = dossier.getDossierFiles();
+	assertEquals(3, result.size());
     }
 
     /**
@@ -74,10 +74,10 @@ public class DossierImplTest {
      */
     @Test
     public void testGetDossierFile() {
-        System.out.println("getDossierFile");
-        String fileCode = "file1";
-        DossierFile result = dossier.getDossierFile(fileCode);
-        assertEquals("Файл 1", result.getName());
+	System.out.println("getDossierFile");
+	String fileCode = "file1";
+	DossierFile result = dossier.getDossierFile(fileCode);
+	assertEquals("Файл 1", result.getName());
     }
 
 }

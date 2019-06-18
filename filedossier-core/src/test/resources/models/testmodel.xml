@@ -26,6 +26,16 @@
                 <template>representations/fairpriceorder/template.ods</template>
             </representation>
         </dossierFile>
-
+        <dossierFile>
+            <code>avto</code>
+            <name>${name}</name>
+            <readonly>false</readonly>
+            <mediaType>application/pdf</mediaType>
+            <representation>
+                <mediaType>application/pdf</mediaType>
+                <stylesheet></stylesheet>
+                <template>representation/projectteam/example.xml</template>
+            </representation>
+        </dossierFile>
     </dossier>
 </package>

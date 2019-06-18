@@ -35,7 +35,7 @@ public class XmlPdfRepresentation extends IdentityRepresentation {
 
     private final static String OUTPUT_FORMAT = "application/pdf";
 
-    // style
+    // Remove static URL
     private final static String PDFGEN_URL = "http://devel.net.ilb.ru:8080/pdfgen/fopservlet?xslt="
 	    + "https://devel.net.ilb.ru/meta/stylesheets/doctemplates/primary/loantreaty/credits/auto/V20140707.xsl&xsd="
 	    + "https://devel.net.ilb.ru/meta/schemas/doctemplates/primary/loantreaty/credits/auto/V20140707.xsd&metaUrl="

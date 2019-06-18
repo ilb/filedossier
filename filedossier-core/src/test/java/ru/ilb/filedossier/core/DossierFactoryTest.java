@@ -38,28 +38,31 @@ public class DossierFactoryTest {
     private final DossierFactory dossierFactory;
 
     public static DossierFactory getDossierFactory() {
-        DossierDefinitionRepository dossierModelRepository;
-        StoreFactory storeFactory;
-        try {
-            dossierModelRepository = new FileDossierDefinitionRepository(DossierFactoryTest.class.getClassLoader().getResource("models").toURI());
-            storeFactory = StoreFactory.newInstance(DossierFactoryTest.class.getClassLoader().getResource("teststoreroot").toURI());
-        } catch (URISyntaxException ex) {
-            throw new RuntimeException(ex);
-        }
+	DossierDefinitionRepository dossierModelRepository;
+	StoreFactory storeFactory;
+	try {
+	    dossierModelRepository = new FileDossierDefinitionRepository(
+		    DossierFactoryTest.class.getClassLoader().getResource("models").toURI());
+	    storeFactory = StoreFactory
+		    .newInstance(DossierFactoryTest.class.getClassLoader().getResource("teststoreroot").toURI());
+	} catch (URISyntaxException ex) {
+	    throw new RuntimeException(ex);
+	}
 
-        DossierContextBuilder dossierContextBuilder = (String dossierKey, String dossierPackage, String dossierCode) -> {
-            DossierContext dc = new DossierContextImpl("contextKey");
-            dc.setProperty("name", "Тест имя");
-            dc.setProperty("prop", false);
-            return dc;
-        };
-        TemplateEvaluator templateEvaluator = new SubstitutorTemplateEvaluator();
-        return new DossierFactory(dossierModelRepository, storeFactory, dossierContextBuilder, templateEvaluator);
+	DossierContextBuilder dossierContextBuilder = (String dossierKey, String dossierPackage,
+		String dossierCode) -> {
+	    DossierContext dc = new DossierContextImpl("contextKey");
+	    dc.setProperty("name", "Тест имя");
+	    dc.setProperty("prop", false);
+	    return dc;
+	};
+	TemplateEvaluator templateEvaluator = new SubstitutorTemplateEvaluator();
+	return new DossierFactory(dossierModelRepository, storeFactory, dossierContextBuilder, templateEvaluator);
 
     }
 
     public DossierFactoryTest() {
-        dossierFactory = getDossierFactory();
+	dossierFactory = getDossierFactory();
     }
 
     /**
@@ -67,14 +70,15 @@ public class DossierFactoryTest {
      */
     @Test
     public void testCreateDossier() {
-        System.out.println("createDossier");
-        String dossierKey = "123";
-        String dossierPackage = "testmodel";
-        String dossierCode = "TEST";
+	System.out.println("createDossier");
+	String dossierKey = "123";
+	String dossierPackage = "testmodel";
+	String dossierCode = "TEST";
 
-        String expResult = "Тест имя";
-        Dossier result = dossierFactory.getDossier(dossierKey, dossierPackage, dossierCode);
-        assertEquals(expResult, result.getDossierFile("fairpricecalc").getName());
+	String expResult = "Тест имя";
+	Dossier result = dossierFactory.getDossier(dossierKey, dossierPackage, dossierCode);
+	System.out.println(result.getDossierFile("avto").getExists());
+	assertEquals(expResult, result.getDossierFile("fairpricecalc").getName());
     }
 
 }
