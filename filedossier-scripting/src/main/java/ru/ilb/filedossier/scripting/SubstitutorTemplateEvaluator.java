@@ -16,24 +16,32 @@
 package ru.ilb.filedossier.scripting;
 
 import org.apache.commons.text.StringSubstitutor;
+import org.apache.commons.text.lookup.StringLookup;
 import ru.ilb.filedossier.entities.DossierContext;
 
 /**
  * Реализация с использованием Apache Commons Text
+ *
  * @author slavb
  */
 public class SubstitutorTemplateEvaluator implements TemplateEvaluator {
 
     @Override
     public String evaluateStringExpression(String template, DossierContext dossierContext) {
-        StringSubstitutor sub = new StringSubstitutor(dossierContext.asMap());
-        String result = sub.replace(template);
-        return result;
+
+	// убрать evaluationMethod сделать один lookup и для мапы и для лдапа,
+	// но для лдапа сделать
+	// защиту в виде проверки на точку, что будет означать, что это не
+	// обычная строка
+
+	StringLookup lookup = null;
+
+	StringSubstitutor sub = new StringSubstitutor(lookup);
+	return sub.replace(template);
     }
 
     @Override
     public Boolean evaluateBooleanExpression(String template, DossierContext dossierContext) {
-        return Boolean.valueOf(evaluateStringExpression(template, dossierContext));
+	return Boolean.valueOf(evaluateStringExpression(template, dossierContext));
     }
-
 }

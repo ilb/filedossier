@@ -39,7 +39,7 @@ public class XmlPdfRepresentationTest {
     public void testGetContents() throws URISyntaxException, IOException {
 	System.out.println("getContents");
 	XmlPdfRepresentation instance = new XmlPdfRepresentation("application/pdf",
-		getClass().getClassLoader().getResource("projectteam/example.xml").toURI());
+		getClass().getClassLoader().getResource("jurnals/example.xml").toURI());
 	byte[] result = instance.getContents();
 	assertNotNull(result);
 	Files.write(Paths.get(System.getProperty("java.io.tmpdir") + "/result"), result);
@@ -52,7 +52,7 @@ public class XmlPdfRepresentationTest {
     public void testGetExtension() throws URISyntaxException {
 	System.out.println("getExtension");
 	XmlPdfRepresentation instance = new XmlPdfRepresentation("application/pdf",
-		getClass().getClassLoader().getResource("projectteam/example.xml").toURI());
+		getClass().getClassLoader().getResource("jurnals/example.xml").toURI());
 	String expResult = "pdf";
 	String result = instance.getExtension();
 	assertEquals(expResult, result);
@@ -65,7 +65,7 @@ public class XmlPdfRepresentationTest {
     public void testGetMediaType() throws URISyntaxException {
 	System.out.println("getMediaType");
 	XmlPdfRepresentation instance = new XmlPdfRepresentation("application/pdf",
-		getClass().getClassLoader().getResource("projectteam/example.xml").toURI());
+		getClass().getClassLoader().getResource("jurnals/example.xml").toURI());
 	String expResult = "application/pdf";
 	String result = instance.getMediaType();
 	assertEquals(expResult, result);

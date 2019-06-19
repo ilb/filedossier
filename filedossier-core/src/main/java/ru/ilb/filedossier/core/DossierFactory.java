@@ -44,20 +44,20 @@ public class DossierFactory {
     private final DossierDefinitionRepository dossierModelRepository;
 
     /**
-     * Файловое хранилище
-     * TODO возможно реализацию нужно иметь возможность настраивать в досье
+     * Файловое хранилище TODO возможно реализацию нужно иметь возможность
+     * настраивать в досье
      */
     private final StoreFactory storeFactory;
 
     /**
-     * Построитель контекста досье
-     * TODO возможно реализацию нужно иметь возможность настраивать в досье
+     * Построитель контекста досье TODO возможно реализацию нужно иметь
+     * возможность настраивать в досье
      */
     private final DossierContextBuilder dossierContextBuilder;
 
     /**
-     * Движок вычисления выражений по-умолчанию
-     * TODO возможно реализацию нужно иметь возможность настраивать в досье
+     * Движок вычисления выражений по-умолчанию TODO возможно реализацию нужно
+     * иметь возможность настраивать в досье
      */
     private final TemplateEvaluator templateEvaluator;
 
@@ -66,52 +66,58 @@ public class DossierFactory {
      */
     private final RepresentationFactory representationFactory = new RepresentationFactory();
 
-    public DossierFactory(DossierDefinitionRepository dossierModelRepository, StoreFactory storeFactory, DossierContextBuilder dossierContextBuilder, TemplateEvaluator templateEvaluator) {
-        this.dossierModelRepository = dossierModelRepository;
-        this.storeFactory = storeFactory;
-        this.dossierContextBuilder = dossierContextBuilder;
-        this.templateEvaluator = templateEvaluator;
+    public DossierFactory(DossierDefinitionRepository dossierModelRepository, StoreFactory storeFactory,
+	    DossierContextBuilder dossierContextBuilder, TemplateEvaluator templateEvaluator) {
+	this.dossierModelRepository = dossierModelRepository;
+	this.storeFactory = storeFactory;
+	this.dossierContextBuilder = dossierContextBuilder;
+	this.templateEvaluator = templateEvaluator;
     }
 
     public Dossier getDossier(String dossierKey, String dossierPackage, String dossierCode) {
-        DossierDefinition dossierModel = dossierModelRepository.getDossierDefinition(dossierPackage, dossierCode);
-        URI baseUri = dossierModelRepository.getDossierDefinitionUri(dossierPackage);
-        Store store = storeFactory.getFileStorage(dossierKey);
-        DossierContext dossierContext = dossierContextBuilder.createDossierContext(dossierKey, dossierPackage, dossierCode);
-        return getDossier(baseUri, dossierModel, store, dossierContext);
+	DossierDefinition dossierModel = dossierModelRepository.getDossierDefinition(dossierPackage, dossierCode);
+	URI baseUri = dossierModelRepository.getDossierDefinitionUri(dossierPackage);
+	Store store = storeFactory.getFileStorage(dossierKey);
+	DossierContext dossierContext = dossierContextBuilder.createDossierContext(dossierKey, dossierPackage,
+		dossierCode);
+	return getDossier(baseUri, dossierModel, store, dossierContext);
     }
 
-    private Dossier getDossier(URI baseUri, DossierDefinition dossierModel, Store store, DossierContext dossierContext) {
-        String code = dossierModel.getCode();
-        String name = dossierModel.getName();
+    private Dossier getDossier(URI baseUri, DossierDefinition dossierModel, Store store,
+	    DossierContext dossierContext) {
+	String code = dossierModel.getCode();
+	String name = dossierModel.getName();
 
-        List<DossierFile> dossierFiles = dossierModel.getDossierFiles().stream()
-                .map(modelFile -> createDossierFile(baseUri, modelFile, store, dossierContext))
-                .collect(Collectors.toList());
+	List<DossierFile> dossierFiles = dossierModel.getDossierFiles().stream()
+		.map(modelFile -> createDossierFile(baseUri, modelFile, store, dossierContext))
+		.collect(Collectors.toList());
 
-        return new DossierImpl(code, name, dossierFiles);
+	return new DossierImpl(code, name, dossierFiles);
     }
 
-    private DossierFile createDossierFile(URI baseUri, DossierFileDefinition modelFile, Store store, DossierContext dossierContext) {
+    private DossierFile createDossierFile(URI baseUri, DossierFileDefinition modelFile, Store store,
+	    DossierContext dossierContext) {
 
-        List<Representation> representations = modelFile.getRepresentations().stream()
-                .map(representationModel -> createRepresentation(baseUri, representationModel))
-                .collect(Collectors.toList());
+	List<Representation> representations = modelFile.getRepresentations().stream()
+		.map(representationModel -> createRepresentation(baseUri, representationModel))
+		.collect(Collectors.toList());
 
-        DossierFileImpl df = new DossierFileImpl(
-                store,
-                templateEvaluator.evaluateStringExpression(modelFile.getCode(), dossierContext),
-                templateEvaluator.evaluateStringExpression(modelFile.getName(), dossierContext),
-                Boolean.TRUE.equals(templateEvaluator.evaluateBooleanExpression(modelFile.getRequired(), dossierContext)),
-                Boolean.TRUE.equals(templateEvaluator.evaluateBooleanExpression(modelFile.getReadonly(), dossierContext)),
-                Boolean.TRUE.equals(templateEvaluator.evaluateBooleanExpression(modelFile.getHidden(), dossierContext)),                
-                modelFile.getMediaType(),
-                representations);
-        return df;
+	DossierFileImpl df = new DossierFileImpl(store,
+		templateEvaluator.evaluateStringExpression(modelFile.getCode(), dossierContext),
+		templateEvaluator.evaluateStringExpression(modelFile.getName(), dossierContext),
+		Boolean.TRUE
+			.equals(templateEvaluator.evaluateBooleanExpression(modelFile.getRequired(), dossierContext)),
+		Boolean.TRUE
+			.equals(templateEvaluator.evaluateBooleanExpression(modelFile.getReadonly(), dossierContext)),
+		Boolean.TRUE.equals(templateEvaluator.evaluateBooleanExpression(modelFile.getHidden(), dossierContext)),
+		modelFile.getMediaType(), representations);
+	return df;
     }
 
     private Representation createRepresentation(URI baseUri, RepresentationDefinition representationModel) {
-        return representationFactory.createRepresentation(representationModel.getMediaType(), baseUri.resolve(representationModel.getStylesheet()), baseUri.resolve(representationModel.getTemplate()));
+	return representationFactory.createRepresentation(representationModel.getMediaType(),
+		baseUri.resolve(representationModel.getStylesheet()),
+		baseUri.resolve(representationModel.getTemplate()));
     }
 
 }

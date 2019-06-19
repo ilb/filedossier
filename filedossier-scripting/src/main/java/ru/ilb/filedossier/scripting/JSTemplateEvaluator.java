@@ -24,36 +24,36 @@ import ru.ilb.filedossier.entities.DossierContext;
 
 public class JSTemplateEvaluator implements TemplateEvaluator {
 
-    //private String engineName = "javascript";
+    // private String engineName = "javascript";
     // using rhino by default, since nashorn deprecated
     private String engineName = "rhino";
 
     private final ScriptEngineManager scriptEngineManager = new ScriptEngineManager();
 
     private Bindings getBindings(DossierContext dossierContext) {
-        Bindings bindings = new SimpleBindings();
-        bindings.putAll(dossierContext.asMap());
-        return bindings;
+	Bindings bindings = new SimpleBindings();
+	bindings.putAll(dossierContext.asMap());
+	return bindings;
     }
 
     @Override
     public String evaluateStringExpression(String template, DossierContext dossierContext) {
-        ScriptEngine engine = scriptEngineManager.getEngineByName(engineName);
-        try {
-            return engine.eval(template, getBindings(dossierContext)).toString();
-        } catch (ScriptException ex) {
-            throw new RuntimeException(ex);
-        }
+	ScriptEngine engine = scriptEngineManager.getEngineByName(engineName);
+	try {
+	    return engine.eval(template, getBindings(dossierContext)).toString();
+	} catch (ScriptException ex) {
+	    throw new RuntimeException(ex);
+	}
     }
 
     @Override
     public Boolean evaluateBooleanExpression(String template, DossierContext dossierContext) {
-        ScriptEngine engine = scriptEngineManager.getEngineByName(engineName);
-        try {
-            return (Boolean) engine.eval(template, getBindings(dossierContext));
-        } catch (ScriptException ex) {
-            throw new RuntimeException(ex);
-        }
+	ScriptEngine engine = scriptEngineManager.getEngineByName(engineName);
+	try {
+	    return (Boolean) engine.eval(template, getBindings(dossierContext));
+	} catch (ScriptException ex) {
+	    throw new RuntimeException(ex);
+	}
 
     }
 

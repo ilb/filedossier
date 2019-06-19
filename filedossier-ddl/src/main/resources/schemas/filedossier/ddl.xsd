@@ -118,9 +118,11 @@
                     <xsd:documentation>Шаблон файла (например для ods)</xsd:documentation>
                 </xsd:annotation>
             </xsd:element>
-
+            <xsd:element name="schema" type="xsd:string"> 
+                <xsd:annotation>
+                    <xsd:documentation> LDAP URL </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
         </xsd:sequence>
     </xsd:complexType>
-    
- 
 </xsd:schema>
