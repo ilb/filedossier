@@ -18,8 +18,6 @@ package ru.ilb.filedossier.ddl;
 import ru.ilb.filedossier.ddl.FileDossierDefinitionRepository;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import ru.ilb.filedossier.ddl.DossierDefinition;
@@ -35,20 +33,22 @@ public class FileDossierDefinitionRepositoryTest {
     }
 
     /**
-     * Test of getDossierDefinition method, of class FileDossierDefinitionRepository.
+     * Test of getDossierDefinition method, of class
+     * FileDossierDefinitionRepository.
+     * 
      * @throws java.net.URISyntaxException
      */
     @Test
     public void testGetDossierDefinition() throws URISyntaxException {
-        String dossierPackage = "testmodel";
-        String dossierCode = "TEST";
-        URI modelsUri = getClass().getClassLoader().getResource("models").toURI();
+	String dossierPackage = "testmodel";
+	String dossierCode = "TEST";
+	URI modelsUri = getClass().getClassLoader().getResource("models").toURI();
 
-        DossierDefinitionRepository instance = new FileDossierDefinitionRepository(modelsUri);
-        DossierDefinition result = instance.getDossierDefinition(dossierPackage, dossierCode);
-        assertEquals("TEST", result.getCode());
-        assertEquals("Тестовое досье", result.getName());
-        assertEquals(2, result.getDossierFiles().size());
+	DossierDefinitionRepository instance = new FileDossierDefinitionRepository(modelsUri);
+	DossierDefinition result = instance.getDossierDefinition(dossierPackage, dossierCode);
+	assertEquals("TEST", result.getCode());
+	assertEquals("Тестовое досье", result.getName());
+	assertEquals(3, result.getDossierFiles().size());
     }
 
 }

@@ -40,16 +40,20 @@ public class ModelStringLookup<T> implements StringLookup {
 	if (map == null) {
 	    return null;
 	}
-	final T obj;
-	if (key.contains(".")) {
-	    try {
-		return (String) context.lookup(key);
-	    } catch (NamingException ex) {
-		throw new RuntimeException(ex);
+	if (key != null) {
+
+	    final T obj;
+	    if (key.contains(".")) {
+		try {
+		    return (String) context.lookup(key);
+		} catch (NamingException | NullPointerException ex) {
+		    return null;
+		}
+	    } else {
+		obj = map.get(key);
+		return obj != null ? obj.toString() : null;
 	    }
-	} else {
-	    obj = map.get(key);
-	    return obj != null ? obj.toString() : null;
-	}
+	} else
+	    return null;
     }
 }

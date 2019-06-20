@@ -13,17 +13,34 @@
             <name>Файл 1</name>
             <readonly>false</readonly>
             <required>true</required>
+            <hidden>false</hidden>
             <mediaType>application/xml</mediaType>
         </dossierFile>
         <dossierFile>
-            <code>file2</code>
-            <name>${name}</name>
+            <code>fairpricecalc</code>
+            <name>Тест имя</name>
             <readonly>false</readonly>
+            <required>true</required>
+            <hidden>false</hidden>
             <mediaType>application/xml</mediaType>
             <representation>
                 <mediaType>application/vnd.oasis.opendocument.spreadsheet</mediaType>
                 <stylesheet>representations/fairpriceorder/content.xsl</stylesheet>
                 <template>representations/fairpriceorder/template.ods</template>
+                <schema>schema</schema>
+            </representation>
+        </dossierFile>
+        <dossierFile>
+            <code>avto</code>
+            <name>${name}</name>
+            <readonly>false</readonly>
+            <required>true</required>
+            <hidden>false</hidden>
+            <mediaType>application/pdf</mediaType>
+            <representation>
+                <mediaType>application/pdf</mediaType>
+                <stylesheet></stylesheet>
+                <template>representation/projectteam/example.xml</template>
                 <schema>${ru.bystrobank.apps.meta.url}/stylesheets/doctemplates/primary/loantreaty/credits/auto/V20140707.xsl</schema>
             </representation>
         </dossierFile>

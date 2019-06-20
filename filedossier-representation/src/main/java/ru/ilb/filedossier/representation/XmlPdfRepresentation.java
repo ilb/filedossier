@@ -36,14 +36,19 @@ public class XmlPdfRepresentation extends IdentityRepresentation {
     private final static String OUTPUT_FORMAT = "application/pdf";
 
     // Remove static URL
-    private final static String PDFGEN_URL = "http://devel.net.ilb.ru:8080/pdfgen/fopservlet?xslt="
-	    + "https://devel.net.ilb.ru/meta/stylesheets/doctemplates/jurnals/percentsheet.xsl&xsd="
-	    + "https://devel.net.ilb.ru/meta/schemas/doctemplates/jurnals/percentsheet.xsd&metaUrl="
-	    + "https://devel.net.ilb.ru/meta/&uid=doctree:11f462ebdb14a5673ff41a5c75c5176552fad343:";
+    // private final static String PDFGEN_URL =
+    // "http://devel.net.ilb.ru:8080/pdfgen/fopservlet?xslt="
+    // +
+    // "https://devel.net.ilb.ru/meta/stylesheets/doctemplates/jurnals/percentsheet.xsl&xsd="
+    // +
+    // "https://devel.net.ilb.ru/meta/schemas/doctemplates/jurnals/percentsheet.xsd&metaUrl="
+    // +
+    // "https://devel.net.ilb.ru/meta/&uid=doctree:11f462ebdb14a5673ff41a5c75c5176552fad343:";
 
     protected final URI contentUri;
+    protected final String resourceUrl;
 
-    public XmlPdfRepresentation(String mediaType, URI contentUri) {
+    public XmlPdfRepresentation(String mediaType, URI contentUri, String resourceUrl) {
 	super(mediaType);
 
 	if (!mediaType.equals(OUTPUT_FORMAT)) {
@@ -51,21 +56,21 @@ public class XmlPdfRepresentation extends IdentityRepresentation {
 	}
 
 	this.contentUri = contentUri;
+	this.resourceUrl = resourceUrl;
     }
 
     @Override
     public byte[] getContents() {
 	try {
 	    byte[] content = Files.readAllBytes(Paths.get(contentUri));
-	    return requestPdfGen(content);
+	    return requestPdfGen(content, new URL(resourceUrl));
 	} catch (IOException ex) {
 	    throw new RuntimeException(ex);
 	}
     }
 
-    private static byte[] requestPdfGen(byte[] content) throws MalformedURLException, IOException {
-	URL pdfgenUrl = new URL(PDFGEN_URL);
-	HttpURLConnection httpConnection = (HttpURLConnection) pdfgenUrl.openConnection();
+    private static byte[] requestPdfGen(byte[] content, URL resourceUrl) throws MalformedURLException, IOException {
+	HttpURLConnection httpConnection = (HttpURLConnection) resourceUrl.openConnection();
 	httpConnection.setRequestMethod("POST");
 	httpConnection.setRequestProperty("Content-Type", "application/xml");
 	httpConnection.setDoOutput(true);

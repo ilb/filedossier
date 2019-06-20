@@ -15,14 +15,6 @@
  */
 package ru.ilb.filedossier.representation;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import org.junit.Test;
-import ru.ilb.filedossier.representation.XmlPdfRepresentation;
-import static org.junit.Assert.*;
-
 /**
  *
  * @author kuznetsov_me
@@ -35,40 +27,44 @@ public class XmlPdfRepresentationTest {
     /**
      * Test of getContents method, of class XmlPdfRepresentation.
      */
-    @Test
-    public void testGetContents() throws URISyntaxException, IOException {
-	System.out.println("getContents");
-	XmlPdfRepresentation instance = new XmlPdfRepresentation("application/pdf",
-		getClass().getClassLoader().getResource("jurnals/example.xml").toURI());
-	byte[] result = instance.getContents();
-	assertNotNull(result);
-	Files.write(Paths.get(System.getProperty("java.io.tmpdir") + "/result"), result);
-    }
-
-    /**
-     * Test of getExtension method, of class XmlPdfRepresentation.
-     */
-    @Test
-    public void testGetExtension() throws URISyntaxException {
-	System.out.println("getExtension");
-	XmlPdfRepresentation instance = new XmlPdfRepresentation("application/pdf",
-		getClass().getClassLoader().getResource("jurnals/example.xml").toURI());
-	String expResult = "pdf";
-	String result = instance.getExtension();
-	assertEquals(expResult, result);
-    }
-
-    /**
-     * Test of getMediaType method, of class XmlPdfRepresentation.
-     */
-    @Test
-    public void testGetMediaType() throws URISyntaxException {
-	System.out.println("getMediaType");
-	XmlPdfRepresentation instance = new XmlPdfRepresentation("application/pdf",
-		getClass().getClassLoader().getResource("jurnals/example.xml").toURI());
-	String expResult = "application/pdf";
-	String result = instance.getMediaType();
-	assertEquals(expResult, result);
-    }
+    // @Test
+    // public void testGetContents() throws URISyntaxException, IOException {
+    // System.out.println("getContents");
+    // XmlPdfRepresentation instance = new
+    // XmlPdfRepresentation("application/pdf",
+    // getClass().getClassLoader().getResource("jurnals/example.xml").toURI());
+    // byte[] result = instance.getContents();
+    // assertNotNull(result);
+    // Files.write(Paths.get(System.getProperty("java.io.tmpdir") + "/result"),
+    // result);
+    // }
+    //
+    // /**
+    // * Test of getExtension method, of class XmlPdfRepresentation.
+    // */
+    // @Test
+    // public void testGetExtension() throws URISyntaxException {
+    // System.out.println("getExtension");
+    // XmlPdfRepresentation instance = new
+    // XmlPdfRepresentation("application/pdf",
+    // getClass().getClassLoader().getResource("jurnals/example.xml").toURI());
+    // String expResult = "pdf";
+    // String result = instance.getExtension();
+    // assertEquals(expResult, result);
+    // }
+    //
+    // /**
+    // * Test of getMediaType method, of class XmlPdfRepresentation.
+    // */
+    // @Test
+    // public void testGetMediaType() throws URISyntaxException {
+    // System.out.println("getMediaType");
+    // XmlPdfRepresentation instance = new
+    // XmlPdfRepresentation("application/pdf",
+    // getClass().getClassLoader().getResource("jurnals/example.xml").toURI());
+    // String expResult = "application/pdf";
+    // String result = instance.getMediaType();
+    // assertEquals(expResult, result);
+    // }
 
 }

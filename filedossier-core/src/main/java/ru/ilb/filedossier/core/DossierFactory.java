@@ -15,12 +15,15 @@
  */
 package ru.ilb.filedossier.core;
 
+import java.net.MalformedURLException;
 import ru.ilb.filedossier.entities.DossierFile;
 import ru.ilb.filedossier.entities.Dossier;
 import java.net.URI;
 import ru.ilb.filedossier.entities.DossierContext;
 import ru.ilb.filedossier.context.DossierContextBuilder;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import ru.ilb.filedossier.ddl.DossierDefinition;
 import ru.ilb.filedossier.ddl.DossierFileDefinition;
@@ -99,7 +102,7 @@ public class DossierFactory {
 	    DossierContext dossierContext) {
 
 	List<Representation> representations = modelFile.getRepresentations().stream()
-		.map(representationModel -> createRepresentation(baseUri, representationModel))
+		.map(representationModel -> createRepresentation(baseUri, representationModel, dossierContext))
 		.collect(Collectors.toList());
 
 	DossierFileImpl df = new DossierFileImpl(store,
@@ -114,10 +117,16 @@ public class DossierFactory {
 	return df;
     }
 
-    private Representation createRepresentation(URI baseUri, RepresentationDefinition representationModel) {
-	return representationFactory.createRepresentation(representationModel.getMediaType(),
-		baseUri.resolve(representationModel.getStylesheet()),
-		baseUri.resolve(representationModel.getTemplate()));
+    private Representation createRepresentation(URI baseUri, RepresentationDefinition representationModel,
+	    DossierContext dossierContext) {
+	try {
+	    return representationFactory.createRepresentation(representationModel.getMediaType(),
+		    baseUri.resolve(representationModel.getStylesheet()),
+		    baseUri.resolve(representationModel.getTemplate()),
+		    templateEvaluator.evaluateStringExpression(representationModel.getSchema(), dossierContext));
+	} catch (MalformedURLException ex) {
+	    throw new RuntimeException(ex);
+	}
     }
 
 }
