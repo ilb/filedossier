@@ -15,9 +15,10 @@
  */
 package ru.ilb.filedossier.scripting;
 
+import javax.naming.InitialContext;
 import org.apache.commons.text.StringSubstitutor;
-import org.apache.commons.text.lookup.StringLookup;
 import ru.ilb.filedossier.entities.DossierContext;
+import ru.ilb.filedossier.scripting.lookup.ModelStringLookup;
 
 /**
  * Реализация с использованием Apache Commons Text
@@ -26,17 +27,11 @@ import ru.ilb.filedossier.entities.DossierContext;
  */
 public class SubstitutorTemplateEvaluator implements TemplateEvaluator {
 
+    private InitialContext context;
+
     @Override
     public String evaluateStringExpression(String template, DossierContext dossierContext) {
-
-	// убрать evaluationMethod сделать один lookup и для мапы и для лдапа,
-	// но для лдапа сделать
-	// защиту в виде проверки на точку, что будет означать, что это не
-	// обычная строка
-
-	StringLookup lookup = null;
-
-	StringSubstitutor sub = new StringSubstitutor(lookup);
+	StringSubstitutor sub = new StringSubstitutor(new ModelStringLookup(dossierContext.asMap(), context));
 	return sub.replace(template);
     }
 

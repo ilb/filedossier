@@ -15,8 +15,7 @@
  */
 package ru.ilb.filedossier.scripting.lookup;
 
-import java.util.Hashtable;
-import javax.naming.Context;
+import java.util.Map;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import org.apache.commons.text.lookup.StringLookup;
@@ -25,22 +24,32 @@ import org.apache.commons.text.lookup.StringLookup;
  *
  * @author kuznetsov_me
  */
-public class JNDILookup implements StringLookup {
+public class ModelStringLookup<T> implements StringLookup {
 
-    private static final String LDAP_URL = "https://devel.net.ilb.ru/ldapadminko/web/browse.php?ctx-0=ou=meta,ou=apps,o=bystrobank,c=ru";
+    private final InitialContext context;
+
+    private final Map<String, T> map;
+
+    public ModelStringLookup(final Map<String, T> map, InitialContext context) {
+	this.context = context;
+	this.map = map;
+    }
 
     @Override
     public String lookup(String key) {
-
-	try {
-	    Hashtable<String, String> contextProperties = new Hashtable<String, String>();
-	    // contextProperties.put(Context.INITIAL_CONTEXT_FACTORY, );
-	    contextProperties.put(Context.PROVIDER_URL, LDAP_URL);
-
-	    Context context = new InitialContext(contextProperties);
-	    return (String) context.lookup(key);
-	} catch (NamingException ex) {
-	    throw new IllegalArgumentException(ex);
+	if (map == null) {
+	    return null;
+	}
+	final T obj;
+	if (key.contains(".")) {
+	    try {
+		return (String) context.lookup(key);
+	    } catch (NamingException ex) {
+		throw new RuntimeException(ex);
+	    }
+	} else {
+	    obj = map.get(key);
+	    return obj != null ? obj.toString() : null;
 	}
     }
 }

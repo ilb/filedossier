@@ -33,6 +33,5 @@ public class RepresentationFactory {
 	default:
 	    throw new IllegalArgumentException("unsupported media type " + mediaType);
 	}
-
     }
 }
