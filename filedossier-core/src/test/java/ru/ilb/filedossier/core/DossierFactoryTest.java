@@ -19,6 +19,8 @@ import ru.ilb.filedossier.core.DossierFactory;
 import ru.ilb.filedossier.entities.Dossier;
 import ru.ilb.filedossier.context.DossierContextBuilder;
 import java.net.URISyntaxException;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import ru.ilb.filedossier.context.DossierContextImpl;
@@ -56,12 +58,17 @@ public class DossierFactoryTest {
 	    dc.setProperty("prop", false);
 	    return dc;
 	};
-	TemplateEvaluator templateEvaluator = new SubstitutorTemplateEvaluator();
+	TemplateEvaluator templateEvaluator;
+	try {
+	    templateEvaluator = new SubstitutorTemplateEvaluator(new InitialContext());
+	} catch (NamingException ex) {
+	    throw new RuntimeException(ex);
+	}
 	return new DossierFactory(dossierModelRepository, storeFactory, dossierContextBuilder, templateEvaluator);
 
     }
 
-    public DossierFactoryTest() {
+    public DossierFactoryTest() throws NamingException {
 	dossierFactory = getDossierFactory();
     }
 

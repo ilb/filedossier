@@ -15,10 +15,15 @@
  */
 package ru.ilb.filedossier.scripting;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.naming.InitialContext;
 import org.apache.commons.text.StringSubstitutor;
+import org.apache.commons.text.lookup.StringLookup;
+import org.apache.commons.text.lookup.StringLookupFactory;
 import ru.ilb.filedossier.entities.DossierContext;
-import ru.ilb.filedossier.scripting.lookup.ModelStringLookup;
+import ru.ilb.filedossier.scripting.lookup.JNDILookup;
+import ru.ilb.filedossier.scripting.lookup.LookupPerformer;
 
 /**
  * Реализация с использованием Apache Commons Text
@@ -28,10 +33,18 @@ import ru.ilb.filedossier.scripting.lookup.ModelStringLookup;
 public class SubstitutorTemplateEvaluator implements TemplateEvaluator {
 
     private InitialContext context;
+    private List<StringLookup> lookups;
+
+    public SubstitutorTemplateEvaluator(InitialContext context) {
+	this.context = context;
+	lookups = new ArrayList<>();
+	lookups.add(new JNDILookup(context));
+    }
 
     @Override
     public String evaluateStringExpression(String template, DossierContext dossierContext) {
-	StringSubstitutor sub = new StringSubstitutor(new ModelStringLookup(dossierContext.asMap(), context));
+	lookups.add(StringLookupFactory.INSTANCE.mapStringLookup(dossierContext.asMap()));
+	StringSubstitutor sub = new StringSubstitutor(new LookupPerformer(lookups));
 	return sub.replace(template);
     }
 

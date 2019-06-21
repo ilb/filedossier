@@ -15,45 +15,24 @@
  */
 package ru.ilb.filedossier.scripting.lookup;
 
-import java.util.Map;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
+import java.util.List;
+import java.util.Objects;
 import org.apache.commons.text.lookup.StringLookup;
 
 /**
- *
  * @author kuznetsov_me
  */
-public class ModelStringLookup<T> implements StringLookup {
 
-    private final InitialContext context;
+public class LookupPerformer implements StringLookup {
 
-    private final Map<String, T> map;
+    List<StringLookup> lookups;
 
-    public ModelStringLookup(final Map<String, T> map, InitialContext context) {
-	this.context = context;
-	this.map = map;
+    public LookupPerformer(List<StringLookup> lookups) {
+	this.lookups = lookups;
     }
 
     @Override
     public String lookup(String key) {
-	if (map == null) {
-	    return null;
-	}
-	if (key != null) {
-
-	    final T obj;
-	    if (key.contains(".")) {
-		try {
-		    return (String) context.lookup(key);
-		} catch (NamingException | NullPointerException ex) {
-		    return null;
-		}
-	    } else {
-		obj = map.get(key);
-		return obj != null ? obj.toString() : null;
-	    }
-	} else
-	    return null;
+	return lookups.stream().map(lookup -> lookup.lookup(key)).filter(Objects::nonNull).findFirst().orElse(null);
     }
 }

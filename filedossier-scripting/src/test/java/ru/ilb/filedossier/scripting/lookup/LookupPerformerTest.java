@@ -15,46 +15,44 @@
  */
 package ru.ilb.filedossier.scripting.lookup;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import org.junit.Assert;
+import org.apache.commons.text.lookup.StringLookup;
+import org.apache.commons.text.lookup.StringLookupFactory;
 import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
  *
  * @author kuznetsov_me
  */
-public class ModelStringLookupTest {
+public class LookupPerformerTest {
 
-    public ModelStringLookupTest() {
+    Map<String, Object> map;
+    List<StringLookup> lookups;
+
+    public LookupPerformerTest() throws NamingException {
     }
 
     /**
-     * Test of lookup method, of class JNDILookup.
+     * Test of lookup method, of class ModuleLookup.
      */
     @Test
-    public void testStringLookup() throws NamingException {
-
-	// InitialContext context = new InitialContext(new Hashtable() {
-	// {
-	// put(Context.INITIAL_CONTEXT_FACTORY,
-	// "com.sun.jndi.ldap.LdapCtxFactory");
-	// put(Context.PROVIDER_URL,
-	// "ldap://devel.net.ilb.ru/ou=meta,ou=apps,o=bystrobank,c=ru");
-	// }
-	// });
-
+    public void testLookup() throws NamingException {
 	InitialContext context = new InitialContext();
-
 	Map<String, Object> map = new HashMap<>();
-	map.put("${name}", "testName");
-	ModelStringLookup instance = new ModelStringLookup<>(map, context);
-
-	String expectedResult = "testName";
-	String result = instance.lookup("${name}");
-	Assert.assertEquals(expectedResult, result);
+	map.put("name", "testName");
+	List<StringLookup> lookups = new ArrayList<>();
+	lookups.add(StringLookupFactory.INSTANCE.mapStringLookup(map));
+	System.out.println("lookup");
+	LookupPerformer instance = new LookupPerformer(lookups);
+	String expResult = "testName";
+	String result = instance.lookup("name");
+	assertEquals(expResult, result);
     }
 
 }

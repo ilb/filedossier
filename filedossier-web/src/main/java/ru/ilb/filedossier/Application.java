@@ -17,6 +17,10 @@ package ru.ilb.filedossier;
 
 import java.net.URISyntaxException;
 import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import org.apache.cxf.ext.logging.LoggingFeature;
 import org.apache.cxf.jaxrs.provider.XSLTJaxbProvider;
 import org.springframework.boot.SpringApplication;
@@ -44,98 +48,105 @@ import ru.ilb.filedossier.store.StoreFactory;
  * @author slavb
  */
 @SpringBootApplication
-@ComponentScan(basePackages = {
-    "ru.ilb.filedossier.components",
-    "ru.ilb.filedossier.mappers"})
+@ComponentScan(basePackages = { "ru.ilb.filedossier.components", "ru.ilb.filedossier.mappers" })
 public class Application { // extends JpaBaseConfiguration
 
     public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
+	SpringApplication.run(Application.class, args);
     }
 
     @Bean
     public ru.ilb.common.jaxrs.json.MOXyJsonProvider jsonProvider() {
-        // lacks @Provider annotation
-        //return new org.eclipse.persistence.jaxb.rs.MOXyJsonProvider();
-        return new ru.ilb.common.jaxrs.json.MOXyJsonProvider();
+	// lacks @Provider annotation
+	// return new org.eclipse.persistence.jaxb.rs.MOXyJsonProvider();
+	return new ru.ilb.common.jaxrs.json.MOXyJsonProvider();
     }
 
     @Bean
     public JaxbContextResolver jaxbContextResolver() {
-        return new JaxbContextResolver();
+	return new JaxbContextResolver();
     }
 
     @Bean
     public DossierFactory dossierFactory() {
-        DossierDefinitionRepository dossierModelRepository;
-        StoreFactory storeFactory;
-        try {
-            dossierModelRepository = new FileDossierDefinitionRepository(getClass().getClassLoader().getResource("models").toURI());
-            storeFactory = StoreFactory.newInstance(getClass().getClassLoader().getResource("teststoreroot").toURI());
-        } catch (URISyntaxException ex) {
-            throw new RuntimeException(ex);
-        }
+	DossierDefinitionRepository dossierModelRepository;
+	StoreFactory storeFactory;
+	try {
+	    dossierModelRepository = new FileDossierDefinitionRepository(
+		    getClass().getClassLoader().getResource("models").toURI());
+	    storeFactory = StoreFactory.newInstance(getClass().getClassLoader().getResource("teststoreroot").toURI());
+	} catch (URISyntaxException ex) {
+	    throw new RuntimeException(ex);
+	}
 
-        DossierContextBuilder dossierContextBuilder = (String dossierKey, String dossierPackage, String dossierCode) -> {
-            DossierContext dc = new DossierContextImpl("contextKey");
-            dc.setProperty("name", "Тест имя");
-            dc.setProperty("prop", false);
-            return dc;
-        };
-        TemplateEvaluator templateEvaluator = new SubstitutorTemplateEvaluator();
-        return new DossierFactory(dossierModelRepository, storeFactory, dossierContextBuilder, templateEvaluator);
+	DossierContextBuilder dossierContextBuilder = (String dossierKey, String dossierPackage,
+		String dossierCode) -> {
+	    DossierContext dc = new DossierContextImpl("contextKey");
+	    dc.setProperty("name", "Тест имя");
+	    dc.setProperty("prop", false);
+	    return dc;
+	};
+	TemplateEvaluator templateEvaluator;
+	try {
+	    templateEvaluator = new SubstitutorTemplateEvaluator(new InitialContext());
+	} catch (NamingException ex) {
+	    throw new RuntimeException(ex);
+	}
+	return new DossierFactory(dossierModelRepository, storeFactory, dossierContextBuilder, templateEvaluator);
 
     }
 
     @Bean
     @ConditionalOnExpression("'${ILB_SYSID}'=='DEVEL'")
     public XSLTRequestFilter xsltRequestFilter() {
-        // REFRESH TEMPLATES
-        return new XSLTRequestFilter();
+	// REFRESH TEMPLATES
+	return new XSLTRequestFilter();
     }
 
     @Bean
     public XSLTJaxbProvider xsltJaxbProvider() {
-        XSLTJaxbProvider xsltJaxbProvider = new XSLTJaxbProvider();
-        xsltJaxbProvider.setResolver(new ServletContextURIResolver());
-        xsltJaxbProvider.setRefreshTemplates(true);
-        xsltJaxbProvider.setProduceMediaTypes(Arrays.asList("application/xhtml+xml,text/csv,application/pdf"));
-        xsltJaxbProvider.setOutTemplate("classpath:/stylesheets/filedossier/dossier.xsl");
-        xsltJaxbProvider.setRefreshTemplates(true);
-        return xsltJaxbProvider;
+	XSLTJaxbProvider xsltJaxbProvider = new XSLTJaxbProvider();
+	xsltJaxbProvider.setResolver(new ServletContextURIResolver());
+	xsltJaxbProvider.setRefreshTemplates(true);
+	xsltJaxbProvider.setProduceMediaTypes(Arrays.asList("application/xhtml+xml,text/csv,application/pdf"));
+	xsltJaxbProvider.setOutTemplate("classpath:/stylesheets/filedossier/dossier.xsl");
+	xsltJaxbProvider.setRefreshTemplates(true);
+	return xsltJaxbProvider;
     }
 
     @Bean
     public LoggingFeature loggingFeature() {
-        LoggingFeature lf = new LoggingFeature();
-        lf.addBinaryContentMediaTypes("application/vnd.oasis.opendocument.spreadsheet");;
-        return lf;
+	LoggingFeature lf = new LoggingFeature();
+	lf.addBinaryContentMediaTypes("application/vnd.oasis.opendocument.spreadsheet");
+	;
+	return lf;
     }
 
     /**
      * JPA-like NamingStrategy
+     * 
      * @return
      */
     @Bean
     public NamingStrategy namingStrategy() {
-        return new NamingStrategy() {
-            @Override
-            public String getReverseColumnName(RelationalPersistentProperty property) {
+	return new NamingStrategy() {
+	    @Override
+	    public String getReverseColumnName(RelationalPersistentProperty property) {
 		return property.getOwner().getTableName() + "_ID";
-            }
-            
-            @Override
-            public String getColumnName(RelationalPersistentProperty property) {
-                Assert.notNull(property, "Property must not be null.");
-                return property.getName().toUpperCase();
-            }
+	    }
 
-            @Override
-            public String getTableName(Class<?> type) {
-                Assert.notNull(type, "Type must not be null.");
-                return type.getSimpleName().toUpperCase();
-            }
+	    @Override
+	    public String getColumnName(RelationalPersistentProperty property) {
+		Assert.notNull(property, "Property must not be null.");
+		return property.getName().toUpperCase();
+	    }
 
-        };
+	    @Override
+	    public String getTableName(Class<?> type) {
+		Assert.notNull(type, "Type must not be null.");
+		return type.getSimpleName().toUpperCase();
+	    }
+
+	};
     }
 }

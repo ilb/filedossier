@@ -22,8 +22,6 @@ import java.net.URI;
 import ru.ilb.filedossier.entities.DossierContext;
 import ru.ilb.filedossier.context.DossierContextBuilder;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import ru.ilb.filedossier.ddl.DossierDefinition;
 import ru.ilb.filedossier.ddl.DossierFileDefinition;
