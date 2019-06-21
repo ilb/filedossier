@@ -130,5 +130,6 @@
         <module>filedossier-core</module>
         <module>filedossier-ddl</module>
         <module>filedossier-context-persistence</module>
+        <module>filedossier-functions</module>
     </modules>
 </project>
