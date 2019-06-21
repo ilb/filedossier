@@ -11,6 +11,7 @@ import java.util.function.Function;
  *
  * @author slavb
  */
-public interface ByteFunction extends Function<byte[],byte[]> {
+@FunctionalInterface
+public interface ByteFunction extends Function<byte[], byte[]> {
 
 }

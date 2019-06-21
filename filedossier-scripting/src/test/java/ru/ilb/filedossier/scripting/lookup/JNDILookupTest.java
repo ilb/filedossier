@@ -19,7 +19,6 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import org.junit.Assert;
 import org.junit.Test;
 
 /**

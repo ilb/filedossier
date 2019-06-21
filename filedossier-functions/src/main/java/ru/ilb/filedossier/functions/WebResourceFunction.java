@@ -22,44 +22,44 @@ import java.net.URL;
 public class WebResourceFunction implements ByteFunction {
 
     private final URL resourceUrl;
-    private String requestMethod = "POST";
-    private String contentType = "application/xml";
+    private final String requestMethod = "POST";
+    private final String contentType = "application/xml";
 
     public WebResourceFunction(URI resourceUrl) {
-        try {
-            this.resourceUrl = resourceUrl.toURL();
-        } catch (MalformedURLException ex) {
-            throw new RuntimeException(ex);
-        }
+	try {
+	    this.resourceUrl = resourceUrl.toURL();
+	} catch (MalformedURLException ex) {
+	    throw new RuntimeException(ex);
+	}
     }
 
     @Override
-    public byte[] apply(byte[] t) {
-        try {
-            HttpURLConnection httpConnection = (HttpURLConnection) resourceUrl.openConnection();
-            httpConnection.setRequestMethod(requestMethod);
-            httpConnection.setRequestProperty("Content-Type", contentType);
-            httpConnection.setDoOutput(true);
+    public byte[] apply(byte[] template) {
+	try {
+	    HttpURLConnection httpConnection = (HttpURLConnection) resourceUrl.openConnection();
+	    httpConnection.setRequestMethod(requestMethod);
+	    httpConnection.setRequestProperty("Content-Type", contentType);
+	    httpConnection.setDoOutput(true);
 
-            try (OutputStream outStream = httpConnection.getOutputStream();
-                    OutputStreamWriter outStreamWriter = new OutputStreamWriter(outStream)) {
-                outStreamWriter.write(new String(t));
-                outStreamWriter.flush();
-            }
+	    try (OutputStream outStream = httpConnection.getOutputStream();
+		    OutputStreamWriter outStreamWriter = new OutputStreamWriter(outStream)) {
+		outStreamWriter.write(new String(template));
+		outStreamWriter.flush();
+	    }
 
-            try (InputStream pdf = httpConnection.getInputStream();
-                    ByteArrayOutputStream out = new ByteArrayOutputStream()) {
-                byte[] buffer = new byte[1024];
-                int len;
-                while ((len = pdf.read(buffer)) != -1) {
-                    out.write(buffer, 0, len);
-                }
-                return out.toByteArray();
-            }
+	    try (InputStream responseContent = httpConnection.getInputStream();
+		    ByteArrayOutputStream out = new ByteArrayOutputStream()) {
+		byte[] buffer = new byte[1024];
+		int len;
+		while ((len = responseContent.read(buffer)) != -1) {
+		    out.write(buffer, 0, len);
+		}
+		return out.toByteArray();
+	    }
 
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
-        }
+	} catch (IOException ex) {
+	    throw new RuntimeException(ex);
+	}
 
     }
 
