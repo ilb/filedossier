@@ -15,17 +15,12 @@
  */
 package ru.ilb.filedossier.representation;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URI;
-import java.net.URL;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import ru.ilb.filedossier.functions.WebResourceFunction;
 
 /**
  *
@@ -34,11 +29,12 @@ import java.nio.file.Paths;
 public class XmlPdfRepresentation extends IdentityRepresentation {
 
     private final static String OUTPUT_FORMAT = "application/pdf";
+    private final static URI BASE_URI = URI.create("http://devel.net.ilb.ru:8080/pdfgen/fopservlet");
 
-    protected final URI contentUri;
-    protected final String resourceUrl;
+    private final URI contentUri;
+    private final URI resourceUri;
 
-    public XmlPdfRepresentation(String mediaType, URI contentUri, String resourceUrl) {
+    public XmlPdfRepresentation(String mediaType, URI contentUri, URI resourceUri) {
 	super(mediaType);
 
 	if (!mediaType.equals(OUTPUT_FORMAT)) {
@@ -46,39 +42,16 @@ public class XmlPdfRepresentation extends IdentityRepresentation {
 	}
 
 	this.contentUri = contentUri;
-	this.resourceUrl = resourceUrl;
+	this.resourceUri = resourceUri;
     }
 
     @Override
     public byte[] getContents() {
 	try {
 	    byte[] content = Files.readAllBytes(Paths.get(contentUri));
-	    return requestPdfGen(content, new URL(resourceUrl));
-	} catch (IOException ex) {
+	    return new WebResourceFunction(new URI(BASE_URI.toString() + resourceUri.toString())).apply(content);
+	} catch (IOException | URISyntaxException ex) {
 	    throw new RuntimeException(ex);
-	}
-    }
-
-    private static byte[] requestPdfGen(byte[] content, URL resourceUrl) throws MalformedURLException, IOException {
-	HttpURLConnection httpConnection = (HttpURLConnection) resourceUrl.openConnection();
-	httpConnection.setRequestMethod("POST");
-	httpConnection.setRequestProperty("Content-Type", "application/xml");
-	httpConnection.setDoOutput(true);
-
-	try (OutputStream outStream = httpConnection.getOutputStream();
-		OutputStreamWriter outStreamWriter = new OutputStreamWriter(outStream)) {
-	    outStreamWriter.write(new String(content));
-	    outStreamWriter.flush();
-	}
-
-	try (InputStream pdf = httpConnection.getInputStream();
-		ByteArrayOutputStream out = new ByteArrayOutputStream()) {
-	    byte[] buffer = new byte[1024];
-	    int len;
-	    while ((len = pdf.read(buffer)) != -1) {
-		out.write(buffer, 0, len);
-	    }
-	    return out.toByteArray();
 	}
     }
 

@@ -15,6 +15,12 @@
  */
 package ru.ilb.filedossier.representation;
 
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import static org.junit.Assert.assertNotNull;
+import org.junit.Test;
+
 /**
  *
  * @author kuznetsov_me
@@ -27,44 +33,16 @@ public class XmlPdfRepresentationTest {
     /**
      * Test of getContents method, of class XmlPdfRepresentation.
      */
-    // @Test
-    // public void testGetContents() throws URISyntaxException, IOException {
-    // System.out.println("getContents");
-    // XmlPdfRepresentation instance = new
-    // XmlPdfRepresentation("application/pdf",
-    // getClass().getClassLoader().getResource("jurnals/example.xml").toURI());
-    // byte[] result = instance.getContents();
-    // assertNotNull(result);
-    // Files.write(Paths.get(System.getProperty("java.io.tmpdir") + "/result"),
-    // result);
-    // }
-    //
-    // /**
-    // * Test of getExtension method, of class XmlPdfRepresentation.
-    // */
-    // @Test
-    // public void testGetExtension() throws URISyntaxException {
-    // System.out.println("getExtension");
-    // XmlPdfRepresentation instance = new
-    // XmlPdfRepresentation("application/pdf",
-    // getClass().getClassLoader().getResource("jurnals/example.xml").toURI());
-    // String expResult = "pdf";
-    // String result = instance.getExtension();
-    // assertEquals(expResult, result);
-    // }
-    //
-    // /**
-    // * Test of getMediaType method, of class XmlPdfRepresentation.
-    // */
-    // @Test
-    // public void testGetMediaType() throws URISyntaxException {
-    // System.out.println("getMediaType");
-    // XmlPdfRepresentation instance = new
-    // XmlPdfRepresentation("application/pdf",
-    // getClass().getClassLoader().getResource("jurnals/example.xml").toURI());
-    // String expResult = "application/pdf";
-    // String result = instance.getMediaType();
-    // assertEquals(expResult, result);
-    // }
-
+    @Test
+    public void testGetContents() throws URISyntaxException, IOException {
+	System.out.println("getContents");
+	XmlPdfRepresentation instance = new XmlPdfRepresentation("application/pdf",
+		getClass().getClassLoader().getResource("jurnals/example.xml").toURI(),
+		new URI("?xslt=https://devel.net.ilb.ru/meta/stylesheets/doctemplates/jurnals/percentsheet.xsl&xsd="
+			+ "https://devel.net.ilb.ru/meta/schemas/doctemplates/jurnals/percentsheet.xsd"));
+	byte[] result = instance.getContents();
+	assertNotNull(result);
+	// Files.write(Paths.get(System.getProperty("java.io.tmpdir") +
+	// "/result"), result);
+    }
 }

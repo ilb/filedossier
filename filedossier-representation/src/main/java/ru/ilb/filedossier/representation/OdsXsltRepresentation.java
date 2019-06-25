@@ -43,99 +43,103 @@ public class OdsXsltRepresentation extends IdentityRepresentation {
     protected final URI templateUri;
 
     public OdsXsltRepresentation(String mediaType, URI stylesheetUri, URI templateUri) {
-        super(mediaType);
-        this.stylesheetUri = stylesheetUri;
-        this.templateUri = templateUri;
+	super(mediaType);
+	this.stylesheetUri = stylesheetUri;
+	this.templateUri = templateUri;
     }
 
     @Override
     public String getMediaType() {
-        return mediaType;
+	return mediaType;
     }
 
     @Override
     public byte[] getContents() {
-        try {
-            return prepareContent(parent.getContents(), stylesheetUri, templateUri);
-        } catch (IOException | TransformerException ex) {
-            throw new RuntimeException(ex);
-        }
+	try {
+	    return prepareContent(parent.getContents(), stylesheetUri, templateUri);
+	} catch (IOException | TransformerException ex) {
+	    throw new RuntimeException(ex);
+	}
     }
 
-    private static byte[] prepareContent(byte[] source, URI stylesheetUri, URI templateUri) throws IOException, TransformerException {
-        Map<String, String> attributes = new HashMap<>();
-        Path tempDir = Files.createTempDirectory("OdsXsltRepresentation");
-        Path templatePath = tempDir.resolve("template.ods");
-        Files.copy(Paths.get(templateUri), templatePath);
-        URI templateUriJar = URI.create("jar:" + templatePath.toUri().toString());
-        byte[] result;
-        try (FileSystem zipFileSys = FileSystems.newFileSystem(templateUriJar, attributes);) {
-            Path path = zipFileSys.getPath("content.xml");
-            byte[] content = Files.readAllBytes(path);
-            byte[] stylesheet = Files.readAllBytes(Paths.get(stylesheetUri));
-            content = processContent(tempDir, source, content, stylesheet);
-            Files.delete(path);
-            Files.write(path, content);
-            //should close zip file before read
-            zipFileSys.close();
-            result = Files.readAllBytes(templatePath);
-        } finally {
-            // remove temp dir with contents solution from https://stackoverflow.com/a/42267494/3141736
-            Files.walk(tempDir)
-                    .map(Path::toFile)
-                    .sorted((o1, o2) -> -o1.compareTo(o2))
-                    .forEach(File::delete);
-        }
-        return result;
+    private static byte[] prepareContent(byte[] source, URI stylesheetUri, URI templateUri)
+	    throws IOException, TransformerException {
+	Map<String, String> attributes = new HashMap<>();
+	Path tempDir = Files.createTempDirectory("OdsXsltRepresentation");
+	Path templatePath = tempDir.resolve("template.ods");
+	Files.copy(Paths.get(templateUri), templatePath);
+	URI templateUriJar = URI.create("jar:" + templatePath.toUri().toString());
+	byte[] result;
+	try (FileSystem zipFileSys = FileSystems.newFileSystem(templateUriJar, attributes);) {
+	    Path path = zipFileSys.getPath("content.xml");
+	    byte[] content = Files.readAllBytes(path);
+	    byte[] stylesheet = Files.readAllBytes(Paths.get(stylesheetUri));
+	    content = processContent(tempDir, source, content, stylesheet);
+	    Files.delete(path);
+	    Files.write(path, content);
+	    // should close zip file before read
+	    zipFileSys.close();
+	    result = Files.readAllBytes(templatePath);
+	} finally {
+	    // remove temp dir with contents solution from
+	    // https://stackoverflow.com/a/42267494/3141736
+	    Files.walk(tempDir).map(Path::toFile).sorted((o1, o2) -> -o1.compareTo(o2)).forEach(File::delete);
+	}
+	return result;
 
     }
 
-    private static byte[] processContent(Path tempDir, byte[] source, byte[] content, byte[] stylesheet) throws IOException, TransformerException {
-        //File.createTe
+    private static byte[] processContent(Path tempDir, byte[] source, byte[] content, byte[] stylesheet)
+	    throws IOException, TransformerException {
+	// File.createTe
 
-        Source aStyleSheetInputSource = new StreamSource(new InputStreamReader(new ByteArrayInputStream(stylesheet)));
-        aStyleSheetInputSource.setSystemId(tempDir.resolve("content.xsl").toString());
+	Source aStyleSheetInputSource = new StreamSource(new InputStreamReader(new ByteArrayInputStream(stylesheet)));
+	aStyleSheetInputSource.setSystemId(tempDir.resolve("content.xsl").toString());
 
-        // save data file to temp dir
-        Files.write(tempDir.resolve("data.xml"), source);
+	// save data file to temp dir
+	Files.write(tempDir.resolve("data.xml"), source);
 
-        Source aInputSource = new StreamSource(new InputStreamReader(new ByteArrayInputStream(content)));
+	Source aInputSource = new StreamSource(new InputStreamReader(new ByteArrayInputStream(content)));
 
-        // Выходные данные
-        File aOutputFile = tempDir.resolve("content.xml").toFile(); // File.createTempFile("tmp", ".xml",tempDirWithPrefix.toFile());
-        Result aOutputResult = new StreamResult(aOutputFile);
+	// Выходные данные
+	File aOutputFile = tempDir.resolve("content.xml").toFile(); // File.createTempFile("tmp",
+								    // ".xml",tempDirWithPrefix.toFile());
+	Result aOutputResult = new StreamResult(aOutputFile);
 
-        // Преобразование
-        TransformerFactory aFactory = TransformerFactory.newInstance();
-        Transformer aTransformer = aFactory.newTransformer(aStyleSheetInputSource);
+	// Преобразование
+	TransformerFactory aFactory = TransformerFactory.newInstance();
+	Transformer aTransformer = aFactory.newTransformer(aStyleSheetInputSource);
 
-        aTransformer.transform(aInputSource, aOutputResult);
+	aTransformer.transform(aInputSource, aOutputResult);
 
-        return Files.readAllBytes(aOutputFile.toPath());
+	return Files.readAllBytes(aOutputFile.toPath());
 
     }
 
     @Override
     public String getExtension() {
-        return "ods";
+	return "ods";
     }
-    
+
     @Override
     public void setParent(DossierPath parent) {
-        assert DossierContents.class.isAssignableFrom(parent.getClass()) : "DossierContents instance should be passed as argument instead of " + parent.getClass().getCanonicalName();
+	assert DossierContents.class.isAssignableFrom(
+		parent.getClass()) : "DossierContents instance should be passed as argument instead of "
+			+ parent.getClass().getCanonicalName();
 
-        DossierContents dossierContents = (DossierContents) parent;
-        switch (dossierContents.getMediaType()) {
-            case "application/xml":
-                this.parent = dossierContents;
-                break;
-            case "application/json":
-                JsonXmlRepresentation jsonXmlRepresentation = new JsonXmlRepresentation();
-                jsonXmlRepresentation.setParent(parent);
-                this.parent = jsonXmlRepresentation;
-                break;
-            default:
-                throw new IllegalArgumentException("Media type " + dossierContents.getMediaType() + " is unsupported by OdsXsltRepresentation");
-        }
+	DossierContents dossierContents = (DossierContents) parent;
+	switch (dossierContents.getMediaType()) {
+	case "application/xml":
+	    this.parent = dossierContents;
+	    break;
+	case "application/json":
+	    JsonXmlRepresentation jsonXmlRepresentation = new JsonXmlRepresentation();
+	    jsonXmlRepresentation.setParent(parent);
+	    this.parent = jsonXmlRepresentation;
+	    break;
+	default:
+	    throw new IllegalArgumentException(
+		    "Media type " + dossierContents.getMediaType() + " is unsupported by OdsXsltRepresentation");
+	}
     }
 }

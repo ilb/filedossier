@@ -19,6 +19,7 @@ import ru.ilb.filedossier.core.DossierFactory;
 import ru.ilb.filedossier.entities.DossierFile;
 import ru.ilb.filedossier.entities.Dossier;
 import java.util.List;
+import javax.naming.NamingException;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import static ru.ilb.filedossier.core.DossierFactoryTest.getDossierFactory;
@@ -32,7 +33,7 @@ public class DossierImplTest {
 
     private final Dossier dossier;
 
-    public DossierImplTest() {
+    public DossierImplTest() throws NamingException {
 	dossierFactory = getDossierFactory();
 	dossier = dossierFactory.getDossier("teststorekey", "testmodel", "TEST");
     }

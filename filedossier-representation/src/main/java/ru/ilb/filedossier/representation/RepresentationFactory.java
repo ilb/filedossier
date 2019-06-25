@@ -15,9 +15,11 @@
  */
 package ru.ilb.filedossier.representation;
 
-import java.net.MalformedURLException;
 import ru.ilb.filedossier.entities.Representation;
 import java.net.URI;
+import ru.ilb.filedossier.ddl.RepresentationDefinition;
+import ru.ilb.filedossier.entities.DossierContext;
+import ru.ilb.filedossier.scripting.TemplateEvaluator;
 
 /**
  *
@@ -25,13 +27,16 @@ import java.net.URI;
  */
 public class RepresentationFactory {
 
-    public Representation createRepresentation(String mediaType, URI stylesheet, URI template, String resource)
-	    throws MalformedURLException {
+    public Representation createRepresentation(URI baseUri, RepresentationDefinition representationModel,
+	    DossierContext dossierContext, TemplateEvaluator evaluator) {
+	String mediaType = representationModel.getMediaType();
 	switch (mediaType) {
 	case "application/vnd.oasis.opendocument.spreadsheet":
-	    return new OdsXsltRepresentation(mediaType, stylesheet, template);
+	    return new OdsXsltRepresentation(representationModel.getMediaType(),
+		    URI.create(representationModel.getStylesheet()), URI.create(representationModel.getTemplate()));
 	case "application/pdf":
-	    return new XmlPdfRepresentation(mediaType, template, resource);
+	    return new XmlPdfRepresentation(mediaType, URI.create(representationModel.getTemplate()),
+		    URI.create(evaluator.evaluateStringExpression(representationModel.getSchema(), dossierContext)));
 	default:
 	    throw new IllegalArgumentException("unsupported media type " + mediaType);
 	}

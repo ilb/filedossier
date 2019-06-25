@@ -27,11 +27,11 @@
                 <mediaType>application/vnd.oasis.opendocument.spreadsheet</mediaType>
                 <stylesheet>representations/fairpriceorder/content.xsl</stylesheet>
                 <template>representations/fairpriceorder/template.ods</template>
-                <schema>schema</schema>
+                <schema></schema>
             </representation>
         </dossierFile>
-        <dossierFile>
-            <code>avto</code>
+<dossierFile>
+            <code>jurnals</code>
             <name>${name}</name>
             <readonly>false</readonly>
             <required>true</required>
@@ -39,9 +39,8 @@
             <mediaType>application/pdf</mediaType>
             <representation>
                 <mediaType>application/pdf</mediaType>
-                <stylesheet></stylesheet>
-                <template>representation/projectteam/example.xml</template>
-                <schema>${ru.bystrobank.apps.meta.url}/stylesheets/doctemplates/primary/loantreaty/credits/auto/V20140707.xsl</schema>
+                <template>representations/jurnals/example.xml</template>
+                <schema>https://${ru.bystrobank.apps.meta.url}/stylesheets/doctemplates/jurnals/percentsheet.xsl&amp;xsd=https://${ru.bystrobank.apps.meta.url}/schemas/doctemplates/jurnals/percentsheet.xsd</schema>
             </representation>
         </dossierFile>
     </dossier>

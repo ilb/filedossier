@@ -19,14 +19,17 @@ import ru.ilb.filedossier.core.DossierFactory;
 import ru.ilb.filedossier.entities.Dossier;
 import ru.ilb.filedossier.context.DossierContextBuilder;
 import java.net.URISyntaxException;
+import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.ClassRule;
 import ru.ilb.filedossier.context.DossierContextImpl;
 import ru.ilb.filedossier.entities.DossierContext;
 import ru.ilb.filedossier.ddl.FileDossierDefinitionRepository;
 import ru.ilb.filedossier.ddl.DossierDefinitionRepository;
+import ru.ilb.filedossier.jndi.JndiRule;
 import ru.ilb.filedossier.scripting.SubstitutorTemplateEvaluator;
 import ru.ilb.filedossier.scripting.TemplateEvaluator;
 import ru.ilb.filedossier.store.StoreFactory;
@@ -39,7 +42,16 @@ public class DossierFactoryTest {
 
     private final DossierFactory dossierFactory;
 
-    public static DossierFactory getDossierFactory() {
+    @ClassRule
+    public static JndiRule jndi = new JndiRule() {
+	@Override
+	protected void bind(Context context) throws NamingException {
+	    context.bind("ru.bystrobank.apps.meta.url", "https://devel.net.ilb.ru/meta");
+	}
+
+    };
+
+    public static DossierFactory getDossierFactory() throws NamingException {
 	DossierDefinitionRepository dossierModelRepository;
 	StoreFactory storeFactory;
 	try {
@@ -59,11 +71,7 @@ public class DossierFactoryTest {
 	    return dc;
 	};
 	TemplateEvaluator templateEvaluator;
-	try {
-	    templateEvaluator = new SubstitutorTemplateEvaluator(new InitialContext());
-	} catch (NamingException ex) {
-	    throw new RuntimeException(ex);
-	}
+	templateEvaluator = new SubstitutorTemplateEvaluator(new InitialContext());
 	return new DossierFactory(dossierModelRepository, storeFactory, dossierContextBuilder, templateEvaluator);
 
     }
@@ -84,7 +92,6 @@ public class DossierFactoryTest {
 
 	String expResult = "Тест имя";
 	Dossier result = dossierFactory.getDossier(dossierKey, dossierPackage, dossierCode);
-	System.out.println(result.getDossierFile("avto").getExists());
 	assertEquals(expResult, result.getDossierFile("fairpricecalc").getName());
     }
 

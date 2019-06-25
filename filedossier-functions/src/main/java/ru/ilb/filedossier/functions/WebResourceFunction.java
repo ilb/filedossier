@@ -21,13 +21,15 @@ import java.net.URL;
  */
 public class WebResourceFunction implements ByteFunction {
 
-    private final URL resourceUrl;
-    private final String requestMethod = "POST";
-    private final String contentType = "application/xml";
+    private static final String REQUEST_METHOD = "POST";
+    private static final String CONTENT_TYPE = "application/xml";
 
-    public WebResourceFunction(URI resourceUrl) {
+    private final URL resourceUrl;
+
+    public WebResourceFunction(URI resourceUri) {
 	try {
-	    this.resourceUrl = resourceUrl.toURL();
+	    System.out.println(resourceUri);
+	    this.resourceUrl = resourceUri.toURL();
 	} catch (MalformedURLException ex) {
 	    throw new RuntimeException(ex);
 	}
@@ -37,8 +39,8 @@ public class WebResourceFunction implements ByteFunction {
     public byte[] apply(byte[] template) {
 	try {
 	    HttpURLConnection httpConnection = (HttpURLConnection) resourceUrl.openConnection();
-	    httpConnection.setRequestMethod(requestMethod);
-	    httpConnection.setRequestProperty("Content-Type", contentType);
+	    httpConnection.setRequestMethod(REQUEST_METHOD);
+	    httpConnection.setRequestProperty("Content-Type", CONTENT_TYPE);
 	    httpConnection.setDoOutput(true);
 
 	    try (OutputStream outStream = httpConnection.getOutputStream();

@@ -15,11 +15,13 @@
  */
 package ru.ilb.filedossier.scripting.lookup;
 
-import java.util.HashMap;
-import java.util.Map;
+import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import org.junit.Assert;
+import org.junit.ClassRule;
 import org.junit.Test;
+import ru.ilb.filedossier.jndi.JndiRule;
 
 /**
  *
@@ -27,24 +29,25 @@ import org.junit.Test;
  */
 public class JNDILookupTest {
 
-    public JNDILookupTest() {
-    }
+    @ClassRule
+    public static JndiRule jndi = new JndiRule() {
+	@Override
+	protected void bind(Context context) throws NamingException {
+	    context.bind("ru.bystrobank.apps.meta.url", "https://devel.net.ilb.ru/meta");
+	}
+
+    };
 
     /**
      * Test of lookup method, of class JNDILookup.
      */
     @Test
     public void testStringLookup() throws NamingException {
+	JNDILookup instance = new JNDILookup(new InitialContext());
 
-	InitialContext context = new InitialContext();
-
-	Map<String, Object> map = new HashMap<>();
-	map.put("${name}", "testName");
-	JNDILookup instance = new JNDILookup(context);
-
-	String expectedResult = "https://devel.net.ilb.ru/meta/";
-	String result = instance.lookup("${ru.bystrobank.apps.meta.url}");
-	// Assert.assertEquals(expectedResult, result);
+	String expectedResult = "https://devel.net.ilb.ru/meta";
+	String result = instance.lookup("ru.bystrobank.apps.meta.url");
+	Assert.assertEquals(expectedResult, result);
     }
 
 }
