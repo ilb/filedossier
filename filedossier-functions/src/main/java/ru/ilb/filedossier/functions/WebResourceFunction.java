@@ -26,13 +26,9 @@ public class WebResourceFunction implements ByteFunction {
 
     private final URL resourceUrl;
 
-    public WebResourceFunction(URI resourceUri) {
-	try {
-	    System.out.println(resourceUri);
-	    this.resourceUrl = resourceUri.toURL();
-	} catch (MalformedURLException ex) {
-	    throw new RuntimeException(ex);
-	}
+    public WebResourceFunction(URL resourceUrl) {
+	System.out.println(resourceUrl);
+	this.resourceUrl = resourceUrl;
     }
 
     @Override

@@ -21,7 +21,9 @@ import com.sun.net.httpserver.HttpServer;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.InetSocketAddress;
+import java.net.MalformedURLException;
 import java.net.URI;
+import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.junit.After;
@@ -64,10 +66,10 @@ public class WebResourceFunctionTest {
      * Test of apply method, of class WebResourceFunction.
      */
     @Test
-    public void testApply() {
+    public void testApply() throws MalformedURLException {
 	System.out.println("apply");
 	byte[] template = "test request data".getBytes();
-	URI resourceUri = URI.create("http://localhost:8000/api/endpoint");
+	URL resourceUri = new URL("http://localhost:8000/api/endpoint");
 	WebResourceFunction instance = new WebResourceFunction(resourceUri);
 	byte[] result = instance.apply(template);
 	Logger.getGlobal().log(Level.INFO, "server response: " + new String(result));

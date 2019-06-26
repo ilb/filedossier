@@ -15,15 +15,18 @@
  */
 package ru.ilb.filedossier.core;
 
+import javax.naming.Context;
 import javax.naming.NamingException;
 import ru.ilb.filedossier.core.DossierFactory;
 import ru.ilb.filedossier.entities.DossierFile;
 import ru.ilb.filedossier.entities.Dossier;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.ClassRule;
 import org.junit.FixMethodOrder;
 import org.junit.runners.MethodSorters;
 import static ru.ilb.filedossier.core.DossierFactoryTest.getDossierFactory;
+import ru.ilb.filedossier.jndi.JndiRule;
 
 /**
  *
@@ -37,6 +40,15 @@ public class DossierFileImplTest {
 
     private final DossierFile dossierFile1;
     private final DossierFile dossierFile2;
+
+    @ClassRule
+    public static JndiRule jndi = new JndiRule() {
+	@Override
+	protected void bind(Context context) throws NamingException {
+	    context.bind("ru.bystrobank.apps.meta.url", "https://devel.net.ilb.ru/meta");
+	}
+
+    };
 
     public DossierFileImplTest() throws NamingException {
 	dossierFactory = getDossierFactory();

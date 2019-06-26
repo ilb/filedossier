@@ -18,6 +18,8 @@ package ru.ilb.filedossier.representation;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 
@@ -25,9 +27,9 @@ import org.junit.Test;
  *
  * @author kuznetsov_me
  */
-public class XmlPdfRepresentationTest {
+public class PdfGenRepresentationTest {
 
-    public XmlPdfRepresentationTest() {
+    public PdfGenRepresentationTest() {
     }
 
     /**
@@ -36,13 +38,18 @@ public class XmlPdfRepresentationTest {
     @Test
     public void testGetContents() throws URISyntaxException, IOException {
 	System.out.println("getContents");
-	XmlPdfRepresentation instance = new XmlPdfRepresentation("application/pdf",
-		getClass().getClassLoader().getResource("jurnals/example.xml").toURI(),
+	PdfGenRepresentation instance = new PdfGenRepresentation("application/pdf",
 		new URI("?xslt=https://devel.net.ilb.ru/meta/stylesheets/doctemplates/jurnals/percentsheet.xsl&xsd="
-			+ "https://devel.net.ilb.ru/meta/schemas/doctemplates/jurnals/percentsheet.xsd"));
+			+ "https://devel.net.ilb.ru/meta/schemas/doctemplates/jurnals/percentsheet.xsd&meta="),
+		new URI("https://devel.net.ilb.ru/meta/&uid=doctree:11f462ebdb14a5673ff41a5c75c5176552fad343:"));
+
+	URI dataUri = getClass().getClassLoader().getResource("jurnals/example.xml").toURI();
+	byte[] source = Files.readAllBytes(Paths.get(dataUri));
+	DossierContentsHolder contents = new DossierContentsHolder(source, "application/pdf", "jurnals", "Jurnals",
+		"pdf");
+	instance.setParent(contents);
 	byte[] result = instance.getContents();
 	assertNotNull(result);
-	// Files.write(Paths.get(System.getProperty("java.io.tmpdir") +
-	// "/result"), result);
+	Files.write(Paths.get(System.getProperty("java.io.tmpdir") + "/result"), result);
     }
 }

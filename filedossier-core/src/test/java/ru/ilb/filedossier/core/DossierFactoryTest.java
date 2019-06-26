@@ -86,7 +86,7 @@ public class DossierFactoryTest {
     @Test
     public void testCreateDossier() {
 	System.out.println("createDossier");
-	String dossierKey = "123";
+	String dossierKey = "teststorekey";
 	String dossierPackage = "testmodel";
 	String dossierCode = "TEST";
 

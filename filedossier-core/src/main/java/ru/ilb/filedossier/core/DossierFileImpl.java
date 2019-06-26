@@ -56,101 +56,104 @@ public class DossierFileImpl implements DossierFile {
 
     private final Representation representation;
 
-    public DossierFileImpl(Store storage, String code, String name,
-            boolean required, boolean readonly, boolean hidden, String mediaType,
-            List<Representation> representations) {
-        this.storage = storage;
-        this.code = code;
-        this.name = name;
-        this.required = required;
-        this.readonly = readonly;
-        this.hidden = hidden;
-        this.mediaType = mediaType;
-        this.extension = MimeTypeUtil.getExtension(mediaType);
-        this.representationsMap = representations.stream()
-                .peek(r -> r.setParent(this))
-                .collect(Collectors.toMap(r -> r.getMediaType(), r -> r));
-        this.representation = representations.isEmpty() ? new IdentityRepresentation(mediaType) : representations.iterator().next();
-        this.representation.setParent(this);
+    public DossierFileImpl(Store storage, String code, String name, boolean required, boolean readonly, boolean hidden,
+	    String mediaType, List<Representation> representations) {
+	this.storage = storage;
+	this.code = code;
+	this.name = name;
+	this.required = required;
+	this.readonly = readonly;
+	this.hidden = hidden;
+	this.mediaType = mediaType;
+	this.extension = MimeTypeUtil.getExtension(mediaType);
+	this.representationsMap = representations.stream().peek(r -> r.setParent(this))
+		.collect(Collectors.toMap(r -> r.getMediaType(), r -> r));
+	this.representation = representations.isEmpty() ? new IdentityRepresentation(mediaType)
+		: representations.iterator().next();
+	this.representation.setParent(this);
     }
 
     @Override
     public String getCode() {
-        return code;
+	return code;
     }
 
     @Override
     public String getName() {
-        return name;
+	return name;
     }
+
     private String getStoreFileName() {
-        return extension == null ? code : code + "." + extension;
+	return extension == null ? code : code + "." + extension;
     }
+
     @Override
     public boolean getRequired() {
-        return required;
+	return required;
     }
 
     @Override
     public boolean getReadonly() {
-        return readonly;
+	return readonly;
     }
 
     @Override
     public boolean getHidden() {
-        return hidden;
+	return hidden;
     }
 
     @Override
     public boolean getExists() {
-        return storage.isExist(getStoreFileName());
+	return storage.isExist(getStoreFileName());
     }
 
     @Override
     public byte[] getContents() {
-        try {
-            return storage.getContents(getStoreFileName());
-        } catch (NoSuchFileException ex) {
-            throw new FileNotExistsException(getStoreFileName());
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
-        }
+	try {
+	    return storage.getContents(getStoreFileName());
+	} catch (NoSuchFileException ex) {
+	    throw new FileNotExistsException(getStoreFileName());
+	} catch (IOException ex) {
+	    throw new RuntimeException(ex);
+	}
     }
 
     @Override
     public void setContents(byte[] data) {
-        try {
-            storage.setContents(getStoreFileName(), data);
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
-        }
+	try {
+	    storage.setContents(getStoreFileName(), data);
+	} catch (IOException ex) {
+	    throw new RuntimeException(ex);
+	}
 
     }
 
     @Override
     public String getMediaType() {
-        return mediaType;
+	return mediaType;
     }
 
     @Override
     public String getExtension() {
-        return extension;
+	return extension;
     }
 
     @Override
     public Representation getRepresentation() {
-        return representation;
+	return representation;
     }
 
     @Override
     public Dossier getParent() {
-        return parent;
+	return parent;
     }
 
     @Override
     public void setParent(DossierPath parent) {
-        assert Dossier.class.isAssignableFrom(parent.getClass()) : "Dossier instance should be passed as argument instead of " + parent.getClass().getCanonicalName();
-        this.parent = (Dossier) parent;
+	assert Dossier.class
+		.isAssignableFrom(parent.getClass()) : "Dossier instance should be passed as argument instead of "
+			+ parent.getClass().getCanonicalName();
+	this.parent = (Dossier) parent;
     }
 
 }

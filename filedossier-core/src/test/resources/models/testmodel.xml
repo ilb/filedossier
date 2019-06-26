@@ -31,16 +31,17 @@
             </representation>
         </dossierFile>
 <dossierFile>
-            <code>avto</code>
-            <name>${name}</name>
+            <code>jurnals</code>
+            <name>Test name 1</name>
             <readonly>false</readonly>
             <required>true</required>
             <hidden>false</hidden>
-            <mediaType>application/pdf</mediaType>
+            <mediaType>application/xml</mediaType>
             <representation>
                 <mediaType>application/pdf</mediaType>
-                <template>representations/jurnals/example.xml</template>
-                <schema>https://${ru.bystrobank.apps.meta.url}/stylesheets/doctemplates/jurnals/percentsheet.xsl&amp;xsd=https://${ru.bystrobank.apps.meta.url}/schemas/doctemplates/jurnals/percentsheet.xsd</schema>
+                <template>representations/jurnals/content.xml</template>
+                <schema>?xslt=https://${ru.bystrobank.apps.meta.url}/stylesheets/doctemplates/jurnals/percentsheet.xsl&amp;xsd=https://${ru.bystrobank.apps.meta.url}/schemas/doctemplates/jurnals/percentsheet.xsd&amp;meta=</schema>
+                <meta>https://devel.net.ilb.ru/meta/&amp;uid=doctree:11f462ebdb14a5673ff41a5c75c5176552fad343:</meta>
             </representation>
         </dossierFile>
     </dossier>

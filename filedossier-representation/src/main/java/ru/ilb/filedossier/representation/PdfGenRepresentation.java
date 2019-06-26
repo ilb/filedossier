@@ -15,44 +15,40 @@
  */
 package ru.ilb.filedossier.representation;
 
-import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URI;
-import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.net.URL;
+import ru.ilb.filedossier.entities.DossierContents;
+import ru.ilb.filedossier.entities.DossierPath;
 import ru.ilb.filedossier.functions.WebResourceFunction;
 
 /**
  *
  * @author kuznetsov_me
  */
-public class XmlPdfRepresentation extends IdentityRepresentation {
+public class PdfGenRepresentation extends IdentityRepresentation {
 
     private final static String OUTPUT_FORMAT = "application/pdf";
     private final static URI BASE_URI = URI.create("http://devel.net.ilb.ru:8080/pdfgen/fopservlet");
 
-    private final URI contentUri;
-    private final URI resourceUri;
+    private final WebResourceFunction webResourceFunction;
 
-    public XmlPdfRepresentation(String mediaType, URI contentUri, URI resourceUri) {
+    private byte[] content;
+
+    public PdfGenRepresentation(String mediaType, URI stylesheetUri, URI metaUri) throws MalformedURLException {
 	super(mediaType);
+
+	URL resourceUrl = new URL(BASE_URI.toString() + stylesheetUri.toString() + metaUri.toString());
+	webResourceFunction = new WebResourceFunction(resourceUrl);
 
 	if (!mediaType.equals(OUTPUT_FORMAT)) {
 	    throw new IllegalArgumentException("Unsupported format: " + mediaType);
 	}
-
-	this.contentUri = contentUri;
-	this.resourceUri = resourceUri;
     }
 
     @Override
     public byte[] getContents() {
-	try {
-	    byte[] content = Files.readAllBytes(Paths.get(contentUri));
-	    return new WebResourceFunction(new URI(BASE_URI.toString() + resourceUri.toString())).apply(content);
-	} catch (IOException | URISyntaxException ex) {
-	    throw new RuntimeException(ex);
-	}
+	return webResourceFunction.apply(content);
     }
 
     @Override
@@ -63,5 +59,15 @@ public class XmlPdfRepresentation extends IdentityRepresentation {
     @Override
     public String getMediaType() {
 	return mediaType;
+    }
+
+    @Override
+    public void setParent(DossierPath parent) {
+	assert DossierContents.class.isAssignableFrom(
+		parent.getClass()) : "DossierContents instance should be passed as argument instead of "
+			+ parent.getClass().getCanonicalName();
+
+	DossierContents dossierContents = (DossierContents) parent;
+	content = dossierContents.getContents();
     }
 }
