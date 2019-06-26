@@ -120,7 +120,7 @@
             </xsd:element>
             <xsd:element name="schema" type="xsd:string" minOccurs="0"> 
                 <xsd:annotation>
-                    <xsd:documentation>stylesheet URL</xsd:documentation>
+                    <xsd:documentation>schema URL</xsd:documentation>
                 </xsd:annotation>
             </xsd:element>
             <xsd:element name="meta" type="xsd:string" minOccurs="0">

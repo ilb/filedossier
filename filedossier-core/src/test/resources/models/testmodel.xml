@@ -40,8 +40,9 @@
             <representation>
                 <mediaType>application/pdf</mediaType>
                 <template>representations/jurnals/content.xml</template>
-                <schema>?xslt=https://${ru.bystrobank.apps.meta.url}/stylesheets/doctemplates/jurnals/percentsheet.xsl&amp;xsd=https://${ru.bystrobank.apps.meta.url}/schemas/doctemplates/jurnals/percentsheet.xsd&amp;meta=</schema>
-                <meta>https://devel.net.ilb.ru/meta/&amp;uid=doctree:11f462ebdb14a5673ff41a5c75c5176552fad343:</meta>
+                <schema>https://${ru.bystrobank.apps.meta.url}/stylesheets/doctemplates/jurnals/percentsheet.xsl</schema>
+                <stylesheet>https://${ru.bystrobank.apps.meta.url}/schemas/doctemplates/jurnals/percentsheet.xsd</stylesheet>
+                <meta>https://${ru.bystrobank.apps.meta.url}/&amp;uid=doctree:11f462ebdb14a5673ff41a5c75c5176552fad343:</meta>
             </representation>
         </dossierFile>
     </dossier>
