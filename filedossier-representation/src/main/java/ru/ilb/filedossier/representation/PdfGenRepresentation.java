@@ -29,16 +29,21 @@ import ru.ilb.filedossier.functions.WebResourceFunction;
 public class PdfGenRepresentation extends IdentityRepresentation {
 
     private final static String OUTPUT_FORMAT = "application/pdf";
-    private final static URI BASE_URI = URI.create("http://devel.net.ilb.ru:8080/pdfgen/fopservlet");
+
+    // base uri, contains three %s format flags - for stylesheet, scheme and
+    // meta uri's
+    private final static String BASE_URI = "http://devel.net.ilb.ru:8080/pdfgen/fopservlet?xslt=%s&xsd=%s&meta=%s";
 
     private final WebResourceFunction webResourceFunction;
 
     private byte[] content;
 
-    public PdfGenRepresentation(String mediaType, URI stylesheetUri, URI metaUri) throws MalformedURLException {
+    public PdfGenRepresentation(String mediaType, URI stylesheetUri, URI schemeUri, URI metaUri)
+	    throws MalformedURLException {
 	super(mediaType);
 
-	URL resourceUrl = new URL(BASE_URI.toString() + stylesheetUri.toString() + metaUri.toString());
+	URL resourceUrl = new URL(
+		String.format(BASE_URI, stylesheetUri.toString(), schemeUri.toString(), metaUri.toString()));
 	webResourceFunction = new WebResourceFunction(resourceUrl);
 
 	if (!mediaType.equals(OUTPUT_FORMAT)) {

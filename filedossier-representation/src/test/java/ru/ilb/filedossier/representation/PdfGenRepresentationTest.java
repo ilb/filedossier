@@ -39,9 +39,9 @@ public class PdfGenRepresentationTest {
     public void testGetContents() throws URISyntaxException, IOException {
 	System.out.println("getContents");
 	PdfGenRepresentation instance = new PdfGenRepresentation("application/pdf",
-		new URI("?xslt=https://devel.net.ilb.ru/meta/stylesheets/doctemplates/jurnals/percentsheet.xsl&xsd="
-			+ "https://devel.net.ilb.ru/meta/schemas/doctemplates/jurnals/percentsheet.xsd&meta="),
-		new URI("https://devel.net.ilb.ru/meta/&uid=doctree:11f462ebdb14a5673ff41a5c75c5176552fad343:"));
+		URI.create("https://devel.net.ilb.ru/meta/stylesheets/doctemplates/jurnals/percentsheet.xsl"),
+		URI.create("https://devel.net.ilb.ru/meta/schemas/doctemplates/jurnals/percentsheet.xsd"),
+		URI.create("https://devel.net.ilb.ru/meta/&uid=doctree:11f462ebdb14a5673ff41a5c75c5176552fad343:"));
 
 	URI dataUri = getClass().getClassLoader().getResource("jurnals/example.xml").toURI();
 	byte[] source = Files.readAllBytes(Paths.get(dataUri));

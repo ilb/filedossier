@@ -28,23 +28,35 @@ import ru.ilb.filedossier.scripting.TemplateEvaluator;
  */
 public class RepresentationFactory {
 
-    public Representation createRepresentation(URI baseUri, RepresentationDefinition representationModel,
+    public Representation createRepresentation(final URI baseUri, RepresentationDefinition representationModel,
 	    DossierContext dossierContext, TemplateEvaluator evaluator) {
 	String mediaType = representationModel.getMediaType();
 	switch (mediaType) {
 	case "application/vnd.oasis.opendocument.spreadsheet":
-	    return new OdsXsltRepresentation(representationModel.getMediaType(),
-		    URI.create(representationModel.getStylesheet()), URI.create(representationModel.getTemplate()));
-	case "application/pdf": {
-	    try {
-		return new PdfGenRepresentation(mediaType, URI.create(representationModel.getMeta()), URI
-			.create(evaluator.evaluateStringExpression(representationModel.getSchema(), dossierContext)));
-	    } catch (MalformedURLException ex) {
-		throw new RuntimeException(ex);
-	    }
-	}
+	    return createOdsRepresentation(representationModel);
+	case "application/pdf":
+	    return createPdfRepresentation(representationModel, evaluator, dossierContext);
 	default:
 	    throw new IllegalArgumentException("unsupported media type " + mediaType);
 	}
     }
+
+    private Representation createOdsRepresentation(RepresentationDefinition representationModel) {
+	return new OdsXsltRepresentation(representationModel.getMediaType(),
+		URI.create(representationModel.getStylesheet()), URI.create(representationModel.getTemplate()));
+    }
+
+    private Representation createPdfRepresentation(RepresentationDefinition representationModel,
+	    TemplateEvaluator evaluator, DossierContext dossierContext) {
+	URI stylesheetUri = URI
+		.create(evaluator.evaluateStringExpression(representationModel.getStylesheet(), dossierContext));
+	URI schemaUri = URI.create(evaluator.evaluateStringExpression(representationModel.getSchema(), dossierContext));
+	URI metaUri = URI.create(evaluator.evaluateStringExpression(representationModel.getMeta(), dossierContext));
+	try {
+	    return new PdfGenRepresentation(representationModel.getMediaType(), stylesheetUri, schemaUri, metaUri);
+	} catch (MalformedURLException ex) {
+	    throw new RuntimeException(ex);
+	}
+    }
+
 }
