@@ -21,74 +21,80 @@ import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.regex.Pattern;
-import ru.ilb.filedossier.entities.DossierContext;
 
 /**
  * Store using files
+ * 
  * @author slavb
  */
 class FileStore implements Store {
 
     private static final Predicate FILENAME_PREDICATE = Pattern.compile("(^[\\w\\d\\._-]+$)").asPredicate();
 
-    private final String storeKey;
+    private final List<String> storeKeys;
 
     private final URI storeRoot;
 
-    public FileStore(String storeKey, URI storeRoot) {
-        if (!FILENAME_PREDICATE.test(storeKey)) {
-            throw new InvalidFileNameException(storeKey);
-        }
-        this.storeKey = storeKey;
-        this.storeRoot = URI.create(storeRoot.toString()+"/");
-    }
+    public FileStore(URI storeRoot, String... storeKeys) {
 
+	List<String> keys = Arrays.asList(storeKeys);
+	keys.forEach(key -> {
+	    if (!FILENAME_PREDICATE.test(key)) {
+		throw new InvalidFileNameException(key);
+	    }
+	});
+
+	this.storeKeys = keys;
+	this.storeRoot = URI.create(storeRoot.toString() + "/");
+    }
 
     /**
      * Получить путь к файлам хранилища
-     * @return
+     * 
+     * @return hierarchical path of store files
      */
     private Path getStorePath() {
-        return Paths.get(storeRoot.resolve(storeKey));
+	return Paths.get(storeRoot.resolve(String.join("/", storeKeys)));
     }
 
     /**
      * Создать каталоги
      */
     private void createStorePath() {
-        getStorePath().toFile().mkdirs();
+	getStorePath().toFile().mkdirs();
 
     }
 
     private Path getFilePath(String key) {
-        if (!FILENAME_PREDICATE.test(key)) {
-            throw new InvalidFileNameException(key);
-        }
-        return getStorePath().resolve(key);
+	if (!FILENAME_PREDICATE.test(key)) {
+	    throw new InvalidFileNameException(key);
+	}
+	return getStorePath().resolve(key);
     }
 
     @Override
     public void setContents(String key, byte[] contents) throws IOException {
-        createStorePath();
-        Files.write(getFilePath(key), contents);
+	createStorePath();
+	Files.write(getFilePath(key), contents);
     }
 
     @Override
     public byte[] getContents(String key) throws IOException {
-        return Files.readAllBytes(getFilePath(key));
+	return Files.readAllBytes(getFilePath(key));
     }
-    
+
     @Override
-    public boolean isExist(String key){
-        return getFilePath(key).toFile().exists();
+    public boolean isExist(String key) {
+	return getFilePath(key).toFile().exists();
     }
 
     @Override
     public String toString() {
-        return "FileStore{" + "storeKey=" + storeKey + ", storeRoot=" + storeRoot + '}';
+	return "FileStore{" + "storeKey=" + String.join("", storeKeys) + ", storeRoot=" + storeRoot + '}';
     }
-
 
 }

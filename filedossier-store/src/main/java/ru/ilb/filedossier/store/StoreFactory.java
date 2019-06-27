@@ -20,6 +20,7 @@ import java.net.URI;
 
 /**
  * Файловое хранилище
+ * 
  * @author slavb
  */
 public class StoreFactory {
@@ -27,16 +28,25 @@ public class StoreFactory {
     private final URI storageRoot;
 
     private StoreFactory(URI storageRoot) {
-        this.storageRoot = storageRoot;
+	this.storageRoot = storageRoot;
     }
-
 
     public static StoreFactory newInstance(URI storageRoot) {
-        return new StoreFactory(storageRoot);
+	return new StoreFactory(storageRoot);
     }
 
+    /**
+     * Returns store with basic path - storageRoot/storeKey/
+     */
     public Store getFileStorage(String storeKey) {
-        return new FileStore(storeKey, storageRoot);
+	return new FileStore(storageRoot, storeKey);
+    }
+
+    /**
+     * Returns store with nested path - storageRoot/storeKey1.../storeKeyN/
+     */
+    public Store getNestedFileStorage(String... storeKeys) {
+	return new FileStore(storageRoot, storeKeys);
     }
 
 }

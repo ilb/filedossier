@@ -23,7 +23,8 @@ import ru.ilb.filedossier.entities.DossierPath;
 import ru.ilb.filedossier.functions.WebResourceFunction;
 
 /**
- *
+ * Dossier representation for XML to PDF using PdfGen
+ * 
  * @author kuznetsov_me
  */
 public class PdfGenRepresentation extends IdentityRepresentation {

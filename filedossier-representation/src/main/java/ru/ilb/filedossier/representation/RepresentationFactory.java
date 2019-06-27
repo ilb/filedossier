@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package ru.ilb.filedossier.representation;
 
 import java.net.MalformedURLException;
@@ -28,7 +29,7 @@ import ru.ilb.filedossier.scripting.TemplateEvaluator;
  */
 public class RepresentationFactory {
 
-    public Representation createRepresentation(final URI baseUri, RepresentationDefinition representationModel,
+    public Representation createRepresentation(URI baseUri, RepresentationDefinition representationModel,
 	    DossierContext dossierContext, TemplateEvaluator evaluator) {
 	String mediaType = representationModel.getMediaType();
 	switch (mediaType) {
