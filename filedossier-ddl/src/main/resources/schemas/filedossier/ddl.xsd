@@ -128,6 +128,11 @@
                     <xsd:documentation>meta URL</xsd:documentation>
                 </xsd:annotation>
             </xsd:element>
+            <xsd:element name="multipart" type="xsd:string" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>Is representation in multiple files</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
         </xsd:sequence>
     </xsd:complexType>
 </xsd:schema>
