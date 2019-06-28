@@ -24,39 +24,37 @@ import ru.ilb.filedossier.api.DossierFileResource;
 import ru.ilb.filedossier.entities.DossierFile;
 import ru.ilb.filedossier.entities.Representation;
 
-
 public class DossierFileResourceImpl implements DossierFileResource {
-    
+
     private final DossierFile dossierFile;
 
     public DossierFileResourceImpl(DossierFile dossierFile) {
-        this.dossierFile = dossierFile;
+	this.dossierFile = dossierFile;
     }
 
     @Override
     public Response getContents() {
-        Representation representation = dossierFile.getRepresentation();
-        return Response.ok(representation.getContents())
-                .header("Content-Type", representation.getMediaType())
-                .header("Content-Disposition", "attachment; filename=" + representation.getFileName()).build();
+	Representation representation = dossierFile.getRepresentation();
+	return Response.ok(representation.getContents()).header("Content-Type", representation.getMediaType())
+		.header("Content-Disposition", "attachment; filename=" + representation.getFileName()).build();
 
     }
 
     @Override
     public void setContents(InputStream inputstream) {
-        try {
-            dossierFile.setContents(Util.toByteArray(inputstream));
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
-        }
+	try {
+	    dossierFile.setContents(Util.toByteArray(inputstream));
+	} catch (IOException ex) {
+	    throw new RuntimeException(ex);
+	}
     }
 
     @Override
     public void uploadContents(File file) {
-        try {
-            dossierFile.setContents(Files.readAllBytes(file.toPath()));
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
-        }
+	try {
+	    dossierFile.setContents(Files.readAllBytes(file.toPath()));
+	} catch (IOException ex) {
+	    throw new RuntimeException(ex);
+	}
     }
 }

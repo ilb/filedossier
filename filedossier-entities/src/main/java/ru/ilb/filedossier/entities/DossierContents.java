@@ -17,12 +17,14 @@ package ru.ilb.filedossier.entities;
 
 /**
  * Dossier file contents
+ * 
  * @author slavb
  */
 public interface DossierContents extends DossierPath {
 
     /**
      * get contents using default representation
+     * 
      * @return
      */
     byte[] getContents();
@@ -36,9 +38,9 @@ public interface DossierContents extends DossierPath {
 
     /**
      * file media type (based on default representation)
+     * 
      * @return
      */
     String getMediaType();
-
 
 }

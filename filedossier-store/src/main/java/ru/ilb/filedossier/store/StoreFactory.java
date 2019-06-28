@@ -25,28 +25,21 @@ import java.net.URI;
  */
 public class StoreFactory {
 
-    private final URI storageRoot;
+    private final URI storeRoot;
 
-    private StoreFactory(URI storageRoot) {
-	this.storageRoot = storageRoot;
+    private StoreFactory(URI storeRoot) {
+	this.storeRoot = storeRoot;
     }
 
-    public static StoreFactory newInstance(URI storageRoot) {
-	return new StoreFactory(storageRoot);
+    public static StoreFactory newInstance(URI storeRoot) {
+	return new StoreFactory(storeRoot);
     }
 
     /**
      * Returns store with basic path - storageRoot/storeKey/
      */
-    public Store getFileStorage(String storeKey) {
-	return new FileStore(storageRoot, storeKey);
-    }
-
-    /**
-     * Returns store with nested path - storageRoot/storeKey1.../storeKeyN/
-     */
-    public Store getNestedFileStorage(String... storeKeys) {
-	return new FileStore(storageRoot, storeKeys);
+    public Store getStore(String storeKey) {
+	return new FileStore(storeRoot, storeKey);
     }
 
 }

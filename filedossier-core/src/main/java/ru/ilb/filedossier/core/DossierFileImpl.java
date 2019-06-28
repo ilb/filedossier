@@ -36,7 +36,7 @@ public class DossierFileImpl implements DossierFile {
 
     private Dossier parent;
 
-    private final Store storage;
+    private final Store store;
 
     private final String code;
 
@@ -56,9 +56,9 @@ public class DossierFileImpl implements DossierFile {
 
     private final Representation representation;
 
-    public DossierFileImpl(Store storage, String code, String name, boolean required, boolean readonly, boolean hidden,
+    public DossierFileImpl(Store store, String code, String name, boolean required, boolean readonly, boolean hidden,
 	    String mediaType, List<Representation> representations) {
-	this.storage = storage;
+	this.store = store;
 	this.code = code;
 	this.name = name;
 	this.required = required;
@@ -87,6 +87,10 @@ public class DossierFileImpl implements DossierFile {
 	return extension == null ? code : code + "." + extension;
     }
 
+    private String getNestedStoreFileName(String nestedCode) {
+	return extension == null ? code : code + nestedCode + "." + extension;
+    }
+
     @Override
     public boolean getRequired() {
 	return required;
@@ -104,13 +108,13 @@ public class DossierFileImpl implements DossierFile {
 
     @Override
     public boolean getExists() {
-	return storage.isExist(getStoreFileName());
+	return store.isExist(getStoreFileName());
     }
 
     @Override
     public byte[] getContents() {
 	try {
-	    return storage.getContents(getStoreFileName());
+	    return store.getContents(getStoreFileName());
 	} catch (NoSuchFileException ex) {
 	    throw new FileNotExistsException(getStoreFileName());
 	} catch (IOException ex) {
@@ -121,11 +125,10 @@ public class DossierFileImpl implements DossierFile {
     @Override
     public void setContents(byte[] data) {
 	try {
-	    storage.setContents(getStoreFileName(), data);
+	    store.setContents(getStoreFileName(), data);
 	} catch (IOException ex) {
 	    throw new RuntimeException(ex);
 	}
-
     }
 
     @Override

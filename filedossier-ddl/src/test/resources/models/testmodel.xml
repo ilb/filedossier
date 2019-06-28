@@ -30,7 +30,7 @@
                 <schema></schema>
             </representation>
         </dossierFile>
-<dossierFile>
+        <dossierFile>
             <code>jurnals</code>
             <name>Test name 1</name>
             <readonly>false</readonly>
@@ -43,6 +43,7 @@
                 <template>representations/jurnals/content.xml</template>
                 <schema>https://${ru.bystrobank.apps.meta.url}/stylesheets/doctemplates/jurnals/percentsheet.xsl</schema>
                 <meta>https://${ru.bystrobank.apps.meta.url}/&amp;uid=doctree:11f462ebdb14a5673ff41a5c75c5176552fad343:</meta>
+                <multipart>true</multipart>
             </representation>
         </dossierFile>
     </dossier>

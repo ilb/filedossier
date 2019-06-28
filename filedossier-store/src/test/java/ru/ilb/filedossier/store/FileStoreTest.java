@@ -68,17 +68,18 @@ public class FileStoreTest {
     @Test
     public void testMultipleStoreKeys() throws IOException {
 	System.out.println("putContents: throws InvalidFileNameException");
-	String firstKey = "firstStoreKey";
-	String secondKey = "secondStoreKey";
+	String firstKey = "storekey";
+	String secondKey = "file";
 
 	FileStore store = new FileStore(TEST_STORE_ROOT, firstKey);
-	FileStore nestedStore = new FileStore(TEST_STORE_ROOT, firstKey, secondKey);
+	FileStore nestedStore = store.getNestedFileStore(secondKey);
 
-	store.setContents("file", TEST_DATA);
-	nestedStore.setContents("nestedfile", TEST_DATA);
+	store.setContents("file1.pdf", TEST_DATA);
+	nestedStore.setContents("file1.png", TEST_DATA);
+	nestedStore.setContents("file2.png", TEST_DATA);
 
-	byte[] result = store.getContents("file");
-	byte[] nestedResult = nestedStore.getContents("nestedfile");
+	byte[] result = store.getContents("file1.pdf");
+	byte[] nestedResult = nestedStore.getContents("file1.png");
 	assertEquals(new String(TEST_DATA), new String(result));
 	assertEquals(new String(TEST_DATA), new String(nestedResult));
     }

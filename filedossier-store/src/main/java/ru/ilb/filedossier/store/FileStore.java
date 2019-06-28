@@ -21,8 +21,6 @@ import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.List;
 import java.util.function.Predicate;
 import java.util.regex.Pattern;
 
@@ -35,20 +33,12 @@ class FileStore implements Store {
 
     private static final Predicate FILENAME_PREDICATE = Pattern.compile("(^[\\w\\d\\._-]+$)").asPredicate();
 
-    private final List<String> storeKeys;
+    private final String storeKey;
 
     private final URI storeRoot;
 
-    public FileStore(URI storeRoot, String... storeKeys) {
-
-	List<String> keys = Arrays.asList(storeKeys);
-	keys.forEach(key -> {
-	    if (!FILENAME_PREDICATE.test(key)) {
-		throw new InvalidFileNameException(key);
-	    }
-	});
-
-	this.storeKeys = keys;
+    public FileStore(URI storeRoot, String storeKey) {
+	this.storeKey = storeKey;
 	this.storeRoot = URI.create(storeRoot.toString() + "/");
     }
 
@@ -58,7 +48,7 @@ class FileStore implements Store {
      * @return hierarchical path of store files
      */
     private Path getStorePath() {
-	return Paths.get(storeRoot.resolve(String.join("/", storeKeys)));
+	return Paths.get(storeRoot.resolve(storeKey));
     }
 
     /**
@@ -94,7 +84,12 @@ class FileStore implements Store {
 
     @Override
     public String toString() {
-	return "FileStore{" + "storeKey=" + String.join("", storeKeys) + ", storeRoot=" + storeRoot + '}';
+	return "FileStore{" + "storeKey=" + storeKey + ", storeRoot=" + storeRoot + '}';
+    }
+
+    @Override
+    public FileStore getNestedFileStore(String key) {
+	return new FileStore(getStorePath().toUri(), key);
     }
 
 }

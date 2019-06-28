@@ -76,7 +76,7 @@ public class DossierFactory {
     public Dossier getDossier(String dossierKey, String dossierPackage, String dossierCode) {
 	DossierDefinition dossierModel = dossierModelRepository.getDossierDefinition(dossierPackage, dossierCode);
 	URI baseUri = dossierModelRepository.getDossierDefinitionUri(dossierPackage);
-	Store store = storeFactory.getFileStorage(dossierKey);
+	Store store = storeFactory.getStore(dossierKey);
 	DossierContext dossierContext = dossierContextBuilder.createDossierContext(dossierKey, dossierPackage,
 		dossierCode);
 	return getDossier(baseUri, dossierModel, store, dossierContext);
