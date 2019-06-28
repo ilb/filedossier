@@ -17,7 +17,8 @@ package ru.ilb.filedossier.scripting;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.naming.InitialContext;
+import java.util.Map;
+import javax.naming.Context;
 import org.apache.commons.text.StringSubstitutor;
 import org.apache.commons.text.lookup.StringLookup;
 import org.apache.commons.text.lookup.StringLookupFactory;
@@ -32,24 +33,24 @@ import ru.ilb.filedossier.scripting.lookup.LookupPerformer;
  */
 public class SubstitutorTemplateEvaluator implements TemplateEvaluator {
 
-    private InitialContext context;
+    private Context context;
     private List<StringLookup> lookups;
 
-    public SubstitutorTemplateEvaluator(InitialContext context) {
+    public SubstitutorTemplateEvaluator(Context context) {
 	this.context = context;
 	lookups = new ArrayList<>();
 	lookups.add(new JNDILookup(context));
     }
 
     @Override
-    public String evaluateStringExpression(String template, DossierContext dossierContext) {
-	lookups.add(StringLookupFactory.INSTANCE.mapStringLookup(dossierContext.asMap()));
+    public String evaluateStringExpression(String template,  Map<String, Object> dossierContext) {
+	lookups.add(StringLookupFactory.INSTANCE.mapStringLookup(dossierContext));
 	StringSubstitutor sub = new StringSubstitutor(new LookupPerformer(lookups));
 	return sub.replace(template);
     }
 
     @Override
-    public Boolean evaluateBooleanExpression(String template, DossierContext dossierContext) {
+    public Boolean evaluateBooleanExpression(String template,  Map<String, Object> dossierContext) {
 	return Boolean.valueOf(evaluateStringExpression(template, dossierContext));
     }
 }

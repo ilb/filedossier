@@ -46,7 +46,7 @@ public class SubstitutorTemplateEvaluatorTest {
 	DossierContext dossierContext = new DossierContextImpl("testKey", map);
 	SubstitutorTemplateEvaluator instance = new SubstitutorTemplateEvaluator(new InitialContext());
 	String expResult = "testName";
-	String result = instance.evaluateStringExpression(template, dossierContext);
+	String result = instance.evaluateStringExpression(template, dossierContext.asMap());
 	assertEquals(expResult, result);
     }
 

@@ -50,7 +50,7 @@ public class JSContextEvaluatorTest {
         DossierContext dossierContext = dossierContextBuilder.createDossierContext(null, null, null);
         JSTemplateEvaluator instance = new JSTemplateEvaluator();
         String expResult = "test Тест имя";
-        String result = instance.evaluateStringExpression(value, dossierContext);
+        String result = instance.evaluateStringExpression(value, dossierContext.asMap());
         assertEquals(expResult, result);
     }
 
@@ -64,7 +64,7 @@ public class JSContextEvaluatorTest {
         DossierContext dossierContext = dossierContextBuilder.createDossierContext(null, null, null);
         JSTemplateEvaluator instance = new JSTemplateEvaluator();
         Boolean expResult = true;
-        Boolean result = instance.evaluateBooleanExpression(value, dossierContext);
+        Boolean result = instance.evaluateBooleanExpression(value, dossierContext.asMap());
         assertEquals(expResult, result);
     }
 

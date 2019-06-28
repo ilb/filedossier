@@ -50,9 +50,9 @@ public class RepresentationFactory {
     private Representation createPdfRepresentation(RepresentationDefinition representationModel,
 	    TemplateEvaluator evaluator, DossierContext dossierContext) {
 	URI stylesheetUri = URI
-		.create(evaluator.evaluateStringExpression(representationModel.getStylesheet(), dossierContext));
-	URI schemaUri = URI.create(evaluator.evaluateStringExpression(representationModel.getSchema(), dossierContext));
-	URI metaUri = URI.create(evaluator.evaluateStringExpression(representationModel.getMeta(), dossierContext));
+		.create(evaluator.evaluateStringExpression(representationModel.getStylesheet(), dossierContext.asMap()));
+	URI schemaUri = URI.create(evaluator.evaluateStringExpression(representationModel.getSchema(), dossierContext.asMap()));
+	URI metaUri = URI.create(evaluator.evaluateStringExpression(representationModel.getMeta(), dossierContext.asMap()));
 	try {
 	    return new PdfGenRepresentation(representationModel.getMediaType(), stylesheetUri, schemaUri, metaUri);
 	} catch (MalformedURLException ex) {

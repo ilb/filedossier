@@ -15,7 +15,7 @@
  */
 package ru.ilb.filedossier.scripting.lookup;
 
-import javax.naming.InitialContext;
+import javax.naming.Context;
 import javax.naming.NamingException;
 import org.apache.commons.text.lookup.StringLookup;
 
@@ -25,9 +25,9 @@ import org.apache.commons.text.lookup.StringLookup;
  */
 public class JNDILookup implements StringLookup {
 
-    private final InitialContext context;
+    private final Context context;
 
-    public JNDILookup(InitialContext context) {
+    public JNDILookup(Context context) {
 	this.context = context;
     }
 

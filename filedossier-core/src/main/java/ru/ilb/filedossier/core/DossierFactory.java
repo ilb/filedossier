@@ -102,13 +102,13 @@ public class DossierFactory {
 		.collect(Collectors.toList());
 
 	DossierFileImpl df = new DossierFileImpl(store,
-		templateEvaluator.evaluateStringExpression(modelFile.getCode(), dossierContext),
-		templateEvaluator.evaluateStringExpression(modelFile.getName(), dossierContext),
+		templateEvaluator.evaluateStringExpression(modelFile.getCode(), dossierContext.asMap()),
+		templateEvaluator.evaluateStringExpression(modelFile.getName(), dossierContext.asMap()),
 		Boolean.TRUE
-			.equals(templateEvaluator.evaluateBooleanExpression(modelFile.getRequired(), dossierContext)),
+			.equals(templateEvaluator.evaluateBooleanExpression(modelFile.getRequired(), dossierContext.asMap())),
 		Boolean.TRUE
-			.equals(templateEvaluator.evaluateBooleanExpression(modelFile.getReadonly(), dossierContext)),
-		Boolean.TRUE.equals(templateEvaluator.evaluateBooleanExpression(modelFile.getHidden(), dossierContext)),
+			.equals(templateEvaluator.evaluateBooleanExpression(modelFile.getReadonly(), dossierContext.asMap())),
+		Boolean.TRUE.equals(templateEvaluator.evaluateBooleanExpression(modelFile.getHidden(), dossierContext.asMap())),
 		modelFile.getMediaType(), representations);
 	return df;
     }

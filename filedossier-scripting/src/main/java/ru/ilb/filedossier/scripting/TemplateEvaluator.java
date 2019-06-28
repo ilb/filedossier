@@ -15,6 +15,7 @@
  */
 package ru.ilb.filedossier.scripting;
 
+import java.util.Map;
 import ru.ilb.filedossier.entities.DossierContext;
 
 /**
@@ -31,7 +32,7 @@ public interface TemplateEvaluator {
      * @param dossierContext
      * @return
      */
-    public String evaluateStringExpression(String template, DossierContext dossierContext);
+    public String evaluateStringExpression(String template,  Map<String, Object> dossierContext);
 
     /**
      * Расчет логеского значения
@@ -40,6 +41,6 @@ public interface TemplateEvaluator {
      * @param dossierContext
      * @return
      */
-    public Boolean evaluateBooleanExpression(String template, DossierContext dossierContext);
+    public Boolean evaluateBooleanExpression(String template,  Map<String, Object> dossierContext);
 
 }

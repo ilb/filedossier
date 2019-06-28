@@ -15,6 +15,7 @@
  */
 package ru.ilb.filedossier.scripting;
 
+import java.util.Map;
 import javax.script.Bindings;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
@@ -30,14 +31,14 @@ public class JSTemplateEvaluator implements TemplateEvaluator {
 
     private final ScriptEngineManager scriptEngineManager = new ScriptEngineManager();
 
-    private Bindings getBindings(DossierContext dossierContext) {
+    private Bindings getBindings( Map<String, Object> dossierContext) {
 	Bindings bindings = new SimpleBindings();
-	bindings.putAll(dossierContext.asMap());
+	bindings.putAll(dossierContext);
 	return bindings;
     }
 
     @Override
-    public String evaluateStringExpression(String template, DossierContext dossierContext) {
+    public String evaluateStringExpression(String template,  Map<String, Object> dossierContext) {
 	ScriptEngine engine = scriptEngineManager.getEngineByName(engineName);
 	try {
 	    return engine.eval(template, getBindings(dossierContext)).toString();
@@ -47,7 +48,7 @@ public class JSTemplateEvaluator implements TemplateEvaluator {
     }
 
     @Override
-    public Boolean evaluateBooleanExpression(String template, DossierContext dossierContext) {
+    public Boolean evaluateBooleanExpression(String template,  Map<String, Object> dossierContext) {
 	ScriptEngine engine = scriptEngineManager.getEngineByName(engineName);
 	try {
 	    return (Boolean) engine.eval(template, getBindings(dossierContext));
