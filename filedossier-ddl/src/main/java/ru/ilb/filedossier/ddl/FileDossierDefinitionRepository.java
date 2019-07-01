@@ -65,7 +65,7 @@ public class FileDossierDefinitionRepository implements DossierDefinitionReposit
     }
 
     private Path getDossierDefinitionPath(String dossierPackage) {
-        return Paths.get(dossierModelsPath).resolve(dossierPackage + modelFileExtension);
+        return Paths.get(dossierModelsPath).resolve(dossierPackage).resolve(dossierPackage + modelFileExtension);
     }
 
     @Override
