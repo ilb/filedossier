@@ -15,6 +15,7 @@
  */
 package ru.ilb.filedossier.components;
 
+import javax.inject.Inject;
 import ru.ilb.filedossier.api.DossierFileResource;
 import ru.ilb.filedossier.api.DossierResource;
 import ru.ilb.filedossier.core.DossierFactory;
@@ -26,31 +27,48 @@ public class DossierResourceImpl implements DossierResource {
 
     private final String dossierKey;
 
+    private final String dossierPackage;
+
     private final String dossierCode;
 
-    private final DossierFactory dossierFactory;
+    @Inject
+    private DossierFactory dossierFactory;
 
-    private final ru.ilb.filedossier.entities.Dossier dossier;
+    @Inject
+    private DossierMapper dossierMapper;
 
-    private final DossierMapper dossierMapper;
+    private ru.ilb.filedossier.entities.Dossier dossier;
 
-    public DossierResourceImpl(String dossierKey, String dossierPackage, String dossierCode, DossierFactory dossierFactory, DossierMapper dossierMapper) {
+    public DossierResourceImpl(String dossierKey, String dossierPackage, String dossierCode) {
         this.dossierKey = dossierKey;
+        this.dossierPackage = dossierPackage;
         this.dossierCode = dossierCode;
+    }
+
+    private ru.ilb.filedossier.entities.Dossier getDossierInternal() {
+        // lazy loading
+        if (this.dossier == null) {
+            this.dossier = dossierFactory.getDossier(dossierKey, dossierPackage, dossierCode);
+        }
+        return this.dossier;
+    }
+
+    public void setDossierFactory(DossierFactory dossierFactory) {
         this.dossierFactory = dossierFactory;
-        this.dossier = dossierFactory.getDossier(dossierKey, dossierPackage, dossierCode);
+    }
+
+    public void setDossierMapper(DossierMapper dossierMapper) {
         this.dossierMapper = dossierMapper;
     }
 
     @Override
     public DossierView getDossier() {
-        return dossierMapper.fromModel(dossier);
+        return dossierMapper.fromModel(getDossierInternal());
     }
-
 
     @Override
     public DossierFileResource getDossierFileResource(String fileCode) {
-        DossierFile dossierFile = this.dossier.getDossierFile(fileCode);
+        DossierFile dossierFile = this.getDossierInternal().getDossierFile(fileCode);
         return new DossierFileResourceImpl(dossierFile);
     }
 

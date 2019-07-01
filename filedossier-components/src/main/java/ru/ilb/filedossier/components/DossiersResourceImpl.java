@@ -19,6 +19,8 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.container.ResourceContext;
+import javax.ws.rs.core.Context;
 import ru.ilb.filedossier.api.DossierResource;
 import ru.ilb.filedossier.api.DossiersResource;
 import ru.ilb.filedossier.core.DossierFactory;
@@ -34,9 +36,17 @@ public class DossiersResourceImpl implements DossiersResource {
     @Inject
     private DossierMapper dossierMapper;
 
+    @Context
+    private ResourceContext resourceContext;
+
+
     @Override
     public DossierResource getDossierResource(String dossierKey, String dossierPackage, String dossierCode) {
-        return new DossierResourceImpl(dossierKey, dossierPackage, dossierCode, dossierFactory, dossierMapper);
+        DossierResourceImpl resource = new DossierResourceImpl(dossierKey, dossierPackage, dossierCode);
+        // applicationContext.getAutowireCapableBeanFactory().autowireBean(resource); could be used in case of spring
+        resource.setDossierFactory(dossierFactory);
+        resource.setDossierMapper(dossierMapper);
+        return resourceContext.initResource(resource);
     }
 
 }
