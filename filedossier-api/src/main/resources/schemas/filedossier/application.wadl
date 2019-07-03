@@ -2,6 +2,7 @@
              xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
              xmlns:command="urn:ru:ilb:filedossier:command"
              xmlns:view="urn:ru:ilb:filedossier:view"
+             xmlns:global="urn:ru:ilb:global"
              xmlns:core="urn:ru:ilb:filedossier:core"
 >    
     <grammars>
@@ -36,6 +37,32 @@
             </resource>
         </resource>
     </resource_type>
+    <resource_type id="dossierContextResource">
+        <method name="GET" id="getContext">
+            <doc>get dossier context</doc>
+            <request></request>
+            <response status="200">
+                <representation mediaType="application/xml" element="global:map">
+                    <doc>processInstances data</doc>
+                </representation>
+                <representation mediaType="application/json">
+                    <doc>processInstances data</doc>
+                </representation>
+            </response>
+        </method>
+        <method name="PUT" id="setContext">
+            <doc>store dossier cotnext</doc>
+            <request>
+                <representation mediaType="application/xml" element="global:map">
+                    <doc>processInstances data</doc>
+                </representation>
+                <representation mediaType="application/json">
+                    <doc>processInstances data</doc>
+                </representation>
+            </request>
+            <response status="204"></response>
+        </method>
+    </resource_type>
     <resource_type id="dossierFileResource">
         <method name="GET" id="getContents">
             <doc>get dossier file contents</doc>
@@ -62,7 +89,7 @@
             </request>
             <response status="204"></response>
         </method>
-
+        <resource path="context" id="dossierContextResource" type="#dossierContextResource"/>
     </resource_type>
     <resources>
         <resource path="dossiers">

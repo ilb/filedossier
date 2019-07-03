@@ -33,11 +33,16 @@
             <groupId>org.apache.cxf</groupId>
             <artifactId>cxf-rt-frontend-jaxrs</artifactId>
             <version>${apache-cxf.version}</version>
-        </dependency>        
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-rs-json-basic</artifactId>
+            <version>${apache-cxf.version}</version>
+        </dependency>
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
-            <version>7.0</version>
+            <version>8.0</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
@@ -88,7 +93,9 @@
                                         <extraarg>-tMap</extraarg>
                                         <extraarg>{http://www.w3.org/2001/XMLSchema}time=java.time.LocalTime</extraarg>
                                         <extraarg>-tMap</extraarg>
-                                        <extraarg>{urn:ru:ilb:filedossier:core}uuid=java.util.UUID</extraarg>
+                                        <extraarg>{urn:ru:ilb:global}uuid=java.util.UUID</extraarg>
+                                        <extraarg>-tMap</extraarg>
+                                        <extraarg>{urn:ru:ilb:global}map=org.apache.cxf.jaxrs.json.basic.JsonMapObject</extraarg>
                                         <extraarg>-beanValidation</extraarg>
                                         <!--
                                         <extraarg>-catalog</extraarg>

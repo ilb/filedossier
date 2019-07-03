@@ -16,6 +16,8 @@
 package ru.ilb.filedossier.components;
 
 import javax.inject.Inject;
+import javax.ws.rs.container.ResourceContext;
+import javax.ws.rs.core.Context;
 import ru.ilb.filedossier.api.DossierFileResource;
 import ru.ilb.filedossier.api.DossierResource;
 import ru.ilb.filedossier.core.DossierFactory;
@@ -36,6 +38,9 @@ public class DossierResourceImpl implements DossierResource {
 
     @Inject
     private DossierMapper dossierMapper;
+
+    @Context
+    private ResourceContext resourceContext;
 
     private ru.ilb.filedossier.entities.Dossier dossier;
 
@@ -68,8 +73,10 @@ public class DossierResourceImpl implements DossierResource {
 
     @Override
     public DossierFileResource getDossierFileResource(String fileCode) {
+        //можно перенести инициализацию в конструктор
         DossierFile dossierFile = this.getDossierInternal().getDossierFile(fileCode);
-        return new DossierFileResourceImpl(dossierFile);
+        DossierFileResourceImpl resource = new DossierFileResourceImpl(dossierFile);
+        return resourceContext.initResource(resource);
     }
 
 }

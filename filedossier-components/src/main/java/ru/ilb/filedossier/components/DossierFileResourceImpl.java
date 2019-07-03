@@ -19,7 +19,10 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
+import javax.ws.rs.container.ResourceContext;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
+import ru.ilb.filedossier.api.DossierContextResource;
 import ru.ilb.filedossier.api.DossierFileResource;
 import ru.ilb.filedossier.entities.DossierFile;
 import ru.ilb.filedossier.entities.Representation;
@@ -27,6 +30,8 @@ import ru.ilb.filedossier.entities.Representation;
 public class DossierFileResourceImpl implements DossierFileResource {
 
     private final DossierFile dossierFile;
+    @Context
+    private ResourceContext resourceContext;
 
     public DossierFileResourceImpl(DossierFile dossierFile) {
 	this.dossierFile = dossierFile;
@@ -56,5 +61,11 @@ public class DossierFileResourceImpl implements DossierFileResource {
 	} catch (IOException ex) {
 	    throw new RuntimeException(ex);
 	}
+    }
+
+    @Override
+    public DossierContextResource getDossierContextResource() {
+        DossierContextResourceImpl resource = new DossierContextResourceImpl(dossierFile);
+        return resourceContext.initResource(resource);
     }
 }
