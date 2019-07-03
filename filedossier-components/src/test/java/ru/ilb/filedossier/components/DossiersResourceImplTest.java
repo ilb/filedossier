@@ -15,13 +15,19 @@
  */
 package ru.ilb.filedossier.components;
 
-import java.nio.file.spi.FileSystemProvider;
+import javax.inject.Inject;
 import static org.junit.Assert.*;
+import org.junit.runner.RunWith;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
+import ru.ilb.filedossier.api.DossiersResource;
 
 /**
  *
  * @author slavb
  */
+@SpringBootTest
+@RunWith(SpringRunner.class)
 public class DossiersResourceImplTest {
 
     public DossiersResourceImplTest() {
