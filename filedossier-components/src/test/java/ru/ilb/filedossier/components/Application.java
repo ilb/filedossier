@@ -45,8 +45,14 @@ public class Application {
     public DossierFactory dossierFactory() throws NamingException {
         DossierDefinitionRepository dossierModelRepository;
         StoreFactory storeFactory;
-        dossierModelRepository = new FileDossierDefinitionRepository(Paths.get("/tmp/store").resolve("packages").toUri());
-        storeFactory = StoreFactory.newInstance(Paths.get("/tmp/store").toUri());
+	try {
+	    dossierModelRepository = new FileDossierDefinitionRepository(
+		    Application.class.getClassLoader().getResource("models").toURI());
+	    storeFactory = StoreFactory
+		    .newInstance(Application.class.getClassLoader().getResource("teststoreroot").toURI());
+	} catch (URISyntaxException ex) {
+	    throw new RuntimeException(ex);
+	}
 
         DossierContextBuilder dossierContextBuilder = (String dossierKey, String dossierPackage, String dossierCode) -> {
             DossierContext dc = new DossierContextImpl("");

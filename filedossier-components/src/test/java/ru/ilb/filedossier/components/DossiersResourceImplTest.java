@@ -16,21 +16,45 @@
 package ru.ilb.filedossier.components;
 
 import javax.inject.Inject;
+import org.apache.cxf.jaxrs.client.JAXRSClientFactory;
 import static org.junit.Assert.*;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.core.env.Environment;
 import org.springframework.test.context.junit4.SpringRunner;
+import ru.ilb.filedossier.api.DossierResource;
 import ru.ilb.filedossier.api.DossiersResource;
+import ru.ilb.filedossier.view.DossierView;
 
 /**
  *
  * @author slavb
  */
-@SpringBootTest
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @RunWith(SpringRunner.class)
 public class DossiersResourceImplTest {
 
+    DossiersResource resource;
+
+    @LocalServerPort
+    Integer randomPort;
+
     public DossiersResourceImplTest() {
+    }
+
+    private DossiersResource getDossiersResource() {
+        if (resource == null) {
+            String port = randomPort.toString();  
+            String resourceUri = "http://localhost:" + port + "/web";
+            System.out.println("resourceUri=" + resourceUri);
+            resource = JAXRSClientFactory.create(resourceUri, DossiersResource.class);
+        }
+        return resource;
+
     }
 
     /**
@@ -38,6 +62,12 @@ public class DossiersResourceImplTest {
      */
     @org.junit.Test
     public void testGetDossierResource() {
+        String dossierKey = "teststorekey";
+        String dossierPackage = "testmodel";
+        String dossierCode = "TEST";
+        DossierResource dossierResource = getDossiersResource().getDossierResource(dossierKey, dossierPackage, dossierCode);
+        DossierView dossier = dossierResource.getDossier();
+        assertNotNull(dossier);
     }
 
 }

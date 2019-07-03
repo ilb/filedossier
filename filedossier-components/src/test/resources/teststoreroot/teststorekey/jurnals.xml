@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="../../../stylesheets/doctemplates/jurnals/percentsheet.xsl"?>
+
+<!--
+    Document   : percentsheet.xml
+    Created on : 5 Июль 2010 г., 12:45
+    Author     : fedorov
+    Description:
+	Purpose of the document follows.
+-->
+
+<ns0:PercentSheetList  xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+		       xmlns:ns0='urn:ru:ilb:meta:doctemplates:jurnals:percentsheet'
+		       xsi:schemaLocation='urn:ru:ilb:meta:doctemplates:jurnals:percentsheet ../../../schemas/doctemplates/jurnals/percentsheet.xsd'>
+	<ns0:PercentSheet>
+		<ns0:ondate>2010-01-01</ns0:ondate>
+		<ns0:contragentName>contragentName</ns0:contragentName>
+		<ns0:docNum>docNum</ns0:docNum>
+		<ns0:docDate>2010-01-01</ns0:docDate>
+		<ns0:begin>2010-02-01</ns0:begin>
+		<ns0:end>2010-03-01</ns0:end>
+		<ns0:days>28</ns0:days>
+		<ns0:percent>1111</ns0:percent>
+		<ns0:account>123123123</ns0:account>
+		<ns0:currency>USB</ns0:currency>
+		<ns0:row>
+			<ns0:begin>2010-02-01</ns0:begin>
+			<ns0:end>2010-03-01</ns0:end>
+			<ns0:days>28</ns0:days>
+			<ns0:percent>1111</ns0:percent>
+			<ns0:percentRate>123.123123</ns0:percentRate>
+			<ns0:remainder>123.123123</ns0:remainder>
+		</ns0:row>
+		<ns0:row>
+			<ns0:begin>2010-02-01</ns0:begin>
+			<ns0:end>2010-03-01</ns0:end>
+			<ns0:days>28</ns0:days>
+			<ns0:percent>1111</ns0:percent>
+			<ns0:percentRate>123.123123</ns0:percentRate>
+			<ns0:remainder>123.123123</ns0:remainder>
+		</ns0:row>
+		<ns0:row>
+			<ns0:begin>2010-02-01</ns0:begin>
+			<ns0:end>2010-03-01</ns0:end>
+			<ns0:days>28</ns0:days>
+			<ns0:percent>1111</ns0:percent>
+			<ns0:percentRate>123.123123</ns0:percentRate>
+			<ns0:remainder>123.123123</ns0:remainder>
+		</ns0:row>
+	</ns0:PercentSheet>
+	<ns0:PercentSheet>
+		<ns0:ondate>2010-01-01</ns0:ondate>
+		<ns0:contragentName>contragentName</ns0:contragentName>
+		<ns0:docNum>docNum</ns0:docNum>
+		<ns0:docDate>2010-01-01</ns0:docDate>
+		<ns0:begin>2010-02-01</ns0:begin>
+		<ns0:end>2010-03-01</ns0:end>
+		<ns0:days>28</ns0:days>
+		<ns0:percent>1111</ns0:percent>
+		<ns0:account>123123123</ns0:account>
+		<ns0:currency>RUR</ns0:currency>
+		<ns0:row>
+			<ns0:begin>2010-02-01</ns0:begin>
+			<ns0:end>2010-03-01</ns0:end>
+			<ns0:days>28</ns0:days>
+			<ns0:percent>1111</ns0:percent>
+			<ns0:percentRate>123.123123</ns0:percentRate>
+			<ns0:remainder>123.123123</ns0:remainder>
+		</ns0:row>
+		<ns0:row>
+			<ns0:begin>2010-02-01</ns0:begin>
+			<ns0:end>2010-03-01</ns0:end>
+			<ns0:days>28</ns0:days>
+			<ns0:percent>1111</ns0:percent>
+			<ns0:percentRate>123.123123</ns0:percentRate>
+			<ns0:remainder>123.123123</ns0:remainder>
+		</ns0:row>
+		<ns0:row>
+			<ns0:begin>2010-02-01</ns0:begin>
+			<ns0:end>2010-03-01</ns0:end>
+			<ns0:days>28</ns0:days>
+			<ns0:percent>1111</ns0:percent>
+			<ns0:percentRate>123.123123</ns0:percentRate>
+			<ns0:remainder>123.123123</ns0:remainder>
+		</ns0:row>
+		<ns0:row>
+			<ns0:begin>2010-02-01</ns0:begin>
+			<ns0:end>2010-03-01</ns0:end>
+			<ns0:days>28</ns0:days>
+			<ns0:percent>1111</ns0:percent>
+			<ns0:percentRate>123.123123</ns0:percentRate>
+			<ns0:remainder>123.123123</ns0:remainder>
+		</ns0:row>
+		<ns0:row>
+			<ns0:begin>2010-02-01</ns0:begin>
+			<ns0:end>2010-03-01</ns0:end>
+			<ns0:days>28</ns0:days>
+			<ns0:percent>1111</ns0:percent>
+			<ns0:percentRate>123.123123</ns0:percentRate>
+			<ns0:remainder>123.123123</ns0:remainder>
+		</ns0:row>
+		<ns0:row>
+			<ns0:begin>2010-02-01</ns0:begin>
+			<ns0:end>2010-03-01</ns0:end>
+			<ns0:days>28</ns0:days>
+			<ns0:percent>1111</ns0:percent>
+			<ns0:percentRate>123.123123</ns0:percentRate>
+			<ns0:remainder>123.123123</ns0:remainder>
+		</ns0:row>
+	</ns0:PercentSheet>
+</ns0:PercentSheetList>
