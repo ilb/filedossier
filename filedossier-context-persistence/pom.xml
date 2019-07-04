@@ -8,7 +8,7 @@
     </parent>
     <artifactId>filedossier-context-persistence</artifactId>
     <packaging>jar</packaging>
-    
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
@@ -20,9 +20,9 @@
         <swagger.ui.version>3.22.2</swagger.ui.version>
         <maven.test.skip>false</maven.test.skip>
         <maven.tomcat.skip>true</maven.tomcat.skip>
-        <org.mapstruct.version>1.2.0.Final</org.mapstruct.version>        
+        <org.mapstruct.version>1.2.0.Final</org.mapstruct.version>
         <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>        
+        <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
 
 
@@ -36,7 +36,7 @@
                 <scope>import</scope>
             </dependency>
         </dependencies>
-    </dependencyManagement>        
+    </dependencyManagement>
 
     <dependencies>
         <dependency>
@@ -71,6 +71,11 @@
             <groupId>${project.groupId}</groupId>
             <artifactId>filedossier-context</artifactId>
             <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.inject</groupId>
+            <artifactId>javax.inject</artifactId>
+            <version>1</version>
         </dependency>
     </dependencies>
 

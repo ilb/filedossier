@@ -22,6 +22,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import ru.ilb.filedossier.entities.Dossier;
+import ru.ilb.filedossier.entities.DossierContext;
+import ru.ilb.filedossier.entities.DossierContextService;
 import ru.ilb.filedossier.entities.DossierPath;
 import ru.ilb.filedossier.mimetype.MimeTypeUtil;
 import ru.ilb.filedossier.representation.IdentityRepresentation;
@@ -56,8 +58,10 @@ public class DossierFileImpl implements DossierFile {
 
     private final Representation representation;
 
+    private final DossierContextService dossierContextService;
+
     public DossierFileImpl(Store store, String code, String name, boolean required, boolean readonly, boolean hidden,
-	    String mediaType, List<Representation> representations) {
+	    String mediaType, List<Representation> representations,DossierContextService dossierContextService) {
 	this.store = store;
 	this.code = code;
 	this.name = name;
@@ -71,6 +75,7 @@ public class DossierFileImpl implements DossierFile {
 	this.representation = representations.isEmpty() ? new IdentityRepresentation(mediaType)
 		: representations.iterator().next();
 	this.representation.setParent(this);
+        this.dossierContextService = dossierContextService;
     }
 
     @Override
@@ -157,6 +162,12 @@ public class DossierFileImpl implements DossierFile {
 		.isAssignableFrom(parent.getClass()) : "Dossier instance should be passed as argument instead of "
 			+ parent.getClass().getCanonicalName();
 	this.parent = (Dossier) parent;
+    }
+
+    @Override
+    public DossierContext getDossierContext() {
+        //TODO написать ключ конекста
+        return dossierContextService.getContext(code);
     }
 
 }

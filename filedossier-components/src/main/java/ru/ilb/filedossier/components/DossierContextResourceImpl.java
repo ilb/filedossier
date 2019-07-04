@@ -27,11 +27,11 @@ public class DossierContextResourceImpl implements DossierContextResource {
     public DossierContextResourceImpl(DossierFile dossierFile) {
         this.dossierFile = dossierFile;
     }
-    
+
 
     @Override
     public JsonMapObject getContext() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return new JsonMapObject(dossierFile.getDossierContext().asMap()); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override

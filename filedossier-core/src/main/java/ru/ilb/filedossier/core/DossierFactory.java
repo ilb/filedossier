@@ -22,9 +22,11 @@ import ru.ilb.filedossier.entities.DossierContext;
 import ru.ilb.filedossier.context.DossierContextBuilder;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.inject.Inject;
 import ru.ilb.filedossier.ddl.DossierDefinition;
 import ru.ilb.filedossier.ddl.DossierFileDefinition;
 import ru.ilb.filedossier.ddl.DossierDefinitionRepository;
+import ru.ilb.filedossier.entities.DossierContextService;
 import ru.ilb.filedossier.entities.Representation;
 import ru.ilb.filedossier.scripting.TemplateEvaluator;
 import ru.ilb.filedossier.entities.Store;
@@ -65,12 +67,18 @@ public class DossierFactory {
      */
     private final RepresentationFactory representationFactory = new RepresentationFactory();
 
+    @Inject
+    DossierContextService dossierContextService;
     public DossierFactory(DossierDefinitionRepository dossierModelRepository, StoreFactory storeFactory,
 	    DossierContextBuilder dossierContextBuilder, TemplateEvaluator templateEvaluator) {
 	this.dossierModelRepository = dossierModelRepository;
 	this.storeFactory = storeFactory;
 	this.dossierContextBuilder = dossierContextBuilder;
 	this.templateEvaluator = templateEvaluator;
+    }
+
+    public void setDossierContextService(DossierContextService dossierContextService) {
+        this.dossierContextService = dossierContextService;
     }
 
     public Dossier getDossier(String dossierKey, String dossierPackage, String dossierCode) {
@@ -109,7 +117,7 @@ public class DossierFactory {
 		Boolean.TRUE
 			.equals(templateEvaluator.evaluateBooleanExpression(modelFile.getReadonly(), dossierContext.asMap())),
 		Boolean.TRUE.equals(templateEvaluator.evaluateBooleanExpression(modelFile.getHidden(), dossierContext.asMap())),
-		modelFile.getMediaType(), representations);
+		modelFile.getMediaType(), representations, dossierContextService);
 	return df;
     }
 }

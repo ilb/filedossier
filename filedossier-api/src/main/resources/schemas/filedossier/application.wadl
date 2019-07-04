@@ -1,10 +1,10 @@
-<application xmlns="http://wadl.dev.java.net/2009/02" 
-             xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+<application xmlns="http://wadl.dev.java.net/2009/02"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
              xmlns:command="urn:ru:ilb:filedossier:command"
              xmlns:view="urn:ru:ilb:filedossier:view"
              xmlns:global="urn:ru:ilb:global"
              xmlns:core="urn:ru:ilb:filedossier:core"
->    
+>
     <grammars>
         <include href="global.xsd" />
         <include href="command.xsd" />
@@ -53,12 +53,12 @@
         <method name="PUT" id="setContext">
             <doc>store dossier cotnext</doc>
             <request>
-                <representation mediaType="application/xml" element="global:map">
+                <representation mediaType="application/json" element="global:map">
                     <doc>processInstances data</doc>
                 </representation>
-                <representation mediaType="application/json">
+<!--                <representation mediaType="application/json">
                     <doc>processInstances data</doc>
-                </representation>
+                </representation>-->
             </request>
             <response status="204"></response>
         </method>

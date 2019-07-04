@@ -54,4 +54,6 @@ public interface DossierFile extends DossierContents {
      */
     public Representation getRepresentation();
 
+    public DossierContext getDossierContext();
+
 }

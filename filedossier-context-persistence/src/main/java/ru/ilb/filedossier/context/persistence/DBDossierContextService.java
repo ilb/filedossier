@@ -15,6 +15,7 @@
  */
 package ru.ilb.filedossier.context.persistence;
 
+import javax.inject.Inject;
 import org.springframework.data.relational.core.conversion.DbActionExecutionException;
 import ru.ilb.filedossier.context.DossierContextImpl;
 import ru.ilb.filedossier.context.persistence.model.DossierContextPersistence;
@@ -24,10 +25,14 @@ import ru.ilb.filedossier.entities.DossierContextService;
 
 public class DBDossierContextService implements DossierContextService {
 
+    @Inject
     private DossierContextRepository repository;
 
     public DBDossierContextService(DossierContextRepository repository) {
 	this.repository = repository;
+    }
+
+    public DBDossierContextService() {
     }
 
     @Override

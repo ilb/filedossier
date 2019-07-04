@@ -62,6 +62,11 @@
             <artifactId>filedossier-entities</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>javax.inject</groupId>
+            <artifactId>javax.inject</artifactId>
+            <version>1</version>
+        </dependency>
     </dependencies>
     <name>filedossier-core</name>
 </project>

@@ -17,6 +17,7 @@ package ru.ilb.filedossier.components;
 
 import javax.inject.Inject;
 import org.apache.cxf.jaxrs.client.JAXRSClientFactory;
+import org.apache.cxf.jaxrs.json.basic.JsonMapObject;
 import static org.junit.Assert.*;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,8 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.core.env.Environment;
 import org.springframework.test.context.junit4.SpringRunner;
+import ru.ilb.filedossier.api.DossierContextResource;
+import ru.ilb.filedossier.api.DossierFileResource;
 import ru.ilb.filedossier.api.DossierResource;
 import ru.ilb.filedossier.api.DossiersResource;
 import ru.ilb.filedossier.view.DossierView;
@@ -48,7 +51,7 @@ public class DossiersResourceImplTest {
 
     private DossiersResource getDossiersResource() {
         if (resource == null) {
-            String port = randomPort.toString();  
+            String port = randomPort.toString();
             String resourceUri = "http://localhost:" + port + "/web";
             System.out.println("resourceUri=" + resourceUri);
             resource = JAXRSClientFactory.create(resourceUri, DossiersResource.class);
@@ -68,6 +71,12 @@ public class DossiersResourceImplTest {
         DossierResource dossierResource = getDossiersResource().getDossierResource(dossierKey, dossierPackage, dossierCode);
         DossierView dossier = dossierResource.getDossier();
         assertNotNull(dossier);
+        DossierFileResource dossierFileResource = dossierResource.getDossierFileResource("fairpricecalc");
+        DossierContextResource dossierContextResource = dossierFileResource.getDossierContextResource();
+
+        JsonMapObject jsonMapObject = new JsonMapObject();
+        jsonMapObject.setProperty("test", "123");
+        dossierContextResource.setContext(jsonMapObject);
     }
 
 }
