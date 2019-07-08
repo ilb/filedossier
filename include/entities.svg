@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="526px" preserveAspectRatio="none" style="width:1213px;height:526px;" version="1.1" viewBox="0 0 1213 526" width="1213px" zoomAndPan="magnify">
+    <defs>
+        <filter height="300%" id="frtrty3lmx94l" width="300%" x="-1" y="-1">
+            <feGaussianBlur result="blurOut" stdDeviation="2.0"/>
+            <feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/>
+            <feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/>
+            <feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/>
+        </filter>
+    </defs>
+    <g>
+        <!--cluster ru.ilb.filedossier.entities-->
+        <polygon fill="#FFFFFF" filter="url(#frtrty3lmx94l)" points="333,126,524,126,531,149.0146,876,149.0146,876,448,333,448,333,126" style="stroke: #000000; stroke-width: 2.0;"/>
+        <line style="stroke: #000000; stroke-width: 2.0;" x1="333" x2="531" y1="149.0146" y2="149.0146"/>
+        <text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="185" x="337" y="142.0752">ru.ilb.filedossier.entities</text>
+        <!--class ru.ilb.filedossier.entities.Dossier-->
+        <rect fill="#FEFECE" filter="url(#frtrty3lmx94l)" height="48" style="stroke: #A80036; stroke-width: 1.5;" width="77" x="740" y="276"/>
+        <ellipse cx="755" cy="292" fill="#B4A7E5" rx="11" ry="11" style="stroke: #A80036; stroke-width: 1.0;"/>
+        <path d="M750.9219,287.7656 L750.9219,285.6094 L758.3125,285.6094 L758.3125,287.7656 L755.8438,287.7656 L755.8438,295.8438 L758.3125,295.8438 L758.3125,298 L750.9219,298 L750.9219,295.8438 L753.3906,295.8438 L753.3906,287.7656 L750.9219,287.7656 Z "/>
+        <text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="45" x="769" y="296.7725">Dossier</text>
+        <line style="stroke: #A80036; stroke-width: 1.5;" x1="741" x2="816" y1="308" y2="308"/>
+        <line style="stroke: #A80036; stroke-width: 1.5;" x1="741" x2="816" y1="316" y2="316"/>
+        <!--class ru.ilb.filedossier.entities.DossierContents-->
+        <rect fill="#FEFECE" filter="url(#frtrty3lmx94l)" height="48" style="stroke: #A80036; stroke-width: 1.5;" width="132" x="486" y="276"/>
+        <ellipse cx="501" cy="292" fill="#B4A7E5" rx="11" ry="11" style="stroke: #A80036; stroke-width: 1.0;"/>
+        <path d="M496.9219,287.7656 L496.9219,285.6094 L504.3125,285.6094 L504.3125,287.7656 L501.8438,287.7656 L501.8438,295.8438 L504.3125,295.8438 L504.3125,298 L496.9219,298 L496.9219,295.8438 L499.3906,295.8438 L499.3906,287.7656 L496.9219,287.7656 Z "/>
+        <text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="100" x="515" y="296.7725">DossierContents</text>
+        <line style="stroke: #A80036; stroke-width: 1.5;" x1="487" x2="617" y1="308" y2="308"/>
+        <line style="stroke: #A80036; stroke-width: 1.5;" x1="487" x2="617" y1="316" y2="316"/>
+        <!--class ru.ilb.filedossier.entities.DossierContext-->
+        <rect fill="#FEFECE" filter="url(#frtrty3lmx94l)" height="48" style="stroke: #A80036; stroke-width: 1.5;" width="124" x="736" y="163"/>
+        <ellipse cx="751" cy="179" fill="#B4A7E5" rx="11" ry="11" style="stroke: #A80036; stroke-width: 1.0;"/>
+        <path d="M746.9219,174.7656 L746.9219,172.6094 L754.3125,172.6094 L754.3125,174.7656 L751.8438,174.7656 L751.8438,182.8438 L754.3125,182.8438 L754.3125,185 L746.9219,185 L746.9219,182.8438 L749.3906,182.8438 L749.3906,174.7656 L746.9219,174.7656 Z "/>
+        <text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="92" x="765" y="183.7725">DossierContext</text>
+        <line style="stroke: #A80036; stroke-width: 1.5;" x1="737" x2="859" y1="195" y2="195"/>
+        <line style="stroke: #A80036; stroke-width: 1.5;" x1="737" x2="859" y1="203" y2="203"/>
+        <!--class ru.ilb.filedossier.entities.DossierFile-->
+        <rect fill="#FEFECE" filter="url(#frtrty3lmx94l)" height="48" style="stroke: #A80036; stroke-width: 1.5;" width="97" x="605" y="163"/>
+        <ellipse cx="620" cy="179" fill="#B4A7E5" rx="11" ry="11" style="stroke: #A80036; stroke-width: 1.0;"/>
+        <path d="M615.9219,174.7656 L615.9219,172.6094 L623.3125,172.6094 L623.3125,174.7656 L620.8438,174.7656 L620.8438,182.8438 L623.3125,182.8438 L623.3125,185 L615.9219,185 L615.9219,182.8438 L618.3906,182.8438 L618.3906,174.7656 L615.9219,174.7656 Z "/>
+        <text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="65" x="634" y="183.7725">DossierFile</text>
+        <line style="stroke: #A80036; stroke-width: 1.5;" x1="606" x2="701" y1="195" y2="195"/>
+        <line style="stroke: #A80036; stroke-width: 1.5;" x1="606" x2="701" y1="203" y2="203"/>
+        <!--class ru.ilb.filedossier.entities.DossierPath-->
+        <rect fill="#FEFECE" filter="url(#frtrty3lmx94l)" height="48" style="stroke: #A80036; stroke-width: 1.5;" width="104" x="613" y="384"/>
+        <ellipse cx="628" cy="400" fill="#B4A7E5" rx="11" ry="11" style="stroke: #A80036; stroke-width: 1.0;"/>
+        <path d="M623.9219,395.7656 L623.9219,393.6094 L631.3125,393.6094 L631.3125,395.7656 L628.8438,395.7656 L628.8438,403.8438 L631.3125,403.8438 L631.3125,406 L623.9219,406 L623.9219,403.8438 L626.3906,403.8438 L626.3906,395.7656 L623.9219,395.7656 Z "/>
+        <text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="72" x="642" y="404.7725">DossierPath</text>
+        <line style="stroke: #A80036; stroke-width: 1.5;" x1="614" x2="716" y1="416" y2="416"/>
+        <line style="stroke: #A80036; stroke-width: 1.5;" x1="614" x2="716" y1="424" y2="424"/>
+        <!--class ru.ilb.filedossier.entities.Representation-->
+        <rect fill="#FEFECE" filter="url(#frtrty3lmx94l)" height="48" style="stroke: #A80036; stroke-width: 1.5;" width="123" x="448" y="163"/>
+        <ellipse cx="463" cy="179" fill="#B4A7E5" rx="11" ry="11" style="stroke: #A80036; stroke-width: 1.0;"/>
+        <path d="M458.9219,174.7656 L458.9219,172.6094 L466.3125,172.6094 L466.3125,174.7656 L463.8438,174.7656 L463.8438,182.8438 L466.3125,182.8438 L466.3125,185 L458.9219,185 L458.9219,182.8438 L461.3906,182.8438 L461.3906,174.7656 L458.9219,174.7656 Z "/>
+        <text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="91" x="477" y="183.7725">Representation</text>
+        <line style="stroke: #A80036; stroke-width: 1.5;" x1="449" x2="570" y1="195" y2="195"/>
+        <line style="stroke: #A80036; stroke-width: 1.5;" x1="449" x2="570" y1="203" y2="203"/>
+        <!--class ru.ilb.filedossier.entities.Store-->
+        <rect fill="#FEFECE" filter="url(#frtrty3lmx94l)" height="48" style="stroke: #A80036; stroke-width: 1.5;" width="64" x="349" y="163"/>
+        <ellipse cx="364" cy="179" fill="#B4A7E5" rx="11" ry="11" style="stroke: #A80036; stroke-width: 1.0;"/>
+        <path d="M359.9219,174.7656 L359.9219,172.6094 L367.3125,172.6094 L367.3125,174.7656 L364.8438,174.7656 L364.8438,182.8438 L367.3125,182.8438 L367.3125,185 L359.9219,185 L359.9219,182.8438 L362.3906,182.8438 L362.3906,174.7656 L359.9219,174.7656 Z "/>
+        <text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="32" x="378" y="183.7725">Store</text>
+        <line style="stroke: #A80036; stroke-width: 1.5;" x1="350" x2="412" y1="195" y2="195"/>
+        <line style="stroke: #A80036; stroke-width: 1.5;" x1="350" x2="412" y1="203" y2="203"/>
+        <polygon fill="#FBFB77" filter="url(#frtrty3lmx94l)" points="6,16.5,6,89.6973,288,89.6973,288,26.5,278,16.5,6,16.5" style="stroke: #A80036; stroke-width: 1.0;"/>
+        <line style="stroke: #A80036; stroke-width: 1.0;" x1="278" x2="278" y1="16.5" y2="26.5"/>
+        <line style="stroke: #A80036; stroke-width: 1.0;" x1="288" x2="278" y1="26.5" y2="26.5"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="182" x="12" y="34.5698">Store is an abstract entity,</text>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="261" x="12" y="50.3691">represents a physical dossier directory,</text>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="212" x="12" y="66.1685">it allows to set and get content</text>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="116" x="12" y="81.9678">from dossier files.</text>
+        <polygon fill="#FBFB77" filter="url(#frtrty3lmx94l)" points="323,16.5,323,89.6973,548,89.6973,548,26.5,538,16.5,323,16.5" style="stroke: #A80036; stroke-width: 1.0;"/>
+        <polygon fill="#FBFB77" points="323,16.5,323,89.6973,451.221,89.6973,495.578,162.695,459.221,89.6973,548,89.6973,548,26.5,538,16.5,323,16.5" style="stroke: #A80036; stroke-width: 1.0;"/>
+        <line style="stroke: #A80036; stroke-width: 1.0;" x1="538" x2="538" y1="16.5" y2="26.5"/>
+        <line style="stroke: #A80036; stroke-width: 1.0;" x1="548" x2="538" y1="26.5" y2="26.5"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="134" x="329" y="34.5698">This interface marks</text>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="189" x="329" y="50.3691">DossierFiles representations.</text>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="204" x="329" y="66.1685">For example, DossierFile is xml,</text>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="166" x="329" y="81.9678">it's representation is pdf.</text>
+        <polygon fill="#FBFB77" filter="url(#frtrty3lmx94l)" points="582,16.5,582,89.6973,873,89.6973,873,26.5,863,16.5,582,16.5" style="stroke: #A80036; stroke-width: 1.0;"/>
+        <polygon fill="#FBFB77" points="582,16.5,582,89.6973,702.779,89.6973,666.422,162.695,710.779,89.6973,873,89.6973,873,26.5,863,16.5,582,16.5" style="stroke: #A80036; stroke-width: 1.0;"/>
+        <line style="stroke: #A80036; stroke-width: 1.0;" x1="863" x2="863" y1="16.5" y2="26.5"/>
+        <line style="stroke: #A80036; stroke-width: 1.0;" x1="873" x2="863" y1="26.5" y2="26.5"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="193" x="588" y="34.5698">Dossier file is an extension of</text>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="229" x="588" y="50.3691">DossierContents, it is the abstract</text>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="270" x="588" y="66.1685">dossier file,that contains representation,</text>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="229" x="588" y="81.9678">context, and abstract flags of file.</text>
+        <polygon fill="#FBFB77" filter="url(#frtrty3lmx94l)" points="907,8.5,907,97.4966,1204,97.4966,1204,18.5,1194,8.5,907,8.5" style="stroke: #A80036; stroke-width: 1.0;"/>
+        <line style="stroke: #A80036; stroke-width: 1.0;" x1="1194" x2="1194" y1="8.5" y2="18.5"/>
+        <line style="stroke: #A80036; stroke-width: 1.0;" x1="1204" x2="1194" y1="18.5" y2="18.5"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="190" x="913" y="26.5698">Provides interface for create</text>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="259" x="913" y="42.3691">and work with context (String, Object)</text>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="276" x="913" y="58.1685">for a certain entity. For example, context</text>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="164" x="913" y="73.9678">needed for DossierFile to</text>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="107" x="913" y="89.7671">save properties.</text>
+        <polygon fill="#FBFB77" filter="url(#frtrty3lmx94l)" points="20,158.5,20,215.8979,315,215.8979,315,168.5,305,158.5,20,158.5" style="stroke: #A80036; stroke-width: 1.0;"/>
+        <polygon fill="#FBFB77" points="20,158.5,20,215.8979,260.152,215.8979,485.775,280.563,268.152,215.8979,315,215.8979,315,168.5,305,158.5,20,158.5" style="stroke: #A80036; stroke-width: 1.0;"/>
+        <line style="stroke: #A80036; stroke-width: 1.0;" x1="305" x2="305" y1="158.5" y2="168.5"/>
+        <line style="stroke: #A80036; stroke-width: 1.0;" x1="315" x2="305" y1="168.5" y2="168.5"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="274" x="26" y="176.5698">This interface is a DossierPath extension,</text>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="179" x="26" y="192.3691">represents the physical file</text>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="176" x="26" y="208.1685">from the dossier directory.</text>
+        <polygon fill="#FBFB77" filter="url(#frtrty3lmx94l)" points="895,166,895,207.5986,1190,207.5986,1190,176,1180,166,895,166" style="stroke: #A80036; stroke-width: 1.0;"/>
+        <polygon fill="#FBFB77" points="895,166,895,207.5986,988.653,207.5986,816.398,283.565,996.653,207.5986,1190,207.5986,1190,176,1180,166,895,166" style="stroke: #A80036; stroke-width: 1.0;"/>
+        <line style="stroke: #A80036; stroke-width: 1.0;" x1="1180" x2="1180" y1="166" y2="176"/>
+        <line style="stroke: #A80036; stroke-width: 1.0;" x1="1190" x2="1180" y1="176" y2="176"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="274" x="901" y="184.0698">This interface is a DossierPath extension,</text>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="234" x="901" y="199.8691">allows to get abstract dossier files.</text>
+        <polygon fill="#FBFB77" filter="url(#frtrty3lmx94l)" points="501,492,501,517.7993,830,517.7993,830,502,820,492,501,492" style="stroke: #A80036; stroke-width: 1.0;"/>
+        <polygon fill="#FBFB77" points="501,492,501,517.7993,830,517.7993,830,502,820,492,669,492,665,432.4772,661,492,501,492" style="stroke: #A80036; stroke-width: 1.0;"/>
+        <line style="stroke: #A80036; stroke-width: 1.0;" x1="820" x2="820" y1="492" y2="502"/>
+        <line style="stroke: #A80036; stroke-width: 1.0;" x1="830" x2="820" y1="502" y2="502"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="308" x="507" y="510.0698">This interface is an abstract dossier directory.</text>
+        <path d="M270.553,89.561 C306.54,101.006 338.12,112.163 345,118 C358.806,129.713 368.023,148.069 373.671,162.905 " fill="none" style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 7.0,7.0;"/>
+        <path d="M906.713,95.405 C891.807,102.018 877.289,109.523 864,118 C845.412,129.857 828.324,148.018 816.195,162.732 " fill="none" style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 7.0,7.0;"/>
+        <path d="M752.641,324.237 C738.538,337.716 720.67,354.793 704.752,370.007 " fill="none" style="stroke: #A80036; stroke-width: 1.0;"/>
+        <polygon fill="none" points="709.57,375.085,690.275,383.844,699.897,364.964,709.57,375.085" style="stroke: #A80036; stroke-width: 1.0;"/>
+        <path d="M577.359,324.237 C591.462,337.716 609.33,354.793 625.248,370.007 " fill="none" style="stroke: #A80036; stroke-width: 1.0;"/>
+        <polygon fill="none" points="630.103,364.964,639.725,383.844,620.43,375.085,630.103,364.964" style="stroke: #A80036; stroke-width: 1.0;"/>
+        <path d="M631.333,211.241 C618.419,225.69 601.722,244.371 586.979,260.865 " fill="none" style="stroke: #A80036; stroke-width: 1.0;"/>
+        <polygon fill="none" points="592.179,265.552,573.631,275.799,581.74,256.222,592.179,265.552" style="stroke: #A80036; stroke-width: 1.0;"/>
+        <path d="M518.225,211.241 C523.298,224.573 529.742,241.507 535.638,257.002 " fill="none" style="stroke: #A80036; stroke-width: 1.0;"/>
+        <polygon fill="none" points="542.22,254.617,542.791,275.799,529.135,259.596,542.22,254.617" style="stroke: #A80036; stroke-width: 1.0;"/>
+        <!--
+@startuml
+interface ru.ilb.filedossier.entities.Dossier
+interface ru.ilb.filedossier.entities.DossierContents
+interface ru.ilb.filedossier.entities.DossierContext
+interface ru.ilb.filedossier.entities.DossierFile
+interface ru.ilb.filedossier.entities.DossierPath
+interface ru.ilb.filedossier.entities.Representation
+interface ru.ilb.filedossier.entities.Store
+note top of ru.ilb.filedossier.entities.Store : Store is an abstract entity,\nrepresents a physical dossier directory,\nit allows to set and get content\nfrom dossier files.
+note top of ru.ilb.filedossier.entities.Representation : This interface marks\nDossierFiles representations.\nFor example, DossierFile is xml,\nit's representation is pdf.
+note top of ru.ilb.filedossier.entities.DossierFile : Dossier file is an extension of\nDossierContents, it is the abstract\ndossier file,that contains representation,\ncontext, and abstract flags of file.
+note top of ru.ilb.filedossier.entities.DossierContext : Provides interface for create\nand work with context (String, Object)\nfor a certain entity. For example, context\nneeded for DossierFile to\nsave properties.
+note left of ru.ilb.filedossier.entities.DossierContents : This interface is a DossierPath extension,\nrepresents the physical file\nfrom the dossier directory.
+note left of ru.ilb.filedossier.entities.Dossier : This interface is a DossierPath extension,\nallows to get abstract dossier files.
+note right of ru.ilb.filedossier.entities.DossierPath : This interface is an abstract dossier directory.
+ru.ilb.filedossier.entities.Dossier - -|> ru.ilb.filedossier.entities.DossierPath
+ru.ilb.filedossier.entities.DossierContents - -|> ru.ilb.filedossier.entities.DossierPath
+ru.ilb.filedossier.entities.DossierFile - -|> ru.ilb.filedossier.entities.DossierContents
+ru.ilb.filedossier.entities.Representation - -|> ru.ilb.filedossier.entities.DossierContents
+@enduml
+
+PlantUML version 2017.11(Wed Apr 19 20:18:59 SAMT 2017)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Java Version: 1.8.0_77-b03
+Operating System: Linux
+OS Version: 3.14.14-gentoo_p3_amd64
+Default Encoding: UTF-8
+Language: ru
+Country: RU
+-->
+    </g>
+</svg>
