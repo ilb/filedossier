@@ -4,26 +4,27 @@
 
 Структура Dossier:
 ------------------
+```
 Dossier
 |
-└─ code
-└─ name
+└─ code - код для поиска
+└─ name - название
 └─ DossierFile
   |
-  └─ parent
-  └─ code
-  └─ name
+  └─ parent - родительское досье
+  └─ code - код для поиска
+  └─ name - название
   └─ mediaType
   └─ Store
     |
-    └─ storeKey
-    └─ storeRoot
+    └─ storeKey - ключ директории досье в хранилище 
+    └─ storeRoot - путь хранилища досье
     └─ Representation
       |
-      └─ parent
-
+      └─ parent - родительский DossierFile
+```
 Core:
 -----
 <p align="center">
-<img alt="Entities" src="include/entities.svg" width="480">
+<img alt="Entities" src="include/entities.svg" width="750">
 </p>
