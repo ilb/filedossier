@@ -42,12 +42,12 @@
             <doc>get dossier context</doc>
             <request></request>
             <response status="200">
-                <representation mediaType="application/xml" element="global:map">
+                <representation mediaType="application/json" element="global:map">
                     <doc>processInstances data</doc>
                 </representation>
-                <representation mediaType="application/json">
+<!--                <representation mediaType="application/json">
                     <doc>processInstances data</doc>
-                </representation>
+                </representation>-->
             </response>
         </method>
         <method name="PUT" id="setContext">

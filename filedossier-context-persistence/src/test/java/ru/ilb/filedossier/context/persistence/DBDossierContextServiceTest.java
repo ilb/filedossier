@@ -55,27 +55,25 @@ public class DBDossierContextServiceTest {
     public void testAPutDossierContextWithData() {
 	// Create test dossier context
 	DBDossierContextService contextService = new DBDossierContextService(dossierContextRepository);
-	DossierContext context = new DossierContextImpl("testContextKey");
+	DossierContext context = new DossierContextImpl();
 	context.setProperty("testDataKey", "testDataValue");
 	context.setProperty("testDataKey1", "testDataValue1");
 
-	contextService.putContext(context);
+	contextService.putContext("testContextKey", context);
 	DossierContext result = contextService.getContext("testContextKey");
 
-	assertEquals("testContextKey", result.getContextKey());
 	assertEquals("testDataValue", result.getProperty("testDataKey"));
     }
 
     @Test
     public void testBMergeDossierContexts() {
 	DBDossierContextService contextService = new DBDossierContextService(dossierContextRepository);
-	DossierContext context = new DossierContextImpl("testContextKey");
+	DossierContext context = new DossierContextImpl();
 	context.setProperty("testDataKey2", "testDataValue2");
 	context.setProperty("testDataKey3", "testDataValue3");
-	contextService.mergeContext(context);
+	contextService.mergeContext("testContextKey",context);
 
 	DossierContext result = contextService.getContext("testContextKey");
-	assertEquals("testContextKey", result.getContextKey());
 	assertEquals("testDataValue2", result.getProperty("testDataKey2"));
     }
 

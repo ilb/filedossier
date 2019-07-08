@@ -43,7 +43,7 @@ public class SubstitutorTemplateEvaluatorTest {
 	String template = "${name}";
 	Map<String, Object> map = new HashMap<>();
 	map.put("name", "testName");
-	DossierContext dossierContext = new DossierContextImpl("testKey", map);
+	DossierContext dossierContext = new DossierContextImpl(map);
 	SubstitutorTemplateEvaluator instance = new SubstitutorTemplateEvaluator(new InitialContext());
 	String expResult = "testName";
 	String result = instance.evaluateStringExpression(template, dossierContext.asMap());

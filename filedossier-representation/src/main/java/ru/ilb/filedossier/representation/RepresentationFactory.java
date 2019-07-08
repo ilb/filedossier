@@ -34,7 +34,7 @@ public class RepresentationFactory {
 	String mediaType = representationModel.getMediaType();
 	switch (mediaType) {
 	case "application/vnd.oasis.opendocument.spreadsheet":
-	    return createOdsRepresentation(representationModel);
+	    return createOdsRepresentation(baseUri,representationModel);
 	case "application/pdf":
 	    return createPdfRepresentation(representationModel, evaluator, dossierContext);
 	default:
@@ -42,9 +42,9 @@ public class RepresentationFactory {
 	}
     }
 
-    private Representation createOdsRepresentation(RepresentationDefinition representationModel) {
+    private Representation createOdsRepresentation(URI baseUri,RepresentationDefinition representationModel) {
 	return new OdsXsltRepresentation(representationModel.getMediaType(),
-		URI.create(representationModel.getStylesheet()), URI.create(representationModel.getTemplate()));
+		baseUri.resolve(representationModel.getStylesheet()), baseUri.resolve(representationModel.getTemplate()));
     }
 
     private Representation createPdfRepresentation(RepresentationDefinition representationModel,

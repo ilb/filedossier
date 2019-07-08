@@ -15,7 +15,9 @@
  */
 package ru.ilb.filedossier.context.persistence;
 
+import java.util.HashMap;
 import javax.inject.Inject;
+import javax.inject.Named;
 import org.springframework.data.relational.core.conversion.DbActionExecutionException;
 import ru.ilb.filedossier.context.DossierContextImpl;
 import ru.ilb.filedossier.context.persistence.model.DossierContextPersistence;
@@ -23,13 +25,14 @@ import ru.ilb.filedossier.context.persistence.repositories.DossierContextReposit
 import ru.ilb.filedossier.entities.DossierContext;
 import ru.ilb.filedossier.entities.DossierContextService;
 
+@Named
 public class DBDossierContextService implements DossierContextService {
 
     @Inject
     private DossierContextRepository repository;
 
     public DBDossierContextService(DossierContextRepository repository) {
-	this.repository = repository;
+        this.repository = repository;
     }
 
     public DBDossierContextService() {
@@ -37,25 +40,24 @@ public class DBDossierContextService implements DossierContextService {
 
     @Override
     public DossierContext getContext(String contextKey) {
-	DossierContextPersistence contextPersistence = repository.findByContextKey(contextKey);
-	DossierContextImpl context = new DossierContextImpl(contextPersistence.getContextKey(),
-		contextPersistence.asMap());
-	return context;
+        DossierContextPersistence contextPersistence = repository.findByContextKey(contextKey);
+        DossierContext context = new DossierContextImpl(contextPersistence!=null ? contextPersistence.asMap() : new HashMap<>());
+        return context;
     }
 
     @Override
-    public void putContext(DossierContext context) throws DbActionExecutionException {
-	DossierContextPersistence contextPersistence = new DossierContextPersistence(context.getContextKey(),
-		context.asMap());
-	repository.save(contextPersistence);
+    public void putContext(String contextKey, DossierContext context) throws DbActionExecutionException {
+        DossierContextPersistence contextPersistence = new DossierContextPersistence(contextKey,
+                context.asMap());
+        repository.save(contextPersistence);
     }
 
     @Override
-    public void mergeContext(DossierContext context) {
-	DossierContextPersistence oldContext = repository.findByContextKey(context.getContextKey());
-	DossierContextPersistence newContext = new DossierContextPersistence(context.getContextKey(), context.asMap());
-	newContext.setId(oldContext.getId());
-	repository.save(newContext);
+    public void mergeContext(String contextKey, DossierContext context) {
+        DossierContextPersistence oldContext = repository.findByContextKey(contextKey);
+        DossierContextPersistence newContext = new DossierContextPersistence(contextKey, context.asMap());
+        newContext.setId(oldContext.getId());
+        repository.save(newContext);
     }
 
 }

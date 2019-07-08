@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ru.ilb.filedossier.components;
+package ru.ilb.filedossier;
 
 import java.net.URISyntaxException;
 import java.nio.file.Paths;
@@ -38,25 +38,26 @@ import ru.ilb.filedossier.scripting.SubstitutorTemplateEvaluator;
 import ru.ilb.filedossier.scripting.TemplateEvaluator;
 import ru.ilb.filedossier.store.StoreFactory;
 import org.apache.cxf.jaxrs.provider.json.JsonMapObjectProvider;
+import org.springframework.boot.web.server.LocalServerPort;
 
 /**
  *
  * @author slavb
  */
 @SpringBootApplication
-@EnableJdbcRepositories(basePackages = "ru.ilb.filedossier.context.persistence.repositories")
-@ComponentScan(basePackages = { "ru.ilb.filedossier.components", "ru.ilb.filedossier.mappers" })
+//@EnableJdbcRepositories(basePackages = "ru.ilb.filedossier.context.persistence.repositories")
+@ComponentScan
 public class Application {
 
-    @Bean
-    public DossierContextService dossierContextService() {
-        return new DBDossierContextService();
-    }
-
-    @Bean
-    public NamingStrategy namingStrategy() {
-        return new DossierContextNamingStrategy();
-    }
+//    @Bean
+//    public DossierContextService dossierContextService() {
+//        return new DBDossierContextService();
+//    }
+//
+//    @Bean
+//    public NamingStrategy namingStrategy() {
+//        return new DossierContextNamingStrategy();
+//    }
 
     @Bean
     public JsonMapObjectProvider jsonMapObjectProvider() {
@@ -77,7 +78,7 @@ public class Application {
 	}
 
         DossierContextBuilder dossierContextBuilder = (String dossierKey, String dossierPackage, String dossierCode) -> {
-            DossierContext dc = new DossierContextImpl("");
+            DossierContext dc = new DossierContextImpl();
             dc.setProperty("name", "Тест имя");
             dc.setProperty("prop", false);
             return dc;

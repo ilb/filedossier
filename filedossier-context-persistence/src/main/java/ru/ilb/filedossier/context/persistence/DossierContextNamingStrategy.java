@@ -15,6 +15,7 @@
  */
 package ru.ilb.filedossier.context.persistence;
 
+import javax.inject.Named;
 import org.springframework.data.relational.core.mapping.NamingStrategy;
 import org.springframework.data.relational.core.mapping.RelationalPersistentProperty;
 import org.springframework.util.Assert;
@@ -23,6 +24,7 @@ import org.springframework.util.Assert;
  *
  * @author kuznetsov_me
  */
+@Named
 public class DossierContextNamingStrategy implements NamingStrategy {
 
     @Override

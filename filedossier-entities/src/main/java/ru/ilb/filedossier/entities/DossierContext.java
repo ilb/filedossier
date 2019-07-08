@@ -23,8 +23,6 @@ import java.util.Map;
  */
 public interface DossierContext {
     
-    String getContextKey();
-
     Map<String, Object> asMap();
 
     boolean containsProperty(String name);

@@ -15,17 +15,16 @@
  */
 package ru.ilb.filedossier.components;
 
+import java.util.Arrays;
 import javax.inject.Inject;
 import org.apache.cxf.jaxrs.client.JAXRSClientFactory;
 import org.apache.cxf.jaxrs.json.basic.JsonMapObject;
+import org.apache.cxf.jaxrs.provider.json.JsonMapObjectProvider;
 import static org.junit.Assert.*;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.core.env.Environment;
 import org.springframework.test.context.junit4.SpringRunner;
 import ru.ilb.filedossier.api.DossierContextResource;
 import ru.ilb.filedossier.api.DossierFileResource;
@@ -41,10 +40,13 @@ import ru.ilb.filedossier.view.DossierView;
 @RunWith(SpringRunner.class)
 public class DossiersResourceImplTest {
 
-    DossiersResource resource;
+    private DossiersResource resource;
 
     @LocalServerPort
-    Integer randomPort;
+    private Integer randomPort;
+
+    @Inject
+    private JsonMapObjectProvider jsonMapObjectProvider;
 
     public DossiersResourceImplTest() {
     }
@@ -54,7 +56,7 @@ public class DossiersResourceImplTest {
             String port = randomPort.toString();
             String resourceUri = "http://localhost:" + port + "/web";
             System.out.println("resourceUri=" + resourceUri);
-            resource = JAXRSClientFactory.create(resourceUri, DossiersResource.class);
+            resource = JAXRSClientFactory.create(resourceUri, DossiersResource.class,Arrays.asList(jsonMapObjectProvider));
         }
         return resource;
 
@@ -72,11 +74,15 @@ public class DossiersResourceImplTest {
         DossierView dossier = dossierResource.getDossier();
         assertNotNull(dossier);
         DossierFileResource dossierFileResource = dossierResource.getDossierFileResource("fairpricecalc");
+        String res = dossierFileResource.getContents().readEntity(String.class);
+
         DossierContextResource dossierContextResource = dossierFileResource.getDossierContextResource();
 
-        JsonMapObject jsonMapObject = new JsonMapObject();
-        jsonMapObject.setProperty("test", "123");
-        dossierContextResource.setContext(jsonMapObject);
+        JsonMapObject context = dossierContextResource.getContext();
+
+//        JsonMapObject jsonMapObject = new JsonMapObject();
+//        jsonMapObject.setProperty("test", "123");
+//        dossierContextResource.setContext(jsonMapObject);
     }
 
 }

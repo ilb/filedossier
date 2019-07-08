@@ -23,8 +23,8 @@ public interface DossierContextService {
 
     DossierContext getContext(String contextKey);
 
-    void putContext(DossierContext context);
+    void putContext(String contextKey, DossierContext context);
 
-    void mergeContext(DossierContext context);
+    void mergeContext(String contextKey, DossierContext context);
 
 }
