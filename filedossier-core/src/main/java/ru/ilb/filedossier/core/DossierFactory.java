@@ -26,7 +26,7 @@ import javax.inject.Inject;
 import ru.ilb.filedossier.ddl.DossierDefinition;
 import ru.ilb.filedossier.ddl.DossierFileDefinition;
 import ru.ilb.filedossier.ddl.DossierDefinitionRepository;
-import ru.ilb.filedossier.entities.DossierContextService;
+import ru.ilb.filedossier.context.DossierContextService;
 import ru.ilb.filedossier.entities.Representation;
 import ru.ilb.filedossier.scripting.TemplateEvaluator;
 import ru.ilb.filedossier.entities.Store;
@@ -69,6 +69,7 @@ public class DossierFactory {
 
     @Inject
     DossierContextService dossierContextService;
+
     public DossierFactory(DossierDefinitionRepository dossierModelRepository, StoreFactory storeFactory,
 	    DossierContextBuilder dossierContextBuilder, TemplateEvaluator templateEvaluator) {
 	this.dossierModelRepository = dossierModelRepository;
@@ -78,7 +79,7 @@ public class DossierFactory {
     }
 
     public void setDossierContextService(DossierContextService dossierContextService) {
-        this.dossierContextService = dossierContextService;
+	this.dossierContextService = dossierContextService;
     }
 
     public Dossier getDossier(String dossierKey, String dossierPackage, String dossierCode) {
@@ -90,9 +91,8 @@ public class DossierFactory {
 	return getDossier(baseUri, dossierModel, store, dossierKey, dossierPackage, dossierContext);
     }
 
-    private Dossier getDossier(URI baseUri, DossierDefinition dossierModel, Store store,
-            String dossierKey, String dossierPackage,
-	    DossierContext dossierContext) {
+    private Dossier getDossier(URI baseUri, DossierDefinition dossierModel, Store store, String dossierKey,
+	    String dossierPackage, DossierContext dossierContext) {
 	String code = dossierModel.getCode();
 	String name = dossierModel.getName();
 
@@ -113,11 +113,12 @@ public class DossierFactory {
 	DossierFileImpl df = new DossierFileImpl(store,
 		templateEvaluator.evaluateStringExpression(modelFile.getCode(), dossierContext.asMap()),
 		templateEvaluator.evaluateStringExpression(modelFile.getName(), dossierContext.asMap()),
-		Boolean.TRUE
-			.equals(templateEvaluator.evaluateBooleanExpression(modelFile.getRequired(), dossierContext.asMap())),
-		Boolean.TRUE
-			.equals(templateEvaluator.evaluateBooleanExpression(modelFile.getReadonly(), dossierContext.asMap())),
-		Boolean.TRUE.equals(templateEvaluator.evaluateBooleanExpression(modelFile.getHidden(), dossierContext.asMap())),
+		Boolean.TRUE.equals(
+			templateEvaluator.evaluateBooleanExpression(modelFile.getRequired(), dossierContext.asMap())),
+		Boolean.TRUE.equals(
+			templateEvaluator.evaluateBooleanExpression(modelFile.getReadonly(), dossierContext.asMap())),
+		Boolean.TRUE.equals(
+			templateEvaluator.evaluateBooleanExpression(modelFile.getHidden(), dossierContext.asMap())),
 		modelFile.getMediaType(), representations, dossierContextService);
 	return df;
     }

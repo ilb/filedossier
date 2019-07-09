@@ -23,7 +23,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import ru.ilb.filedossier.entities.Dossier;
 import ru.ilb.filedossier.entities.DossierContext;
-import ru.ilb.filedossier.entities.DossierContextService;
+import ru.ilb.filedossier.context.DossierContextService;
 import ru.ilb.filedossier.entities.DossierPath;
 import ru.ilb.filedossier.mimetype.MimeTypeUtil;
 import ru.ilb.filedossier.representation.IdentityRepresentation;
@@ -61,7 +61,7 @@ public class DossierFileImpl implements DossierFile {
     private final DossierContextService dossierContextService;
 
     public DossierFileImpl(Store store, String code, String name, boolean required, boolean readonly, boolean hidden,
-	    String mediaType, List<Representation> representations,DossierContextService dossierContextService) {
+	    String mediaType, List<Representation> representations, DossierContextService dossierContextService) {
 	this.store = store;
 	this.code = code;
 	this.name = name;
@@ -75,7 +75,7 @@ public class DossierFileImpl implements DossierFile {
 	this.representation = representations.isEmpty() ? new IdentityRepresentation(mediaType)
 		: representations.iterator().next();
 	this.representation.setParent(this);
-        this.dossierContextService = dossierContextService;
+	this.dossierContextService = dossierContextService;
     }
 
     @Override
@@ -166,12 +166,12 @@ public class DossierFileImpl implements DossierFile {
 
     @Override
     public DossierContext getDossierContext() {
-        return dossierContextService.getContext(parent.getContextKey());
+	return dossierContextService.getContext(parent.getContextKey());
     }
 
     @Override
     public void setDossierContext(DossierContext dossierContext) {
-        dossierContextService.setContext(parent.getContextKey(), dossierContext);
+	dossierContextService.setContext(parent.getContextKey(), dossierContext);
     }
 
 }

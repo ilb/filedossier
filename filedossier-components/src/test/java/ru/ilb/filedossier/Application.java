@@ -33,7 +33,7 @@ import ru.ilb.filedossier.core.DossierFactory;
 import ru.ilb.filedossier.ddl.DossierDefinitionRepository;
 import ru.ilb.filedossier.ddl.FileDossierDefinitionRepository;
 import ru.ilb.filedossier.entities.DossierContext;
-import ru.ilb.filedossier.entities.DossierContextService;
+import ru.ilb.filedossier.context.DossierContextService;
 import ru.ilb.filedossier.scripting.SubstitutorTemplateEvaluator;
 import ru.ilb.filedossier.scripting.TemplateEvaluator;
 import ru.ilb.filedossier.store.StoreFactory;
@@ -45,29 +45,30 @@ import org.springframework.boot.web.server.LocalServerPort;
  * @author slavb
  */
 @SpringBootApplication
-//@EnableJdbcRepositories(basePackages = "ru.ilb.filedossier.context.persistence.repositories")
+// @EnableJdbcRepositories(basePackages =
+// "ru.ilb.filedossier.context.persistence.repositories")
 @ComponentScan
 public class Application {
 
-//    @Bean
-//    public DossierContextService dossierContextService() {
-//        return new DBDossierContextService();
-//    }
-//
-//    @Bean
-//    public NamingStrategy namingStrategy() {
-//        return new DossierContextNamingStrategy();
-//    }
+    // @Bean
+    // public DossierContextService dossierContextService() {
+    // return new DBDossierContextService();
+    // }
+    //
+    // @Bean
+    // public NamingStrategy namingStrategy() {
+    // return new DossierContextNamingStrategy();
+    // }
 
     @Bean
     public JsonMapObjectProvider jsonMapObjectProvider() {
-        return new JsonMapObjectProvider();
+	return new JsonMapObjectProvider();
     }
 
     @Bean
     public DossierFactory dossierFactory() throws NamingException {
-        DossierDefinitionRepository dossierModelRepository;
-        StoreFactory storeFactory;
+	DossierDefinitionRepository dossierModelRepository;
+	StoreFactory storeFactory;
 	try {
 	    dossierModelRepository = new FileDossierDefinitionRepository(
 		    Application.class.getClassLoader().getResource("models").toURI());
@@ -77,14 +78,15 @@ public class Application {
 	    throw new RuntimeException(ex);
 	}
 
-        DossierContextBuilder dossierContextBuilder = (String dossierKey, String dossierPackage, String dossierCode) -> {
-            DossierContext dc = new DossierContextImpl();
-            dc.setProperty("name", "Тест имя");
-            dc.setProperty("prop", false);
-            return dc;
-        };
-        TemplateEvaluator templateEvaluator = new SubstitutorTemplateEvaluator(new InitialContext());
-        return new DossierFactory(dossierModelRepository, storeFactory, dossierContextBuilder, templateEvaluator);
+	DossierContextBuilder dossierContextBuilder = (String dossierKey, String dossierPackage,
+		String dossierCode) -> {
+	    DossierContext dc = new DossierContextImpl();
+	    dc.setProperty("name", "Тест имя");
+	    dc.setProperty("prop", false);
+	    return dc;
+	};
+	TemplateEvaluator templateEvaluator = new SubstitutorTemplateEvaluator(new InitialContext());
+	return new DossierFactory(dossierModelRepository, storeFactory, dossierContextBuilder, templateEvaluator);
 
     }
 

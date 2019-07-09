@@ -13,7 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ru.ilb.filedossier.entities;
+package ru.ilb.filedossier.context;
+
+import ru.ilb.filedossier.entities.DossierContext;
 
 /**
  *
@@ -22,6 +24,8 @@ package ru.ilb.filedossier.entities;
 public interface DossierContextService {
 
     DossierContext getContext(String contextKey);
+
+    void setContext(String contextKey, DossierContext context);
 
     void putContext(String contextKey, DossierContext context);
 
