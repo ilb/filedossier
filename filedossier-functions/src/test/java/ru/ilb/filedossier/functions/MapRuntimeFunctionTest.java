@@ -19,22 +19,23 @@ import java.io.File;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.Map;
+import org.apache.cxf.jaxrs.json.basic.JsonMapObject;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import org.junit.Rule;
-import org.junit.rules.ExpectedException;
 
 /**
  *
  * @author chunaev
  */
-public class RuntimeFunctionTest {
+public class MapRuntimeFunctionTest {
 
-    public RuntimeFunctionTest() {
+    public MapRuntimeFunctionTest() {
     }
 
     @BeforeClass
@@ -54,36 +55,22 @@ public class RuntimeFunctionTest {
     }
 
     /**
-     * Test of apply method, of class RuntimeFunction.
+     * Test of apply method, of class MapRuntimeFunction.
      */
     @Test
     public void testApply() throws URISyntaxException {
-        System.out.println("apply");
-        byte[] t = "{'test':'123'}".getBytes();
+        System.out.println("apply of MapRuntimeFunction");
+        Map<String, Object> t = new HashMap();
+        JsonMapObject testObject = new JsonMapObject();
+        testObject.setProperty("test", "123");
+        t.put("test", testObject.asMap());
         URI commandUri =this.getClass().getClassLoader().getResource("runtime/command.sh").toURI();
-        RuntimeFunction instance = new RuntimeFunction(commandUri);
+        MapRuntimeFunction instance = new MapRuntimeFunction(commandUri);
         File commandFile = Paths.get(commandUri.getPath()).toFile();
         commandFile.setExecutable(true);
-        byte[] expResult = t;
-        byte[] result = instance.apply(t);
-        assertArrayEquals(expResult, result);
-
-    }
-
-    @Rule
-    public ExpectedException exceptionRule = ExpectedException.none();
-
-    @Test
-    public void whenExceptionThrownWithWrongCommandExitCodeMessage() throws URISyntaxException {
-        exceptionRule.expect(RuntimeException.class);
-        exceptionRule.expectMessage("Wrong command exit code");
-        System.out.println("apply");
-        byte[] t = "{'test':'123'}".getBytes();
-        URI commandUri =this.getClass().getClassLoader().getResource("runtime/error_command.sh").toURI();
-        RuntimeFunction instance = new RuntimeFunction(commandUri);
-        File commandFile = Paths.get(commandUri.getPath()).toFile();
-        commandFile.setExecutable(true);
-        instance.apply(t);
+        Map<String, Object> expResult = t;
+        Map<String, Object> result = instance.apply(t);
+        assertEquals(expResult, result);
     }
 
 }

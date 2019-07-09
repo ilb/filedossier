@@ -39,5 +39,10 @@
             <version>1.3</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-rs-json-basic</artifactId>
+            <version>${apache-cxf.version}</version>
+        </dependency>
     </dependencies>
 </project>
