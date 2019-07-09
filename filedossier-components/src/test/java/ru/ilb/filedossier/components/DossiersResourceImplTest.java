@@ -80,9 +80,11 @@ public class DossiersResourceImplTest {
 
         JsonMapObject context = dossierContextResource.getContext();
 
-//        JsonMapObject jsonMapObject = new JsonMapObject();
-//        jsonMapObject.setProperty("test", "123");
-//        dossierContextResource.setContext(jsonMapObject);
+        JsonMapObject inputContext = new JsonMapObject();
+        inputContext.setProperty("test", "123");
+        dossierContextResource.setContext(inputContext);
+        JsonMapObject result = dossierContextResource.getContext();
+        assertEquals(result, inputContext);
     }
 
 }

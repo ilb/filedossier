@@ -31,21 +31,36 @@ import ru.ilb.filedossier.entities.DossierPath;
 public class DossierImpl implements Dossier {
 
     private Dossier parent;
-    
+
     private Map<String, DossierFile> dossierFiles = new LinkedHashMap<>();
 
     private final String code;
 
     private final String name;
 
-    public DossierImpl(String code, String name) {
+    private final String dossierPackage;
+
+    private final String dossierKey;
+
+    public DossierImpl(String code,
+            String name,
+            String dossierPackage,
+            String contextKey) {
         this.code = code;
         this.name = name;
+        this.dossierPackage = dossierPackage;
+        this.dossierKey = contextKey;
     }
 
-    public DossierImpl(String code, String name, List<DossierFile> dossierFiles) {
+    public DossierImpl(String code,
+            String name,
+            String dossierPackage,
+            String dossierKey,
+            List<DossierFile> dossierFiles) {
         this.code = code;
         this.name = name;
+        this.dossierPackage = dossierPackage;
+        this.dossierKey = dossierKey;
         this.dossierFiles = dossierFiles.stream().peek(df->df.setParent(this))
                 .collect(Collectors.toMap(df -> df.getCode(), df -> df));
     }
@@ -92,6 +107,11 @@ public class DossierImpl implements Dossier {
     @Override
     public String getExtension() {
         return null;
+    }
+
+    @Override
+    public String getContextKey() {
+        return dossierKey;
     }
 
 }

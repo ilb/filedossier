@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 SPoket.
+ * Copyright 2019 kuznetsov_me.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,18 +15,18 @@
  */
 package ru.ilb.filedossier.entities;
 
-import java.util.List;
-
 /**
- * File dossier
- * @author SPoket
+ *
+ * @author kuznetsov_me
  */
-public interface Dossier extends DossierPath {
+public interface DossierContextService {
 
-    public DossierFile getDossierFile(String fileCode);
+    DossierContext getContext(String contextKey);
 
-    public List<DossierFile> getDossierFiles();
+    void setContext(String contextKey, DossierContext dossierContext);
 
-    public String getContextKey();
+    void putContext(String contextKey, DossierContext context);
+
+    void mergeContext(String contextKey, DossierContext context);
 
 }

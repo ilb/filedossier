@@ -60,4 +60,15 @@ public class DBDossierContextService implements DossierContextService {
         repository.save(newContext);
     }
 
+    @Override
+    public void setContext(String contextKey, DossierContext dossierContext) {
+        DossierContextPersistence oldContext = repository.findByContextKey(contextKey);
+        DossierContextPersistence updatedContext = new DossierContextPersistence(contextKey, dossierContext.asMap());
+        if (oldContext != null) {
+            updatedContext.setId(oldContext.getId());
+        }
+        repository.save(updatedContext);
+
+    }
+
 }

@@ -87,10 +87,11 @@ public class DossierFactory {
 	Store store = storeFactory.getStore(dossierKey);
 	DossierContext dossierContext = dossierContextBuilder.createDossierContext(dossierKey, dossierPackage,
 		dossierCode);
-	return getDossier(baseUri, dossierModel, store, dossierContext);
+	return getDossier(baseUri, dossierModel, store, dossierKey, dossierPackage, dossierContext);
     }
 
     private Dossier getDossier(URI baseUri, DossierDefinition dossierModel, Store store,
+            String dossierKey, String dossierPackage,
 	    DossierContext dossierContext) {
 	String code = dossierModel.getCode();
 	String name = dossierModel.getName();
@@ -99,7 +100,7 @@ public class DossierFactory {
 		.map(modelFile -> createDossierFile(baseUri, modelFile, store, dossierContext))
 		.collect(Collectors.toList());
 
-	return new DossierImpl(code, name, dossierFiles);
+	return new DossierImpl(code, name, dossierPackage, dossierKey, dossierFiles);
     }
 
     private DossierFile createDossierFile(URI baseUri, DossierFileDefinition modelFile, Store store,

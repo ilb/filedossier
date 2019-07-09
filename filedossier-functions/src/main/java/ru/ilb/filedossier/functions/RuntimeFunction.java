@@ -15,19 +15,13 @@
  */
 package ru.ilb.filedossier.functions;
 
-import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.net.URI;
 import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import sun.misc.IOUtils;
 
 /**
  *
@@ -64,9 +58,6 @@ public class RuntimeFunction implements ByteFunction {
             stdin.close();
 
             InputStream stdout = p.getInputStream();
-            //output = new byte[5];
-            //byte[] anotherOutput = new byte[stdout.available()];
-            //stdout.read(anotherOutput);
             ByteArrayOutputStream buffer = new ByteArrayOutputStream();
             int nRead;
             byte[] data = new byte[1024];
@@ -92,7 +83,7 @@ public class RuntimeFunction implements ByteFunction {
             }
 
         } catch (IOException | InterruptedException ex) {
-            Logger.getLogger(RuntimeFunction.class.getName()).log(Level.SEVERE, null, ex);
+            throw new RuntimeException(ex.getMessage());
         }
 
         return output;

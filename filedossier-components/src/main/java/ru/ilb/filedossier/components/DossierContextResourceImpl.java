@@ -17,6 +17,7 @@ package ru.ilb.filedossier.components;
 
 import org.apache.cxf.jaxrs.json.basic.JsonMapObject;
 import ru.ilb.filedossier.api.DossierContextResource;
+import ru.ilb.filedossier.context.DossierContextImpl;
 import ru.ilb.filedossier.entities.DossierFile;
 
 
@@ -31,12 +32,12 @@ public class DossierContextResourceImpl implements DossierContextResource {
 
     @Override
     public JsonMapObject getContext() {
-        return new JsonMapObject(dossierFile.getDossierContext().asMap()); //To change body of generated methods, choose Tools | Templates.
+        return new JsonMapObject(dossierFile.getDossierContext().asMap());
     }
 
     @Override
     public void setContext(JsonMapObject jsonmapobject) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        dossierFile.setDossierContext(new DossierContextImpl(jsonmapobject.asMap()));
     }
 
 }

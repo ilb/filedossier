@@ -166,8 +166,12 @@ public class DossierFileImpl implements DossierFile {
 
     @Override
     public DossierContext getDossierContext() {
-        //TODO написать ключ конекста
-        return dossierContextService.getContext(code);
+        return dossierContextService.getContext(parent.getContextKey());
+    }
+
+    @Override
+    public void setDossierContext(DossierContext dossierContext) {
+        dossierContextService.setContext(parent.getContextKey(), dossierContext);
     }
 
 }

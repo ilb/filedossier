@@ -23,9 +23,9 @@
         <swagger.ui.version>3.22.2</swagger.ui.version>
         <maven.test.skip>false</maven.test.skip>
         <maven.tomcat.skip>true</maven.tomcat.skip>
-        <org.mapstruct.version>1.2.0.Final</org.mapstruct.version>        
+        <org.mapstruct.version>1.2.0.Final</org.mapstruct.version>
         <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>        
+        <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
 
 
@@ -39,7 +39,7 @@
                 <scope>import</scope>
             </dependency>
         </dependencies>
-    </dependencyManagement>        
+    </dependencyManagement>
 
     <dependencies>
         <dependency>
@@ -51,21 +51,21 @@
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct-jdk8</artifactId>
             <version>${org.mapstruct.version}</version>
-        </dependency>        
+        </dependency>
         <dependency>
             <groupId>com.migesok</groupId>
             <artifactId>jaxb-java-time-adapters</artifactId>
-            <version>1.1.3</version>        
+            <version>1.1.3</version>
         </dependency>
         <dependency>
             <groupId>ru.ilb.filedossier</groupId>
             <artifactId>filedossier-api</artifactId>
-            <version>1.0-SNAPSHOT</version>        
+            <version>1.0-SNAPSHOT</version>
         </dependency>
         <!--        <dependency>
             <groupId>ru.ilb.filedossier</groupId>
             <artifactId>filedossier-api</artifactId>
-            <version>1.0-SNAPSHOT</version>        
+            <version>1.0-SNAPSHOT</version>
             <classifier>javadoc</classifier>
         </dependency>-->
         <dependency>
@@ -174,6 +174,12 @@
             <version>${project.version}</version>
         </dependency>
         <dependency>
+            <groupId>ru.ilb.filedossier</groupId>
+            <artifactId>filedossier-context-persistence</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
             <version>8.0</version>
@@ -189,7 +195,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>${spring.boot.version}</version>
             </plugin>
-            
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -248,5 +254,5 @@
             </plugin>
         </plugins>
     </build>
- 
+
 </project>
