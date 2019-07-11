@@ -15,11 +15,16 @@
  */
 package ru.ilb.filedossier.core;
 
+import java.io.File;
 import ru.ilb.filedossier.entities.DossierFile;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import ru.ilb.filedossier.entities.Dossier;
 import ru.ilb.filedossier.entities.DossierContext;
@@ -36,29 +41,31 @@ import ru.ilb.filedossier.entities.Store;
  */
 public class DossierFileImpl implements DossierFile {
 
-    private Dossier parent;
+    protected DossierContext context;
 
-    private final Store store;
+    protected Dossier parent;
 
-    private final String code;
+    protected Store store;
 
-    private final String name;
+    protected final String code;
 
-    private final boolean required;
+    protected final String name;
 
-    private final boolean readonly;
+    protected final boolean required;
 
-    private final boolean hidden;
+    protected final boolean readonly;
 
-    private final String mediaType;
+    protected final boolean hidden;
 
-    private final String extension;
+    protected final String mediaType;
 
-    private final Map<String, Representation> representationsMap;
+    protected final String extension;
 
-    private final Representation representation;
+    protected final Map<String, Representation> representationsMap;
 
-    private final DossierContextService dossierContextService;
+    protected final Representation representation;
+
+    protected final DossierContextService dossierContextService;
 
     public DossierFileImpl(Store store, String code, String name, boolean required, boolean readonly, boolean hidden,
 	    String mediaType, List<Representation> representations, DossierContextService dossierContextService) {
@@ -88,12 +95,8 @@ public class DossierFileImpl implements DossierFile {
 	return name;
     }
 
-    private String getStoreFileName() {
+    protected String getStoreFileName() {
 	return extension == null ? code : code + "." + extension;
-    }
-
-    private String getNestedStoreFileName(String nestedCode) {
-	return extension == null ? code : code + nestedCode + "." + extension;
     }
 
     @Override
@@ -166,12 +169,28 @@ public class DossierFileImpl implements DossierFile {
 
     @Override
     public DossierContext getDossierContext() {
-	return dossierContextService.getContext(parent.getContextKey());
+	if (this.context == null) {
+	    this.context = dossierContextService.getContext(getContextCode());
+	}
+	return this.context;
     }
 
     @Override
     public void setDossierContext(DossierContext dossierContext) {
-	dossierContextService.setContext(parent.getContextKey(), dossierContext);
+	dossierContextService.setContext(getContextCode(), dossierContext);
+    }
+
+    protected String getContextCode() {
+	return parent.getCode() + "/" + code;
+    }
+
+    @Override
+    public void setContents(File contentsFile) {
+	try {
+	    setContents(Files.readAllBytes(contentsFile.toPath()));
+	} catch (IOException ex) {
+	    throw new RuntimeException(ex);
+	}
     }
 
 }

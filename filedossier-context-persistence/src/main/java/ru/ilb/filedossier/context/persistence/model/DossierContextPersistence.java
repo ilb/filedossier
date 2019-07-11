@@ -42,7 +42,7 @@ public class DossierContextPersistence {
     public DossierContextPersistence(String contextKey, Map<String, Object> properties) {
 	this.contextKey = contextKey;
 	properties.forEach((key, value) -> {
-	    dossierContextDatas.add(new DossierContextData(key, (String) value));
+	    dossierContextDatas.add(new DossierContextData(key, value));
 	});
     }
 

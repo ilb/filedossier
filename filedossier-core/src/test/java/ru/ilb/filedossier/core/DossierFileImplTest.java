@@ -39,7 +39,6 @@ public class DossierFileImplTest {
     private final Dossier dossier;
 
     private final DossierFile dossierFile1;
-    private final DossierFile dossierFile2;
 
     @ClassRule
     public static JndiRule jndi = new JndiRule() {
@@ -53,8 +52,7 @@ public class DossierFileImplTest {
     public DossierFileImplTest() throws NamingException {
 	dossierFactory = getDossierFactory();
 	dossier = dossierFactory.getDossier("teststorekey", "testmodel", "TEST");
-	dossierFile1 = dossier.getDossierFile("file1");
-	dossierFile2 = dossier.getDossierFile("fairpricecalc");
+	dossierFile1 = dossier.getDossierFile("fairpricecalc");
     }
 
     /**
@@ -63,7 +61,7 @@ public class DossierFileImplTest {
     @Test
     public void testGetCode() {
 	System.out.println("getCode");
-	String expResult = "file1";
+	String expResult = "fairpricecalc";
 	String result = dossierFile1.getCode();
 	assertEquals(expResult, result);
     }
@@ -74,7 +72,7 @@ public class DossierFileImplTest {
     @Test
     public void testGetName() {
 	System.out.println("getName");
-	String expResult = "Файл 1";
+	String expResult = "Тест имя";
 	String result = dossierFile1.getName();
 	assertEquals(expResult, result);
     }

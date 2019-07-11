@@ -15,51 +15,62 @@
  */
 package ru.ilb.filedossier.entities;
 
+import java.io.File;
+
 /**
  * Dossier file
+ * 
  * @author SPoket
  */
 public interface DossierFile extends DossierContents {
 
-
-
     /**
      * file is required to be present
+     * 
      * @return
      */
     public boolean getRequired();
 
     /**
      * file is readonly (cannot be uploaded by user)
+     * 
      * @return
      */
     public boolean getReadonly();
 
     /**
      * file id hidden (not shown to user)
+     * 
      * @return
      */
     public boolean getHidden();
 
     /**
      * file is exsits
+     * 
      * @return
      */
     public boolean getExists();
 
-
     /**
      * get file default representation
+     * 
      * @return
      */
     public Representation getRepresentation();
 
     /**
      * get dossier context
+     * 
      * @return
      */
     public DossierContext getDossierContext();
 
+    /**
+     * 
+     * @param dossierContext
+     */
     public void setDossierContext(DossierContext dossierContext);
 
+    public void setContents(File file);
 }

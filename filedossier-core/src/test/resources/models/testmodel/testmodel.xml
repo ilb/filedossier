@@ -9,14 +9,6 @@
         <code>TEST</code>
         <name>Тестовое досье</name>
         <dossierFile>
-            <code>file1</code>
-            <name>Файл 1</name>
-            <readonly>false</readonly>
-            <required>true</required>
-            <hidden>false</hidden>
-            <mediaType>application/xml</mediaType>
-        </dossierFile>
-        <dossierFile>
             <code>fairpricecalc</code>
             <name>Тест имя</name>
             <readonly>false</readonly>

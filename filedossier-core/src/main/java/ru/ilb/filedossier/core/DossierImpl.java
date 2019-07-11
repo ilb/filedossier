@@ -38,80 +38,63 @@ public class DossierImpl implements Dossier {
 
     private final String name;
 
-    private final String dossierPackage;
-
-    private final String dossierKey;
-
-    public DossierImpl(String code,
-            String name,
-            String dossierPackage,
-            String contextKey) {
-        this.code = code;
-        this.name = name;
-        this.dossierPackage = dossierPackage;
-        this.dossierKey = contextKey;
+    public DossierImpl(String code, String name, String dossierPackage, String contextKey) {
+	this.code = code;
+	this.name = name;
     }
 
-    public DossierImpl(String code,
-            String name,
-            String dossierPackage,
-            String dossierKey,
-            List<DossierFile> dossierFiles) {
-        this.code = code;
-        this.name = name;
-        this.dossierPackage = dossierPackage;
-        this.dossierKey = dossierKey;
-        this.dossierFiles = dossierFiles.stream().peek(df->df.setParent(this))
-                .collect(Collectors.toMap(df -> df.getCode(), df -> df));
+    public DossierImpl(String code, String name, String dossierPackage, String dossierKey,
+	    List<DossierFile> dossierFiles) {
+	this.code = code;
+	this.name = name;
+	this.dossierFiles = dossierFiles.stream().peek(df -> df.setParent(this))
+		.collect(Collectors.toMap(df -> df.getCode(), df -> df));
     }
 
     @Override
     public String getCode() {
-        return code;
+	return code;
     }
 
     @Override
     public String getName() {
-        return name;
+	return name;
     }
 
-//    @Override
-//    public void addDossierFile(DossierFile file) {
-//        dossierFiles.put(file.getCode(), file);
-//    }
+    // @Override
+    // public void addDossierFile(DossierFile file) {
+    // dossierFiles.put(file.getCode(), file);
+    // }
 
     @Override
     public List<DossierFile> getDossierFiles() {
-        return new ArrayList<>(dossierFiles.values());
+	return new ArrayList<>(dossierFiles.values());
     }
 
     @Override
     public DossierFile getDossierFile(String fileCode) {
-        DossierFile file = this.dossierFiles.get(fileCode);
-        if (file == null) {
-            throw new DossierFileNotFoundException(fileCode);
-        }
-        return file;
+	DossierFile file = this.dossierFiles.get(fileCode);
+	if (file == null) {
+	    throw new DossierFileNotFoundException(fileCode);
+	}
+	return file;
     }
+
     @Override
     public Dossier getParent() {
-        return parent;
+	return parent;
     }
 
     @Override
     public void setParent(DossierPath parent) {
-        assert Dossier.class.isAssignableFrom(parent.getClass()) : "Dossier instance should be passed as argument instead of " + parent.getClass().getCanonicalName();
-        this.parent = (Dossier) parent;
+	assert Dossier.class
+		.isAssignableFrom(parent.getClass()) : "Dossier instance should be passed as argument instead of "
+			+ parent.getClass().getCanonicalName();
+	this.parent = (Dossier) parent;
     }
 
     @Override
     public String getExtension() {
-        return null;
+	return null;
     }
-
-    @Override
-    public String getContextKey() {
-        return dossierKey;
-    }
-
 }

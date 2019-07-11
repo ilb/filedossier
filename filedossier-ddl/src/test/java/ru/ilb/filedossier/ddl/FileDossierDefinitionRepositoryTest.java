@@ -48,7 +48,7 @@ public class FileDossierDefinitionRepositoryTest {
 	DossierDefinition result = instance.getDossierDefinition(dossierPackage, dossierCode);
 	assertEquals("TEST", result.getCode());
 	assertEquals("Тестовое досье", result.getName());
-	assertEquals(3, result.getDossierFiles().size());
+	assertEquals(2, result.getDossierFiles().size());
     }
 
 }

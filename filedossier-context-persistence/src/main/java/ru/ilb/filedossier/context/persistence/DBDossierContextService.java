@@ -25,6 +25,8 @@ import ru.ilb.filedossier.context.persistence.repositories.DossierContextReposit
 import ru.ilb.filedossier.entities.DossierContext;
 import ru.ilb.filedossier.context.DossierContextService;
 
+// TODO: create idMap
+
 @Named
 public class DBDossierContextService implements DossierContextService {
 
@@ -49,7 +51,11 @@ public class DBDossierContextService implements DossierContextService {
     @Override
     public void putContext(String contextKey, DossierContext context) throws DbActionExecutionException {
 	DossierContextPersistence contextPersistence = new DossierContextPersistence(contextKey, context.asMap());
-	repository.save(contextPersistence);
+	try {
+	    repository.save(contextPersistence);
+	} catch (DbActionExecutionException e) {
+	    mergeContext(contextKey, context);
+	}
     }
 
     @Override

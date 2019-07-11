@@ -79,7 +79,7 @@ public class DossierImplTest {
     public void testGetDossierFiles() {
 	System.out.println("getDossierFiles");
 	List<DossierFile> result = dossier.getDossierFiles();
-	assertEquals(3, result.size());
+	assertEquals(2, result.size());
     }
 
     /**
@@ -88,9 +88,9 @@ public class DossierImplTest {
     @Test
     public void testGetDossierFile() {
 	System.out.println("getDossierFile");
-	String fileCode = "file1";
+	String fileCode = "fairpricecalc";
 	DossierFile result = dossier.getDossierFile(fileCode);
-	assertEquals("Файл 1", result.getName());
+	assertEquals("Тест имя", result.getName());
     }
 
 }

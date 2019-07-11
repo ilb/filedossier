@@ -69,6 +69,8 @@
             <request></request>
             <response status="200">
                 <param name="Content-Disposition" style="header" type="xsd:string"/>
+                 <representation mediaType="application/vnd.oasis.opendocument.spreadsheet" element="global:map"/>
+                 <representation mediaType="application/pdf" element="global:map"/>
             </response>
         </method>
         <method name="PUT" id="setContents">

@@ -9,14 +9,6 @@
         <code>TEST</code>
         <name>Тестовое досье</name>
         <dossierFile>
-            <code>file1</code>
-            <name>Файл 1</name>
-            <readonly>false</readonly>
-            <required>true</required>
-            <hidden>false</hidden>
-            <mediaType>application/xml</mediaType>
-        </dossierFile>
-        <dossierFile>
             <code>fairpricecalc</code>
             <name>Тест имя</name>
             <readonly>false</readonly>
@@ -40,7 +32,6 @@
             <representation>
                 <mediaType>application/pdf</mediaType>
                 <stylesheet>https://${ru.bystrobank.apps.meta.url}/schemas/doctemplates/jurnals/percentsheet.xsd</stylesheet>
-                <template>representations/jurnals/content.xml</template>
                 <schema>https://${ru.bystrobank.apps.meta.url}/stylesheets/doctemplates/jurnals/percentsheet.xsl</schema>
                 <meta>https://${ru.bystrobank.apps.meta.url}/&amp;uid=doctree:11f462ebdb14a5673ff41a5c75c5176552fad343:</meta>
                 <multipart>true</multipart>

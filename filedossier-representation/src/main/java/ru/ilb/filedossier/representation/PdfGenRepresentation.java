@@ -54,7 +54,7 @@ public class PdfGenRepresentation extends IdentityRepresentation {
 
     @Override
     public byte[] getContents() {
-	return webResourceFunction.apply(content);
+	return webResourceFunction.apply(parent.getContents());
     }
 
     @Override
@@ -73,7 +73,6 @@ public class PdfGenRepresentation extends IdentityRepresentation {
 		parent.getClass()) : "DossierContents instance should be passed as argument instead of "
 			+ parent.getClass().getCanonicalName();
 
-	DossierContents dossierContents = (DossierContents) parent;
-	content = dossierContents.getContents();
+	this.parent = (DossierContents) parent;
     }
 }

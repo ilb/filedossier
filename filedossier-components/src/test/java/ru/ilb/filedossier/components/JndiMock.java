@@ -29,15 +29,14 @@ import org.springframework.stereotype.Component;
 public class JndiMock {
 
     public JndiMock() {
-        try {
-            SimpleNamingContextBuilder builder = new SimpleNamingContextBuilder();
-            builder.bind("ru.bystrobank.apps.meta.url", "");
+	try {
+	    SimpleNamingContextBuilder builder = new SimpleNamingContextBuilder();
+	    builder.bind("ru.bystrobank.apps.meta.url", "devel.net.ilb.ru/meta");
 
-            builder.activate();
-        } catch (IllegalStateException | NamingException ex) {
-            Logger.getLogger(JndiMock.class.getName()).log(Level.SEVERE, null, ex);
-        }
+	    builder.activate();
+	} catch (IllegalStateException | NamingException ex) {
+	    Logger.getLogger(JndiMock.class.getName()).log(Level.SEVERE, null, ex);
+	}
     }
-
 
 }

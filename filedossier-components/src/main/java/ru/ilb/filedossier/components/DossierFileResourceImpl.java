@@ -42,7 +42,6 @@ public class DossierFileResourceImpl implements DossierFileResource {
 	Representation representation = dossierFile.getRepresentation();
 	return Response.ok(representation.getContents()).header("Content-Type", representation.getMediaType())
 		.header("Content-Disposition", "attachment; filename=" + representation.getFileName()).build();
-
     }
 
     @Override
@@ -56,16 +55,12 @@ public class DossierFileResourceImpl implements DossierFileResource {
 
     @Override
     public void uploadContents(File file) {
-	try {
-	    dossierFile.setContents(Files.readAllBytes(file.toPath()));
-	} catch (IOException ex) {
-	    throw new RuntimeException(ex);
-	}
+	dossierFile.setContents(file);
     }
 
     @Override
     public DossierContextResource getDossierContextResource() {
-        DossierContextResourceImpl resource = new DossierContextResourceImpl(dossierFile);
-        return resourceContext.initResource(resource);
+	DossierContextResourceImpl resource = new DossierContextResourceImpl(dossierFile);
+	return resourceContext.initResource(resource);
     }
 }
