@@ -1,6 +1,6 @@
 {
   "name": "@ilb/filedossier-js",
-  "version": "0.1.5",
+  "version": "0.1.7",
   "description": "Файловое досье",
   "main": "lib/index.js",
   "module": "lib/index.js",
