@@ -4,6 +4,7 @@ import Dossier from './Dossier';
 import Example from './Example';
 //import DisplayRemoteData from './DisplayRemoteData';
 import './App.css';
+import './Config';
 
 
 function Index() {

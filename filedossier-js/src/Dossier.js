@@ -1,10 +1,11 @@
 import React, { Suspense, useState, useEffect, useRef } from 'react';
 import { Table, Button, Message, Loader } from 'semantic-ui-react';
-import {dossierApi} from './Config';
+import { DefaultApi as DossierApi} from '@ilb/filedossier-api/dist';
 import DossierResource from './DossierResource';
 import {useResource} from './ReactHelper';
 
 function Dossier( { dossierKey, dossierPackage, dossierCode }) {
+    const dossierApi = new DossierApi();
     const dossierResource = new DossierResource(dossierApi, {dossierKey, dossierPackage, dossierCode});
 
     const [dossier, getDossier] = useResource(() => dossierResource.getDossier());
