@@ -7,7 +7,7 @@
 
 export default class DossierResource {
 
-    constructor(dossierApi,{ dossierKey, dossierPackage, dossierCode }) {
+    constructor(dossierApi, { dossierKey, dossierPackage, dossierCode }) {
         this.dossierApi = dossierApi;
         this.dossierKey = dossierKey;
         this.dossierPackage = dossierPackage;
@@ -19,14 +19,14 @@ export default class DossierResource {
     }
 
     getDossierFileResource(fileCode) {
-        return new DossierFileResource(this.dossierApi,{dossierKey:this.dossierKey, dossierPackage:this.dossierPackage, dossierCode:this.dossierCode,fileCode});
+        return new DossierFileResource(this.dossierApi, {dossierKey: this.dossierKey, dossierPackage: this.dossierPackage, dossierCode: this.dossierCode, fileCode});
     }
 
 }
 
 export class DossierFileResource {
-    
-    constructor(dossierApi,{ dossierKey, dossierPackage, dossierCode, fileCode }) {
+
+    constructor(dossierApi, { dossierKey, dossierPackage, dossierCode, fileCode }) {
         this.dossierApi = dossierApi;
         this.dossierKey = dossierKey;
         this.dossierPackage = dossierPackage;
@@ -35,7 +35,16 @@ export class DossierFileResource {
     }
 
     uploadContents(file) {
-        return this.dossierApi.uploadContents(this.fileCode,this.dossierKey, this.dossierPackage, this.dossierCode,{file});
+        return this.dossierApi.uploadContents(this.fileCode, this.dossierKey, this.dossierPackage, this.dossierCode, {file});
+    }
+
+    getDownloadLink() {
+        let prefix='';
+        //development mode
+        if (window.location.host.indexOf('.')===-1) {
+            prefix='http://localhost:8080';
+        };
+        return prefix + this.dossierApi.apiClient.basePath + '/dossiers/' + this.dossierKey + '/' + this.dossierPackage + '/' + this.dossierCode + '/dossierfiles/' + this.fileCode;
     }
 
 }

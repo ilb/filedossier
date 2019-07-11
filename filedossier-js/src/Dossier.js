@@ -10,41 +10,43 @@ function Dossier( { dossierKey, dossierPackage, dossierCode }) {
 
     const [dossier, getDossier] = useResource(() => dossierResource.getDossier());
 
-    useEffect(() => {getDossier();} , [dossierKey, dossierPackage, dossierCode]);
+    useEffect(() => {
+        getDossier();
+    }, [dossierKey, dossierPackage, dossierCode]);
 
     return (
-        <div className="fileDosser">
-            {dossier.loading && <Loader active /> }
-            {dossier.error && <Message error visible content={dossier.error}/> }
-            {dossier.value && <div>
-                Name: {dossier.value.name}
-                {dossier.value.dossierFile &&
-                    <Table celled>
-                        <Table.Header>
-                            <Table.Row>
-                                <Table.HeaderCell>Файл</Table.HeaderCell>
-                                <Table.HeaderCell>Действие</Table.HeaderCell>
-                            </Table.Row>
-                        </Table.Header>
+            <div className="fileDosser">
+                {dossier.loading && <Loader active /> }
+                {dossier.error && <Message error visible content={dossier.error}/> }
+                {dossier.value && <div>
+                    Name: {dossier.value.name}
+                    {dossier.value.dossierFile &&
+                                    <Table celled>
+                                        <Table.Header>
+                                            <Table.Row>
+                                                <Table.HeaderCell>Файл</Table.HeaderCell>
+                                                <Table.HeaderCell>Действие</Table.HeaderCell>
+                                            </Table.Row>
+                                        </Table.Header>
 
-                        <Table.Body>
-                            {dossier.value.dossierFile.map(file => (
-                                <DossierFile
-                                    key={file.code}
-                                    file={file}
-                                    onChange={getDossier}
-                                    resource={dossierResource.getDossierFileResource(file.code)}
-                                />
-                            ))}
-                        </Table.Body>
-                    </Table>
-                }
-            </div>}
-        </div>
-    );
+                                        <Table.Body>
+                                            {dossier.value.dossierFile.map(file => (
+                                                                        <DossierFile
+                                                                            key={file.code}
+                                                                            file={file}
+                                                                            onChange={getDossier}
+                                                                            resource={dossierResource.getDossierFileResource(file.code)}
+                                                                            />
+                                                            ))}
+                                        </Table.Body>
+                                    </Table>
+                    }
+                </div>}
+            </div>
+            );
 }
 
-function DossierFile( { file: { code, name }, onChange, resource }) {
+function DossierFile( { file: { code, name,exists }, onChange, resource }) {
 
     const inputFileEl = useRef(null);
 
@@ -69,14 +71,17 @@ function DossierFile( { file: { code, name }, onChange, resource }) {
 
 
     return (
-        <Table.Row>
-            <Table.Cell>{name}</Table.Cell>
-            <Table.Cell>
-                <Button content="Удалить" onClick={remove}/>
-                <input ref={inputFileEl} type="file" name="file" onChange={upload}/>
-            </Table.Cell>
-        </Table.Row>
-    );
+            <Table.Row>
+                <Table.Cell>
+                {exists && <a href={resource.getDownloadLink()}>{name}</a>}
+                {!exists && name }
+                </Table.Cell>
+                <Table.Cell>
+                    <Button content="Удалить" onClick={remove}/>
+                    <input ref={inputFileEl} type="file" name="file" onChange={upload}/>
+                </Table.Cell>
+            </Table.Row>
+            );
 }
 
 export default Dossier;

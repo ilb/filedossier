@@ -10,8 +10,8 @@ import './Config';
 function Index() {
     return (
         <div className="app">
-            <Link to="/dossiers/123/testmodel/TEST">TEST DOSSIER</Link>
-            <Link to="/dossiers/123/testmodel/TEST2">TEST DOSSIER2</Link>
+            <Link to="/dossiers/teststorekey/testmodel/TEST">TEST DOSSIER</Link>
+            <Link to="/dossiers/teststorekey/testmodel/TEST2">TEST DOSSIER2</Link>
         </div>
     );
 }
