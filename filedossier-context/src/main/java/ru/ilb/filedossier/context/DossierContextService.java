@@ -23,12 +23,25 @@ import ru.ilb.filedossier.entities.DossierContext;
  */
 public interface DossierContextService {
 
+    /**
+     * Returns DossierContext by contextKey
+     * 
+     * @param contextKey
+     *            context key to search
+     * @see ru.ilb.filedossier.entities.DossierContext
+     * @return DossierContext
+     */
     DossierContext getContext(String contextKey);
 
-    void setContext(String contextKey, DossierContext context);
-
+    /**
+     * Puts DossierContext to a repository
+     * 
+     * @param contextKey
+     *            context key
+     * @param context
+     *            DossierContext implementation
+     * @see ru.ilb.filedossier.entities.DossierContext
+     */
     void putContext(String contextKey, DossierContext context);
-
-    void mergeContext(String contextKey, DossierContext context);
 
 }

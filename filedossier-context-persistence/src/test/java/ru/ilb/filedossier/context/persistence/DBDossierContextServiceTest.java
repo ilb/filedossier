@@ -22,13 +22,11 @@ import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.core.annotation.Order;
 import org.springframework.test.annotation.Commit;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 import ru.ilb.filedossier.context.DossierContextImpl;
-import ru.ilb.filedossier.context.persistence.model.DossierContextPersistence;
 import ru.ilb.filedossier.context.persistence.repositories.DossierContextRepository;
 import ru.ilb.filedossier.entities.DossierContext;
 
@@ -71,16 +69,9 @@ public class DBDossierContextServiceTest {
 	DossierContext context = new DossierContextImpl();
 	context.setProperty("testDataKey2", "testDataValue2");
 	context.setProperty("testDataKey3", "testDataValue3");
-	contextService.mergeContext("testContextKey",context);
+	contextService.putContext("testContextKey", context);
 
 	DossierContext result = contextService.getContext("testContextKey");
 	assertEquals("testDataValue2", result.getProperty("testDataKey2"));
     }
-
-    @Test
-    public void testCDeleteDossierContexts() {
-	DossierContextPersistence context = dossierContextRepository.findByContextKey("testContextKey");
-	dossierContextRepository.delete(context);
-    }
-
 }

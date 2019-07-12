@@ -15,8 +15,6 @@
  */
 package ru.ilb.filedossier.entities;
 
-import java.io.File;
-
 /**
  * Dossier file contents
  * 

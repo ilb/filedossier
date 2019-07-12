@@ -26,6 +26,19 @@
                 <template>representations/fairpriceorder/template.ods</template>
             </representation>
         </dossierFile>
-
+        <dossierFile>
+            <code>jurnals</code>
+            <name>Test name 1</name>
+            <readonly>false</readonly>
+            <required>true</required>
+            <hidden>false</hidden>
+            <mediaType>application/xml</mediaType>
+            <representation>
+                <mediaType>application/pdf</mediaType>
+                <stylesheet>https://devel.net.ilb.ru/meta/stylesheets/doctemplates/jurnals/percentsheet.xsl</stylesheet>
+                <schema>https://devel.net.ilb.ru/meta/schemas/doctemplates/jurnals/percentsheet.xsd</schema>
+                <meta>https://devel.net.ilb.ru/meta/&amp;uid=doctree:11f462ebdb14a5673ff41a5c75c5176552fad343:</meta>
+            </representation>
+        </dossierFile>
     </dossier>
 </package>

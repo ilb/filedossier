@@ -19,6 +19,8 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.List;
+import java.util.Optional;
+import ru.ilb.filedossier.context.DossierContextEditor;
 import ru.ilb.filedossier.context.DossierContextService;
 import ru.ilb.filedossier.entities.Representation;
 import ru.ilb.filedossier.entities.Store;
@@ -29,8 +31,6 @@ import ru.ilb.filedossier.entities.Store;
  */
 public class PdfDossierFile extends DossierFileImpl {
 
-    private boolean multipage = false;
-
     public PdfDossierFile(Store store, String code, String name, boolean required, boolean readonly, boolean hidden,
 	    String mediaType, List<Representation> representations, DossierContextService dossierContextService) {
 	super(store, code, name, required, readonly, hidden, mediaType, representations, dossierContextService);
@@ -39,34 +39,40 @@ public class PdfDossierFile extends DossierFileImpl {
 
     @Override
     public void setContents(File contentsFile) {
-	getDossierContext();
 	try {
-	    String mimeType = Files.probeContentType(contentsFile.toPath());
 	    byte[] data = Files.readAllBytes(contentsFile.toPath());
 
-	    if (mimeType != null && mimeType.contains("image/")) {
-		setMultipage();
+	    if (checkMultipage(contentsFile)) {
 		setMultipageContents(data);
 	    } else {
-		setContents(data);
+		super.setContents(data);
 	    }
 	} catch (IOException ex) {
 	    throw new RuntimeException(ex);
 	}
     }
 
+    /**
+     * Store page file to a nested FileStore and updates page count
+     * 
+     * @param data
+     */
     private void setMultipageContents(byte[] data) {
-	int page = Integer.valueOf((String) context.asMap().getOrDefault("pages", "0"));
+	DossierContextEditor contextEditor = new DossierContextEditor(dossierContextService);
+	this.store = store.getNestedFileStore(code);
+
+	Optional<String> pageProperty = contextEditor.getProperty("pages", getContextCode());
+	int page = pageProperty.isPresent() ? Integer.valueOf(pageProperty.get()) : 0;
+
 	try {
 	    store.setContents(Integer.toString(page++), data);
-	    context.setProperty("pages", page++);
-	    dossierContextService.putContext(getContextCode(), context);
+	    contextEditor.putProperty("pages", page++, getContextCode());
+	    contextEditor.commit();
 	} catch (IOException ex) {
 	    throw new RuntimeException(ex);
 	}
     }
 
-    // TODO: multipage return
     @Override
     public byte[] getContents() {
 	try {
@@ -76,8 +82,26 @@ public class PdfDossierFile extends DossierFileImpl {
 	}
     }
 
-    private void setMultipage() {
-	store = store.getNestedFileStore(code);
-	multipage = true;
+    /**
+     * Returns false if uploaded file isn't image (i.e. not multipage), and true
+     * if image.
+     * 
+     * @param file
+     *            uploaded file
+     * @return boolean
+     */
+    private boolean checkMultipage(File file) {
+	String mimeType;
+	try {
+	    mimeType = Files.probeContentType(file.toPath());
+	} catch (IOException ex) {
+	    throw new FileNotExistsException(file.getName());
+	}
+
+	if (mimeType != null && mimeType.contains("image/")) {
+	    return true;
+	} else {
+	    return false;
+	}
     }
 }
