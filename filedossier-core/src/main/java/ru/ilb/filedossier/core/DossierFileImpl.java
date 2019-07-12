@@ -177,7 +177,7 @@ public class DossierFileImpl implements DossierFile {
 
     @Override
     public void setDossierContext(DossierContext dossierContext) {
-	dossierContextService.setContext(getContextCode(), dossierContext);
+	dossierContextService.putContext(getContextCode(), dossierContext);
     }
 
     protected String getContextCode() {

@@ -25,6 +25,12 @@ import java.io.File;
 public interface DossierFile extends DossierContents {
 
     /**
+     * 
+     * @param file
+     */
+    public void setContents(File file);
+
+    /**
      * file is required to be present
      * 
      * @return
@@ -71,6 +77,4 @@ public interface DossierFile extends DossierContents {
      * @param dossierContext
      */
     public void setDossierContext(DossierContext dossierContext);
-
-    public void setContents(File file);
 }
