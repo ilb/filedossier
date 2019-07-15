@@ -47,10 +47,10 @@ public class DBDossierContextService implements DossierContextService {
     }
 
     /**
-     * Returns DossierContext with not/exist context values
+     * Returns DossierContext with context values
      * 
      * @param contextKey
-     * @return
+     * @return DossierContext
      */
     @Override
     public DossierContext getContext(String contextKey) {
@@ -60,7 +60,7 @@ public class DBDossierContextService implements DossierContextService {
     }
 
     /**
-     * Puts context if not exist in database, and merges if exist
+     * Puts context in database if doesn't exist already, merges if exist
      * 
      * @param contextKey
      * @param dossierContext
@@ -69,6 +69,7 @@ public class DBDossierContextService implements DossierContextService {
     public void putContext(String contextKey, DossierContext dossierContext) {
 	Optional<DossierContextPersistence> oldContext = repository.findByContextKey(contextKey);
 	DossierContextPersistence updatedContext = new DossierContextPersistence(contextKey, dossierContext.asMap());
+	// if old context founded, perform merge instead save
 	oldContext.ifPresent((c) -> updatedContext.setId(oldContext.get().getId()));
 	repository.save(updatedContext);
     }

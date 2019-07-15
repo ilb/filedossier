@@ -69,19 +69,19 @@ public class DossierFileResourceImplTest {
     @org.junit.Test
     public void testUploadContents() throws URISyntaxException {
 	DossierFileResource fileResource = getDossierFileResource("jurnals");
-	fileResource.uploadContents(Paths.get(getClass().getClassLoader().getResource("page.jpeg").toURI()).toFile());
-	fileResource.uploadContents(Paths.get(getClass().getClassLoader().getResource("page.jpeg").toURI()).toFile());
+	fileResource.uploadContents(Paths.get(getClass().getClassLoader().getResource("page1.jpg").toURI()).toFile());
+	fileResource.uploadContents(Paths.get(getClass().getClassLoader().getResource("page2.jpg").toURI()).toFile());
     }
 
     @org.junit.Test
     public void testGetContents() {
-	DossierFileResource fileResource = getDossierFileResource("jurnals");
+
+	DossierFileResource fileResource = getDossierFileResource("fairpricecalc");
 	Response response = fileResource.getContents();
-	Assert.assertEquals("application/pdf", response.getMediaType().toString());
-
-	fileResource = getDossierFileResource("fairpricecalc");
-	response = fileResource.getContents();
 	Assert.assertEquals("application/vnd.oasis.opendocument.spreadsheet", response.getMediaType().toString());
-    }
 
+	fileResource = getDossierFileResource("jurnals");
+	response = fileResource.getContents();
+	Assert.assertEquals("application/pdf", response.getMediaType().toString());
+    }
 }
