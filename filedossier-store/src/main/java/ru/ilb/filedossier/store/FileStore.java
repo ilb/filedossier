@@ -18,11 +18,18 @@ package ru.ilb.filedossier.store;
 import ru.ilb.filedossier.entities.Store;
 import java.io.IOException;
 import java.net.URI;
+import java.nio.file.FileSystem;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Predicate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Store using files
@@ -92,4 +99,18 @@ class FileStore implements Store {
 	return new FileStore(getStorePath().toUri(), key);
     }
 
+    @Override
+    public List<byte[]> getAllContents() throws IOException {
+	try (Stream<Path> paths = Files.walk(getStorePath())) {
+	    List<byte[]> bytes = new ArrayList<>();
+	    paths.filter(Files::isRegularFile).forEach(path -> {
+		try {
+		    bytes.add(Files.readAllBytes(path));
+		} catch (IOException ex) {
+		    throw new RuntimeException(ex);
+		}
+	    });
+	    return bytes;
+	}
+    }
 }

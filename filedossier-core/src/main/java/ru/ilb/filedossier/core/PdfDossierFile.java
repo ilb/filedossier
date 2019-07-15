@@ -24,6 +24,7 @@ import ru.ilb.filedossier.context.DossierContextEditor;
 import ru.ilb.filedossier.context.DossierContextService;
 import ru.ilb.filedossier.entities.Representation;
 import ru.ilb.filedossier.entities.Store;
+import ru.ilb.filedossier.representation.PdfMultipageRepresentation;
 
 /**
  *
@@ -42,7 +43,7 @@ public class PdfDossierFile extends DossierFileImpl {
 	try {
 	    byte[] data = Files.readAllBytes(contentsFile.toPath());
 
-	    if (checkMultipage(contentsFile)) {
+	    if (checkFileIsImage(contentsFile)) {
 		setMultipageContents(data);
 	    } else {
 		super.setContents(data);
@@ -59,13 +60,13 @@ public class PdfDossierFile extends DossierFileImpl {
      */
     private void setMultipageContents(byte[] data) {
 	DossierContextEditor contextEditor = new DossierContextEditor(dossierContextService);
-	this.store = store.getNestedFileStore(code);
+	Store nestedStore = store.getNestedFileStore(code);
 
 	Optional<String> pageProperty = contextEditor.getProperty("pages", getContextCode());
 	int page = pageProperty.isPresent() ? Integer.valueOf(pageProperty.get()) : 0;
 
 	try {
-	    store.setContents(Integer.toString(page++), data);
+	    nestedStore.setContents(Integer.toString(page++), data);
 	    contextEditor.putProperty("pages", page++, getContextCode());
 	    contextEditor.commit();
 	} catch (IOException ex) {
@@ -78,30 +79,43 @@ public class PdfDossierFile extends DossierFileImpl {
 	try {
 	    return store.getContents(getStoreFileName());
 	} catch (IOException ex) {
-	    throw new FileNotExistsException(getStoreFileName());
+	    throw new FileNotExistsException(ex.toString());
 	}
     }
 
     /**
-     * Returns false if uploaded file isn't image (i.e. not multipage), and true
-     * if image.
+     * Returns false if uploaded file isn't image (i.e. not multipage), true if
+     * image.
      * 
      * @param file
      *            uploaded file
      * @return boolean
      */
-    private boolean checkMultipage(File file) {
+    private boolean checkFileIsImage(File file) {
 	String mimeType;
 	try {
 	    mimeType = Files.probeContentType(file.toPath());
 	} catch (IOException ex) {
 	    throw new FileNotExistsException(file.getName());
 	}
+	return mimeType != null && mimeType.contains("image/") ? true : false;
+    }
 
-	if (mimeType != null && mimeType.contains("image/")) {
-	    return true;
+    private boolean checkMultipage() {
+	DossierContextEditor contextEditor = new DossierContextEditor(dossierContextService);
+	Optional<String> pageProperty = contextEditor.getProperty("pages", getContextCode());
+	return pageProperty.isPresent() ? true : false;
+    }
+
+    @Override
+    public Representation getRepresentation() {
+	Store nestedStore = store.getNestedFileStore(code);
+	if (checkMultipage()) {
+	    PdfMultipageRepresentation multipageRepresentation = new PdfMultipageRepresentation(mediaType, nestedStore);
+	    multipageRepresentation.setParent(this);
+	    return multipageRepresentation;
 	} else {
-	    return false;
+	    return representation;
 	}
     }
 }

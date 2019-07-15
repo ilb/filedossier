@@ -6,6 +6,7 @@
 package ru.ilb.filedossier.entities;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  *
@@ -14,6 +15,8 @@ import java.io.IOException;
 public interface Store {
 
     byte[] getContents(String key) throws IOException;
+
+    List<byte[]> getAllContents() throws IOException;
 
     void setContents(String key, byte[] contents) throws IOException;
 
