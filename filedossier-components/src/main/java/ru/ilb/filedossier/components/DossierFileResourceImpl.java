@@ -18,7 +18,6 @@ package ru.ilb.filedossier.components;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Files;
 import javax.ws.rs.container.ResourceContext;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
@@ -30,37 +29,41 @@ import ru.ilb.filedossier.entities.Representation;
 public class DossierFileResourceImpl implements DossierFileResource {
 
     private final DossierFile dossierFile;
+
     @Context
     private ResourceContext resourceContext;
 
     public DossierFileResourceImpl(DossierFile dossierFile) {
-	this.dossierFile = dossierFile;
+        this.dossierFile = dossierFile;
     }
 
     @Override
     public Response getContents() {
-	Representation representation = dossierFile.getRepresentation();
-	return Response.ok(representation.getContents()).header("Content-Type", representation.getMediaType())
-		.header("Content-Disposition", "attachment; filename=" + representation.getFileName()).build();
+        Representation representation = dossierFile.getRepresentation();
+        return Response.ok(representation.getContents())
+                .header("Content-Type", representation.getMediaType())
+                .header("Content-Disposition",
+                        "attachment; filename=" + representation.getFileName())
+                .build();
     }
 
     @Override
     public void setContents(InputStream inputstream) {
-	try {
-	    dossierFile.setContents(Util.toByteArray(inputstream));
-	} catch (IOException ex) {
-	    throw new RuntimeException(ex);
-	}
+        try {
+            dossierFile.setContents(Util.toByteArray(inputstream));
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
     }
 
     @Override
     public void uploadContents(File file) {
-	dossierFile.setContents(file);
+        dossierFile.setContents(file);
     }
 
     @Override
     public DossierContextResource getDossierContextResource() {
-	DossierContextResourceImpl resource = new DossierContextResourceImpl(dossierFile);
-	return resourceContext.initResource(resource);
+        DossierContextResourceImpl resource = new DossierContextResourceImpl(dossierFile);
+        return resourceContext.initResource(resource);
     }
 }
