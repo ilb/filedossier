@@ -23,7 +23,9 @@ import javax.ws.rs.core.Response;
 import org.apache.cxf.jaxrs.client.JAXRSClientFactory;
 import org.apache.cxf.jaxrs.provider.json.JsonMapObjectProvider;
 import org.junit.Assert;
+import org.junit.FixMethodOrder;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -36,6 +38,7 @@ import ru.ilb.filedossier.api.DossiersResource;
  */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @RunWith(SpringRunner.class)
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class DossierFileResourceImplTest {
 
     private DossiersResource resource;
@@ -67,7 +70,7 @@ public class DossierFileResourceImplTest {
      * Test of getDossierResource method, of class DossiersResourceImpl.
      */
     @org.junit.Test
-    public void testUploadContents() throws URISyntaxException {
+    public void testAUploadContents() throws URISyntaxException {
         DossierFileResource fileResource = getDossierFileResource("jurnals");
         fileResource.uploadContents(Paths.get(getClass()
                 .getClassLoader()
@@ -82,7 +85,7 @@ public class DossierFileResourceImplTest {
     }
 
     @org.junit.Test
-    public void testGetContents() {
+    public void testBGetContents() {
 
         DossierFileResource fileResource = getDossierFileResource("fairpricecalc");
         Response response = fileResource.getContents();
