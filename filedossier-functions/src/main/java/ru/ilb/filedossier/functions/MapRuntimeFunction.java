@@ -16,6 +16,7 @@
 package ru.ilb.filedossier.functions;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -29,7 +30,7 @@ import org.apache.cxf.jaxrs.json.basic.JsonMapObjectReaderWriter;
  *
  * @author chunaev
  */
-public class MapRuntimeFunction implements MapFunction{
+public class MapRuntimeFunction implements MapFunction {
 
     private final URI commandUri;
 
@@ -41,13 +42,17 @@ public class MapRuntimeFunction implements MapFunction{
 
     private final JsonMapObjectReaderWriter jsonreaderwriter = new JsonMapObjectReaderWriter();
 
-
-    private void marshall(Map<String, Object> map, OutputStream os) {
+    private void marshall(Map<String, Object> map, OutputStream os) throws FileNotFoundException {
         jsonreaderwriter.toJson(new JsonMapObject(map), os);
     }
 
-    private Map<String, Object> unmarshall(InputStream is)  throws IOException{
-        return jsonreaderwriter.fromJsonToJsonObject(is).asMap();
+    private Map<String, Object> unmarshall(InputStream stdout, InputStream stderr) throws
+            IOException {
+        try {
+            return jsonreaderwriter.fromJsonToJsonObject(stdout).asMap();
+        } catch (StringIndexOutOfBoundsException e) {
+            throw new BadCommandResponseException(commandUri.getPath(), stderr);
+        }
     }
 
     @Override
@@ -71,13 +76,14 @@ public class MapRuntimeFunction implements MapFunction{
             stdin.close();
 
             InputStream stdout = p.getInputStream();
-            output = unmarshall(stdout);
+            InputStream stderr = p.getErrorStream();
+            output = unmarshall(stdout, stderr);
             stdout.close();
 
             int exitCode = p.waitFor();
             switch (exitCode) {
                 case 127:
-                    throw new IllegalArgumentException(commandFile.toString() +" does not exist");
+                    throw new IllegalArgumentException(commandFile.toString() + " does not exist");
                 case 0:
                     break;
                 default:
