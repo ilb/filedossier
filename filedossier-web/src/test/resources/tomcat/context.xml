@@ -8,6 +8,6 @@
               driverClassName="com.mysql.jdbc.Driver"
               validationQuery="SELECT 1"
               username="filedossier" password="filedossier"
-              url="jdbc:mysql://devel:3306/filedossier?autoReconnect=true&amp;elideSetAutoCommits=true&amp;useLocalSessionState=true&amp;maintainTimeStats=false&amp;serverTimezone=Europe/Moscow"
+              url="jdbc:mysql://devel:3306/filedossier?autoReconnect=true&amp;elideSetAutoCommits=true&amp;useLocalSessionState=true&amp;maintainTimeStats=false&amp;serverTimezone=Europe/Samara"
     />
 </Context>

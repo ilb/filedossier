@@ -17,7 +17,7 @@
         </dossierFile>
         <dossierFile>
             <code>fairpricecalc</code>
-            <name>${name}</name>
+            <name>fairpricecalc (.ods test)</name>
             <readonly>false</readonly>
             <mediaType>application/xml</mediaType>
             <representation>
@@ -27,16 +27,16 @@
             </representation>
         </dossierFile>
         <dossierFile>
-            <code>jurnals</code>
-            <name>Test name 1</name>
+            <code>avto</code>
+            <name>avto (.pdf test)</name>
             <readonly>false</readonly>
             <required>true</required>
             <hidden>false</hidden>
             <mediaType>application/xml</mediaType>
             <representation>
                 <mediaType>application/pdf</mediaType>
-                <stylesheet>https://devel.net.ilb.ru/meta/stylesheets/doctemplates/jurnals/percentsheet.xsl</stylesheet>
-                <schema>https://devel.net.ilb.ru/meta/schemas/doctemplates/jurnals/percentsheet.xsd</schema>
+                <stylesheet>https://devel.net.ilb.ru/meta/stylesheets/doctemplates/primary/loantreaty/credits/auto/V20140707.xsl</stylesheet>
+                <schema>https://devel.net.ilb.ru/meta/schemas/doctemplates/primary/loantreaty/credits/auto/V20140707.xsd</schema>
                 <meta>https://devel.net.ilb.ru/meta/&amp;uid=doctree:11f462ebdb14a5673ff41a5c75c5176552fad343:</meta>
             </representation>
         </dossierFile>
