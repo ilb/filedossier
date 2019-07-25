@@ -17,8 +17,6 @@ package ru.ilb.filedossier.filedossier.document.validation;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-
-import java.util.List;
 import java.util.Map;
 import static org.junit.Assert.*;
 import org.junit.Test;
@@ -53,12 +51,12 @@ public class BarcodeScannerTest {
                 .withArea(34, 95, 51, 97.5f)
                 .toCommand(commandUri)
                 .build();
-        List<Map<String, Object>> result = instance.getBarcodeData();
+        Map<String, String> result = instance.recognizeBarcodeData();
 
-        String firstResultBarcode = (String) result.get(0).get("barcode");
+        String firstResultBarcode = (String) result.get("1.png");
         assertEquals(firstExpectedBarcode, firstResultBarcode);
 
-        String secondResultBarcode = (String) result.get(1).get("barcode");
+        String secondResultBarcode = (String) result.get("2.png");
         assertEquals(secondExpectedBarcode, secondResultBarcode);
     }
 
@@ -81,6 +79,6 @@ public class BarcodeScannerTest {
                 .withArea(34, 95, 51, 95)
                 .toCommand(commandUri)
                 .build();
-        instance.getBarcodeData();
+        instance.recognizeBarcodeData();
     }
 }

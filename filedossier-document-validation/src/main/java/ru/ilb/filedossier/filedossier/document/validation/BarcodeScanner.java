@@ -58,11 +58,31 @@ public class BarcodeScanner {
     /**
      * @return list with bar codes of each page that PDF document contains.
      */
-    public List<Map<String, Object>> getBarcodeData() {
+    public Map<String, String> recognizeBarcodeData() {
+
         if (commandUri == null) {
             throw new IllegalStateException("Command URI is not set");
         }
-        return (LinkedList) new MapRuntimeFunction(commandUri).apply(requestMap).get("pages");
+        return executeCommand();
+    }
+
+    private Map<String, String> executeCommand() {
+
+        List<Map<String, Object>> responseObjects = (LinkedList) new MapRuntimeFunction(commandUri)
+                .apply(requestMap)
+                .get("pages");
+
+        Map<String, String> barcodeDatas = new HashMap<>();
+
+        responseObjects.stream().forEach((responseObject) -> {
+
+            String barcodeKey = (String) responseObject.get("file");
+            String barcode = (String) responseObject.get("barcode");
+
+            barcodeDatas.put(barcodeKey, barcode);
+        });
+
+        return barcodeDatas;
     }
 
     public static RequestBuilder newRequestBuilder() {
@@ -117,10 +137,13 @@ public class BarcodeScanner {
                 Map<String, Object> source = new HashMap<>();
                 source.put("document", Optional.of(documentPath).orElseThrow(
                            NullPointerException::new));
+
                 source.put("barcode", Optional.of(barcode).orElseThrow(NullPointerException::new));
 
                 requestMap.put("source", Optional.of(source).orElseThrow(NullPointerException::new));
+
                 return BarcodeScanner.this;
+
             } catch (NullPointerException e) {
                 throw new IllegalStateException("One of the request arguments is not set: " + e);
             }
