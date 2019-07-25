@@ -28,11 +28,11 @@ import org.junit.Test;
  *
  * @author kuznetsov_me
  */
-public class PdfMetadataManagerTest {
+public class PdfUtilsTest {
 
     byte[] pdfDocument;
 
-    public PdfMetadataManagerTest() throws IOException, URISyntaxException {
+    public PdfUtilsTest() throws IOException, URISyntaxException {
         pdfDocument = Files.readAllBytes(Paths.get(this.getClass().getClassLoader().getResource(
                 "documentbarcode/example.pdf").toURI()));
     }
@@ -45,9 +45,9 @@ public class PdfMetadataManagerTest {
         metadata.put("testkey1", "testvalue1");
         metadata.put("testkey2", "testvalue2");
 
-        pdfDocument = PdfMetadataManager.insertMetadata(pdfDocument, metadata);
+        pdfDocument = PdfUtils.insertMetadata(pdfDocument, metadata);
 
-        Map<String, String> extractedMetadata = PdfMetadataManager.extractMetadata(pdfDocument);
+        Map<String, String> extractedMetadata = PdfUtils.extractMetadata(pdfDocument);
 
         String firstExpectedValue = "testvalue1";
         String secondExpectedValue = "testvalue2";

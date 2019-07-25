@@ -18,8 +18,11 @@ package ru.ilb.filedossier.representation;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 import ru.ilb.filedossier.entities.DossierContents;
 import ru.ilb.filedossier.entities.DossierPath;
+import ru.ilb.filedossier.filedossier.document.validation.PdfUtils;
 import ru.ilb.filedossier.functions.WebResourceFunction;
 
 /**
@@ -55,7 +58,9 @@ public class PdfGenRepresentation extends IdentityRepresentation {
 
     @Override
     public byte[] getContents() {
-        return webResourceFunction.apply(parent.getContents());
+        byte[] document = webResourceFunction.apply(parent.getContents());
+        byte[] documentWithBarcodes = insertBarcodes(document);
+        return documentWithBarcodes;
     }
 
     @Override
@@ -75,5 +80,20 @@ public class PdfGenRepresentation extends IdentityRepresentation {
                                      + parent.getClass().getCanonicalName();
 
         this.parent = (DossierContents) parent;
+    }
+
+    // MVP realization
+    private byte[] insertBarcodes(byte[] document) {
+        int numberOfPages = PdfUtils.getNumberOfPages(document);
+
+        Map<String, String> barcodes = new HashMap<>();
+
+        String uid = "doctree:11f462ebdb14a5673ff41a5c75c5176552fad343";
+
+        for (int i = 0; i < numberOfPages; i++) {
+            barcodes.put("page" + i, uid + ":" + i + ":" + numberOfPages);
+        }
+
+        return PdfUtils.insertMetadata(document, barcodes);
     }
 }

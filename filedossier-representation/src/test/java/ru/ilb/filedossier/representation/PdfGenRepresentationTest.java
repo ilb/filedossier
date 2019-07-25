@@ -16,12 +16,15 @@
 package ru.ilb.filedossier.representation;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Map;
 import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
+import ru.ilb.filedossier.filedossier.document.validation.PdfUtils;
 
 /**
  *
@@ -29,7 +32,16 @@ import org.junit.Test;
  */
 public class PdfGenRepresentationTest {
 
+    String xsl = "https://devel.net.ilb.ru/meta/stylesheets/doctemplates/jurnals/percentsheet.xsl";
+
+    String xsd = "https://devel.net.ilb.ru/meta/schemas/doctemplates/jurnals/percentsheet.xsd";
+
+    String meta = "https://devel.net.ilb.ru/meta/&uid=doctree:11f462ebdb14a5673ff41a5c75c5176552fad343:";
+
+    byte[] representation;
+
     public PdfGenRepresentationTest() {
+
     }
 
     /**
@@ -37,19 +49,35 @@ public class PdfGenRepresentationTest {
      */
     @Test
     public void testGetContents() throws URISyntaxException, IOException {
-	System.out.println("getContents");
-	PdfGenRepresentation instance = new PdfGenRepresentation("application/pdf",
-		URI.create("https://devel.net.ilb.ru/meta/stylesheets/doctemplates/jurnals/percentsheet.xsl"),
-		URI.create("https://devel.net.ilb.ru/meta/schemas/doctemplates/jurnals/percentsheet.xsd"),
-		URI.create("https://devel.net.ilb.ru/meta/&uid=doctree:11f462ebdb14a5673ff41a5c75c5176552fad343:"));
+        System.out.println("getContents");
+        PdfGenRepresentation instance = new PdfGenRepresentation("application/pdf", URI.create(xsl),
+                                                                 URI.create(xsd), URI.create(meta));
 
-	URI dataUri = getClass().getClassLoader().getResource("jurnals/example.xml").toURI();
-	byte[] source = Files.readAllBytes(Paths.get(dataUri));
-	DossierContentsHolder contents = new DossierContentsHolder(source, "application/pdf", "jurnals", "Jurnals",
-		"pdf");
-	instance.setParent(contents);
-	byte[] result = instance.getContents();
-	assertNotNull(result);
-	Files.write(Paths.get(System.getProperty("java.io.tmpdir") + "/result"), result);
+        URI dataUri = getClass().getClassLoader().getResource("jurnals/example.xml").toURI();
+        byte[] source = Files.readAllBytes(Paths.get(dataUri));
+        DossierContentsHolder contents = new DossierContentsHolder(source, "application/pdf",
+                                                                   "jurnals", "Jurnals", "pdf");
+        instance.setParent(contents);
+        representation = instance.getContents();
+        assertNotNull(representation);
+        Files.write(Paths.get(System.getProperty("java.io.tmpdir") + "/result"), representation);
+    }
+
+    @Test
+    public void testOutputDocumentHasBarcodes() throws MalformedURLException, IOException,
+                                                       URISyntaxException {
+        System.out.println("hasBarcodes");
+        PdfGenRepresentation instance = new PdfGenRepresentation("application/pdf", URI.create(xsl),
+                                                                 URI.create(xsd), URI.create(meta));
+
+        URI dataUri = getClass().getClassLoader().getResource("jurnals/example.xml").toURI();
+        byte[] source = Files.readAllBytes(Paths.get(dataUri));
+        DossierContentsHolder contents = new DossierContentsHolder(source, "application/pdf",
+                                                                   "jurnals", "Jurnals", "pdf");
+        instance.setParent(contents);
+        representation = instance.getContents();
+        Map<String, String> barcodes = PdfUtils.extractMetadata(representation);
+
+        assertNotNull(barcodes.get("page0"));
     }
 }
