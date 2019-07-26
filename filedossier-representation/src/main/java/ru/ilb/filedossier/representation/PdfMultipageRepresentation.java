@@ -15,15 +15,16 @@
  */
 package ru.ilb.filedossier.representation;
 
-import com.itextpdf.text.BadElementException;
-import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Image;
-import com.itextpdf.text.pdf.PdfWriter;
-import java.io.FileOutputStream;
+import com.itextpdf.io.image.ImageDataFactory;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.AreaBreak;
+import com.itextpdf.layout.element.Image;
+import com.itextpdf.layout.property.AreaBreakType;
+import com.itextpdf.layout.property.UnitValue;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.List;
 import ru.ilb.filedossier.entities.Store;
 
@@ -36,44 +37,66 @@ public class PdfMultipageRepresentation extends IdentityRepresentation {
     private Store store;
 
     public PdfMultipageRepresentation(String mediaType, Store store) {
-	super(mediaType);
-	this.store = store;
+        super(mediaType);
+        this.store = store;
     }
 
     @Override
     public byte[] getContents() {
-	try {
-	    List<byte[]> pages = store.getAllContents();
-	    return mergePages(pages);
-	} catch (IOException | DocumentException ex) {
-	    throw new RuntimeException(ex);
-	}
+        try {
+            List<byte[]> pages = store.getAllContents();
+            return mergePages(pages);
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
     }
 
-    private byte[] mergePages(List<byte[]> bytePages) throws BadElementException, IOException, DocumentException {
-	Path tempFile = Files.createTempFile("MultipageRepresentation", ".pdf");
-	Image pageToInsert = Image.getInstance(bytePages.get(0));
-	Document document = new Document(pageToInsert);
-	PdfWriter.getInstance(document, new FileOutputStream(tempFile.toString()));
-	document.open();
-	for (byte[] page : bytePages) {
-	    pageToInsert = Image.getInstance(page);
-	    document.setPageSize(pageToInsert);
-	    document.newPage();
-	    pageToInsert.setAbsolutePosition(0, 0);
-	    document.add(pageToInsert);
-	}
-	document.close();
-	return Files.readAllBytes(tempFile);
+    private byte[] mergePages(List<byte[]> byteImages) throws IOException {
+
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+
+        PdfDocument pdfDocument = new PdfDocument(new PdfWriter(out));
+
+        Document document = new Document(pdfDocument);
+
+        int numberOfPages = byteImages.size();
+
+        int pageNumber = 1;
+
+        for (byte[] image : byteImages) {    //table = table.useAllAvailableWidth();
+
+            Image pageToInsert = new Image(ImageDataFactory.create(image))
+                    .setAutoScale(true)
+                    .setWidth(UnitValue.createPercentValue(100));
+
+            document.add(pageToInsert);
+
+            if (pageNumber != numberOfPages) {
+                document.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+            }
+
+            pageNumber++;
+        }
+
+        document.close();
+        pdfDocument.close();
+
+        byte[] result;
+
+        try (ByteArrayOutputStream resultStream = out) {
+            result = resultStream.toByteArray();
+        }
+
+        return result;
     }
 
     @Override
     public String getExtension() {
-	return "pdf";
+        return "pdf";
     }
 
     @Override
     public String getMediaType() {
-	return "application/pdf";
+        return "application/pdf";
     }
 }
