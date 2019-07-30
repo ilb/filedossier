@@ -100,7 +100,7 @@
           <tbody>
             <row>
               <entry role="comment" namest="c1" nameend="c3">
-                <para>Приложение публикует XML документ с данными</para>
+                <para>Приложение публикует XML документ с данными для формирования PDF</para>
               </entry>
             </row>
             <section>
@@ -131,6 +131,11 @@
             </row>
           </thead>
           <tbody>
+            <row>
+              <entry role="comment" namest="c1" nameend="c3">
+                <para>Приложение вызывает сервис проверки валидности досье: наличие всех требуемых документов, всех страниц документов</para>
+              </entry>
+            </row>
             <section>
               <title>Associations</title>
               <para>visibility, type, properties.</para>
@@ -159,6 +164,11 @@
             </row>
           </thead>
           <tbody>
+            <row>
+              <entry role="comment" namest="c1" nameend="c3">
+                <para>Пользователь открывает сформированный PDF документ</para>
+              </entry>
+            </row>
             <section>
               <title>Associations</title>
               <para>visibility, type, properties.</para>
@@ -187,6 +197,11 @@
             </row>
           </thead>
           <tbody>
+            <row>
+              <entry role="comment" namest="c1" nameend="c3">
+                <para>Пользователь печатает сформированный PDF документ</para>
+              </entry>
+            </row>
             <section>
               <title>Associations</title>
               <para>visibility, type, properties.</para>
@@ -215,6 +230,12 @@
             </row>
           </thead>
           <tbody>
+            <row>
+              <entry role="comment" namest="c1" nameend="c3">
+                <para>Пользователь сканирует страницы
+Приложение загружает их в досье</para>
+              </entry>
+            </row>
             <section>
               <title>Associations</title>
               <para>visibility, type, properties.</para>
@@ -242,12 +263,18 @@
               <entry role="class-name" namest="c2" nameend="c3">Проверка подписей</entry>
             </row>
           </thead>
-          <tbody/>
+          <tbody>
+            <row>
+              <entry role="comment" namest="c1" nameend="c3">
+                <para>Система проверет наличие подписей в документах</para>
+              </entry>
+            </row>
+          </tbody>
         </tgroup>
       </table>
     </section>
     <section>
-      <title>Проверка наличия страниц</title>
+      <title>Привязка страниц к документу</title>
       <table frame="all">
         <title/>
         <tgroup cols="3" align="left" colsep="1" rowsep="1">
@@ -257,10 +284,16 @@
           <thead>
             <row>
               <entry role="class-title">Use Case</entry>
-              <entry role="class-name" namest="c2" nameend="c3">Проверка наличия страниц</entry>
+              <entry role="class-name" namest="c2" nameend="c3">Привязка страниц к документу</entry>
             </row>
           </thead>
-          <tbody/>
+          <tbody>
+            <row>
+              <entry role="comment" namest="c1" nameend="c3">
+                <para>Система привязывает страницы к документу на основании баркодов</para>
+              </entry>
+            </row>
+          </tbody>
         </tgroup>
       </table>
     </section>
