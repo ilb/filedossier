@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ru.ilb.filedossier.filedossier.document.validation;
+package ru.ilb.filedossier.utils;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -34,11 +34,15 @@ public class PdfUtilsTest {
 
     public PdfUtilsTest() throws IOException, URISyntaxException {
         pdfDocument = Files.readAllBytes(Paths.get(this.getClass().getClassLoader().getResource(
-                "documentbarcode/example.pdf").toURI()));
+                "example.pdf").toURI()));
     }
 
+    /**
+     * Test of insertMetadata method, of class PdfUtils.
+     */
     @Test
-    public void testInsertMetadata() throws IOException {
+    public void testInsertMetadata() {
+        System.out.println("insertMetadata");
 
         Map<String, String> metadata = new HashMap<>();
 
@@ -55,4 +59,17 @@ public class PdfUtilsTest {
         Assert.assertEquals(firstExpectedValue, extractedMetadata.get("testkey1"));
         Assert.assertEquals(secondExpectedValue, extractedMetadata.get("testkey2"));
     }
+
+    /**
+     * Test of getNumberOfPages method, of class PdfUtils.
+     */
+    @Test
+    public void testGetNumberOfPages() {
+        System.out.println("getNumberOfPages");
+        byte[] document = pdfDocument;
+        int expResult = 2;
+        int result = PdfUtils.getNumberOfPages(document);
+        Assert.assertEquals(expResult, result);
+    }
+
 }

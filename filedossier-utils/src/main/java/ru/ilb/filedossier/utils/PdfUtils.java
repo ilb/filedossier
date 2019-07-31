@@ -1,3 +1,5 @@
+package ru.ilb.filedossier.utils;
+
 /*
  * Copyright 2019 kuznetsov_me.
  *
@@ -13,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ru.ilb.filedossier.filedossier.document.validation;
+
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -24,7 +26,7 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDDocumentInformation;
 
 /**
- * Class for inserting and extracting a meta data to specified PDF document.
+ * Class for inserting and extracting the meta data to the specified PDF document.
  *
  * @author kuznetsov_me
  */
