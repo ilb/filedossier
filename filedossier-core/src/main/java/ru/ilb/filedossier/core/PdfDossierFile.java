@@ -90,7 +90,7 @@ public class PdfDossierFile extends DossierFileImpl {
     }
 
     /**
-     * Returns false if uploaded file isn't image (i.e. not multipage), true if image.
+     * Returns false if uploaded file isn't image (not multi page), true if image.
      *
      * @param file uploaded file
      * @return boolean

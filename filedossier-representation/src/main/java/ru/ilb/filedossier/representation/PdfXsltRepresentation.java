@@ -40,78 +40,81 @@ import org.xml.sax.SAXException;
  *
  * @author kuznetsov_me
  */
-
 public class PdfXsltRepresentation extends IdentityRepresentation {
 
     private final static String OUTPUT_FORMAT = "application/pdf";
 
     protected final URI stylesheetUri;
+
     protected final URI contentUri;
+
     private static FopFactory fopFactory = null;
 
     public PdfXsltRepresentation(String mediaType, URI stylesheetUri, URI contentUri) {
-	super(mediaType);
+        super(mediaType);
 
-	if (!mediaType.equals(OUTPUT_FORMAT)) {
-	    throw new IllegalArgumentException("Unsupported media type: " + mediaType);
-	}
+        if (!mediaType.equals(OUTPUT_FORMAT)) {
+            throw new IllegalArgumentException("Unsupported media type: " + mediaType);
+        }
 
-	this.stylesheetUri = stylesheetUri;
-	this.contentUri = contentUri;
+        this.stylesheetUri = stylesheetUri;
+        this.contentUri = contentUri;
     }
 
     @Override
     public byte[] getContents() {
-	try {
-	    return processContent(parent.getContents(), stylesheetUri, contentUri);
-	} catch (IOException | TransformerException | URISyntaxException | FOPException ex) {
-	    throw new RuntimeException(ex);
-	}
+        try {
+            return processContent(parent.getContents(), stylesheetUri, contentUri);
+        } catch (IOException | TransformerException | URISyntaxException | FOPException ex) {
+            throw new RuntimeException(ex);
+        }
     }
 
     private static byte[] processContent(byte[] source, URI stylesheetUri, URI contentUri)
-	    throws IOException, TransformerException, URISyntaxException, FOPException {
+            throws IOException, TransformerException, URISyntaxException, FOPException {
 
-	byte[] stylesheet = Files.readAllBytes(Paths.get(stylesheetUri));
-	Source stylesheetSource = new StreamSource(new InputStreamReader(new ByteArrayInputStream(stylesheet)));
-	stylesheetSource.setSystemId(stylesheetUri.toString());
+        byte[] stylesheet = Files.readAllBytes(Paths.get(stylesheetUri));
+        Source stylesheetSource = new StreamSource(new InputStreamReader(new ByteArrayInputStream(
+                stylesheet)));
+        stylesheetSource.setSystemId(stylesheetUri.toString());
 
-	byte[] content = Files.readAllBytes(Paths.get(contentUri));
-	Source contentSource = new StreamSource(new InputStreamReader(new ByteArrayInputStream(content)));
+        byte[] content = Files.readAllBytes(Paths.get(contentUri));
+        Source contentSource = new StreamSource(new InputStreamReader(new ByteArrayInputStream(
+                content)));
 
-	TransformerFactory factory = TransformerFactory.newInstance();
-	factory.setURIResolver(new URIResolverImpl());
-	Transformer transformer = factory.newTransformer(stylesheetSource);
-	ByteArrayOutputStream out = new ByteArrayOutputStream();
-	transformer.transform(contentSource, getStreamResult(out));
-	return out.toByteArray();
+        TransformerFactory factory = TransformerFactory.newInstance();
+        factory.setURIResolver(new URIResolverImpl());
+        Transformer transformer = factory.newTransformer(stylesheetSource);
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        transformer.transform(contentSource, getStreamResult(out));
+        return out.toByteArray();
     }
 
     private static Result getStreamResult(ByteArrayOutputStream out)
-	    throws FOPException, TransformerException, IOException {
+            throws FOPException, TransformerException, IOException {
 
-	if (fopFactory == null) {
-	    try {
-		fopFactory = FopFactory.newInstance(
-			PdfXsltRepresentation.class.getClassLoader().getResource("fop/").toURI(),
-			PdfXsltRepresentation.class.getResourceAsStream("/fop/fopconf.xml"));
-	    } catch (URISyntaxException | SAXException ex) {
-		throw new RuntimeException(ex);
-	    }
-	}
-	FOUserAgent userAgent = fopFactory.newFOUserAgent();
-	Fop fop = fopFactory.newFop(OUTPUT_FORMAT, userAgent, out);
-	return new SAXResult(fop.getDefaultHandler());
+        if (fopFactory == null) {
+            try {
+                fopFactory = FopFactory.newInstance(
+                        PdfXsltRepresentation.class.getClassLoader().getResource("fop/").toURI(),
+                        PdfXsltRepresentation.class.getResourceAsStream("/fop/fopconf.xml"));
+            } catch (URISyntaxException | SAXException ex) {
+                throw new RuntimeException(ex);
+            }
+        }
+        FOUserAgent userAgent = fopFactory.newFOUserAgent();
+        Fop fop = fopFactory.newFop(OUTPUT_FORMAT, userAgent, out);
+        return new SAXResult(fop.getDefaultHandler());
     }
 
     @Override
     public String getMediaType() {
-	return mediaType;
+        return mediaType;
     }
 
     @Override
     public String getExtension() {
-	return "pdf";
+        return "pdf";
     }
 
 }

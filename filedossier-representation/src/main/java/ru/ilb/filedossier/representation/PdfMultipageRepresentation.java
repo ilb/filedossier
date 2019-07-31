@@ -34,6 +34,7 @@ import ru.ilb.filedossier.entities.Store;
  */
 public class PdfMultipageRepresentation extends IdentityRepresentation {
 
+    // Change to Path
     private Store store;
 
     public PdfMultipageRepresentation(String mediaType, Store store) {
@@ -63,7 +64,7 @@ public class PdfMultipageRepresentation extends IdentityRepresentation {
 
         int pageNumber = 1;
 
-        for (byte[] image : byteImages) {    //table = table.useAllAvailableWidth();
+        for (byte[] image : byteImages) {
 
             Image pageToInsert = new Image(ImageDataFactory.create(image))
                     .setAutoScale(true)

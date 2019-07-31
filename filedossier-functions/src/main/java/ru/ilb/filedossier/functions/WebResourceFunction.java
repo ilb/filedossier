@@ -11,8 +11,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URI;
 import java.net.URL;
 
 /**
@@ -22,42 +20,43 @@ import java.net.URL;
 public class WebResourceFunction implements ByteFunction {
 
     private static final String REQUEST_METHOD = "POST";
+
     private static final String CONTENT_TYPE = "application/xml";
 
     private final URL resourceUrl;
 
     public WebResourceFunction(URL resourceUrl) {
-	System.out.println(resourceUrl);
-	this.resourceUrl = resourceUrl;
+        System.out.println(resourceUrl);
+        this.resourceUrl = resourceUrl;
     }
 
     @Override
     public byte[] apply(byte[] template) {
-	try {
-	    HttpURLConnection httpConnection = (HttpURLConnection) resourceUrl.openConnection();
-	    httpConnection.setRequestMethod(REQUEST_METHOD);
-	    httpConnection.setRequestProperty("Content-Type", CONTENT_TYPE);
-	    httpConnection.setDoOutput(true);
+        try {
+            HttpURLConnection httpConnection = (HttpURLConnection) resourceUrl.openConnection();
+            httpConnection.setRequestMethod(REQUEST_METHOD);
+            httpConnection.setRequestProperty("Content-Type", CONTENT_TYPE);
+            httpConnection.setDoOutput(true);
 
-	    try (OutputStream outStream = httpConnection.getOutputStream();
-		    OutputStreamWriter outStreamWriter = new OutputStreamWriter(outStream)) {
-		outStreamWriter.write(new String(template));
-		outStreamWriter.flush();
-	    }
+            try (OutputStream outStream = httpConnection.getOutputStream();
+                 OutputStreamWriter outStreamWriter = new OutputStreamWriter(outStream)) {
+                outStreamWriter.write(new String(template));
+                outStreamWriter.flush();
+            }
 
-	    try (InputStream responseContent = httpConnection.getInputStream();
-		    ByteArrayOutputStream out = new ByteArrayOutputStream()) {
-		byte[] buffer = new byte[1024];
-		int len;
-		while ((len = responseContent.read(buffer)) != -1) {
-		    out.write(buffer, 0, len);
-		}
-		return out.toByteArray();
-	    }
+            try (InputStream responseContent = httpConnection.getInputStream();
+                 ByteArrayOutputStream out = new ByteArrayOutputStream()) {
+                byte[] buffer = new byte[1024];
+                int len;
+                while ((len = responseContent.read(buffer)) != -1) {
+                    out.write(buffer, 0, len);
+                }
+                return out.toByteArray();
+            }
 
-	} catch (IOException ex) {
-	    throw new RuntimeException(ex);
-	}
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
 
     }
 
