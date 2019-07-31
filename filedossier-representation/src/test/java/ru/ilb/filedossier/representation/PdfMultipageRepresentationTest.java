@@ -20,6 +20,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import org.junit.Assert;
 import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 import ru.ilb.filedossier.entities.Store;
@@ -50,7 +51,6 @@ public class PdfMultipageRepresentationTest {
                                                                              store);
         byte[] result = instance.getContents();
 
-        System.out.println(new String("OUT: " + result));
         assertNotNull(result);
 
         Files.write(Paths.get(System.getProperty("java.io.tmpdir") + "/MultipageRepresentation.pdf"),
@@ -64,9 +64,12 @@ public class PdfMultipageRepresentationTest {
     @Test
     public void testGetExtension() {
         System.out.println("getExtension");
-        PdfMultipageRepresentation instance = null;
-        String expResult = "";
+        Store store = StoreFactory.newInstance(pagesUri).getStore("pages");
+        PdfMultipageRepresentation instance = new PdfMultipageRepresentation("application/pdf",
+                                                                             store);
+        String expResult = "pdf";
         String result = instance.getExtension();
+        Assert.assertEquals(expResult, result);
     }
 
     /**
@@ -75,9 +78,12 @@ public class PdfMultipageRepresentationTest {
     @Test
     public void testGetMediaType() {
         System.out.println("getMediaType");
-        PdfMultipageRepresentation instance = null;
-        String expResult = "";
+        Store store = StoreFactory.newInstance(pagesUri).getStore("pages");
+        PdfMultipageRepresentation instance = new PdfMultipageRepresentation("application/pdf",
+                                                                             store);
+        String expResult = "application/pdf";
         String result = instance.getMediaType();
+        Assert.assertEquals(expResult, result);
     }
 
 }
