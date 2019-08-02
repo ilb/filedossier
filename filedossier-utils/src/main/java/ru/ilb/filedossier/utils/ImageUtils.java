@@ -41,8 +41,7 @@ public class ImageUtils {
     public static Map<String, String> extractXMPMetadata(byte[] rawImage) throws IOException,
                                                                                  ImageProcessingException {
         if (MimeTypeUtil.guessMimeTypeFromByteArray(rawImage) != "image/jpeg") {
-            throw new RuntimeException(
-                    "Unsupported file format for XMP parse. Only JPEG is supported");
+            return null;
         }
 
         InputStream is = new BufferedInputStream(new ByteArrayInputStream(rawImage));
