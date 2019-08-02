@@ -18,6 +18,7 @@ package ru.ilb.filedossier.core;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 import ru.ilb.filedossier.context.DossierContextEditor;
@@ -28,6 +29,7 @@ import ru.ilb.filedossier.entities.Store;
 import ru.ilb.filedossier.filedossier.document.validation.XMPMetadataBarcodeProvider;
 import ru.ilb.filedossier.mimetype.MimeTypeUtil;
 import ru.ilb.filedossier.representation.PdfMultipageRepresentation;
+import ru.ilb.filedossier.utils.PdfUtils;
 
 /**
  *
@@ -71,6 +73,8 @@ public class PdfDossierFile extends DossierFileImpl {
         DossierContextEditor contextEditor = new DossierContextEditor(dossierContextService);
         Store nestedStore = store.getNestedFileStore(code);
 
+        int numberOfPages = PdfUtils.getNumberOfPages(representation.getContents());
+
         int page;
 
         try {
@@ -78,12 +82,21 @@ public class PdfDossierFile extends DossierFileImpl {
             page = barcode.getPageNumber();
         } catch (IOException | NullPointerException e) {
 
-            int numberOfPages = Integer.valueOf((String) contextEditor
+            int numberOfScans = Integer.valueOf((String) contextEditor
                     .getProperty("pages", getContextCode())
                     .orElse(1));
 
-            page = numberOfPages + 1;
+            page = ++numberOfScans;
         }
+
+        if (page > numberOfPages) {
+            throw new RuntimeException(String.format(
+                    "Number of pages in specified PDF - %s, scan number - %s", numberOfPages, page));
+        }
+
+        byte[] pdfPage = PdfUtils.getPDFPage(representation.getContents(), page - 1);
+
+        Files.write(Paths.get(System.getProperty("java.io.tmpdir") + "/result"), pdfPage);
 
         nestedStore.setContents(String.valueOf(page), data);
         updateMultipageCount(contextEditor, page);
