@@ -74,12 +74,12 @@ public class DossierFileResourceImplTest {
         DossierFileResource fileResource = getDossierFileResource("jurnals");
         fileResource.uploadContents(Paths.get(getClass()
                 .getClassLoader()
-                .getResource("page1.png")
+                .getResource("page1.jpg")
                 .toURI())
                 .toFile());
         fileResource.uploadContents(Paths.get(getClass()
                 .getClassLoader()
-                .getResource("page2.png")
+                .getResource("page2.jpg")
                 .toURI())
                 .toFile());
     }

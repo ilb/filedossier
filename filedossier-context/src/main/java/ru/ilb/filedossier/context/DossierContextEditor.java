@@ -19,9 +19,9 @@ import java.util.Optional;
 import ru.ilb.filedossier.entities.DossierContext;
 
 /**
- * This class connects context service (store, database) and context, allows
- * modifying, getting context properties, saving context to store
- * 
+ * This class connects context service (store, database) and context, allows modifying, getting
+ * context properties, saving context to store
+ *
  * @author kuznetsov_me
  */
 public class DossierContextEditor {
@@ -33,42 +33,42 @@ public class DossierContextEditor {
     private String contextKey;
 
     public DossierContextEditor(DossierContextService service) {
-	this.contextService = service;
+        this.contextService = service;
     }
 
     /**
      * Adds property to committed context
-     * 
+     *
      * @param propertyKey
      * @param propertyValue
      * @param contextKey
      */
     public void putProperty(String propertyKey, Object propertyValue, String contextKey) {
-	this.contextKey = contextKey;
-	this.context = contextService.getContext(contextKey);
-	context.setProperty(propertyKey, propertyValue);
+        this.contextKey = contextKey;
+        this.context = contextService.getContext(contextKey);
+        context.setProperty(propertyKey, propertyValue);
     }
 
     /**
      * Returns Optional value for requested property key
-     * 
+     *
      * @param propertyKey
      * @param contextKey
      * @return
      */
-    public Optional<String> getProperty(String propertyKey, String contextKey) {
-	this.contextKey = contextKey;
-	this.context = contextService.getContext(contextKey);
-	return Optional.ofNullable((String) context.asMap().get(propertyKey));
+    public Optional<Object> getProperty(String propertyKey, String contextKey) {
+        this.contextKey = contextKey;
+        this.context = contextService.getContext(contextKey);
+        return Optional.ofNullable(context.asMap().get(propertyKey));
     }
 
     /**
      * Save modified context to context store
      */
     public void commit() {
-	contextService.putContext(contextKey, context);
-	this.context = null;
-	this.contextKey = null;
+        contextService.putContext(contextKey, context);
+        this.context = null;
+        this.contextKey = null;
     }
 
 }

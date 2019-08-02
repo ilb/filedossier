@@ -22,8 +22,11 @@ import java.util.List;
 import java.util.Optional;
 import ru.ilb.filedossier.context.DossierContextEditor;
 import ru.ilb.filedossier.context.DossierContextService;
+import ru.ilb.filedossier.entities.Barcode;
 import ru.ilb.filedossier.entities.Representation;
 import ru.ilb.filedossier.entities.Store;
+import ru.ilb.filedossier.filedossier.document.validation.XMPMetadataBarcodeProvider;
+import ru.ilb.filedossier.mimetype.MimeTypeUtil;
 import ru.ilb.filedossier.representation.PdfMultipageRepresentation;
 
 /**
@@ -63,21 +66,27 @@ public class PdfDossierFile extends DossierFileImpl {
      *
      * @param data
      */
-    private void setMultipageContents(byte[] data) {
+    private void setMultipageContents(byte[] data) throws IOException {
 
         DossierContextEditor contextEditor = new DossierContextEditor(dossierContextService);
         Store nestedStore = store.getNestedFileStore(code);
 
-        Optional<String> pageProperty = contextEditor.getProperty("pages", getContextCode());
-        int page = pageProperty.isPresent() ? Integer.valueOf(pageProperty.get()) : 0;
+        int page;
 
         try {
-            nestedStore.setContents(Integer.toString(page++), data);
-            contextEditor.putProperty("pages", page++, getContextCode());
-            contextEditor.commit();
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
+            Barcode barcode = XMPMetadataBarcodeProvider.getBarcode(data);
+            page = barcode.getPageNumber();
+        } catch (IOException | NullPointerException e) {
+
+            int numberOfPages = Integer.valueOf((String) contextEditor
+                    .getProperty("pages", getContextCode())
+                    .orElse(1));
+
+            page = numberOfPages + 1;
         }
+
+        nestedStore.setContents(String.valueOf(page), data);
+        updateMultipageCount(contextEditor, page);
     }
 
     @Override
@@ -89,6 +98,11 @@ public class PdfDossierFile extends DossierFileImpl {
         }
     }
 
+    private void updateMultipageCount(DossierContextEditor contextEditor, int page) {
+        contextEditor.putProperty("pages", page, getContextCode());
+        contextEditor.commit();
+    }
+
     /**
      * Returns false if uploaded file isn't image (not multi page), true if image.
      *
@@ -98,11 +112,10 @@ public class PdfDossierFile extends DossierFileImpl {
     private boolean checkFileIsImage(File file) {
 
         String mimeType;
-
         try {
-            mimeType = Files.probeContentType(file.toPath());
-        } catch (IOException ex) {
-            throw new FileNotExistsException(file.getName());
+            mimeType = MimeTypeUtil.guessMimeTypeFromFile(file);
+        } catch (IOException e) {
+            throw new RuntimeException("File not exist: " + e);
         }
 
         return mimeType != null && mimeType.contains("image/") ? true : false;
@@ -111,7 +124,7 @@ public class PdfDossierFile extends DossierFileImpl {
     private boolean checkMultipage() {
 
         DossierContextEditor contextEditor = new DossierContextEditor(dossierContextService);
-        Optional<String> pageProperty = contextEditor.getProperty("pages", getContextCode());
+        Optional<Object> pageProperty = contextEditor.getProperty("pages", getContextCode());
 
         return pageProperty.isPresent() ? true : false;
     }

@@ -35,6 +35,8 @@ import ru.ilb.filedossier.functions.MapRuntimeFunction;
  * Bar code format example:
  * <p>
  * <i> doctree:11f462ebdb14a5673ff41a5c75c5176552fad343:1:5 </i>
+ * <p>
+ * TODO: return one bar code
  *
  * @see ru.ilb.filedossier.functions.MapRuntimeFunction
  * @author kuznetsov_me
