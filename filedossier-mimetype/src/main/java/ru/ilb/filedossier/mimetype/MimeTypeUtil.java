@@ -15,6 +15,14 @@
  */
 package ru.ilb.filedossier.mimetype;
 
+import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URLConnection;
 import java.util.Collections;
 import java.util.Iterator;
 
@@ -27,8 +35,24 @@ public class MimeTypeUtil {
     private static MimeTypeRepository mimeTypeRepository = new MimeTypeRepository();
 
     public static String getExtension(String mimeType) {
-        Iterator<String> itr = mimeTypeRepository.getMimeTypes().getOrDefault(mimeType, Collections.<String>emptyList()).iterator();
+        Iterator<String> itr = mimeTypeRepository
+                .getMimeTypes().getOrDefault(mimeType, Collections.<String>emptyList()).iterator();
         return itr.hasNext() ? itr.next() : null;
+    }
+
+    public static String guessMimeTypeFromByteArray(byte[] rawFile) throws IOException {
+        InputStream is = new BufferedInputStream(new ByteArrayInputStream(rawFile));
+        return guessMimeType(is);
+    }
+
+    public static String guessMimeTypeFromFile(File file) throws FileNotFoundException, IOException {
+        InputStream is = new BufferedInputStream(new FileInputStream(file));
+        return guessMimeType(is);
+    }
+
+    private static String guessMimeType(InputStream is) throws IOException {
+        String mimeType = URLConnection.guessContentTypeFromStream(is);
+        return mimeType;
     }
 
 }
