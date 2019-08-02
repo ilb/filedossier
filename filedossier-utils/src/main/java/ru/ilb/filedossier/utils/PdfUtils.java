@@ -3,20 +3,16 @@ package ru.ilb.filedossier.utils;
 /*
  * Copyright 2019 kuznetsov_me.
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License. You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License
+ * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+ * or implied. See the License for the specific language governing permissions and limitations under
+ * the License.
  */
-
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
@@ -26,7 +22,7 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDDocumentInformation;
 
 /**
- * Class for inserting and extracting the meta data to the specified PDF document.
+ * Util class for actions with PDF document.
  *
  * @author kuznetsov_me
  */
@@ -80,6 +76,23 @@ public class PdfUtils {
         try {
             PDDocument pdfDocument = PDDocument.load(document);
             return pdfDocument.getNumberOfPages();
+        } catch (IOException ex) {
+            throw new RuntimeException("Bad document: " + ex);
+        }
+    }
+
+    public static byte[] getPDFPage(byte[] document, int pageNum) {
+        try {
+            PDDocument pdfDocument = PDDocument.load(document);
+            PDDocument pagePdf = new PDDocument();
+            pagePdf.addPage(pdfDocument.getPage(pageNum));
+            ByteArrayOutputStream out = new ByteArrayOutputStream();
+            pagePdf.save(out);
+
+            pdfDocument.close();
+            pagePdf.close();
+
+            return out.toByteArray();
         } catch (IOException ex) {
             throw new RuntimeException("Bad document: " + ex);
         }
