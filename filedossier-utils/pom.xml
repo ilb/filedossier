@@ -15,6 +15,11 @@
             <version>2.0.12</version>
         </dependency>
         <dependency>
+            <groupId>com.drewnoakes</groupId>
+            <artifactId>metadata-extractor</artifactId>
+            <version>2.12.0</version>
+        </dependency>
+        <dependency>
             <groupId>org.apache.pdfbox</groupId>
             <artifactId>xmpbox</artifactId>
             <version>2.0.12</version>
@@ -30,6 +35,11 @@
             <artifactId>hamcrest-core</artifactId>
             <version>1.3</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>filedossier-mimetype</artifactId>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
 </project>
