@@ -1,5 +1,6 @@
 #!/bin/sh
 set -e
+FILE=`basename -s .sh $0`
 umbrello5 --export png  --directory filedossier filedossier.xmi
-xsltproc --nonet /usr/share/umbrello5/xmi2docbook.xsl filedossier.xmi  > filedossier/filedossier.docbook
-pandoc -s --from docbook --to html --output  filedossier/filedossier.html filedossier/filedossier.docbook
+xsltproc --nonet /usr/share/umbrello5/xmi2docbook.xsl ${FILE}.xmi  > ${FILE}/${FILE}.docbook
+pandoc -s --from docbook --to html --output  ${FILE}/${FILE}.html ${FILE}/${FILE}.docbook
