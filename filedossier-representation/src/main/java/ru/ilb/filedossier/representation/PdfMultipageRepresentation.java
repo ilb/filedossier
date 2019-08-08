@@ -16,13 +16,14 @@
 package ru.ilb.filedossier.representation;
 
 import com.itextpdf.io.image.ImageDataFactory;
+import com.itextpdf.kernel.geom.PageSize;
+import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.AreaBreak;
 import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.property.AreaBreakType;
-import com.itextpdf.layout.property.UnitValue;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.List;
@@ -58,17 +59,26 @@ public class PdfMultipageRepresentation extends IdentityRepresentation {
 
         PdfDocument pdfDocument = new PdfDocument(new PdfWriter(out));
 
-        Document document = new Document(pdfDocument);
-
         int numberOfPages = byteImages.size();
 
         int pageNumber = 1;
 
+        Document document = null;
+
         for (byte[] image : byteImages) {
 
+            Rectangle rect = new Rectangle(PageSize.A4.getWidth(), PageSize.A4.getHeight());
+
             Image pageToInsert = new Image(ImageDataFactory.create(image))
-                    .setAutoScale(true)
-                    .setWidth(UnitValue.createPercentValue(100));
+                    .scaleToFit(rect.getWidth(), rect.getHeight());
+
+            pageToInsert.setFixedPosition(0, 0);
+
+            PageSize pageSize = new PageSize(rect);
+
+            if (document == null) {
+                document = new Document(pdfDocument, pageSize);
+            }
 
             document.add(pageToInsert);
 
