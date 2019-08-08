@@ -15,13 +15,13 @@
  */
 package ru.ilb.filedossier.core;
 
-import ru.ilb.filedossier.entities.DossierFile;
-import ru.ilb.filedossier.entities.Dossier;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import ru.ilb.filedossier.entities.Dossier;
+import ru.ilb.filedossier.entities.DossierFile;
 import ru.ilb.filedossier.entities.DossierPath;
 
 /**
@@ -38,63 +38,70 @@ public class DossierImpl implements Dossier {
 
     private final String name;
 
+    private boolean valid;
+
+    // validate all dossier files for dossier validation
+    @Override
+    public boolean isValid() {
+        valid = true;
+        return valid;
+    }
+
     public DossierImpl(String code, String name, String dossierPackage, String contextKey) {
-	this.code = code;
-	this.name = name;
+        this.code = code;
+        this.name = name;
     }
 
     public DossierImpl(String code, String name, String dossierPackage, String dossierKey,
-	    List<DossierFile> dossierFiles) {
-	this.code = code;
-	this.name = name;
-	this.dossierFiles = dossierFiles.stream().peek(df -> df.setParent(this))
-		.collect(Collectors.toMap(df -> df.getCode(), df -> df));
+                       List<DossierFile> dossierFiles) {
+        this.code = code;
+        this.name = name;
+        this.dossierFiles = dossierFiles.stream().peek(df -> df.setParent(this))
+                .collect(Collectors.toMap(df -> df.getCode(), df -> df));
     }
 
     @Override
     public String getCode() {
-	return code;
+        return code;
     }
 
     @Override
     public String getName() {
-	return name;
+        return name;
     }
 
     // @Override
     // public void addDossierFile(DossierFile file) {
     // dossierFiles.put(file.getCode(), file);
     // }
-
     @Override
     public List<DossierFile> getDossierFiles() {
-	return new ArrayList<>(dossierFiles.values());
+        return new ArrayList<>(dossierFiles.values());
     }
 
     @Override
     public DossierFile getDossierFile(String fileCode) {
-	DossierFile file = this.dossierFiles.get(fileCode);
-	if (file == null) {
-	    throw new DossierFileNotFoundException(fileCode);
-	}
-	return file;
+        DossierFile file = this.dossierFiles.get(fileCode);
+        if (file == null) {
+            throw new DossierFileNotFoundException(fileCode);
+        }
+        return file;
     }
 
     @Override
     public Dossier getParent() {
-	return parent;
+        return parent;
     }
 
     @Override
     public void setParent(DossierPath parent) {
-	assert Dossier.class
-		.isAssignableFrom(parent.getClass()) : "Dossier instance should be passed as argument instead of "
-			+ parent.getClass().getCanonicalName();
-	this.parent = (Dossier) parent;
+        assert Dossier.class.isAssignableFrom(parent.getClass()) : "Dossier instance should be passed as argument instead of "
+                                                                   + parent.getClass().getCanonicalName();
+        this.parent = (Dossier) parent;
     }
 
     @Override
     public String getExtension() {
-	return null;
+        return null;
     }
 }

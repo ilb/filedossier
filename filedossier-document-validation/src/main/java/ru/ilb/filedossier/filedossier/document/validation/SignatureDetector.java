@@ -129,7 +129,7 @@ public class SignatureDetector {
         }
 
         /**
-         * Converts specified values into Map structure
+         * Converts specified values into Map structure.
          */
         private Map<String, Object> createRequestMap() {
             try {

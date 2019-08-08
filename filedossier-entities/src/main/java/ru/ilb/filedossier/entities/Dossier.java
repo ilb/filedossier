@@ -19,7 +19,7 @@ import java.util.List;
 
 /**
  * File dossier
- * 
+ *
  * @author SPoket
  */
 public interface Dossier extends DossierPath {
@@ -27,5 +27,7 @@ public interface Dossier extends DossierPath {
     public DossierFile getDossierFile(String fileCode);
 
     public List<DossierFile> getDossierFiles();
+
+    public boolean isValid();
 
 }

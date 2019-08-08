@@ -32,6 +32,6 @@
         <description>uri of signature detector script</description>
         <env-entry-name>ru.bystrobank.apps.documentsignaturedetector.uri</env-entry-name>
         <env-entry-type>java.lang.String</env-entry-type>
-        <env-entry-value>/home/documentsignaturedetector/run_devel.sh</env-entry-value>
+        <env-entry-value>/home/kuznetsov_me/Workplace/signature-detector/run_devel.sh</env-entry-value>
     </env-entry>
 </web-app>

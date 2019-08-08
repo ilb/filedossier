@@ -33,7 +33,6 @@ import ru.ilb.filedossier.representation.PdfMultipageRepresentation;
 import ru.ilb.filedossier.utils.PdfUtils;
 
 /**
- * Perform
  *
  * @author kuznetsov_me
  */

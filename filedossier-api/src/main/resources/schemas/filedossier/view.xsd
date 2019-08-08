@@ -23,6 +23,11 @@
                     <xsd:documentation>Наименование досье</xsd:documentation>
                 </xsd:annotation>
             </xsd:element>
+            <xsd:element name="valid" type="xsd:string" >
+                <xsd:annotation>
+                    <xsd:documentation>Валидность досье</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
             <xsd:element ref="dossierFile" minOccurs="0" maxOccurs="unbounded">
                 <xsd:annotation>
                     <xsd:documentation>Файлы досье</xsd:documentation>
@@ -66,5 +71,4 @@
 
         </xsd:sequence>
     </xsd:complexType>
- 
 </xsd:schema>
