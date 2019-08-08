@@ -15,7 +15,10 @@
  */
 package ru.ilb.filedossier.filedossier.document.validation;
 
+import java.io.IOException;
 import java.net.URI;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -23,6 +26,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import ru.ilb.filedossier.functions.MapRuntimeFunction;
 
 /**
@@ -40,9 +45,9 @@ import ru.ilb.filedossier.functions.MapRuntimeFunction;
 public class SignatureDetector {
 
     /**
-     * URI of the bar code scanner script.
+     * URI of the signature detector script.
      */
-    private URI commandUri;
+    private URI signatureDetectorUri;
 
     /**
      * Request data for the script in the form of {@code Map<String, Object>}. Such a structure is
@@ -50,26 +55,35 @@ public class SignatureDetector {
      */
     private Map<String, Object> requestMap;
 
-    private SignatureDetector() {
+    private SignatureDetector() throws NamingException {
+        InitialContext context = new InitialContext();
+        signatureDetectorUri = URI.create((String) context.lookup(
+                "java:comp/env/ru.bystrobank.apps.documentsignaturedetector.uri"));
     }
 
     /**
      * @return List of "is detected" boolean values of each signature areas.
      */
     public List<Boolean> detectSignatures() {
-        if (commandUri == null) {
+        if (signatureDetectorUri == null) {
             throw new IllegalStateException("Command URI not specified");
         }
-        List<Map<String, Object>> signatures = (LinkedList) new MapRuntimeFunction(commandUri)
+        List<Map<String, Object>> signatures = (LinkedList) new MapRuntimeFunction(
+                signatureDetectorUri)
                 .apply(requestMap)
                 .get("signatures");
+
         return signatures.stream()
                 .map(signature -> (boolean) signature.get("detected"))
                 .collect(Collectors.toList());
     }
 
     public static RequestBuilder newRequestBuilder() {
-        return new SignatureDetector().new RequestBuilder();
+        try {
+            return new SignatureDetector().new RequestBuilder();
+        } catch (NamingException e) {
+            throw new RuntimeException("Bad document signature detector URI: " + e);
+        }
     }
 
     /**
@@ -90,23 +104,27 @@ public class SignatureDetector {
             signatureAreas = new ArrayList<>();
         }
 
-        public RequestBuilder withPDFPage(URI pdfPage) {
-            this.pdfPath = pdfPage.getPath();
+        public RequestBuilder withPDFPage(byte[] pdfPage) throws IOException {
+            Path tempFile = Files.createTempFile("pdfpage", "jpg");
+            Files.write(tempFile, pdfPage);
+            this.pdfPath = tempFile.toString();
             return this;
         }
 
-        public RequestBuilder withScanPage(URI scanPage) {
-            this.scanPath = scanPage.getPath();
+        public RequestBuilder withScanPage(byte[] scanPage) throws IOException {
+            Path tempFile = Files.createTempFile("scanpage", "jpg");
+            Files.write(tempFile, scanPage);
+            this.scanPath = tempFile.toString();
             return this;
         }
 
-        public RequestBuilder withSignatureArea(float x, float y, float h, float w) {
-            this.signatureAreas.add(new DocumentArea(x, y, h, w));
+        public RequestBuilder withSignatureAreas(List<DocumentArea> signatureAreas) {
+            this.signatureAreas = signatureAreas;
             return this;
         }
 
         public RequestBuilder toCommand(URI commandUri) {
-            SignatureDetector.this.commandUri = commandUri;
+            SignatureDetector.this.signatureDetectorUri = commandUri;
             return this;
         }
 

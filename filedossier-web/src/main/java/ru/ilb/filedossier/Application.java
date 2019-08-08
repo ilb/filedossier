@@ -65,18 +65,20 @@ public class Application { // extends JpaBaseConfiguration
 
     @Bean
     public DossierFactory dossierFactory() {
+
         DossierDefinitionRepository dossierModelRepository;
         StoreFactory storeFactory;
         try {
             dossierModelRepository = new FileDossierDefinitionRepository(
                     getClass().getClassLoader().getResource("models").toURI());
-            storeFactory = StoreFactory.newInstance(getClass().getClassLoader().getResource("teststoreroot").toURI());
+            storeFactory = StoreFactory.newInstance(getClass().getClassLoader().getResource(
+                    "teststoreroot").toURI());
         } catch (URISyntaxException ex) {
             throw new RuntimeException(ex);
         }
 
         DossierContextBuilder dossierContextBuilder = (String dossierKey, String dossierPackage,
-                String dossierCode) -> {
+                                                       String dossierCode) -> {
             DossierContext dc = new DossierContextImpl();
             dc.setProperty("name", "Тест имя");
             dc.setProperty("prop", false);
@@ -88,7 +90,8 @@ public class Application { // extends JpaBaseConfiguration
         } catch (NamingException ex) {
             throw new RuntimeException(ex);
         }
-        return new DossierFactory(dossierModelRepository, storeFactory, dossierContextBuilder, templateEvaluator);
+        return new DossierFactory(dossierModelRepository, storeFactory, dossierContextBuilder,
+                                  templateEvaluator);
 
     }
 
@@ -109,7 +112,6 @@ public class Application { // extends JpaBaseConfiguration
 //        xsltJaxbProvider.setRefreshTemplates(true);
 //        return xsltJaxbProvider;
 //    }
-
     @Bean
     public LoggingFeature loggingFeature() {
         LoggingFeature lf = new LoggingFeature();
