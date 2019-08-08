@@ -18,7 +18,6 @@ package ru.ilb.filedossier.core;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 import ru.ilb.filedossier.context.DossierContextEditor;
@@ -26,12 +25,15 @@ import ru.ilb.filedossier.context.DossierContextService;
 import ru.ilb.filedossier.entities.Barcode;
 import ru.ilb.filedossier.entities.Representation;
 import ru.ilb.filedossier.entities.Store;
-import ru.ilb.filedossier.filedossier.document.validation.XMPMetadataBarcodeProvider;
+import ru.ilb.filedossier.filedossier.document.validation.DocumentArea;
+import ru.ilb.filedossier.filedossier.document.validation.ScanXMPMetaProvider;
+import ru.ilb.filedossier.filedossier.document.validation.SignatureDetector;
 import ru.ilb.filedossier.mimetype.MimeTypeUtil;
 import ru.ilb.filedossier.representation.PdfMultipageRepresentation;
 import ru.ilb.filedossier.utils.PdfUtils;
 
 /**
+ * Perform
  *
  * @author kuznetsov_me
  */
@@ -73,18 +75,19 @@ public class PdfDossierFile extends DossierFileImpl {
         DossierContextEditor contextEditor = new DossierContextEditor(dossierContextService);
         Store nestedStore = store.getNestedFileStore(code);
 
+        ScanXMPMetaProvider metaProvider = new ScanXMPMetaProvider(data);
+
         int numberOfPages = PdfUtils.getNumberOfPages(representation.getContents());
 
         int page;
 
         try {
-            Barcode barcode = XMPMetadataBarcodeProvider.getBarcode(data);
+            Barcode barcode = metaProvider.getBarcode();
             page = barcode.getPageNumber();
-        } catch (IOException | NullPointerException e) {
-
-            int numberOfScans = Integer.valueOf((String) contextEditor
+        } catch (NullPointerException | IOException e) {
+            int numberOfScans = (int) contextEditor
                     .getProperty("pages", getContextCode())
-                    .orElse(1));
+                    .orElse(1);
 
             page = ++numberOfScans;
         }
@@ -94,12 +97,39 @@ public class PdfDossierFile extends DossierFileImpl {
                     "Number of pages in specified PDF - %s, scan number - %s", numberOfPages, page));
         }
 
-        byte[] pdfPage = PdfUtils.getPDFPage(representation.getContents(), page - 1);
+        byte[] pdfPage = PdfUtils.extractPdfPage(representation.getContents(), page - 1);
 
-        Files.write(Paths.get(System.getProperty("java.io.tmpdir") + "/result"), pdfPage);
+        boolean checkSignaturesResult = checkSignatures(metaProvider.getSignatureCoordinates(),
+                                                        pdfPage, data);
 
-        nestedStore.setContents(String.valueOf(page), data);
-        updateMultipageCount(contextEditor, page);
+        if (checkSignaturesResult != false) {
+            nestedStore.setContents(String.valueOf(page), data);
+            updateMultipageCount(contextEditor, page);
+        }
+    }
+
+    private boolean checkSignatures(List<DocumentArea> signatureCoordinates, byte[] pdfPage,
+                                    byte[] scanPage) throws IOException {
+
+        if (signatureCoordinates != null) {
+
+            SignatureDetector signatureDetector = SignatureDetector.newRequestBuilder()
+                    .withPDFPage(pdfPage)
+                    .withScanPage(scanPage)
+                    .withSignatureAreas(signatureCoordinates)
+                    .build();
+
+            List<Boolean> signaturesState = signatureDetector.detectSignatures();
+
+            int index = 0;
+            for (boolean signature : signaturesState) {
+                if (!signature) {
+                    throw new RuntimeException("No signature: " + index);
+                }
+                index++;
+            }
+        }
+        return true;
     }
 
     @Override
