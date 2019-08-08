@@ -13,13 +13,16 @@ package ru.ilb.filedossier.utils;
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
+import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import javax.imageio.ImageIO;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDDocumentInformation;
+import org.apache.pdfbox.rendering.PDFRenderer;
 
 /**
  * Util class for actions with PDF document.
@@ -81,18 +84,19 @@ public class PdfUtils {
         }
     }
 
-    public static byte[] getPDFPage(byte[] document, int pageNum) {
-        try {
-            PDDocument pdfDocument = PDDocument.load(document);
-            PDDocument pagePdf = new PDDocument();
-            pagePdf.addPage(pdfDocument.getPage(pageNum));
-            ByteArrayOutputStream out = new ByteArrayOutputStream();
-            pagePdf.save(out);
+    public static byte[] extractPdfPage(byte[] document, int pageNum) {
+        try (PDDocument pdfDocument = PDDocument.load(document);
+             PDDocument pdfPage = new PDDocument()) {
 
-            pdfDocument.close();
-            pagePdf.close();
+            pdfPage.addPage(pdfDocument.getPage(pageNum));
 
-            return out.toByteArray();
+            PDFRenderer renderer = new PDFRenderer(pdfPage);
+            BufferedImage image = renderer.renderImageWithDPI(0, 100);
+
+            try (ByteArrayOutputStream out = new ByteArrayOutputStream();) {
+                ImageIO.write(image, "jpg", out);
+                return out.toByteArray();
+            }
         } catch (IOException ex) {
             throw new RuntimeException("Bad document: " + ex);
         }
