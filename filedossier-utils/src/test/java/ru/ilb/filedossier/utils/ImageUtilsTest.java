@@ -17,7 +17,6 @@ package ru.ilb.filedossier.utils;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Map;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -37,14 +36,16 @@ public class ImageUtilsTest {
     public void testExtractMetadata() throws Exception {
         System.out.println("extractMetadata");
 
-        String expectedMetadata = "{barcode=doctree:11f462ebdb14a5673ff41a5c75c5176552fad343:2:2,"
-                                  + " signatures=16:114:101:129;110:114:195:129;16:267:101:284;110:267:195:284}";
+        String expectedBarcode = "doctree:11f462ebdb14a5673ff41a5c75c5176552fad343:2:2";
+        String expectedSignatures = "16:114:101:129;110:114:195:129;16:267:101:284;110:267:195:284";
 
         byte[] rawImage = Files.readAllBytes(Paths.get(
                 getClass().getClassLoader().getResource("image.jpg").toURI()));
 
-        Map<String, String> result = ImageUtils.extractXMPMetadata(rawImage);
-        Assert.assertEquals(expectedMetadata, result.toString());
+        String resultBarcode = ImageUtils.extractXMPMetadata(rawImage, "barcode");
+        String resultSignatures = ImageUtils.extractXMPMetadata(rawImage, "signatures");
+        Assert.assertEquals(expectedBarcode, resultBarcode);
+        Assert.assertEquals(expectedSignatures, resultSignatures);
     }
 
 }

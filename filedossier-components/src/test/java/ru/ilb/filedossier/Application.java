@@ -16,29 +16,21 @@
 package ru.ilb.filedossier;
 
 import java.net.URISyntaxException;
-import java.nio.file.Paths;
-import javax.annotation.Resource;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import org.apache.cxf.jaxrs.provider.json.JsonMapObjectProvider;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.data.jdbc.repository.config.EnableJdbcRepositories;
-import org.springframework.data.relational.core.mapping.NamingStrategy;
 import ru.ilb.filedossier.context.DossierContextBuilder;
 import ru.ilb.filedossier.context.DossierContextImpl;
-import ru.ilb.filedossier.context.persistence.DBDossierContextService;
-import ru.ilb.filedossier.context.persistence.DossierContextNamingStrategy;
 import ru.ilb.filedossier.core.DossierFactory;
 import ru.ilb.filedossier.ddl.DossierDefinitionRepository;
 import ru.ilb.filedossier.ddl.FileDossierDefinitionRepository;
 import ru.ilb.filedossier.entities.DossierContext;
-import ru.ilb.filedossier.context.DossierContextService;
 import ru.ilb.filedossier.scripting.SubstitutorTemplateEvaluator;
 import ru.ilb.filedossier.scripting.TemplateEvaluator;
 import ru.ilb.filedossier.store.StoreFactory;
-import org.apache.cxf.jaxrs.provider.json.JsonMapObjectProvider;
-import org.springframework.boot.web.server.LocalServerPort;
 
 /**
  *
