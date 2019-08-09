@@ -1,0 +1,33 @@
+{
+  "name": "@ilb/workflow-nextjs",
+  "version": "2.0.12",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@bb/jsonschema-form": "^1.0.2",
+    "@bb/semantic-ui-css": "^2.2.12",
+    "@ilb/filedossier-api": "^1.0.0",
+    "@ilb/workflow-api": "^2.0.2",
+    "next": "^9.0.2",
+    "react": "^16.8.6",
+    "react-addons-shallow-compare": "^15.6.2",
+    "react-dom": "^16.8.6",
+    "semantic-ui-react": "^0.87.3",
+    "xmldom": "^0.1.27",
+    "xpath": "0.0.27"
+  },
+  "devDependencies": {
+    "@zeit/next-css": "^1.0.1",
+    "babel-plugin-css-modules-transform": "^1.6.2",
+    "file-loader": "^3.0.1",
+    "url-loader": "^1.1.2",
+    "webpack": "^4.29.0"
+  }
+}
