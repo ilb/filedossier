@@ -1,0 +1,1 @@
+DROP TABLE `filedossier`.`DOSSIERCONTEXT`, `filedossier`.`DOSSIERCONTEXTDATA`; 

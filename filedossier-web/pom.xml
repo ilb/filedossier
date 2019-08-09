@@ -195,7 +195,52 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>${spring.boot.version}</version>
             </plugin>
-
+            <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>sql-maven-plugin</artifactId>
+                    <version>1.5</version>
+                    <dependencies>
+                        <dependency>
+                            <groupId>mysql</groupId>
+                            <artifactId>mysql-connector-java</artifactId>
+                            <version>8.0.17</version>
+                        </dependency>
+                    </dependencies>
+                    <configuration>
+                        <driver>com.mysql.jdbc.Driver</driver>
+                        <url>jdbc:mysql://localhost:3306/filedossier?serverTimezone=Europe/Samara</url>
+                        <username>filedossier</username>
+                        <password>filedossier</password>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>drop-db</id>
+                            <phase>pre-clean</phase>
+                            <goals>
+                                <goal>execute</goal>
+                            </goals>
+                            <configuration>
+                                <autocommit>true</autocommit>
+                                <srcFiles>
+                                    <srcFile>../filedossier-web/src/main/resources/sql/drop.sql</srcFile>
+                                </srcFiles>
+                            </configuration>
+                        </execution>
+                        <execution>
+                            <id>create-db</id>
+                            <phase>pre-clean</phase>
+                            <goals>
+                                <goal>execute</goal>
+                            </goals>
+                            <configuration>
+                                <autocommit>true</autocommit>
+                                <srcFiles>
+                                    <srcFile>../filedossier-web/src/main/resources/sql/create.sql</srcFile>
+                                </srcFiles>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
