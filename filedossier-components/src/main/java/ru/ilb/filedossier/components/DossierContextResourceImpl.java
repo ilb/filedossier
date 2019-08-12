@@ -20,7 +20,6 @@ import ru.ilb.filedossier.api.DossierContextResource;
 import ru.ilb.filedossier.context.DossierContextImpl;
 import ru.ilb.filedossier.entities.DossierFile;
 
-
 public class DossierContextResourceImpl implements DossierContextResource {
 
     private final DossierFile dossierFile;
@@ -29,10 +28,9 @@ public class DossierContextResourceImpl implements DossierContextResource {
         this.dossierFile = dossierFile;
     }
 
-
     @Override
     public JsonMapObject getContext() {
-        return new JsonMapObject(dossierFile.getDossierContext().asMap());
+        return new JsonMapObject(dossierFile.getContext().asMap());
     }
 
     @Override

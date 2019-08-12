@@ -9,23 +9,27 @@ import java.io.IOException;
 import java.util.List;
 
 /**
+ * <p>
+ * Store represents a physical dossier directory, it allows to set and get contents from dossier
+ * files.
+ * <p>
  *
  * @author slavb
  */
 public interface Store {
 
-    byte[] getContents(String key) throws IOException;
+    /**
+     * @param code
+     * @return
+     * @throws IOException
+     */
+    public byte[] getContents(String code) throws IOException;
 
-    List<byte[]> getAllContents() throws IOException;
+    public List<byte[]> getAllContents() throws IOException;
 
-    void setContents(String key, byte[] contents) throws IOException;
+    public void setContents(String code, byte[] contents) throws IOException;
 
-    boolean isExist(String key);
+    public boolean isExist(String code);
 
-    Store getNestedFileStore(String key);
-
-    // DossierContext getContext(String key) throws IOException;
-    //
-    // void setContext(String key, DossierContext context) throws IOException;
-
+    public Store getNestedFileStore(String code);
 }

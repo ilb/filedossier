@@ -18,63 +18,54 @@ package ru.ilb.filedossier.entities;
 import java.io.File;
 
 /**
- * Dossier file
+ * Dossier file is an extension of DossierContents, it is the abstract dossier file, that contains
+ * representation, context, and abstract flags of file.
  *
  * @author SPoket
  */
 public interface DossierFile extends DossierContents {
 
     /**
-     *
-     * @param file
+     * Store given file as contents of this dossier file.
      */
     public void setContents(File file);
 
     /**
-     * file is required to be present
-     *
-     * @return
+     * @return is file required to be present.
      */
     public boolean getRequired();
 
     /**
-     * file is readonly (cannot be uploaded by user)
-     *
-     * @return
+     * @return is file readonly (can't be uploaded by user)
      */
     public boolean getReadonly();
 
     /**
-     * file id hidden (not shown to user)
-     *
-     * @return
+     * @return is file hidden (not shown to user)
      */
     public boolean getHidden();
 
     /**
-     * file is exsits
-     *
-     * @return
+     * @return is file exists
      */
     public boolean getExists();
 
     /**
-     * get file default representation
-     *
-     * @return
+     * @return default representation of this dossier file
+     * @see ru.ilb.filedossier.entities.Representation
      */
     public Representation getRepresentation();
 
     /**
-     * get dossier context
-     *
-     * @return
+     * @return context of this dossier file
+     * @see ru.ilb.filedossier.entities.DossierContext
      */
-    public DossierContext getDossierContext();
+    public DossierContext getContext();
 
     /**
+     * Sets context for dossier file.
      *
-     * @param dossierContext
+     * @see ru.ilb.filedossier.entities.DossierContext
      */
-    public void setDossierContext(DossierContext dossierContext);
+    public void setDossierContext(DossierContext context);
 }

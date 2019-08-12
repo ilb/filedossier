@@ -18,17 +18,23 @@ package ru.ilb.filedossier.entities;
 import java.util.Map;
 
 /**
+ * <p>
+ * Provides interface for work with context (String, Object) for a certain entity. Context needed to
+ * save properties.
+ * <p>
  *
  * @author slavb
  */
 public interface DossierContext {
-    
-    Map<String, Object> asMap();
 
-    boolean containsProperty(String name);
+    /**
+     * @return context values as map
+     */
+    public Map<String, Object> asMap();
 
-    Object getProperty(String name);
+    public boolean containsProperty(String propertyName);
 
-    void setProperty(String name, Object value);
+    public Object getProperty(String propertyName);
 
+    public void setProperty(String propertyName, Object propertyValue);
 }

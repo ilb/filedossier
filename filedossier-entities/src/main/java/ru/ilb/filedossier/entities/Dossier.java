@@ -18,13 +18,13 @@ package ru.ilb.filedossier.entities;
 import java.util.List;
 
 /**
- * File dossier
+ * This interface is a DossierPath extension, allows to get abstract dossier files.
  *
  * @author SPoket
  */
 public interface Dossier extends DossierPath {
 
-    public DossierFile getDossierFile(String fileCode);
+    public DossierFile getDossierFile(String code);
 
     public List<DossierFile> getDossierFiles();
 
