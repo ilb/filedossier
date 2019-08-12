@@ -16,31 +16,42 @@
 package ru.ilb.filedossier.entities;
 
 /**
- * Dossier file contents
- * 
+ * <p>
+ * This interface is a DossierPath extension, represents the physical file from the dossier
+ * directory.
+ * <p>
+ *
  * @author slavb
  */
 public interface DossierContents extends DossierPath {
 
     /**
-     * get contents using default representation
-     * 
-     * @return
+     * @return file contents using default representation.
      */
     byte[] getContents();
 
     /**
-     * store contents to file
+     * Stores given contents to a file
      *
-     * @param contents
+     * @param contents data, which needs to be saved to a file.
      */
     void setContents(byte[] contents);
 
     /**
-     * file media type (based on default representation)
-     * 
-     * @return
+     * @return file's media type using default representation.
      */
     String getMediaType();
 
+    /**
+     * @return file extension using default representation
+     */
+    public String getExtension();
+
+    /**
+     * @return file name that contains name and extension
+     */
+    default public String getFileName() {
+        String extension = getExtension();
+        return extension == null ? getCode() : getCode() + "." + getExtension();
+    }
 }

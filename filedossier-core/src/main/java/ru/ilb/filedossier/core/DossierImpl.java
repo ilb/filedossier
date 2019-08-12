@@ -99,9 +99,4 @@ public class DossierImpl implements Dossier {
                                                                    + parent.getClass().getCanonicalName();
         this.parent = (Dossier) parent;
     }
-
-    @Override
-    public String getExtension() {
-        return null;
-    }
 }

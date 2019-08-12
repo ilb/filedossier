@@ -16,37 +16,29 @@
 package ru.ilb.filedossier.entities;
 
 /**
+ * This interface is an abstract dossier path (file/dir).
  *
  * @author slavb
  */
 public interface DossierPath {
-    
+
     /**
-     * store (permanent) file name
-     * @return
+     * @return physical name of file/dir
      */
     public String getCode();
 
-
     /**
-     * display (changeable) file name
-     * @return
+     * @return name, displayed to the user
      */
     public String getName();
 
+    /**
+     * @return parent DossierPath
+     */
     public DossierPath getParent();
 
-    public void setParent(DossierPath parent);
-    
     /**
-     * file extension
-     * @return
+     * Sets parent DossierPath.
      */
-    public String getExtension();
-
-    default public String getFileName() {
-        String extension = getExtension();
-        return extension == null ? getCode() : getCode() + "." + extension;
-    }
-
+    public void setParent(DossierPath parent);
 }
