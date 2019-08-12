@@ -1,7 +1,6 @@
 import React, { Suspense, useState, useEffect, useRef } from 'react';
 import { Table, Button, Message, Loader } from 'semantic-ui-react';
 import { DefaultApi as DossierApi} from '@ilb/filedossier-api/dist';
-import DossierResource from './DossierResource';
 
 
 function Dossier( dossier) {

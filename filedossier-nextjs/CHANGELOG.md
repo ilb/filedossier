@@ -1,8 +1,3 @@
-## 2.0.5 (07.08.2019)
-добавил, вывод формы с возможностью переключения на каждый шаг процесса
-
-## 2.0.6 (07.08.2019)
-добавил запуска процесса
-
-## 2.0.7 (07.08.2019)
-добавил переход на Рабочий лист после нажатия Выполнить на этапе проверки расчета
+## 2.0.21 (12.08.2019)
+использовать ссылку http://localhost:3000/dossiers?dossierCode=stockvaluation_fairpricecalc&dossierKey=3701_stockvaluation_stockvaluation_fairpricecalc&dossierPackage=stockvaluation
+убрал лишнее
