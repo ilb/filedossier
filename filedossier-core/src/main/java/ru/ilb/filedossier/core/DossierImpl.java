@@ -38,13 +38,18 @@ public class DossierImpl implements Dossier {
 
     private final String name;
 
-    private boolean valid;
-
     // validate all dossier files for dossier validation
     @Override
     public boolean isValid() {
-        valid = true;
-        return valid;
+        List<Boolean> dossierFilesValids = new ArrayList();
+
+        dossierFiles.forEach((name, dossierdFile)
+                -> dossierFilesValids.add(dossierdFile.isValid()));
+
+        return dossierFilesValids.stream()
+                .filter(dossierFileValid -> dossierFileValid == false)
+                .findFirst()
+                .orElse(true);
     }
 
     public DossierImpl(String code, String name, String dossierPackage, String contextKey) {

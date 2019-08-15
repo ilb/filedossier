@@ -86,7 +86,7 @@ public class PdfDossierFile extends DossierFileImpl {
         } catch (NullPointerException | IOException e) {
             int numberOfScans = (int) contextEditor
                     .getProperty("pages", getContextCode())
-                    .orElse(1);
+                    .orElse(0);
 
             page = ++numberOfScans;
         }
@@ -160,7 +160,7 @@ public class PdfDossierFile extends DossierFileImpl {
             throw new RuntimeException("File not exist: " + e);
         }
 
-        return mimeType != null && mimeType.contains("image/") ? true : false;
+        return mimeType != null && mimeType.contains("image/");
     }
 
     private boolean checkMultipage() {
@@ -168,7 +168,7 @@ public class PdfDossierFile extends DossierFileImpl {
         DossierContextEditor contextEditor = new DossierContextEditor(dossierContextService);
         Optional<Object> pageProperty = contextEditor.getProperty("pages", getContextCode());
 
-        return pageProperty.isPresent() ? true : false;
+        return pageProperty.isPresent();
     }
 
     @Override
@@ -185,6 +185,26 @@ public class PdfDossierFile extends DossierFileImpl {
             return multipageRepresentation;
         } else {
             return representation;
+        }
+    }
+
+    @Override
+    public boolean isValid() {
+
+        if (checkMultipage()) {
+            DossierContextEditor contextEditor = new DossierContextEditor(dossierContextService);
+            Optional<Object> pageProperty = contextEditor.getProperty("pages", getContextCode());
+
+            int numberOfScans = Integer.valueOf((String) contextEditor
+                    .getProperty("pages", getContextCode()).get());
+
+            int originalDocumentPages = PdfUtils.getNumberOfPages(representation.getContents());
+
+            System.out.println("pages: " + numberOfScans + " pdf:" + originalDocumentPages);
+
+            return numberOfScans == originalDocumentPages;
+        } else {
+            return super.isValid();
         }
     }
 }

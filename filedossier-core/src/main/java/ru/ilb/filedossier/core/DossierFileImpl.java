@@ -64,9 +64,9 @@ public class DossierFileImpl implements DossierFile {
 
     protected final DossierContextService dossierContextService;
 
-    public DossierFileImpl(Store store, String code, String name, boolean required, boolean readonly,
-                           boolean hidden,
-                           String mediaType, List<Representation> representations,
+    public DossierFileImpl(Store store, String code, String name, boolean required,
+                           boolean readonly, boolean hidden, String mediaType,
+                           List<Representation> representations,
                            DossierContextService dossierContextService) {
         this.store = store;
         this.code = code;
@@ -190,5 +190,10 @@ public class DossierFileImpl implements DossierFile {
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
+    }
+
+    @Override
+    public boolean isValid() {
+        return getExists();
     }
 }
