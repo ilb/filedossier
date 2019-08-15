@@ -1,0 +1,1582 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Templates xmlns="urn:ru:ilb:meta:doctemplates:primary:loantreaty:credits:auto:V20140707">
+<CreditTreaty xmlns="urn:ru:ilb:meta:doctemplates:primary:loantreaty:credits:auto:credittreaty">
+ <METAURL>https://devel.net.ilb.ru/meta/</METAURL>
+ <ThisDate>2019-06-07</ThisDate>
+ <BankAttributes xmlns="urn:ru:ilb:meta:doctemplates:primary:loantreaty:credits">
+  <Attribute name="BankAttributes">Публичное акционерное общество «БыстроБанк»
+</Attribute>
+  <Attribute name="BankAttributes">426008, УР, г. Ижевск, ул. Пушкинская, 268, тел. (3412)90-80-90
+</Attribute>
+  <Attribute name="BankAttributes">ИНН 1831002591, ОКПО 13068554, ОКОНХ 96120
+</Attribute>
+  <Attribute name="BankAttributes">К/с 30101 810 200 000 000 814 в Отделении - НБ Удмуртская Республика, БИК 049401814</Attribute>
+  <Attribute name="BIK">049401814</Attribute>
+  <Attribute name="CorrAccount">30101810200000000814</Attribute>
+  <Attribute name="ShortBankName">ПАО "БыстроБанк"</Attribute>
+ </BankAttributes>
+ <ManagerFio>Пономарёв Дмитрий Васильевич</ManagerFio>
+ <SignatureTreaty>
+  <Fio xmlns="urn:ru:ilb:meta:doctemplates:primary:loantreaty:credits">Бариева Венера Завдятовна</Fio>
+  <Warrant xmlns="urn:ru:ilb:meta:doctemplates:primary:loantreaty:credits">№2613 от 15.12.2017г.</Warrant>
+ </SignatureTreaty>
+<SignatureInsurance xmlns="urn:ru:ilb:meta:doctemplates:primary:loantreaty:credits:auto:credittreaty"><Fio xmlns="urn:ru:ilb:meta:doctemplates:primary:loantreaty:credits">Щуклина Резида Рамиловна</Fio><Warrant xmlns="urn:ru:ilb:meta:doctemplates:primary:loantreaty:credits">№ 16 от 10.04.2012 &quot;Быстро!Страхование&quot;</Warrant></SignatureInsurance>  <YearAutoPawn>2018</YearAutoPawn>
+ <ClientRegAddress>426063,УДМУРТСКАЯ РЕСП,,ИЖЕВСК Г,,ЦИОЛКОВСКОГО УЛ,12,,,12</ClientRegAddress>
+ <ClientPostRegAddress>426063, УДМУРТСКАЯ РЕСП, ИЖЕВСК Г, ЦИОЛКОВСКОГО УЛ, 12, 12</ClientPostRegAddress>
+ <ClientLiveAddress>426063,УДМУРТСКАЯ РЕСП,,ИЖЕВСК Г,,ЦИОЛКОВСКОГО УЛ,12,,,12</ClientLiveAddress>
+ <clientRepayments xmlns="urn:ru:ilb:meta:doctemplates:primary:loantreaty:credits">
+    <repayments xmlns="urn:ru:ilb:meta:creditreports:loantreatyrepayments">
+        <repayment>
+            <fdRepayment>2019-07-03</fdRepayment>
+            <fcSum>19450</fcSum>
+            <fcInterests>9610.09</fcInterests>
+            <fcMainDebt>9839.91</fcMainDebt>
+            <fcFee>0</fcFee>
+            <fcInterests2>0</fcInterests2>
+            <fcLeasingAp>0</fcLeasingAp>
+        </repayment>
+        <repayment>
+            <fdRepayment>2019-08-05</fdRepayment>
+            <fcSum>19450</fcSum>
+            <fcInterests>10446.54</fcInterests>
+            <fcMainDebt>9003.46</fcMainDebt>
+            <fcFee>0</fcFee>
+            <fcInterests2>0</fcInterests2>
+            <fcLeasingAp>0</fcLeasingAp>
+        </repayment>
+        <repayment>
+            <fdRepayment>2019-09-03</fdRepayment>
+            <fcSum>19450</fcSum>
+            <fcInterests>9080.15</fcInterests>
+            <fcMainDebt>10369.85</fcMainDebt>
+            <fcFee>0</fcFee>
+            <fcInterests2>0</fcInterests2>
+            <fcLeasingAp>0</fcLeasingAp>
+        </repayment>
+        <repayment>
+            <fdRepayment>2019-10-03</fdRepayment>
+            <fcSum>19450</fcSum>
+            <fcInterests>9273.93</fcInterests>
+            <fcMainDebt>10176.07</fcMainDebt>
+            <fcFee>0</fcFee>
+            <fcInterests2>0</fcInterests2>
+            <fcLeasingAp>0</fcLeasingAp>
+        </repayment>
+        <repayment>
+            <fdRepayment>2019-11-05</fdRepayment>
+            <fcSum>19450</fcSum>
+            <fcInterests>10072.52</fcInterests>
+            <fcMainDebt>9377.48</fcMainDebt>
+            <fcFee>0</fcFee>
+            <fcInterests2>0</fcInterests2>
+            <fcLeasingAp>0</fcLeasingAp>
+        </repayment>
+        <repayment>
+            <fdRepayment>2019-12-03</fdRepayment>
+            <fcSum>19450</fcSum>
+            <fcInterests>8445.67</fcInterests>
+            <fcMainDebt>11004.33</fcMainDebt>
+            <fcFee>0</fcFee>
+            <fcInterests2>0</fcInterests2>
+            <fcLeasingAp>0</fcLeasingAp>
+        </repayment>
+        <repayment>
+            <fdRepayment>2020-01-09</fdRepayment>
+            <fcSum>19450</fcSum>
+            <fcInterests>10996.87</fcInterests>
+            <fcMainDebt>8453.13</fcMainDebt>
+            <fcFee>0</fcFee>
+            <fcInterests2>0</fcInterests2>
+            <fcLeasingAp>0</fcLeasingAp>
+        </repayment>
+        <repayment>
+            <fdRepayment>2020-02-03</fdRepayment>
+            <fcSum>19450</fcSum>
+            <fcInterests>7334.1</fcInterests>
+            <fcMainDebt>12115.9</fcMainDebt>
+            <fcFee>0</fcFee>
+            <fcInterests2>0</fcInterests2>
+            <fcLeasingAp>0</fcLeasingAp>
+        </repayment>
+        <repayment>
+            <fdRepayment>2020-03-03</fdRepayment>
+            <fcSum>19450</fcSum>
+            <fcInterests>8373.16</fcInterests>
+            <fcMainDebt>11076.84</fcMainDebt>
+            <fcFee>0</fcFee>
+            <fcInterests2>0</fcInterests2>
+            <fcLeasingAp>0</fcLeasingAp>
+        </repayment>
+        <repayment>
+            <fdRepayment>2020-04-03</fdRepayment>
+            <fcSum>19450</fcSum>
+            <fcInterests>8819.27</fcInterests>
+            <fcMainDebt>10630.73</fcMainDebt>
+            <fcFee>0</fcFee>
+            <fcInterests2>0</fcInterests2>
+            <fcLeasingAp>0</fcLeasingAp>
+        </repayment>
+        <repayment>
+            <fdRepayment>2020-05-05</fdRepayment>
+            <fcSum>19450</fcSum>
+            <fcInterests>8973.64</fcInterests>
+            <fcMainDebt>10476.36</fcMainDebt>
+            <fcFee>0</fcFee>
+            <fcInterests2>0</fcInterests2>
+            <fcLeasingAp>0</fcLeasingAp>
+        </repayment>
+        <repayment>
+            <fdRepayment>2020-06-03</fdRepayment>
+            <fcSum>19450</fcSum>
+            <fcInterests>8016.15</fcInterests>
+            <fcMainDebt>11433.85</fcMainDebt>
+            <fcFee>0</fcFee>
+            <fcInterests2>0</fcInterests2>
+            <fcLeasingAp>0</fcLeasingAp>
+        </repayment>
+        <repayment>
+            <fdRepayment>2020-07-03</fdRepayment>
+            <fcSum>19450</fcSum>
+            <fcInterests>8161.36</fcInterests>
+            <fcMainDebt>11288.64</fcMainDebt>
+            <fcFee>0</fcFee>
+            <fcInterests2>0</fcInterests2>
+            <fcLeasingAp>0</fcLeasingAp>
+        </repayment>
+        <repayment>
+            <fdRepayment>2020-08-03</fdRepayment>
+            <fcSum>19450</fcSum>
+            <fcInterests>8299.54</fcInterests>
+            <fcMainDebt>11150.46</fcMainDebt>
+            <fcFee>0</fcFee>
+            <fcInterests2>0</fcInterests2>
+            <fcLeasingAp>0</fcLeasingAp>
+        </repayment>
+        <repayment>
+            <fdRepayment>2020-09-03</fdRepayment>
+            <fcSum>19450</fcSum>
+            <fcInterests>8167.33</fcInterests>
+            <fcMainDebt>11282.67</fcMainDebt>
+            <fcFee>0</fcFee>
+            <fcInterests2>0</fcInterests2>
+            <fcLeasingAp>0</fcLeasingAp>
+        </repayment>
+        <repayment>
+            <fdRepayment>2020-10-05</fdRepayment>
+            <fcSum>19450</fcSum>
+            <fcInterests>8292.68</fcInterests>
+            <fcMainDebt>11157.32</fcMainDebt>
+            <fcFee>0</fcFee>
+            <fcInterests2>0</fcInterests2>
+            <fcLeasingAp>0</fcLeasingAp>
+        </repayment>
+        <repayment>
+            <fdRepayment>2020-11-03</fdRepayment>
+            <fcSum>19450</fcSum>
+            <fcInterests>7391.48</fcInterests>
+            <fcMainDebt>12058.52</fcMainDebt>
+            <fcFee>0</fcFee>
+            <fcInterests2>0</fcInterests2>
+            <fcLeasingAp>0</fcLeasingAp>
+        </repayment>
+        <repayment>
+            <fdRepayment>2020-12-03</fdRepayment>
+            <fcSum>19450</fcSum>
+            <fcInterests>7507.98</fcInterests>
+            <fcMainDebt>11942.02</fcMainDebt>
+            <fcFee>0</fcFee>
+            <fcInterests2>0</fcInterests2>
+            <fcLeasingAp>0</fcLeasingAp>
+        </repayment>
+        <repayment>
+            <fdRepayment>2021-01-11</fdRepayment>
+            <fcSum>19450</fcSum>
+            <fcInterests>9589.62</fcInterests>
+            <fcMainDebt>9860.38</fcMainDebt>
+            <fcFee>0</fcFee>
+            <fcInterests2>0</fcInterests2>
+            <fcLeasingAp>0</fcLeasingAp>
+        </repayment>
+        <repayment>
+            <fdRepayment>2021-02-03</fdRepayment>
+            <fcSum>19450</fcSum>
+            <fcInterests>5579.55</fcInterests>
+            <fcMainDebt>13870.45</fcMainDebt>
+            <fcFee>0</fcFee>
+            <fcInterests2>0</fcInterests2>
+            <fcLeasingAp>0</fcLeasingAp>
+        </repayment>
+        <repayment>
+            <fdRepayment>2021-03-03</fdRepayment>
+            <fcSum>19450</fcSum>
+            <fcInterests>6643.53</fcInterests>
+            <fcMainDebt>12806.47</fcMainDebt>
+            <fcFee>0</fcFee>
+            <fcInterests2>0</fcInterests2>
+            <fcLeasingAp>0</fcLeasingAp>
+        </repayment>
+        <repayment>
+            <fdRepayment>2021-04-05</fdRepayment>
+            <fcSum>19450</fcSum>
+            <fcInterests>7667.77</fcInterests>
+            <fcMainDebt>11782.23</fcMainDebt>
+            <fcFee>0</fcFee>
+            <fcInterests2>0</fcInterests2>
+            <fcLeasingAp>0</fcLeasingAp>
+        </repayment>
+        <repayment>
+            <fdRepayment>2021-05-06</fdRepayment>
+            <fcSum>19450</fcSum>
+            <fcInterests>7062.97</fcInterests>
+            <fcMainDebt>12387.03</fcMainDebt>
+            <fcFee>0</fcFee>
+            <fcInterests2>0</fcInterests2>
+            <fcLeasingAp>0</fcLeasingAp>
+        </repayment>
+        <repayment>
+            <fdRepayment>2021-06-03</fdRepayment>
+            <fcSum>19450</fcSum>
+            <fcInterests>6246.42</fcInterests>
+            <fcMainDebt>13203.58</fcMainDebt>
+            <fcFee>0</fcFee>
+            <fcInterests2>0</fcInterests2>
+            <fcLeasingAp>0</fcLeasingAp>
+        </repayment>
+        <repayment>
+            <fdRepayment>2021-07-05</fdRepayment>
+            <fcSum>19450</fcSum>
+            <fcInterests>6976.7</fcInterests>
+            <fcMainDebt>12473.3</fcMainDebt>
+            <fcFee>0</fcFee>
+            <fcInterests2>0</fcInterests2>
+            <fcLeasingAp>0</fcLeasingAp>
+        </repayment>
+        <repayment>
+            <fdRepayment>2021-08-03</fdRepayment>
+            <fcSum>19450</fcSum>
+            <fcInterests>6183.89</fcInterests>
+            <fcMainDebt>13266.11</fcMainDebt>
+            <fcFee>0</fcFee>
+            <fcInterests2>0</fcInterests2>
+            <fcLeasingAp>0</fcLeasingAp>
+        </repayment>
+        <repayment>
+            <fdRepayment>2021-09-03</fdRepayment>
+            <fcSum>19450</fcSum>
+            <fcInterests>6452.63</fcInterests>
+            <fcMainDebt>12997.37</fcMainDebt>
+            <fcFee>0</fcFee>
+            <fcInterests2>0</fcInterests2>
+            <fcLeasingAp>0</fcLeasingAp>
+        </repayment>
+        <repayment>
+            <fdRepayment>2021-10-04</fdRepayment>
+            <fcSum>19450</fcSum>
+            <fcInterests>6298.09</fcInterests>
+            <fcMainDebt>13151.91</fcMainDebt>
+            <fcFee>0</fcFee>
+            <fcInterests2>0</fcInterests2>
+            <fcLeasingAp>0</fcLeasingAp>
+        </repayment>
+        <repayment>
+            <fdRepayment>2021-11-03</fdRepayment>
+            <fcSum>19450</fcSum>
+            <fcInterests>5943.59</fcInterests>
+            <fcMainDebt>13506.41</fcMainDebt>
+            <fcFee>0</fcFee>
+            <fcInterests2>0</fcInterests2>
+            <fcLeasingAp>0</fcLeasingAp>
+        </repayment>
+        <repayment>
+            <fdRepayment>2021-12-03</fdRepayment>
+            <fcSum>19450</fcSum>
+            <fcInterests>5788.17</fcInterests>
+            <fcMainDebt>13661.83</fcMainDebt>
+            <fcFee>0</fcFee>
+            <fcInterests2>0</fcInterests2>
+            <fcLeasingAp>0</fcLeasingAp>
+        </repayment>
+        <repayment>
+            <fdRepayment>2022-01-10</fdRepayment>
+            <fcSum>19450</fcSum>
+            <fcInterests>7132.56</fcInterests>
+            <fcMainDebt>12317.44</fcMainDebt>
+            <fcFee>0</fcFee>
+            <fcInterests2>0</fcInterests2>
+            <fcLeasingAp>0</fcLeasingAp>
+        </repayment>
+        <repayment>
+            <fdRepayment>2022-02-03</fdRepayment>
+            <fcSum>19450</fcSum>
+            <fcInterests>4391.38</fcInterests>
+            <fcMainDebt>15058.62</fcMainDebt>
+            <fcFee>0</fcFee>
+            <fcInterests2>0</fcInterests2>
+            <fcLeasingAp>0</fcLeasingAp>
+        </repayment>
+        <repayment>
+            <fdRepayment>2022-03-03</fdRepayment>
+            <fcSum>19450</fcSum>
+            <fcInterests>4961.56</fcInterests>
+            <fcMainDebt>14488.44</fcMainDebt>
+            <fcFee>0</fcFee>
+            <fcInterests2>0</fcInterests2>
+            <fcLeasingAp>0</fcLeasingAp>
+        </repayment>
+        <repayment>
+            <fdRepayment>2022-04-04</fdRepayment>
+            <fcSum>19450</fcSum>
+            <fcInterests>5492.51</fcInterests>
+            <fcMainDebt>13957.49</fcMainDebt>
+            <fcFee>0</fcFee>
+            <fcInterests2>0</fcInterests2>
+            <fcLeasingAp>0</fcLeasingAp>
+        </repayment>
+        <repayment>
+            <fdRepayment>2022-05-05</fdRepayment>
+            <fcSum>19450</fcSum>
+            <fcInterests>5154.92</fcInterests>
+            <fcMainDebt>14295.08</fcMainDebt>
+            <fcFee>0</fcFee>
+            <fcInterests2>0</fcInterests2>
+            <fcLeasingAp>0</fcLeasingAp>
+        </repayment>
+        <repayment>
+            <fdRepayment>2022-06-03</fdRepayment>
+            <fcSum>19450</fcSum>
+            <fcInterests>4663.33</fcInterests>
+            <fcMainDebt>14786.67</fcMainDebt>
+            <fcFee>0</fcFee>
+            <fcInterests2>0</fcInterests2>
+            <fcLeasingAp>0</fcLeasingAp>
+        </repayment>
+        <repayment>
+            <fdRepayment>2022-07-04</fdRepayment>
+            <fcSum>19450</fcSum>
+            <fcInterests>4809.12</fcInterests>
+            <fcMainDebt>14640.88</fcMainDebt>
+            <fcFee>0</fcFee>
+            <fcInterests2>0</fcInterests2>
+            <fcLeasingAp>0</fcLeasingAp>
+        </repayment>
+        <repayment>
+            <fdRepayment>2022-08-03</fdRepayment>
+            <fcSum>19450</fcSum>
+            <fcInterests>4485.52</fcInterests>
+            <fcMainDebt>14964.48</fcMainDebt>
+            <fcFee>0</fcFee>
+            <fcInterests2>0</fcInterests2>
+            <fcLeasingAp>0</fcLeasingAp>
+        </repayment>
+        <repayment>
+            <fdRepayment>2022-09-05</fdRepayment>
+            <fcSum>19450</fcSum>
+            <fcInterests>4744.66</fcInterests>
+            <fcMainDebt>14705.34</fcMainDebt>
+            <fcFee>0</fcFee>
+            <fcInterests2>0</fcInterests2>
+            <fcLeasingAp>0</fcLeasingAp>
+        </repayment>
+        <repayment>
+            <fdRepayment>2022-10-03</fdRepayment>
+            <fcSum>19450</fcSum>
+            <fcInterests>3867.84</fcInterests>
+            <fcMainDebt>15582.16</fcMainDebt>
+            <fcFee>0</fcFee>
+            <fcInterests2>0</fcInterests2>
+            <fcLeasingAp>0</fcLeasingAp>
+        </repayment>
+        <repayment>
+            <fdRepayment>2022-11-03</fdRepayment>
+            <fcSum>19450</fcSum>
+            <fcInterests>4096.97</fcInterests>
+            <fcMainDebt>15353.03</fcMainDebt>
+            <fcFee>0</fcFee>
+            <fcInterests2>0</fcInterests2>
+            <fcLeasingAp>0</fcLeasingAp>
+        </repayment>
+        <repayment>
+            <fdRepayment>2022-12-05</fdRepayment>
+            <fcSum>19450</fcSum>
+            <fcInterests>4040.69</fcInterests>
+            <fcMainDebt>15409.31</fcMainDebt>
+            <fcFee>0</fcFee>
+            <fcInterests2>0</fcInterests2>
+            <fcLeasingAp>0</fcLeasingAp>
+        </repayment>
+        <repayment>
+            <fdRepayment>2023-01-09</fdRepayment>
+            <fcSum>19450</fcSum>
+            <fcInterests>4212.64</fcInterests>
+            <fcMainDebt>15237.36</fcMainDebt>
+            <fcFee>0</fcFee>
+            <fcInterests2>0</fcInterests2>
+            <fcLeasingAp>0</fcLeasingAp>
+        </repayment>
+        <repayment>
+            <fdRepayment>2023-02-03</fdRepayment>
+            <fcSum>19450</fcSum>
+            <fcInterests>2862.92</fcInterests>
+            <fcMainDebt>16587.08</fcMainDebt>
+            <fcFee>0</fcFee>
+            <fcInterests2>0</fcInterests2>
+            <fcLeasingAp>0</fcLeasingAp>
+        </repayment>
+        <repayment>
+            <fdRepayment>2023-03-03</fdRepayment>
+            <fcSum>19450</fcSum>
+            <fcInterests>3028.32</fcInterests>
+            <fcMainDebt>16421.68</fcMainDebt>
+            <fcFee>0</fcFee>
+            <fcInterests2>0</fcInterests2>
+            <fcLeasingAp>0</fcLeasingAp>
+        </repayment>
+        <repayment>
+            <fdRepayment>2023-04-03</fdRepayment>
+            <fcSum>19450</fcSum>
+            <fcInterests>3157.53</fcInterests>
+            <fcMainDebt>16292.47</fcMainDebt>
+            <fcFee>0</fcFee>
+            <fcInterests2>0</fcInterests2>
+            <fcLeasingAp>0</fcLeasingAp>
+        </repayment>
+        <repayment>
+            <fdRepayment>2023-05-04</fdRepayment>
+            <fcSum>19450</fcSum>
+            <fcInterests>2963.81</fcInterests>
+            <fcMainDebt>16486.19</fcMainDebt>
+            <fcFee>0</fcFee>
+            <fcInterests2>0</fcInterests2>
+            <fcLeasingAp>0</fcLeasingAp>
+        </repayment>
+        <repayment>
+            <fdRepayment>2023-06-05</fdRepayment>
+            <fcSum>19450</fcSum>
+            <fcInterests>2857.06</fcInterests>
+            <fcMainDebt>16592.94</fcMainDebt>
+            <fcFee>0</fcFee>
+            <fcInterests2>0</fcInterests2>
+            <fcLeasingAp>0</fcLeasingAp>
+        </repayment>
+        <repayment>
+            <fdRepayment>2023-07-03</fdRepayment>
+            <fcSum>19450</fcSum>
+            <fcInterests>2321.73</fcInterests>
+            <fcMainDebt>17128.27</fcMainDebt>
+            <fcFee>0</fcFee>
+            <fcInterests2>0</fcInterests2>
+            <fcLeasingAp>0</fcLeasingAp>
+        </repayment>
+        <repayment>
+            <fdRepayment>2023-08-03</fdRepayment>
+            <fcSum>19450</fcSum>
+            <fcInterests>2366.82</fcInterests>
+            <fcMainDebt>17083.18</fcMainDebt>
+            <fcFee>0</fcFee>
+            <fcInterests2>0</fcInterests2>
+            <fcLeasingAp>0</fcLeasingAp>
+        </repayment>
+        <repayment>
+            <fdRepayment>2023-09-04</fdRepayment>
+            <fcSum>19450</fcSum>
+            <fcInterests>2233.49</fcInterests>
+            <fcMainDebt>17216.51</fcMainDebt>
+            <fcFee>0</fcFee>
+            <fcInterests2>0</fcInterests2>
+            <fcLeasingAp>0</fcLeasingAp>
+        </repayment>
+        <repayment>
+            <fdRepayment>2023-10-03</fdRepayment>
+            <fcSum>19450</fcSum>
+            <fcInterests>1832.59</fcInterests>
+            <fcMainDebt>17617.41</fcMainDebt>
+            <fcFee>0</fcFee>
+            <fcInterests2>0</fcInterests2>
+            <fcLeasingAp>0</fcLeasingAp>
+        </repayment>
+        <repayment>
+            <fdRepayment>2023-11-03</fdRepayment>
+            <fcSum>19450</fcSum>
+            <fcInterests>1749.5</fcInterests>
+            <fcMainDebt>17700.5</fcMainDebt>
+            <fcFee>0</fcFee>
+            <fcInterests2>0</fcInterests2>
+            <fcLeasingAp>0</fcLeasingAp>
+        </repayment>
+        <repayment>
+            <fdRepayment>2023-12-04</fdRepayment>
+            <fcSum>19450</fcSum>
+            <fcInterests>1539.04</fcInterests>
+            <fcMainDebt>17910.96</fcMainDebt>
+            <fcFee>0</fcFee>
+            <fcInterests2>0</fcInterests2>
+            <fcLeasingAp>0</fcLeasingAp>
+        </repayment>
+        <repayment>
+            <fdRepayment>2024-01-09</fdRepayment>
+            <fcSum>19450</fcSum>
+            <fcInterests>1538.9</fcInterests>
+            <fcMainDebt>17911.1</fcMainDebt>
+            <fcFee>0</fcFee>
+            <fcInterests2>0</fcInterests2>
+            <fcLeasingAp>0</fcLeasingAp>
+        </repayment>
+        <repayment>
+            <fdRepayment>2024-02-05</fdRepayment>
+            <fcSum>19450</fcSum>
+            <fcInterests>966.82</fcInterests>
+            <fcMainDebt>18483.18</fcMainDebt>
+            <fcFee>0</fcFee>
+            <fcInterests2>0</fcInterests2>
+            <fcLeasingAp>0</fcLeasingAp>
+        </repayment>
+        <repayment>
+            <fdRepayment>2024-03-04</fdRepayment>
+            <fcSum>19450</fcSum>
+            <fcInterests>804.67</fcInterests>
+            <fcMainDebt>18645.33</fcMainDebt>
+            <fcFee>0</fcFee>
+            <fcInterests2>0</fcInterests2>
+            <fcLeasingAp>0</fcLeasingAp>
+        </repayment>
+        <repayment>
+            <fdRepayment>2024-04-03</fdRepayment>
+            <fcSum>19450</fcSum>
+            <fcInterests>648.18</fcInterests>
+            <fcMainDebt>18801.82</fcMainDebt>
+            <fcFee>0</fcFee>
+            <fcInterests2>0</fcInterests2>
+            <fcLeasingAp>0</fcLeasingAp>
+        </repayment>
+        <repayment>
+            <fdRepayment>2024-05-06</fdRepayment>
+            <fcSum>19450</fcSum>
+            <fcInterests>475.66</fcInterests>
+            <fcMainDebt>18974.34</fcMainDebt>
+            <fcFee>0</fcFee>
+            <fcInterests2>0</fcInterests2>
+            <fcLeasingAp>0</fcLeasingAp>
+        </repayment>
+        <repayment>
+            <fdRepayment>2024-06-03</fdRepayment>
+            <fcSum>18908.59</fcSum>
+            <fcInterests>200.37</fcInterests>
+            <fcMainDebt>18708.22</fcMainDebt>
+            <fcFee>0</fcFee>
+            <fcInterests2>0</fcInterests2>
+            <fcLeasingAp>0</fcLeasingAp>
+        </repayment>
+    </repayments>
+    <resultRepayment xmlns="urn:ru:ilb:meta:creditreports:loantreatyrepayments">
+        <fcSum>1166458.59</fcSum>
+        <fcInterests>331296.5</fcInterests>
+        <fcMainDebt>835162.09</fcMainDebt>
+        <fcFee>0</fcFee>
+        <fcInterests2>0</fcInterests2>
+        <fcLeasingAp>0</fcLeasingAp>
+    </resultRepayment>
+</clientRepayments>
+ <TreatyInfo xmlns="urn:ru:ilb:meta:CreditReports:TreatyInfo">
+  <DocIcsId>1127825</DocIcsId>
+  <TreatyNum>878032/02-ДО/ПК</TreatyNum>
+  <TreatyNumSix>878032</TreatyNumSix>
+  <TreatyPeriod>60</TreatyPeriod>
+  <TreatyDateCreate>2019-06-03</TreatyDateCreate>
+  <TreatyDateDelivery>2019-06-03</TreatyDateDelivery>
+  <LimitStartDate>2019-06-03</LimitStartDate>
+  <TreatyEndDate>2024-06-03</TreatyEndDate>
+  <TreatyDateOneYear>2020-06-03</TreatyDateOneYear>
+  <GoodTreatyDateOneYear>2020-06-02</GoodTreatyDateOneYear>
+  <AccountOpenDate>2019-06-03</AccountOpenDate>
+  <AccountNumber>40817810800004087443</AccountNumber>
+  <AccountDepositId>4087443</AccountDepositId>
+  <AddAccountOpenDate>2019-06-03</AddAccountOpenDate>
+  <AddAccountNumber>40817810100004087444</AddAccountNumber>
+  <AddAccountDepositId>4087444</AddAccountDepositId>
+  <CreditLimit>835162.09</CreditLimit>
+  <CreditLimitText>Восемьсот тридцать пять тысяч сто шестьдесят два рубля 09 копеек</CreditLimitText>
+  <HalfCreditLimit>417581.05</HalfCreditLimit>
+  <HalfCreditLimitText>Четыреста семнадцать тысяч пятьсот восемьдесят один рубль 05 копеек</HalfCreditLimitText>
+  <Rate>14.00</Rate>
+  <RateText>Четырнадцать</RateText>
+  <RateTextShort>Четырнадцать</RateTextShort>
+  <RateSecond>14.000000</RateSecond>
+  <RateSecondText>Четырнадцать</RateSecondText>
+  <RatePercentText>процентов</RatePercentText>
+  <RateSecondPercentText>процентов</RateSecondPercentText>
+  <RateLarger></RateLarger>
+  <RateLargerTextShort>Ноль</RateLargerTextShort>
+  <RateLargerPercentText>процентов</RateLargerPercentText>
+  <LimitRate></LimitRate>
+  <LimitRateTextShort>Ноль</LimitRateTextShort>
+  <LimitRatePercentText>процентов</LimitRatePercentText>
+  <RateRefinanc>7.75</RateRefinanc>
+  <RateAllText/>
+  <Office></Office>
+  <NeedCreditCard>false</NeedCreditCard>
+  <Legend></Legend>
+  <CodeWordQuestion></CodeWordQuestion>
+  <CodeWord></CodeWord>
+  <Filial>Операционный офис &quot;Уфа. Молодежный&quot; ПАО &quot;БыстроБанк&quot;</Filial>
+  <NoCashBox>false</NoCashBox>
+  <GoalNumber>131</GoalNumber>
+  <AnkId>7793053</AnkId>
+  <AnkDate>2019-06-03 11:29:19</AnkDate>
+  <FinePercent>1.3</FinePercent>
+  <DateCreditPhone1>2019-06-17</DateCreditPhone1>
+  <DateCreditPhone2>2019-06-18</DateCreditPhone2>
+  <BailTreaties>
+   <bailtreaty xmlns="urn:ru:ilb:meta:creditreports:bailtreaty">
+    <Num>1127826</Num>
+    <Type>1</Type>
+    <TreatyNum>878033/02-ДО/ПОР</TreatyNum>
+    <TreatyDateCreate>2019-06-03</TreatyDateCreate>
+    <AddrReg>643,РОССИЯ,426057,18,УДМУРТСКАЯ РЕСП,,ИЖЕВСК Г,,МАКСИМА ГОРЬКОГО УЛ,79,,,офис213</AddrReg>
+    <AddrLive>643,РОССИЯ,426057,18,УДМУРТСКАЯ РЕСП,,ИЖЕВСК Г,,МАКСИМА ГОРЬКОГО УЛ,79,,,ОФИС 213</AddrLive>
+    <questionnaire xmlns="urn:ru:ilb:meta:crm:questionnaire">
+     <clientUUID xmlns="urn:ru:ilb:meta:crm:questionnaire">C36067C3-2F15-4A02-8B13-5E755DAA1375</clientUUID>
+     <passport xmlns="urn:ru:ilb:meta:crm:questionnaire"><lastname xmlns="urn:ru:ilb:meta:basictypes:passport">&quot;БРОКЕР&quot;</lastname>
+<firstname xmlns="urn:ru:ilb:meta:basictypes:passport">ООО</firstname>
+<regaddress xmlns="urn:ru:ilb:meta:basictypes:passport"><countrycode xmlns="urn:ru:ilb:meta:basictypes:addressType">643</countrycode>
+<index xmlns="urn:ru:ilb:meta:basictypes:addressType">426057</index>
+<regioncode xmlns="urn:ru:ilb:meta:basictypes:addressType">18</regioncode>
+<town xmlns="urn:ru:ilb:meta:basictypes:addressType">ИЖЕВСК Г</town>
+<street xmlns="urn:ru:ilb:meta:basictypes:addressType">МАКСИМА ГОРЬКОГО УЛ</street>
+<house xmlns="urn:ru:ilb:meta:basictypes:addressType">79</house>
+<flat xmlns="urn:ru:ilb:meta:basictypes:addressType">офис213</flat>
+</regaddress>
+</passport>
+     <inn xmlns="urn:ru:ilb:meta:crm:questionnaire">1831081811</inn>
+     <liveaddress xmlns="urn:ru:ilb:meta:crm:questionnaire"><countrycode xmlns="urn:ru:ilb:meta:basictypes:addressType">643</countrycode>
+<index xmlns="urn:ru:ilb:meta:basictypes:addressType">426057</index>
+<regioncode xmlns="urn:ru:ilb:meta:basictypes:addressType">18</regioncode>
+<town xmlns="urn:ru:ilb:meta:basictypes:addressType">ИЖЕВСК Г</town>
+<street xmlns="urn:ru:ilb:meta:basictypes:addressType">МАКСИМА ГОРЬКОГО УЛ</street>
+<house xmlns="urn:ru:ilb:meta:basictypes:addressType">79</house>
+<flat xmlns="urn:ru:ilb:meta:basictypes:addressType">ОФИС 213</flat>
+</liveaddress>
+     <ogrn xmlns="urn:ru:ilb:meta:crm:questionnaire">1021801145222</ogrn>
+     <okpo xmlns="urn:ru:ilb:meta:crm:questionnaire">24490552</okpo>
+     <okonx xmlns="urn:ru:ilb:meta:crm:questionnaire">0</okonx>
+     <ks xmlns="urn:ru:ilb:meta:crm:questionnaire">30101810200000000814</ks>
+     <bik xmlns="urn:ru:ilb:meta:crm:questionnaire">049401814</bik>
+    </questionnaire>
+    <EndDate>2024-06-03 00:00:00</EndDate>
+    <Sum>1085710.72</Sum>
+    <Account>40702810700000000257</Account>
+    <SumText>Один миллион восемьдесят пять тысяч семьсот десять рублей 72 копейки</SumText>
+    <icsId>26354</icsId>
+    <isBroker>true</isBroker>
+   </bailtreaty>
+   <bailtreaty xmlns="urn:ru:ilb:meta:creditreports:bailtreaty">
+    <Num>1127827</Num>
+    <Type>2</Type>
+    <Subject>автомобиль</Subject>
+    <PtsNumber>00 XX 000019</PtsNumber>
+    <Insurance>true</Insurance>
+    <TypePawn>5</TypePawn>
+    <TypeAuto>2</TypeAuto>
+    <TreatyNum>878032/02-ДО/ПК</TreatyNum>
+    <TreatyDateCreate>2019-06-03</TreatyDateCreate>
+    <AddrReg>643,РОССИЯ,426063,18,УДМУРТСКАЯ РЕСП,,ИЖЕВСК Г,,ЦИОЛКОВСКОГО УЛ,12,,,12</AddrReg>
+    <AddrLive>643,РОССИЯ,426063,18,УДМУРТСКАЯ РЕСП,,ИЖЕВСК Г,,ЦИОЛКОВСКОГО УЛ,12,,,12</AddrLive>
+    <questionnaire xmlns="urn:ru:ilb:meta:crm:questionnaire">
+     <clientUUID xmlns="urn:ru:ilb:meta:crm:questionnaire">48BE3531-5B51-4C1B-ADD5-6C9101A778E5</clientUUID>
+     <passport xmlns="urn:ru:ilb:meta:crm:questionnaire"><lastname xmlns="urn:ru:ilb:meta:basictypes:passport">Пупкин</lastname>
+<firstname xmlns="urn:ru:ilb:meta:basictypes:passport">Махмут</firstname>
+<middlename xmlns="urn:ru:ilb:meta:basictypes:passport">Иосифович</middlename>
+<seria xmlns="urn:ru:ilb:meta:basictypes:passport">14 03</seria>
+<number xmlns="urn:ru:ilb:meta:basictypes:passport">232366</number>
+<issuedate xmlns="urn:ru:ilb:meta:basictypes:passport">2012-12-12</issuedate>
+<organcode xmlns="urn:ru:ilb:meta:basictypes:passport">555-555</organcode>
+<organname xmlns="urn:ru:ilb:meta:basictypes:passport">ОТДЕЛОМ ВНУТРЕННИХ ДЕЛ ГОРОДА</organname>
+<birthday xmlns="urn:ru:ilb:meta:basictypes:passport">1980-12-12</birthday>
+<birthplace xmlns="urn:ru:ilb:meta:basictypes:passport">Г. ГОРОД</birthplace>
+<regaddress xmlns="urn:ru:ilb:meta:basictypes:passport"><countrycode xmlns="urn:ru:ilb:meta:basictypes:addressType">643</countrycode>
+<index xmlns="urn:ru:ilb:meta:basictypes:addressType">426063</index>
+<regioncode xmlns="urn:ru:ilb:meta:basictypes:addressType">18</regioncode>
+<town xmlns="urn:ru:ilb:meta:basictypes:addressType">ИЖЕВСК Г</town>
+<street xmlns="urn:ru:ilb:meta:basictypes:addressType">ЦИОЛКОВСКОГО УЛ</street>
+<house xmlns="urn:ru:ilb:meta:basictypes:addressType">12</house>
+<flat xmlns="urn:ru:ilb:meta:basictypes:addressType">12</flat>
+</regaddress>
+<age xmlns="urn:ru:ilb:meta:basictypes:passport">38</age>
+</passport>
+     <liveaddress xmlns="urn:ru:ilb:meta:crm:questionnaire"><countrycode xmlns="urn:ru:ilb:meta:basictypes:addressType">643</countrycode>
+<index xmlns="urn:ru:ilb:meta:basictypes:addressType">426063</index>
+<regioncode xmlns="urn:ru:ilb:meta:basictypes:addressType">18</regioncode>
+<town xmlns="urn:ru:ilb:meta:basictypes:addressType">ИЖЕВСК Г</town>
+<street xmlns="urn:ru:ilb:meta:basictypes:addressType">ЦИОЛКОВСКОГО УЛ</street>
+<house xmlns="urn:ru:ilb:meta:basictypes:addressType">12</house>
+<flat xmlns="urn:ru:ilb:meta:basictypes:addressType">12</flat>
+</liveaddress>
+    </questionnaire>
+    <EndDate>2024-06-03 00:00:00</EndDate>
+    <OtherBailers>&quot;БРОКЕР&quot; ООО</OtherBailers>
+    <Sum>720000.00</Sum>
+    <SumText>Семьсот двадцать тысяч рублей 00 копеек</SumText>
+    <icsId>735110</icsId>
+   </bailtreaty>
+  </BailTreaties>
+  <shops>
+   <shop xmlns="urn:ru:ilb:meta:creditreports:contragent">
+    <Name>&quot;Автодвор+&quot; ООО</Name>
+    <Sum>560000</Sum>
+    <SumText>Пятьсот шестьдесят тысяч рублей 00 копеек</SumText>
+    <inn>0274108302</inn>
+    <account>40702810500060000162</account>
+    <bank>ФИЛИАЛ ПАО &quot;АКИБАНК&quot; В Г.УФА</bank>
+    <corrAccount>30101810280730000936</corrAccount>
+    <bik>048073936</bik>
+    <good>автомобиль</good>
+    <ndsPay>1</ndsPay>
+    <ndsSum>93333.33</ndsSum>
+   </shop>
+   <shop xmlns="urn:ru:ilb:meta:creditreports:contragent">
+    <Name>&quot;Автодвор С&quot; ООО</Name>
+    <Sum>30000.00</Sum>
+    <SumText>Тридцать тысяч рублей 00 копеек</SumText>
+    <inn>0276151575</inn>
+    <account>40702810200060000844</account>
+    <bank>ФИЛИАЛ ПАО &quot;АКИБАНК&quot; В Г.УФА</bank>
+    <corrAccount>30101810280730000936</corrAccount>
+    <bik>048073936</bik>
+    <good>дополнительное оборудование</good>
+    <ndsPay>1</ndsPay>
+    <ndsSum>5000</ndsSum>
+   </shop>
+  </shops>
+  <insurances>
+   <insurance xmlns="urn:ru:ilb:meta:creditreports:contragent">
+    <SumText>Ноль рублей 00 копеек</SumText>
+    <insurSumText>Ноль рублей 00 копеек</insurSumText>
+    <dateBegPolis></dateBegPolis>
+    <dateEndPolis></dateEndPolis>
+    <InsurancePack></InsurancePack>
+   </insurance>
+   <insurance xmlns="urn:ru:ilb:meta:creditreports:contragent">
+    <Name>&quot;АльфаСтрахование&quot; АО Белгородский филиал</Name>
+    <Sum>48000.00</Sum>
+    <SumText>Сорок восемь тысяч рублей 00 копеек</SumText>
+    <inn>7713056834</inn>
+    <account>40701810402940000667</account>
+    <bank>АО &quot;АЛЬФА-БАНК&quot;</bank>
+    <corrAccount>30101810200000000593</corrAccount>
+    <bik>044525593</bik>
+    <type>2</type>
+    <Num>111222333</Num>
+    <insurSum>800000.00</insurSum>
+    <insurSumText>Восемьсот тысяч рублей 00 копеек</insurSumText>
+    <dateCreatedPolis>2019-06-03</dateCreatedPolis>
+    <dateBegPolis>2019-06-03</dateBegPolis>
+    <dateEndPolis>2020-06-02</dateEndPolis>
+    <incredit>true</incredit>
+    <insurRate>10.00</insurRate>
+    <idCompany>701405</idCompany>
+   </insurance>
+   <insurance xmlns="urn:ru:ilb:meta:creditreports:contragent">
+    <Name>&quot;ВСК&quot; САО</Name>
+    <Sum>11200.00</Sum>
+    <SumText>Одиннадцать тысяч двести рублей 00 копеек</SumText>
+    <inn>7710026574</inn>
+    <account>40701810600020001241</account>
+    <bank>ПАО СБЕРБАНК</bank>
+    <corrAccount>30101810400000000225</corrAccount>
+    <bik>044525225</bik>
+    <type>5</type>
+    <Num>002849</Num>
+    <insurSum>800000.00</insurSum>
+    <insurSumText>Восемьсот тысяч рублей 00 копеек</insurSumText>
+    <dateBegPolis>2019-06-04</dateBegPolis>
+    <dateEndPolis>2020-06-02</dateEndPolis>
+    <incredit>true</incredit>
+    <idBailTreaty>1127827</idBailTreaty>
+    <insurRate>1.40</insurRate>
+    <idCompany>402636</idCompany>
+   </insurance>
+   <insurance xmlns="urn:ru:ilb:meta:creditreports:contragent">
+    <Name>&quot;Страховая компания &quot;Согласие&quot; Филиал в Удмуртской Республике ООО</Name>
+    <Sum>6000.00</Sum>
+    <SumText>Шесть тысяч рублей 00 копеек</SumText>
+    <inn>7706196090</inn>
+    <account>40701810300010040417</account>
+    <bank>ПАО &quot;БЫСТРОБАНК&quot;</bank>
+    <corrAccount>30101810200000000814</corrAccount>
+    <bik>049401814</bik>
+    <type>12</type>
+    <Num>М88-Б000496/19</Num>
+    <insurSumText>Ноль рублей 00 копеек</insurSumText>
+    <dateCreatedPolis>2019-06-03</dateCreatedPolis>
+    <dateBegPolis>2019-06-11</dateBegPolis>
+    <dateEndPolis>2024-06-10</dateEndPolis>
+    <incredit>true</incredit>
+    <idCompany>40417</idCompany>
+    <dateDiffMonth>60</dateDiffMonth>
+   </insurance>
+  </insurances>
+  <questionnaire xmlns="urn:ru:ilb:meta:crm:questionnaire">
+   <clientUUID xmlns="urn:ru:ilb:meta:crm:questionnaire">48BE3531-5B51-4C1B-ADD5-6C9101A778E5</clientUUID>
+   <passport xmlns="urn:ru:ilb:meta:crm:questionnaire"><lastname xmlns="urn:ru:ilb:meta:basictypes:passport">Пупкин</lastname>
+<firstname xmlns="urn:ru:ilb:meta:basictypes:passport">Махмут</firstname>
+<middlename xmlns="urn:ru:ilb:meta:basictypes:passport">Иосифович</middlename>
+<seria xmlns="urn:ru:ilb:meta:basictypes:passport">14 03</seria>
+<number xmlns="urn:ru:ilb:meta:basictypes:passport">232366</number>
+<issuedate xmlns="urn:ru:ilb:meta:basictypes:passport">2012-12-12</issuedate>
+<organcode xmlns="urn:ru:ilb:meta:basictypes:passport">555-555</organcode>
+<organname xmlns="urn:ru:ilb:meta:basictypes:passport">ОТДЕЛОМ ВНУТРЕННИХ ДЕЛ ГОРОДА</organname>
+<birthday xmlns="urn:ru:ilb:meta:basictypes:passport">1980-12-12</birthday>
+<birthplace xmlns="urn:ru:ilb:meta:basictypes:passport">Г. ГОРОД</birthplace>
+<regaddress xmlns="urn:ru:ilb:meta:basictypes:passport"><countrycode xmlns="urn:ru:ilb:meta:basictypes:addressType">643</countrycode>
+<index xmlns="urn:ru:ilb:meta:basictypes:addressType">426063</index>
+<regioncode xmlns="urn:ru:ilb:meta:basictypes:addressType">18</regioncode>
+<region xmlns="urn:ru:ilb:meta:basictypes:addressType">УДМУРТСКАЯ РЕСП</region>
+<town xmlns="urn:ru:ilb:meta:basictypes:addressType">ИЖЕВСК Г</town>
+<street xmlns="urn:ru:ilb:meta:basictypes:addressType">ЦИОЛКОВСКОГО УЛ</street>
+<house xmlns="urn:ru:ilb:meta:basictypes:addressType">12</house>
+<flat xmlns="urn:ru:ilb:meta:basictypes:addressType">12</flat>
+</regaddress>
+<age xmlns="urn:ru:ilb:meta:basictypes:passport">38</age>
+</passport>
+   <liveaddress xmlns="urn:ru:ilb:meta:crm:questionnaire"><countrycode xmlns="urn:ru:ilb:meta:basictypes:addressType">643</countrycode>
+<index xmlns="urn:ru:ilb:meta:basictypes:addressType">426063</index>
+<regioncode xmlns="urn:ru:ilb:meta:basictypes:addressType">18</regioncode>
+<region xmlns="urn:ru:ilb:meta:basictypes:addressType">УДМУРТСКАЯ РЕСП</region>
+<town xmlns="urn:ru:ilb:meta:basictypes:addressType">ИЖЕВСК Г</town>
+<street xmlns="urn:ru:ilb:meta:basictypes:addressType">ЦИОЛКОВСКОГО УЛ</street>
+<house xmlns="urn:ru:ilb:meta:basictypes:addressType">12</house>
+<flat xmlns="urn:ru:ilb:meta:basictypes:addressType">12</flat>
+</liveaddress>
+   <homephone xmlns="urn:ru:ilb:meta:crm:questionnaire">моб:1212454578</homephone>
+   <mobilephone xmlns="urn:ru:ilb:meta:crm:questionnaire">1212454578</mobilephone>
+  </questionnaire>
+  <GoodInfo>
+   <item>Ид.№ (VIN)                    : XXXXXXXXXXXXXXX19</item>
+   <item>VIN Базового автомобиля       : </item>
+   <item>Марка, модель ТС              : BMW R1100R</item>
+   <item>Категория ТС                  : A</item>
+   <item>Год изготовления ТС           : 1999</item>
+   <item>Модель, № двигателя           : XXXXXXXXXXXXXXXXX</item>
+   <item>Кузов (кабина, прицеп)        : XXXXXXXXXXXXXXXXX</item>
+   <item>ПТС №                         : 00 XX 000019</item>
+  </GoodInfo>
+  <PtsGetDate>2019-06-13</PtsGetDate>
+  <GoodModel>BMW R1100R</GoodModel>
+  <GoodVIN>XXXXXXXXXXXXXXX19</GoodVIN>
+  <GoodDocNum>00 XX 000019</GoodDocNum>
+  <GoodRegNumber></GoodRegNumber>
+  <GoodManufYear>1999</GoodManufYear>
+  <forfeit>100</forfeit>
+  <forfeitText>Сто рублей </forfeitText>
+  <GoodCostSum>720000.00</GoodCostSum>
+  <GoodCostSumText>Семьсот двадцать тысяч рублей 00 копеек</GoodCostSumText>
+  <CommercAuto>false</CommercAuto>
+  <repaymentDay>3</repaymentDay>
+  <paymentPeriod>3</paymentPeriod>
+  <rateAfter>0.00</rateAfter>
+  <rateAfterText>Ноль</rateAfterText>
+  <rateAfterPercentText>процентов</rateAfterPercentText>
+  <firstRep>2019-07-03</firstRep>
+  <rateOut>0.00</rateOut>
+  <rateOutText>Ноль</rateOutText>
+  <creditKind>0</creditKind>
+  <bailNumList>Поручительство 878033/02-ДО/ПОР от 03.06.2019, Залог 878032/02-ДО/ПК от 03.06.2019 в залоге: автомобиль</bailNumList>
+  <firstDebtText>Девять тысяч восемьсот тридцать девять рублей 91 копейка</firstDebtText>
+  <lastDebtText>Восемнадцать тысяч семьсот восемь рублей 22 копейки</lastDebtText>
+  <treatyPolisEndDate>2022-06-03</treatyPolisEndDate>
+  <packDoc>Auto</packDoc>
+  <employee>0</employee>
+  <organization>ООО &quot;МММ&quot;</organization>
+  <TotalSum>655200</TotalSum>
+  <liveInsuranceInCredit>false</liveInsuranceInCredit>
+  <joinInsuranceProgramPercent>1.20</joinInsuranceProgramPercent>
+  <joinInsuranceProgramMinSum>10.00</joinInsuranceProgramMinSum>
+  <TreatyTownDelivery>ИЖЕВСК Г</TreatyTownDelivery>
+  <PlaceAnkPointOfSale>ИЖЕВСК Г, УДМУРТСКАЯ РЕСП</PlaceAnkPointOfSale>
+  <effectivRate>14.092</effectivRate>
+  <effectivRateText>ЧЕТЫРНАДЦАТЬ  ЦЕЛЫХ ДЕВЯНОСТО ДВЕ ТЫСЯЧНЫХ ПРОЦЕНТА</effectivRateText>
+  <effectivSum>332898.69</effectivSum>
+  <effectivSumText>ТРИСТА ТРИДЦАТЬ ДВЕ ТЫСЯЧИ ВОСЕМЬСОТ ДЕВЯНОСТО ВОСЕМЬ РУБЛЕЙ ШЕСТЬДЕСЯТ ДЕВЯТЬ КОПЕЕК</effectivSumText>
+  <isOffice>1</isOffice>
+  <addressCourtOffice>643,РОССИЯ,426008,18,УДМУРТСКАЯ РЕСП,,ИЖЕВСК Г,,ПУШКИНСКАЯ УЛ,268,,,</addressCourtOffice>
+  <isAddressCourtOffice>1</isAddressCourtOffice>
+  <courtName>Октябрьский районный суд г. Ижевска</courtName>
+  <courtDepartmentName>Судебный участок № 4 Октябрьского района г.Ижевска</courtDepartmentName>
+  <insurLifeRateStr>Ноль процентов</insurLifeRateStr>
+  <notaryName>ПАО &quot;БыстроБанк&quot;</notaryName>
+  <notaryInn>1831002591</notaryInn>
+  <notaryAccount>60311810009002007524</notaryAccount>
+  <notaryBankName>ПАО &quot;БЫСТРОБАНК&quot;</notaryBankName>
+  <notaryBankBIK>049401814</notaryBankBIK>
+  <notaryCorAcc>30101810200000000814</notaryCorAcc>
+  <notarySum>600.00</notarySum>
+  <notarySumText>Шестьсот рублей 00 копеек</notarySumText>
+  <notaryWrit>1</notaryWrit>
+  <groupShop>1</groupShop>
+  <LizingAdvancePay>240000.00</LizingAdvancePay>
+  <hasAction>false</hasAction>
+  <numberBox>111359</numberBox>
+  <monthBox>60</monthBox>
+  <priceBox>6000.00</priceBox>
+  <keyRate23>5.17</keyRate23>
+  <treatyDurationYear>5</treatyDurationYear>
+  <docTreeUniqId>a6cdac9983524c7ee90def7ed584ba644e6f9db3</docTreeUniqId>
+  <guarantyType>400</guarantyType>
+  <guarantyPeriod>60</guarantyPeriod>
+  <guarantySum>165362.09</guarantySum>
+  <guarantySumText>Сто шестьдесят пять тысяч триста шестьдесят два рубля 09 копеек</guarantySumText>
+  <guarantyBrokerUid>C36067C3-2F15-4A02-8B13-5E755DAA1375</guarantyBrokerUid>
+  <guarantyEndDate>2020-06-03</guarantyEndDate>
+  <paymentMethodBox>398</paymentMethodBox>
+  <paymentMethodGuaranty>397</paymentMethodGuaranty>
+  <cardNumberByPaymentMethod>4285216316355403</cardNumberByPaymentMethod>
+  <assetHolder>1</assetHolder>
+ </TreatyInfo>
+</CreditTreaty>
+<depositsClient xmlns="urn:ru:ilb:meta:deposits:client">
+ <cl:clientid xmlns:cl="urn:ru:ilb:meta:deposits:client">1125996</cl:clientid>
+ <cl:clientUUID xmlns:cl="urn:ru:ilb:meta:deposits:client">48BE3531-5B51-4C1B-ADD5-6C9101A778E5</cl:clientUUID>
+ <cl:fio xmlns:cl="urn:ru:ilb:meta:deposits:client">ПУПКИН МАХМУТ ИОСИФОВИЧ</cl:fio>
+ <cl:sex xmlns:cl="urn:ru:ilb:meta:deposits:client">1</cl:sex>
+ <cl:birthday xmlns:cl="urn:ru:ilb:meta:deposits:client">1980-12-12</cl:birthday>
+ <cl:birthplace xmlns:cl="urn:ru:ilb:meta:deposits:client">Г. ГОРОД</cl:birthplace>
+ <cl:typeUFA xmlns:cl="urn:ru:ilb:meta:deposits:client">Ф</cl:typeUFA>
+ <cl:countrycode xmlns:cl="urn:ru:ilb:meta:deposits:client">643</cl:countrycode>
+ <cl:resident xmlns:cl="urn:ru:ilb:meta:deposits:client">1</cl:resident>
+ <cl:paspRu xmlns:cl="urn:ru:ilb:meta:deposits:client" xmlns:dt="urn:ru:mobilsoft:meta:deposits:doctypes">
+  <dt:name>Паспорт РФ</dt:name>
+  <dt:docTypeId>2</dt:docTypeId>
+  <dt:seriaNumber>14 03 232366</dt:seriaNumber>
+  <dt:issuedate>2012-12-12</dt:issuedate>
+  <dt:organcode>555-555</dt:organcode>
+  <dt:organname>ОТДЕЛОМ ВНУТРЕННИХ ДЕЛ ГОРОДА</dt:organname>
+ </cl:paspRu>
+ <cl:regAddr xmlns:cl="urn:ru:ilb:meta:deposits:client" xmlns:at="urn:ru:ilb:meta:basictypes:addressType">
+  <at:countrycode>643</at:countrycode>
+  <at:country>РОССИЯ</at:country>
+  <at:index>426063</at:index>
+  <at:regioncode>18</at:regioncode>
+  <at:region>УДМУРТСКАЯ РЕСП</at:region>
+  <at:area/>
+  <at:town>ИЖЕВСК Г</at:town>
+  <at:settlement/>
+  <at:street>ЦИОЛКОВСКОГО УЛ</at:street>
+  <at:house>12</at:house>
+  <at:building/>
+  <at:construction/>
+  <at:flat>12</at:flat>
+ </cl:regAddr>
+ <cl:liveAddr xmlns:cl="urn:ru:ilb:meta:deposits:client" xmlns:at="urn:ru:ilb:meta:basictypes:addressType">
+  <at:countrycode>643</at:countrycode>
+  <at:country>РОССИЯ</at:country>
+  <at:index>426063</at:index>
+  <at:regioncode>18</at:regioncode>
+  <at:region>УДМУРТСКАЯ РЕСП</at:region>
+  <at:area/>
+  <at:town>ИЖЕВСК Г</at:town>
+  <at:settlement/>
+  <at:street>ЦИОЛКОВСКОГО УЛ</at:street>
+  <at:house>12</at:house>
+  <at:building/>
+  <at:construction/>
+  <at:flat>12</at:flat>
+ </cl:liveAddr>
+ <cl:mobilephone xmlns:cl="urn:ru:ilb:meta:deposits:client">1212454578</cl:mobilephone>
+ <cl:OFMControl xmlns:cl="urn:ru:ilb:meta:deposits:client">false</cl:OFMControl>
+ <cl:checkIssueDate xmlns:cl="urn:ru:ilb:meta:deposits:client">true</cl:checkIssueDate>
+ <cl:LostPassport xmlns:cl="urn:ru:ilb:meta:deposits:client">false</cl:LostPassport>
+ <cl:ForeignPublicPerson xmlns:cl="urn:ru:ilb:meta:deposits:client">false</cl:ForeignPublicPerson>
+ <cl:AnkUpdateDate xmlns:cl="urn:ru:ilb:meta:deposits:client">2019-06-03</cl:AnkUpdateDate>
+ <cl:CreateUserLogin xmlns:cl="urn:ru:ilb:meta:deposits:client">krauter</cl:CreateUserLogin>
+ <cl:CreateUser xmlns:cl="urn:ru:ilb:meta:deposits:client">Краутер Юрий Вальтерович</cl:CreateUser>
+ <cl:ModifUser xmlns:cl="urn:ru:ilb:meta:deposits:client">Краутер Юрий Вальтерович</cl:ModifUser>
+ <cl:IdentHystory xmlns:cl="urn:ru:ilb:meta:deposits:client"/>
+ <r:RiskList xmlns:r="urn:ru:ilb:meta:LoanDocs:RiskClient">
+  <Risk xmlns="urn:ru:ilb:meta:LoanDocs:RiskClient">
+   <Type>0</Type>
+   <TypeText>Риск клиента</TypeText>
+   <Index>1</Index>
+   <IndexText>Низкий</IndexText>
+   <SubRisks/>
+  </Risk>
+  <Risk xmlns="urn:ru:ilb:meta:LoanDocs:RiskClient">
+   <Type>1</Type>
+   <TypeText>Риск по типу клиента и (или) бенефициарного владельца</TypeText>
+   <Index>1</Index>
+   <IndexText>Низкий</IndexText>
+   <SubRisks/>
+  </Risk>
+  <Risk xmlns="urn:ru:ilb:meta:LoanDocs:RiskClient">
+   <Type>2</Type>
+   <TypeText>Страновой риск</TypeText>
+   <Index>1</Index>
+   <IndexText>Низкий</IndexText>
+   <SubRisks/>
+  </Risk>
+  <Risk xmlns="urn:ru:ilb:meta:LoanDocs:RiskClient">
+   <Type>3</Type>
+   <TypeText>Риск, связанный с проведением клиентом определенного вида операций</TypeText>
+   <Index>1</Index>
+   <IndexText>Низкий</IndexText>
+   <SubRisks/>
+  </Risk>
+ </r:RiskList>
+ <r:RiskTypeList xmlns:r="urn:ru:ilb:meta:LoanDocs:RiskClient">
+  <RiskType xmlns="urn:ru:ilb:meta:LoanDocs:RiskClient">
+   <Type>0</Type>
+   <TypeText>Риск клиента</TypeText>
+   <Index>1</Index>
+   <IndexText>Низкий</IndexText>
+   <SubRiskTypeList/>
+  </RiskType>
+  <RiskType xmlns="urn:ru:ilb:meta:LoanDocs:RiskClient">
+   <Type>1</Type>
+   <TypeText>Риск по типу клиента и (или) бенефициарного владельца</TypeText>
+   <Index>1</Index>
+   <IndexText>Низкий</IndexText>
+   <SubRiskTypeList>
+    <SubRiskType xmlns="urn:ru:ilb:meta:LoanDocs:RiskClient">
+     <Type>1</Type>
+     <Level>1</Level>
+     <LevelText>Наличие в отношении клиента, его собственников, органов управления либо представителей информации о причастности к экстремистской либо террористической деятельности, распространению оружия массового уничтожения, полученной в установленном Законом № 115-ФЗ порядке</LevelText>
+     <Index>4</Index>
+     <IndexText>Критичный</IndexText>
+     <ClientActive>false</ClientActive>
+    </SubRiskType>
+    <SubRiskType xmlns="urn:ru:ilb:meta:LoanDocs:RiskClient">
+     <Type>1</Type>
+     <Level>2</Level>
+     <LevelText>Ранее принятое в отношении клиента решение об отказе в выполнении его распоряжения о совершении операции либо об отказе от заключения с ним договора банковского счета (вклада)</LevelText>
+     <Index>4</Index>
+     <IndexText>Критичный</IndexText>
+     <ClientActive>false</ClientActive>
+    </SubRiskType>
+    <SubRiskType xmlns="urn:ru:ilb:meta:LoanDocs:RiskClient">
+     <Type>1</Type>
+     <Level>3</Level>
+     <LevelText>Включение клиента и (или) бенефициарного владельца в Перечень(ни) организаций и физических лиц, в отношении которых имеются сведения об их причастности к экстремистской деятельности, терроризму, распространению оружия массового уничтожения</LevelText>
+     <Index>4</Index>
+     <IndexText>Критичный</IndexText>
+     <ClientActive>false</ClientActive>
+    </SubRiskType>
+    <SubRiskType xmlns="urn:ru:ilb:meta:LoanDocs:RiskClient">
+     <Type>1</Type>
+     <Level>4</Level>
+     <LevelText>Принятие в отношении клиента и (или) бенефициарного владельца межведомственным координационным органом, осуществляющим функции по противодействию финансированию терроризма, решения о замораживании (блокировании) принадлежащих ему денежных средств или иного имущества</LevelText>
+     <Index>4</Index>
+     <IndexText>Критичный</IndexText>
+     <ClientActive>false</ClientActive>
+    </SubRiskType>
+    <SubRiskType xmlns="urn:ru:ilb:meta:LoanDocs:RiskClient">
+     <Type>1</Type>
+     <Level>5</Level>
+     <LevelText>Наличие у клиента и (или) бенефициарного владельца статуса лица, указанного в статье 7.3 Закона №115-ФЗ</LevelText>
+     <Index>3</Index>
+     <IndexText>Высокий</IndexText>
+     <ClientActive>false</ClientActive>
+    </SubRiskType>
+    <SubRiskType xmlns="urn:ru:ilb:meta:LoanDocs:RiskClient">
+     <Type>1</Type>
+     <Level>6</Level>
+     <LevelText>Наличие оснований полагать, что представленные клиентом в целях идентификации документы и информация являются недостоверными</LevelText>
+     <Index>3</Index>
+     <IndexText>Высокий</IndexText>
+     <ClientActive>false</ClientActive>
+    </SubRiskType>
+    <SubRiskType xmlns="urn:ru:ilb:meta:LoanDocs:RiskClient">
+     <Type>1</Type>
+     <Level>7</Level>
+     <LevelText>На основании соответствующего решения Ответственного сотрудника по ПОД/ФТ/ФРОМУ</LevelText>
+     <Index>3</Index>
+     <IndexText>Высокий</IndexText>
+     <ClientActive>false</ClientActive>
+    </SubRiskType>
+    <SubRiskType xmlns="urn:ru:ilb:meta:LoanDocs:RiskClient">
+     <Type>1</Type>
+     <Level>8</Level>
+     <LevelText>Наличие информации о признании клиента должником / банкротом</LevelText>
+     <Index>3</Index>
+     <IndexText>Высокий</IndexText>
+     <ClientActive>false</ClientActive>
+    </SubRiskType>
+    <SubRiskType xmlns="urn:ru:ilb:meta:LoanDocs:RiskClient">
+     <Type>1</Type>
+     <Level>9</Level>
+     <LevelText>Отсутствие информации о паспорте гражданина РФ в электронных учетах МВД России</LevelText>
+     <Index>2</Index>
+     <IndexText>Средний</IndexText>
+     <ClientActive>false</ClientActive>
+    </SubRiskType>
+    <SubRiskType xmlns="urn:ru:ilb:meta:LoanDocs:RiskClient">
+     <Type>1</Type>
+     <Level>10</Level>
+     <LevelText>Наличие информации от Банка России о случаях отказа в выполнении распоряжения клиента и (или) бенефициарного владельца клиента Банка и (или) контрагента клиента Банка о совершении операции, отказа от заключения договора банковского счета (вклада) и (или) расторжения договора банковского счета (вклада) с клиентом и (или) бенефициарным владельцем клиента Банка и (или) с контрагентом клиента Банка</LevelText>
+     <Index>3</Index>
+     <IndexText>Высокий</IndexText>
+     <ClientActive>false</ClientActive>
+    </SubRiskType>
+   </SubRiskTypeList>
+  </RiskType>
+  <RiskType xmlns="urn:ru:ilb:meta:LoanDocs:RiskClient">
+   <Type>2</Type>
+   <TypeText>Страновой риск</TypeText>
+   <Index>1</Index>
+   <IndexText>Низкий</IndexText>
+   <SubRiskTypeList>
+    <SubRiskType xmlns="urn:ru:ilb:meta:LoanDocs:RiskClient">
+     <Type>2</Type>
+     <Level>1</Level>
+     <LevelText>Регистрация (инкорпорация) клиента (место жительства или место нахождения), бенефициарного владельца клиента (место жительства), контрагента клиента (место жительства или места нахождения), или регистрация (место нахождения) банка, обслуживающего контрагента клиента осуществлена  в государстве (на территории), которое не выполняет рекомендации Группы разработки финансовых мер борьбы с отмыванием денег (ФАТФ)</LevelText>
+     <Index>4</Index>
+     <IndexText>Критичный</IndexText>
+     <ClientActive>false</ClientActive>
+    </SubRiskType>
+    <SubRiskType xmlns="urn:ru:ilb:meta:LoanDocs:RiskClient">
+     <Type>2</Type>
+     <Level>2</Level>
+     <LevelText>Регистрация (инкорпорация) клиента (место жительства или место нахождения), бенефициарного владельца клиента (место жительства), контрагента клиента (место жительства или места нахождения), или регистрация (место нахождения) банка, обслуживающего контрагента клиента осуществлена в государстве (на территории), в отношении которого применяются международные санкции, одобренные Российской Федерацией (например, применение Российской Федерацией мер в соответствии с резолюциями Совета Безопасности ООН)</LevelText>
+     <Index>3</Index>
+     <IndexText>Высокий</IndexText>
+     <ClientActive>false</ClientActive>
+    </SubRiskType>
+    <SubRiskType xmlns="urn:ru:ilb:meta:LoanDocs:RiskClient">
+     <Type>2</Type>
+     <Level>3</Level>
+     <LevelText>Регистрация (инкорпорация) клиента (место жительства или место нахождения), бенефициарного владельца клиента (место жительства), контрагента клиента (место жительства или места нахождения), или регистрация (место нахождения) банка, обслуживающего контрагента клиента осуществлена в государстве (на территории), в отношении которого применяются специальные экономические меры в соответствии с Федеральным законом от 30 декабря 2006 года № 281-ФЗ «О специальных экономических мерах»</LevelText>
+     <Index>3</Index>
+     <IndexText>Высокий</IndexText>
+     <ClientActive>false</ClientActive>
+    </SubRiskType>
+    <SubRiskType xmlns="urn:ru:ilb:meta:LoanDocs:RiskClient">
+     <Type>2</Type>
+     <Level>4</Level>
+     <LevelText>Регистрация (инкорпорация) клиента (место жительства или место нахождения), бенефициарного владельца клиента (место жительства), контрагента клиента (место жительства или места нахождения), или регистрация (место нахождения) банка, обслуживающего контрагента клиента осуществлена в государстве (на территории), финансирующим или поддерживающим террористическую деятельность</LevelText>
+     <Index>3</Index>
+     <IndexText>Высокий</IndexText>
+     <ClientActive>false</ClientActive>
+    </SubRiskType>
+    <SubRiskType xmlns="urn:ru:ilb:meta:LoanDocs:RiskClient">
+     <Type>2</Type>
+     <Level>5</Level>
+     <LevelText>Регистрация (инкорпорация) клиента (место жительства или место нахождения), бенефициарного владельца клиента (место жительства), контрагента клиента (место жительства или места нахождения), или регистрация (место нахождения) банка, обслуживающего контрагента клиента осуществлена в государстве (на территории) с повышенным уровнем коррупции и (или) другой преступной деятельности</LevelText>
+     <Index>3</Index>
+     <IndexText>Высокий</IndexText>
+     <ClientActive>false</ClientActive>
+    </SubRiskType>
+    <SubRiskType xmlns="urn:ru:ilb:meta:LoanDocs:RiskClient">
+     <Type>2</Type>
+     <Level>6</Level>
+     <LevelText>Регистрация (инкорпорация) клиента (место жительства или место нахождения), бенефициарного владельца клиента (место жительства), контрагента клиента (место жительства или места нахождения), или регистрация (место нахождения) банка, обслуживающего контрагента клиента осуществлена в государстве (на территории), предоставляющем льготный налоговый режим и (или) не предусматривающем раскрытие и предоставление информации при проведении финансовых операций, информация о котором содержится в пунктах 2, 3 Приложения 1 к Указанию Банка России от 7 августа 2003 года № 1317-У «О порядке установления уполномоченными банками корреспондентских отношений с банками-нерезидентами, зарегистрированными в государствах и на территориях, предоставляющих льготный налоговый режим и (или) не предусматривающих раскрытие и предоставление информации при проведении финансовых операций (офшорных зонах)»</LevelText>
+     <Index>3</Index>
+     <IndexText>Высокий</IndexText>
+     <ClientActive>false</ClientActive>
+    </SubRiskType>
+    <SubRiskType xmlns="urn:ru:ilb:meta:LoanDocs:RiskClient">
+     <Type>2</Type>
+     <Level>7</Level>
+     <LevelText>Регистрация (инкорпорация) клиента (место жительства или место нахождения), бенефициарного владельца клиента (место жительства), контрагента клиента (место жительства или места нахождения), или регистрация (место нахождения) банка, обслуживающего контрагента клиента осуществлена в государстве (на территории), в котором незаконно производятся или переправляются наркотические вещества, разрешен свободный оборот наркотических средств (кроме государств (территорий), использующих наркотические вещества исключительно в медицинских целях)</LevelText>
+     <Index>3</Index>
+     <IndexText>Высокий</IndexText>
+     <ClientActive>false</ClientActive>
+    </SubRiskType>
+    <SubRiskType xmlns="urn:ru:ilb:meta:LoanDocs:RiskClient">
+     <Type>2</Type>
+     <Level>8</Level>
+     <LevelText>Регистрация (инкорпорация) клиента (место жительства или место нахождения), бенефициарного владельца клиента (место жительства), контрагента клиента (место жительства или места нахождения), или регистрация (место нахождения) банка, обслуживающего контрагента клиента осуществлена в государстве (на территории), которое не соблюдает общепринятые стандарты в борьбе с легализацией (отмыванием) доходов, полученных преступным путем, и финансированием терроризма, или является иностранным государством с повышенным уровнем коррупции</LevelText>
+     <Index>3</Index>
+     <IndexText>Высокий</IndexText>
+     <ClientActive>false</ClientActive>
+    </SubRiskType>
+   </SubRiskTypeList>
+  </RiskType>
+  <RiskType xmlns="urn:ru:ilb:meta:LoanDocs:RiskClient">
+   <Type>3</Type>
+   <TypeText>Риск, связанный с проведением клиентом определенного вида операций</TypeText>
+   <Index>1</Index>
+   <IndexText>Низкий</IndexText>
+   <SubRiskTypeList>
+    <SubRiskType xmlns="urn:ru:ilb:meta:LoanDocs:RiskClient">
+     <Type>3</Type>
+     <Level>1</Level>
+     <LevelText>Неоднократное совершение клиентом подозрительных операций (сделок)</LevelText>
+     <Index>3</Index>
+     <IndexText>Высокий</IndexText>
+     <ClientActive>false</ClientActive>
+    </SubRiskType>
+    <SubRiskType xmlns="urn:ru:ilb:meta:LoanDocs:RiskClient">
+     <Type>3</Type>
+     <Level>2</Level>
+     <LevelText>Неоднократное совершение операций или сделок, характер которых дает основание полагать, что целью их осуществления является уклонение от процедур обязательного контроля, предусмотренных Законом № 115-ФЗ</LevelText>
+     <Index>3</Index>
+     <IndexText>Высокий</IndexText>
+     <ClientActive>false</ClientActive>
+    </SubRiskType>
+    <SubRiskType xmlns="urn:ru:ilb:meta:LoanDocs:RiskClient">
+     <Type>3</Type>
+     <Level>4</Level>
+     <LevelText>На основании соответствующего решения Ответственного сотрудника по ПОД/ФТ/ФРОМУ</LevelText>
+     <Index>4</Index>
+     <IndexText>Критичный</IndexText>
+     <ClientActive>false</ClientActive>
+    </SubRiskType>
+    <SubRiskType xmlns="urn:ru:ilb:meta:LoanDocs:RiskClient">
+     <Type>3</Type>
+     <Level>5</Level>
+     <LevelText>На основании соответствующего решения Ответственного сотрудника по ПОД/ФТ/ФРОМУ</LevelText>
+     <Index>3</Index>
+     <IndexText>Высокий</IndexText>
+     <ClientActive>false</ClientActive>
+    </SubRiskType>
+    <SubRiskType xmlns="urn:ru:ilb:meta:LoanDocs:RiskClient">
+     <Type>3</Type>
+     <Level>6</Level>
+     <LevelText>На основании соответствующего решения Ответственного сотрудника по ПОД/ФТ/ФРОМУ</LevelText>
+     <Index>2</Index>
+     <IndexText>Средний</IndexText>
+     <ClientActive>false</ClientActive>
+    </SubRiskType>
+   </SubRiskTypeList>
+  </RiskType>
+ </r:RiskTypeList>
+ <r:RiskByDates xmlns:r="urn:ru:ilb:meta:LoanDocs:RiskClient">
+  <RiskByDate xmlns="urn:ru:ilb:meta:LoanDocs:RiskClient">
+   <AfterDate>2013-04-29</AfterDate>
+   <OnDate>2014-05-16</OnDate>
+   <RiskType xmlns="urn:ru:ilb:meta:LoanDocs:RiskClient">
+    <Type>0</Type>
+    <TypeText>Риск клиента</TypeText>
+    <Index>4</Index>
+    <IndexText>Низкий</IndexText>
+    <SubRiskTypeList/>
+   </RiskType>
+   <RiskType xmlns="urn:ru:ilb:meta:LoanDocs:RiskClient">
+    <Type>1</Type>
+    <TypeText>Риск по типу клиента и (или) бенефициарного владельца</TypeText>
+    <Index>4</Index>
+    <IndexText>Низкий</IndexText>
+    <SubRiskTypeList/>
+   </RiskType>
+   <RiskType xmlns="urn:ru:ilb:meta:LoanDocs:RiskClient">
+    <Type>2</Type>
+    <TypeText>Страновой риск</TypeText>
+    <Index>4</Index>
+    <IndexText>Низкий</IndexText>
+    <SubRiskTypeList/>
+   </RiskType>
+   <RiskType xmlns="urn:ru:ilb:meta:LoanDocs:RiskClient">
+    <Type>3</Type>
+    <TypeText>Риск, связанный с проведением клиентом определенного вида операций</TypeText>
+    <Index>4</Index>
+    <IndexText>Низкий</IndexText>
+    <SubRiskTypeList/>
+   </RiskType>
+  </RiskByDate>
+  <RiskByDate xmlns="urn:ru:ilb:meta:LoanDocs:RiskClient">
+   <AfterDate>2014-05-16</AfterDate>
+   <RiskType xmlns="urn:ru:ilb:meta:LoanDocs:RiskClient">
+    <Type>0</Type>
+    <TypeText>Риск клиента</TypeText>
+    <Index>4</Index>
+    <IndexText>Низкий</IndexText>
+    <SubRiskTypeList/>
+   </RiskType>
+   <RiskType xmlns="urn:ru:ilb:meta:LoanDocs:RiskClient">
+    <Type>1</Type>
+    <TypeText>Риск по типу клиента и (или) бенефициарного владельца</TypeText>
+    <Index>4</Index>
+    <IndexText>Низкий</IndexText>
+    <SubRiskTypeList/>
+   </RiskType>
+   <RiskType xmlns="urn:ru:ilb:meta:LoanDocs:RiskClient">
+    <Type>2</Type>
+    <TypeText>Страновой риск</TypeText>
+    <Index>4</Index>
+    <IndexText>Низкий</IndexText>
+    <SubRiskTypeList/>
+   </RiskType>
+   <RiskType xmlns="urn:ru:ilb:meta:LoanDocs:RiskClient">
+    <Type>3</Type>
+    <TypeText>Риск, связанный с проведением клиентом определенного вида операций</TypeText>
+    <Index>4</Index>
+    <IndexText>Низкий</IndexText>
+    <SubRiskTypeList/>
+   </RiskType>
+  </RiskByDate>
+ </r:RiskByDates>
+ <Beneficiars xmlns="urn:ru:ilb:meta:deposits:client"/>
+</depositsClient>
+<Country>РОССИЯ</Country>
+<AddAccountTemplates>
+ <Periodic xmlns="urn:ru:ilb:meta:doctemplates:application:deposits:paymentorder:V20160518_Periodic">
+  <OrderDate>2019-06-03</OrderDate>
+  <Periodicity>daily</Periodicity>
+  <CreditTreatyNum>878032/02-ДО/ПК</CreditTreatyNum>
+  <CreditTreatyDate>03.06.2019</CreditTreatyDate>
+  <PayerName>Пупкин Махмут Иосифович</PayerName>
+  <PayerINN/>
+  <PayerAccount>40817810100004087444</PayerAccount>
+  <ReceiverBIK>049401814</ReceiverBIK>
+  <ReceiverBankName>ПАО &quot;БыстроБанк&quot;</ReceiverBankName>
+  <ReceiverBankCorrAccount>30101810200000000814</ReceiverBankCorrAccount>
+  <ReceiverName>Пупкин Махмут Иосифович</ReceiverName>
+  <ReceiverINN/>
+  <ReceiverAccount>40817810800004087443</ReceiverAccount>
+  <Note>Перевод денежных средств</Note>
+  <SignatoryFio>Бариева В.З.</SignatoryFio>
+  <guarantySum>165362.09</guarantySum>
+  <guarantyAccount>40702810700000000257</guarantyAccount>
+ </Periodic>
+</AddAccountTemplates>
+<cashRemittanceTemplates xmlns="urn:ru:ilb:meta:doctemplates:application:deposits:paymentorder:V20161007">
+ <TreatyNum>878032/02-ДО/ПК</TreatyNum>
+ <TreatyDateCreate>2019-06-03</TreatyDateCreate>
+ <SignatoryFio>Бариева В.З.</SignatoryFio>
+ <PayerName>Пупкин Махмут Иосифович</PayerName>
+ <PayerAccount>40817810100004087444</PayerAccount>
+ <PaymentDate>2019-06-03</PaymentDate>
+ <Template xmlns="urn:ru:ilb:meta:doctemplates:application:deposits:paymentorder:V20091208">
+  <PaymentDate>2019-06-07</PaymentDate>
+  <Sum>835162.09</Sum>
+  <SumInWords>Восемьсот тридцать пять тысяч сто шестьдесят два рубля 09 копеек</SumInWords>
+  <PayerName>Пупкин Махмут Иосифович</PayerName>
+  <PayerAccount>40817810800004087443</PayerAccount>
+  <ReceiverBIK>049401814</ReceiverBIK>
+  <ReceiverBankName>ПАО &quot;БыстроБанк&quot;</ReceiverBankName>
+  <ReceiverBankCorrAccount>30101810200000000814</ReceiverBankCorrAccount>
+  <ReceiverName>Пупкин Махмут Иосифович</ReceiverName>
+  <ReceiverINN/>
+  <ReceiverAccount>40817810100004087444</ReceiverAccount>
+  <Note>Перевод денежных средств</Note>
+  <SignatoryFio>Бариева В.З.</SignatoryFio>
+ </Template>
+ <Template xmlns="urn:ru:ilb:meta:doctemplates:application:deposits:paymentorder:V20091216">
+  <SignatoryFio>Бариева В.З.</SignatoryFio>
+  <PaymentDate>2019-06-07</PaymentDate>
+  <Sum>560000</Sum>
+  <SumInWords>Пятьсот шестьдесят тысяч рублей 00 копеек</SumInWords>
+  <PayerName>Пупкин Махмут Иосифович</PayerName>
+  <PayerAccount>40817810100004087444</PayerAccount>
+  <ReceiverBIK>048073936</ReceiverBIK>
+  <ReceiverBankName>ФИЛИАЛ ПАО &quot;АКИБАНК&quot; В Г.УФА</ReceiverBankName>
+  <ReceiverBankCorrAccount>30101810280730000936</ReceiverBankCorrAccount>
+  <ReceiverName>&quot;Автодвор+&quot; ООО</ReceiverName>
+  <ReceiverINN>0274108302</ReceiverINN>
+  <ReceiverAccount>40702810500060000162</ReceiverAccount>
+  <Note>Оплата за автомобиль, в том числе НДС 93333,33.</Note>
+  <NotResidentCode></NotResidentCode>
+  <NotResidentCommissionCode></NotResidentCommissionCode>
+ </Template>
+ <Template xmlns="urn:ru:ilb:meta:doctemplates:application:deposits:paymentorder:V20091216">
+  <SignatoryFio>Бариева В.З.</SignatoryFio>
+  <PaymentDate>2019-06-07</PaymentDate>
+  <Sum>30000.00</Sum>
+  <SumInWords>Тридцать тысяч рублей 00 копеек</SumInWords>
+  <PayerName>Пупкин Махмут Иосифович</PayerName>
+  <PayerAccount>40817810100004087444</PayerAccount>
+  <ReceiverBIK>048073936</ReceiverBIK>
+  <ReceiverBankName>ФИЛИАЛ ПАО &quot;АКИБАНК&quot; В Г.УФА</ReceiverBankName>
+  <ReceiverBankCorrAccount>30101810280730000936</ReceiverBankCorrAccount>
+  <ReceiverName>&quot;Автодвор С&quot; ООО</ReceiverName>
+  <ReceiverINN>0276151575</ReceiverINN>
+  <ReceiverAccount>40702810200060000844</ReceiverAccount>
+  <Note>Оплата за дополнительное оборудование, в том числе НДС 5000.</Note>
+  <NotResidentCode></NotResidentCode>
+  <NotResidentCommissionCode></NotResidentCommissionCode>
+ </Template>
+ <Template xmlns="urn:ru:ilb:meta:doctemplates:application:deposits:paymentorder:V20091216">
+  <SignatoryFio>Бариева В.З.</SignatoryFio>
+  <PaymentDate>2019-06-07</PaymentDate>
+  <Sum>600.00</Sum>
+  <SumInWords>Шестьсот рублей 00 копеек</SumInWords>
+  <PayerName>Пупкин Махмут Иосифович</PayerName>
+  <PayerAccount>40817810100004087444</PayerAccount>
+  <ReceiverBIK>049401814</ReceiverBIK>
+  <ReceiverBankName>ПАО &quot;БЫСТРОБАНК&quot;</ReceiverBankName>
+  <ReceiverBankCorrAccount>30101810200000000814</ReceiverBankCorrAccount>
+  <ReceiverName>ПАО &quot;БыстроБанк&quot;</ReceiverName>
+  <ReceiverINN>1831002591</ReceiverINN>
+  <ReceiverAccount>60311810009002007524</ReceiverAccount>
+  <Note>Нотариальный тариф за регистрацию уведомления о залоге автомобиля марки BMW R1100R VIN XXXXXXXXXXXXXXX19</Note>
+  <NotResidentCode></NotResidentCode>
+  <NotResidentCommissionCode></NotResidentCommissionCode>
+ </Template>
+<Template xmlns="urn:ru:ilb:meta:doctemplates:application:deposits:paymentorder:V20091216"><SignatoryFio>Бариева В.З.</SignatoryFio><PaymentDate>2019-06-07</PaymentDate><Sum>48000.00</Sum><SumInWords>Сорок восемь тысяч рублей 00 копеек</SumInWords><PayerName>Пупкин Махмут Иосифович</PayerName><PayerAccount>40817810100004087444</PayerAccount><ReceiverBIK>044525593</ReceiverBIK><ReceiverBankName>АО &quot;АЛЬФА-БАНК&quot;</ReceiverBankName><ReceiverBankCorrAccount>30101810200000000593</ReceiverBankCorrAccount><ReceiverName>&quot;АльфаСтрахование&quot; АО Белгородский филиал</ReceiverName><ReceiverINN>7713056834</ReceiverINN><ReceiverAccount>40701810402940000667</ReceiverAccount><Note>Плательщик: Пупкин Махмут Иосифович, Страховая премия по Договору страхования № 111222333</Note><NotResidentCode></NotResidentCode><NotResidentCommissionCode></NotResidentCommissionCode></Template>  <Template xmlns="urn:ru:ilb:meta:doctemplates:application:deposits:paymentorder:V20091216">
+  <SignatoryFio>Бариева В.З.</SignatoryFio>
+  <PaymentDate>2019-06-07</PaymentDate>
+  <Sum>11200.00</Sum>
+  <SumInWords>Одиннадцать тысяч двести рублей 00 копеек</SumInWords>
+  <PayerName>Пупкин Махмут Иосифович</PayerName>
+  <PayerAccount>40817810100004087444</PayerAccount>
+  <ReceiverBIK>044525225</ReceiverBIK>
+  <ReceiverBankName>ПАО СБЕРБАНК</ReceiverBankName>
+  <ReceiverBankCorrAccount>30101810400000000225</ReceiverBankCorrAccount>
+  <ReceiverName>&quot;ВСК&quot; САО</ReceiverName>
+  <ReceiverINN>7710026574</ReceiverINN>
+  <ReceiverAccount>40701810600020001241</ReceiverAccount>
+  <Note>Оплата страховой премии по страховому полису 002849, НДС не предусмотрен</Note>
+  <NotResidentCode></NotResidentCode>
+  <NotResidentCommissionCode></NotResidentCommissionCode>
+ </Template>
+ <Template xmlns="urn:ru:ilb:meta:doctemplates:application:deposits:paymentorder:V20091216">
+  <SignatoryFio>Бариева В.З.</SignatoryFio>
+  <PaymentDate>2019-06-07</PaymentDate>
+  <Sum>8000.00</Sum>
+  <SumInWords>Восемь тысяч рублей 00 копеек</SumInWords>
+  <PayerName>Пупкин Махмут Иосифович</PayerName>
+  <PayerAccount>40817810100004087444</PayerAccount>
+  <ReceiverBIK>049401814</ReceiverBIK>
+  <ReceiverBankName>ПАО &quot;БЫСТРОБАНК&quot;</ReceiverBankName>
+  <ReceiverBankCorrAccount>30101810200000000814</ReceiverBankCorrAccount>
+  <ReceiverName>&quot;ЭДВАЙЗЕР&quot; ООО</ReceiverName>
+  <ReceiverINN>6230110351</ReceiverINN>
+  <ReceiverAccount>40702810000000639690</ReceiverAccount>
+  <Note>Плательщик: Пупкин Махмут Иосифович, лицевой счет 40817810100004087444 за услуги по договору СВТ-№ 13967 от 07.06.2019, без НДС</Note>
+  <NotResidentCode></NotResidentCode>
+  <NotResidentCommissionCode></NotResidentCommissionCode>
+ </Template>
+ <Template xmlns="urn:ru:ilb:meta:doctemplates:application:deposits:paymentorder:V20091216">
+  <SignatoryFio>Бариева В.З.</SignatoryFio>
+  <PaymentDate>2019-06-07</PaymentDate>
+  <Sum>6000.00</Sum>
+  <SumInWords>Шесть тысяч рублей 00 копеек</SumInWords>
+  <PayerName>Пупкин Махмут Иосифович</PayerName>
+  <PayerAccount>40817810100004087444</PayerAccount>
+  <ReceiverBIK>049401814</ReceiverBIK>
+  <ReceiverBankName>ПАО &quot;БЫСТРОБАНК&quot;</ReceiverBankName>
+  <ReceiverBankCorrAccount>30101810200000000814</ReceiverBankCorrAccount>
+  <ReceiverName>&quot;Страховая компания &quot;Согласие&quot; Филиал в Удмуртской Республике ООО</ReceiverName>
+  <ReceiverINN>7706196090</ReceiverINN>
+  <ReceiverAccount>40701810300010040417</ReceiverAccount>
+  <Note>Плательщик: Пупкин Махмут Иосифович, лицевой счет 40817810100004087444 за услуги по договору М88-Б000496/19 от 07.06.2019, без НДС</Note>
+  <NotResidentCode></NotResidentCode>
+  <NotResidentCommissionCode></NotResidentCommissionCode>
+ </Template>
+ <Template xmlns="urn:ru:ilb:meta:doctemplates:application:deposits:paymentorder:V20091216">
+  <SignatoryFio>Бариева В.З.</SignatoryFio>
+  <PaymentDate>2019-06-07</PaymentDate>
+  <Sum>165362.09</Sum>
+  <SumInWords>Сто шестьдесят пять тысяч триста шестьдесят два рубля 09 копеек</SumInWords>
+  <PayerName>Пупкин Махмут Иосифович</PayerName>
+  <PayerAccount>40817810100004087444</PayerAccount>
+  <ReceiverBIK>049401814</ReceiverBIK>
+  <ReceiverBankName>ПАО &quot;БЫСТРОБАНК&quot;</ReceiverBankName>
+  <ReceiverBankCorrAccount>30101810200000000814</ReceiverBankCorrAccount>
+  <ReceiverName>&quot;БРОКЕР&quot; ООО</ReceiverName>
+  <ReceiverINN>1831081811</ReceiverINN>
+  <ReceiverAccount>40702810700000000257</ReceiverAccount>
+  <Note>Оплата за предоставление поручительства в обеспечение договора № 878032/02-ДО/ПК от 03.06.2019 г., без НДС.</Note>
+  <NotResidentCode></NotResidentCode>
+  <NotResidentCommissionCode></NotResidentCommissionCode>
+ </Template>
+ <Template xmlns="urn:ru:ilb:meta:doctemplates:application:deposits:paymentorder:V20181204_Accept">
+  <AccountNumber>40817810800004087443</AccountNumber>
+  <AddAccountNumber>40817810100004087444</AddAccountNumber>
+ </Template>
+</cashRemittanceTemplates>
+<Template xmlns="urn:ru:ilb:meta:doctemplates:primary:legalprotection:V20161208">
+ <PaymentDate>2019-06-07</PaymentDate>
+ <PaymentDatePlusOne>2019-06-08</PaymentDatePlusOne>
+ <GoodVIN>XXXXXXXXXXXXXXX19</GoodVIN>
+ <GoodModel>BMW R1100R</GoodModel>
+ <legalDefense>344</legalDefense>
+ <legalDefensePeriod>12</legalDefensePeriod>
+ <legalDefenseSum>8000.00</legalDefenseSum>
+ <legalDefenseSumString>Восемь тысяч рублей 00 копеек</legalDefenseSumString>
+ <legalDefenseNumberPolis>СВТ-№ 13967</legalDefenseNumberPolis>
+ <Client>
+  <phone>1212454578</phone>
+  <passport xmlns="urn:ru:ilb:meta:basictypes:passport"><lastname xmlns="urn:ru:ilb:meta:basictypes:passport">Пупкин</lastname>
+<firstname xmlns="urn:ru:ilb:meta:basictypes:passport">Махмут</firstname>
+<middlename xmlns="urn:ru:ilb:meta:basictypes:passport">Иосифович</middlename>
+<seria xmlns="urn:ru:ilb:meta:basictypes:passport">14 03</seria>
+<number xmlns="urn:ru:ilb:meta:basictypes:passport">232366</number>
+<issuedate xmlns="urn:ru:ilb:meta:basictypes:passport">2012-12-12</issuedate>
+<organcode xmlns="urn:ru:ilb:meta:basictypes:passport">555-555</organcode>
+<organname xmlns="urn:ru:ilb:meta:basictypes:passport">ОТДЕЛОМ ВНУТРЕННИХ ДЕЛ ГОРОДА</organname>
+<birthday xmlns="urn:ru:ilb:meta:basictypes:passport">1980-12-12</birthday>
+<birthplace xmlns="urn:ru:ilb:meta:basictypes:passport">Г. ГОРОД</birthplace>
+<regaddress xmlns="urn:ru:ilb:meta:basictypes:passport"><countrycode xmlns="urn:ru:ilb:meta:basictypes:addressType">643</countrycode>
+<index xmlns="urn:ru:ilb:meta:basictypes:addressType">426063</index>
+<regioncode xmlns="urn:ru:ilb:meta:basictypes:addressType">18</regioncode>
+<region xmlns="urn:ru:ilb:meta:basictypes:addressType">УДМУРТСКАЯ РЕСП</region>
+<town xmlns="urn:ru:ilb:meta:basictypes:addressType">ИЖЕВСК Г</town>
+<street xmlns="urn:ru:ilb:meta:basictypes:addressType">ЦИОЛКОВСКОГО УЛ</street>
+<house xmlns="urn:ru:ilb:meta:basictypes:addressType">12</house>
+<flat xmlns="urn:ru:ilb:meta:basictypes:addressType">12</flat>
+</regaddress>
+<age xmlns="urn:ru:ilb:meta:basictypes:passport">38</age>
+</passport>
+ </Client>
+</Template>
+<Template xmlns="urn:ru:ilb:meta:doctemplates:primary:defender:V20181025">
+ <dateCreatedPolis>2019-06-03</dateCreatedPolis>
+ <dateBegPolis>2019-06-11</dateBegPolis>
+ <dateEndPolis>2024-06-10</dateEndPolis>
+ <defender>40417</defender>
+ <defenderPeriod>60</defenderPeriod>
+ <defenderSum>6000.00</defenderSum>
+ <defenderSumString>Шесть тысяч рублей 00 копеек</defenderSumString>
+ <defenderNumberPolis>М88-Б000496/19</defenderNumberPolis>
+ <defenderVariant>413</defenderVariant>
+ <Client>
+  <phone>1212454578</phone>
+  <passport xmlns="urn:ru:ilb:meta:basictypes:passport"><lastname xmlns="urn:ru:ilb:meta:basictypes:passport">Пупкин</lastname>
+<firstname xmlns="urn:ru:ilb:meta:basictypes:passport">Махмут</firstname>
+<middlename xmlns="urn:ru:ilb:meta:basictypes:passport">Иосифович</middlename>
+<seria xmlns="urn:ru:ilb:meta:basictypes:passport">14 03</seria>
+<number xmlns="urn:ru:ilb:meta:basictypes:passport">232366</number>
+<issuedate xmlns="urn:ru:ilb:meta:basictypes:passport">2012-12-12</issuedate>
+<organcode xmlns="urn:ru:ilb:meta:basictypes:passport">555-555</organcode>
+<organname xmlns="urn:ru:ilb:meta:basictypes:passport">ОТДЕЛОМ ВНУТРЕННИХ ДЕЛ ГОРОДА</organname>
+<birthday xmlns="urn:ru:ilb:meta:basictypes:passport">1980-12-12</birthday>
+<birthplace xmlns="urn:ru:ilb:meta:basictypes:passport">Г. ГОРОД</birthplace>
+<regaddress xmlns="urn:ru:ilb:meta:basictypes:passport"><countrycode xmlns="urn:ru:ilb:meta:basictypes:addressType">643</countrycode>
+<index xmlns="urn:ru:ilb:meta:basictypes:addressType">426063</index>
+<regioncode xmlns="urn:ru:ilb:meta:basictypes:addressType">18</regioncode>
+<region xmlns="urn:ru:ilb:meta:basictypes:addressType">УДМУРТСКАЯ РЕСП</region>
+<town xmlns="urn:ru:ilb:meta:basictypes:addressType">ИЖЕВСК Г</town>
+<street xmlns="urn:ru:ilb:meta:basictypes:addressType">ЦИОЛКОВСКОГО УЛ</street>
+<house xmlns="urn:ru:ilb:meta:basictypes:addressType">12</house>
+<flat xmlns="urn:ru:ilb:meta:basictypes:addressType">12</flat>
+</regaddress>
+<age xmlns="urn:ru:ilb:meta:basictypes:passport">38</age>
+</passport>
+ </Client>
+</Template>
+<Template xmlns="urn:ru:ilb:meta:doctemplates:treaty:deposits:account">
+ <METAURL>https://devel.net.ilb.ru/~ponomarev_dv/meta/</METAURL>
+ <BankName>Публичное акционерное общество «БыстроБанк»</BankName>
+ <BankLicense>лицензия ЦБ РФ №1745</BankLicense>
+ <BankAddress>426008, УР, г. Ижевск, ул. Пушкинская, 268</BankAddress>
+ <BankPhone>тел.(3412)90-80-90, 8-800-333-22-65</BankPhone>
+ <ContractId>2</ContractId>
+ <OpenDateStrf>03 Июнь 2019</OpenDateStrf>
+ <OpenDate>2019-06-03 00:00:00</OpenDate>
+ <Currency>RUR</Currency>
+ <DepositAccount>40817810100004087444</DepositAccount>
+ <Number>4087444/2</Number>
+ <Salepoint>
+  <Name></Name>
+  <Address>426008, УР, г. Ижевск, ул. Пушкинская, 268</Address>
+  <Phone>(3412) 90-80-90</Phone>
+  <Manager>
+   <Fio>Бариева Венера Завдятовна</Fio>
+   <Warrant>№2613 от 15.12.2017г.</Warrant>
+  </Manager>
+ </Salepoint>
+ <Client>
+  <Fio>ПУПКИН МАХМУТ ИОСИФОВИЧ</Fio>
+  <RegAddress>426063, УДМУРТСКАЯ РЕСП, Г. ИЖЕВСК, УЛ. ЦИОЛКОВСКОГО, д. 12, кв. 12</RegAddress>
+  <Index>426063</Index>
+  <LiveAddress>426063, УДМУРТСКАЯ РЕСП, Г. ИЖЕВСК, УЛ. ЦИОЛКОВСКОГО, д. 12, кв. 12</LiveAddress>
+  <Document>
+   <DocType>Паспорт РФ</DocType>
+   <SeriaNumber>ххх 14 03 232366</SeriaNumber>
+   <OrganName>ОТДЕЛОМ ВНУТРЕННИХ ДЕЛ ГОРОДА</OrganName>
+   <OrganCode>555-555</OrganCode>
+   <IssueDate>2012-12-12</IssueDate>
+  </Document>
+  <clientUUID>48BE3531-5B51-4C1B-ADD5-6C9101A778E5</clientUUID>
+ </Client>
+ <OutBank>426008, УР, г. Ижевск, ул. Пушкинская, 268, ОГРН 1021800001508, ИНН 1831002591</OutBank>
+</Template>
+</Templates>

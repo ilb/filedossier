@@ -41,4 +41,40 @@
             </representation>
         </dossierFile>
     </dossier>
+    <dossier>
+        <code>TEST2</code>
+        <name>Тестовое досье 2</name>
+        <dossierFile>
+            <code>file1</code>
+            <name>Файл 1</name>
+            <readonly>false</readonly>
+            <required>true</required>
+            <mediaType>application/json</mediaType>
+        </dossierFile>
+        <dossierFile>
+            <code>fairpricecalc2</code>
+            <name>fairpricecalc (.ods test)</name>
+            <readonly>false</readonly>
+            <mediaType>application/xml</mediaType>
+            <representation>
+                <mediaType>application/vnd.oasis.opendocument.spreadsheet</mediaType>
+                <stylesheet>representations/fairpriceorder/content.xsl</stylesheet>
+                <template>representations/fairpriceorder/template.ods</template>
+            </representation>
+        </dossierFile>
+        <dossierFile>
+            <code>avto2</code>
+            <name>avto (.pdf test)</name>
+            <readonly>false</readonly>
+            <required>true</required>
+            <hidden>false</hidden>
+            <mediaType>application/xml</mediaType>
+            <representation>
+                <mediaType>application/pdf</mediaType>
+                <stylesheet>https://devel.net.ilb.ru/meta/stylesheets/doctemplates/primary/loantreaty/credits/auto/V20140707.xsl</stylesheet>
+                <schema>https://devel.net.ilb.ru/meta/schemas/doctemplates/primary/loantreaty/credits/auto/V20140707.xsd</schema>
+                <meta>https://devel.net.ilb.ru/meta/&amp;uid=doctree:11f462ebdb14a5673ff41a5c75c5176552fad343:</meta>
+            </representation>
+        </dossierFile>
+    </dossier>
 </package>
