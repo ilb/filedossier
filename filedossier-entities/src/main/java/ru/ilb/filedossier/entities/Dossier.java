@@ -24,10 +24,10 @@ import java.util.List;
  */
 public interface Dossier extends DossierPath {
 
-    public DossierFile getDossierFile(String code);
+    DossierFile getDossierFile(String code);
 
-    public List<DossierFile> getDossierFiles();
+    List<DossierFile> getDossierFiles();
 
-    public boolean isValid();
+    boolean isValid();
 
 }

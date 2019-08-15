@@ -27,45 +27,53 @@ public interface DossierFile extends DossierContents {
 
     /**
      * Store given file as contents of this dossier file.
+     *
+     * @param file file, needed to save
      */
-    public void setContents(File file);
+    void setContents(File file);
 
     /**
      * @return is file required to be present.
      */
-    public boolean getRequired();
+    boolean getRequired();
 
     /**
      * @return is file readonly (can't be uploaded by user)
      */
-    public boolean getReadonly();
+    boolean getReadonly();
 
     /**
      * @return is file hidden (not shown to user)
      */
-    public boolean getHidden();
+    boolean getHidden();
 
     /**
      * @return is file exists
      */
-    public boolean getExists();
+    boolean getExists();
 
     /**
      * @return default representation of this dossier file
      * @see ru.ilb.filedossier.entities.Representation
      */
-    public Representation getRepresentation();
+    Representation getRepresentation();
 
     /**
      * @return context of this dossier file
      * @see ru.ilb.filedossier.entities.DossierContext
      */
-    public DossierContext getContext();
+    DossierContext getContext();
 
     /**
      * Sets context for dossier file.
      *
+     * @param context context for current dossier file
      * @see ru.ilb.filedossier.entities.DossierContext
      */
-    public void setDossierContext(DossierContext context);
+    void setDossierContext(DossierContext context);
+
+    /**
+     * @return is dossier file valid
+     */
+    boolean isValid();
 }
