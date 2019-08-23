@@ -15,7 +15,6 @@ package ru.ilb.filedossier.jndi;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 import java.util.Hashtable;
 import javax.naming.Context;
 import javax.naming.NamingException;
@@ -29,6 +28,6 @@ public class JNDIInitialContextFactory implements InitialContextFactory {
 
     @Override
     public Context getInitialContext(Hashtable<?, ?> environment) throws NamingException {
-	return new SimpleInitialContext();
+        return new SimpleInitialContext();
     }
 }

@@ -19,8 +19,7 @@ import java.util.Optional;
 import ru.ilb.filedossier.entities.DossierContext;
 
 /**
- * This class connects context service (store, database) and context, allows modifying, getting
- * context properties, saving context to store
+ * This class connects context service (store, database) and context, allows modifying, getting context properties, saving context to store
  *
  * @author kuznetsov_me
  */

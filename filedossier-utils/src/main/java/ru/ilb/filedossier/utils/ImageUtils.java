@@ -51,7 +51,7 @@ public class ImageUtils {
 
         try {
             String propValue = xmpMeta.getPropertyString("http://ns.adobe.com/xap/1.0/",
-                                                         "xmp:" + propName);
+                    "xmp:" + propName);
             return propValue;
         } catch (XMPException e) {
             throw new RuntimeException("XMP parse error: " + e);

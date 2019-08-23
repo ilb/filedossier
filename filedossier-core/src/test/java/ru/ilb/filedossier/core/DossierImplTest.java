@@ -32,22 +32,23 @@ import ru.ilb.filedossier.jndi.JndiRule;
  * @author slavb
  */
 public class DossierImplTest {
+
     private final DossierFactory dossierFactory;
 
     private final Dossier dossier;
 
     @ClassRule
     public static JndiRule jndi = new JndiRule() {
-	@Override
-	protected void bind(Context context) throws NamingException {
-	    context.bind("ru.bystrobank.apps.meta.url", "https://devel.net.ilb.ru/meta");
-	}
+        @Override
+        protected void bind(Context context) throws NamingException {
+            context.bind("ru.bystrobank.apps.meta.url", "https://devel.net.ilb.ru/meta");
+        }
 
     };
 
     public DossierImplTest() throws NamingException {
-	dossierFactory = getDossierFactory();
-	dossier = dossierFactory.getDossier("teststorekey", "testmodel", "TEST");
+        dossierFactory = getDossierFactory();
+        dossier = dossierFactory.getDossier("teststorekey", "testmodel", "TEST");
     }
 
     /**
@@ -55,10 +56,10 @@ public class DossierImplTest {
      */
     @Test
     public void testGetCode() {
-	System.out.println("getCode");
-	String expResult = "TEST";
-	String result = dossier.getCode();
-	assertEquals(expResult, result);
+        System.out.println("getCode");
+        String expResult = "TEST";
+        String result = dossier.getCode();
+        assertEquals(expResult, result);
     }
 
     /**
@@ -66,10 +67,10 @@ public class DossierImplTest {
      */
     @Test
     public void testGetName() {
-	System.out.println("getName");
-	String expResult = "Тестовое досье";
-	String result = dossier.getName();
-	assertEquals(expResult, result);
+        System.out.println("getName");
+        String expResult = "Тестовое досье";
+        String result = dossier.getName();
+        assertEquals(expResult, result);
     }
 
     /**
@@ -77,9 +78,9 @@ public class DossierImplTest {
      */
     @Test
     public void testGetDossierFiles() {
-	System.out.println("getDossierFiles");
-	List<DossierFile> result = dossier.getDossierFiles();
-	assertEquals(2, result.size());
+        System.out.println("getDossierFiles");
+        List<DossierFile> result = dossier.getDossierFiles();
+        assertEquals(2, result.size());
     }
 
     /**
@@ -87,10 +88,10 @@ public class DossierImplTest {
      */
     @Test
     public void testGetDossierFile() {
-	System.out.println("getDossierFile");
-	String fileCode = "fairpricecalc";
-	DossierFile result = dossier.getDossierFile(fileCode);
-	assertEquals("Тест имя", result.getName());
+        System.out.println("getDossierFile");
+        String fileCode = "fairpricecalc";
+        DossierFile result = dossier.getDossierFile(fileCode);
+        assertEquals("Тест имя", result.getName());
     }
 
 }

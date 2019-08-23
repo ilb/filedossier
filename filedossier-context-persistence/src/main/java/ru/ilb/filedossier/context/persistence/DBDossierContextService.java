@@ -25,12 +25,11 @@ import ru.ilb.filedossier.entities.DossierContext;
 import ru.ilb.filedossier.context.DossierContextService;
 
 // TODO: create idMap
-
 /**
  * Implementation of DossierContextService for database
- * 
+ *
  * @see ru.ilb.filedossier.context.DossierContextService
- * 
+ *
  * @author kuznetsov_me
  */
 @Named
@@ -40,7 +39,7 @@ public class DBDossierContextService implements DossierContextService {
     private DossierContextRepository repository;
 
     public DBDossierContextService(DossierContextRepository repository) {
-	this.repository = repository;
+        this.repository = repository;
     }
 
     public DBDossierContextService() {
@@ -48,29 +47,29 @@ public class DBDossierContextService implements DossierContextService {
 
     /**
      * Returns DossierContext with context values
-     * 
+     *
      * @param contextKey
      * @return DossierContext
      */
     @Override
     public DossierContext getContext(String contextKey) {
-	DossierContextPersistence contextPersistence = repository.findByContextKey(contextKey)
-		.orElse(new DossierContextPersistence());
-	return new DossierContextImpl(contextPersistence.asMap());
+        DossierContextPersistence contextPersistence = repository.findByContextKey(contextKey)
+                .orElse(new DossierContextPersistence());
+        return new DossierContextImpl(contextPersistence.asMap());
     }
 
     /**
      * Puts context in database if doesn't exist already, merges if exist
-     * 
+     *
      * @param contextKey
      * @param dossierContext
      */
     @Override
     public void putContext(String contextKey, DossierContext dossierContext) {
-	Optional<DossierContextPersistence> oldContext = repository.findByContextKey(contextKey);
-	DossierContextPersistence updatedContext = new DossierContextPersistence(contextKey, dossierContext.asMap());
-	// if old context founded, perform merge instead save
-	oldContext.ifPresent((c) -> updatedContext.setId(oldContext.get().getId()));
-	repository.save(updatedContext);
+        Optional<DossierContextPersistence> oldContext = repository.findByContextKey(contextKey);
+        DossierContextPersistence updatedContext = new DossierContextPersistence(contextKey, dossierContext.asMap());
+        // if old context founded, perform merge instead save
+        oldContext.ifPresent((c) -> updatedContext.setId(oldContext.get().getId()));
+        repository.save(updatedContext);
     }
 }

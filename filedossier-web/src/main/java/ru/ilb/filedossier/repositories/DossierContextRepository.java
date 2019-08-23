@@ -20,7 +20,6 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import ru.ilb.filedossier.model.DossierContextPersistence;
 
-
 /**
  *
  * @author slavb
@@ -29,5 +28,5 @@ public interface DossierContextRepository extends CrudRepository<DossierContextP
 
     @Query("SELECT * FROM DOSSIERCONTEXT WHERE CONTEXTKEY=:contextKey") // TODO: change to method query
     DossierContextPersistence findByContextKey(@Param("contextKey") String contextKey);
-    
+
 }

@@ -22,7 +22,7 @@ package ru.ilb.filedossier.core;
 public class FileNotExistsException extends IllegalArgumentException {
 
     public FileNotExistsException(String fileCode) {
-        super("File not exists: "+ fileCode);
+        super("File not exists: " + fileCode);
     }
 
 }

@@ -34,26 +34,27 @@ public class OdsXsltRepresentationTest {
 
     /**
      * Test of getContents method, of class OdsXsltRepresentation.
+     *
      * @throws java.net.URISyntaxException
      * @throws java.io.IOException
      */
     @Test
     public void testGetContentsXml() throws URISyntaxException, IOException {
         System.out.println("getContents");
-        
+
         URI stylesheet = getClass().getClassLoader().getResource("fairpriceorder/content.xsl").toURI();
         URI dataUri = getClass().getClassLoader().getResource("fairpriceorder/data.xml").toURI();
         URI template = getClass().getClassLoader().getResource("fairpriceorder/template.ods").toURI();
-        
+
         byte[] source = Files.readAllBytes(Paths.get(dataUri));
-        DossierContentsHolder contents = new DossierContentsHolder(source, "application/xml","fairpriceorder", "Отчет","xml");
+        DossierContentsHolder contents = new DossierContentsHolder(source, "application/xml", "fairpriceorder", "Отчет", "xml");
 
         OdsXsltRepresentation instance = new OdsXsltRepresentation("application/vnd.oasis.opendocument.spreadsheet", stylesheet, template);
         instance.setParent(contents);
-        
+
         byte[] result = instance.getContents();
         assertNotNull(result);
-        assertEquals("fairpriceorder.ods",instance.getFileName());
+        assertEquals("fairpriceorder.ods", instance.getFileName());
         assertEquals("application/vnd.oasis.opendocument.spreadsheet", instance.getMediaType());
         //assertEquals(34112,result.length);
 //        URI testUri = getClass().getClassLoader().getResource("fairpriceorder/test.ods").toURI();
@@ -63,6 +64,7 @@ public class OdsXsltRepresentationTest {
 
     /**
      * Test of getContents method, of class OdsXsltRepresentation.
+     *
      * @throws java.net.URISyntaxException
      * @throws java.io.IOException
      */
@@ -75,14 +77,14 @@ public class OdsXsltRepresentationTest {
         URI template = getClass().getClassLoader().getResource("fairpriceorder/template.ods").toURI();
 
         byte[] source = Files.readAllBytes(Paths.get(dataUri));
-        DossierContentsHolder contents = new DossierContentsHolder(source, "application/json","fairpriceorder", "Отчет","json");
+        DossierContentsHolder contents = new DossierContentsHolder(source, "application/json", "fairpriceorder", "Отчет", "json");
 
         OdsXsltRepresentation instance = new OdsXsltRepresentation("application/vnd.oasis.opendocument.spreadsheet", stylesheet, template);
         instance.setParent(contents);
 
         byte[] result = instance.getContents();
         assertNotNull(result);
-        assertEquals("fairpriceorder.ods",instance.getFileName());
+        assertEquals("fairpriceorder.ods", instance.getFileName());
         assertEquals("application/vnd.oasis.opendocument.spreadsheet", instance.getMediaType());
         //assertEquals(34112,result.length);
 //        URI testUri = getClass().getClassLoader().getResource("fairpriceorder/test.ods").toURI();

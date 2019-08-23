@@ -25,9 +25,8 @@ public interface DossierContextService {
 
     /**
      * Returns DossierContext by contextKey
-     * 
-     * @param contextKey
-     *            context key to search
+     *
+     * @param contextKey context key to search
      * @see ru.ilb.filedossier.entities.DossierContext
      * @return DossierContext
      */
@@ -35,11 +34,9 @@ public interface DossierContextService {
 
     /**
      * Puts DossierContext to a repository
-     * 
-     * @param contextKey
-     *            context key
-     * @param context
-     *            DossierContext implementation
+     *
+     * @param contextKey context key
+     * @param context DossierContext implementation
      * @see ru.ilb.filedossier.entities.DossierContext
      */
     void putContext(String contextKey, DossierContext context);

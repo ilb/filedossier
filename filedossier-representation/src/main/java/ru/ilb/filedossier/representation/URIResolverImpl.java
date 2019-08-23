@@ -34,22 +34,22 @@ public class URIResolverImpl implements URIResolver {
 
     @Override
     public Source resolve(String string, String string1) throws TransformerException {
-	URL url;
+        URL url;
 
-	try {
-	    if (string1 != null) {
-		url = new URL(new URL(string1), string);
-	    } else {
-		url = new URL(string);
-	    }
-	    Source source = new StreamSource(url.openStream());
-	    source.setSystemId(url.toExternalForm());
-	    LOG.log(Level.INFO, "resolve: " + string + " " + string1);
-	    return source;
-	} catch (Throwable ex) {
-	    LOG.log(Level.SEVERE, "URIResolver exception", ex);
-	    throw new RuntimeException(ex);
-	}
+        try {
+            if (string1 != null) {
+                url = new URL(new URL(string1), string);
+            } else {
+                url = new URL(string);
+            }
+            Source source = new StreamSource(url.openStream());
+            source.setSystemId(url.toExternalForm());
+            LOG.log(Level.INFO, "resolve: " + string + " " + string1);
+            return source;
+        } catch (Throwable ex) {
+            LOG.log(Level.SEVERE, "URIResolver exception", ex);
+            throw new RuntimeException(ex);
+        }
 
     }
 

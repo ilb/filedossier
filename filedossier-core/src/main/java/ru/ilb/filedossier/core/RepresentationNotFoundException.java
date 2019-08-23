@@ -22,7 +22,7 @@ package ru.ilb.filedossier.core;
 public class RepresentationNotFoundException extends IllegalArgumentException {
 
     public RepresentationNotFoundException(String mediaType) {
-        super("Representation not found: "+ mediaType);
+        super("Representation not found: " + mediaType);
     }
 
 }

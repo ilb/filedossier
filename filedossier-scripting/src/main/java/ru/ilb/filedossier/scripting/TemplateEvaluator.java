@@ -20,27 +20,27 @@ import ru.ilb.filedossier.entities.DossierContext;
 
 /**
  * Движок вычисления выражений
- * 
+ *
  * @author slavb
  */
 public interface TemplateEvaluator {
 
     /**
      * Расчет строкового значения
-     * 
+     *
      * @param template
      * @param dossierContext
      * @return
      */
-    public String evaluateStringExpression(String template,  Map<String, Object> dossierContext);
+    public String evaluateStringExpression(String template, Map<String, Object> dossierContext);
 
     /**
      * Расчет логеского значения
-     * 
+     *
      * @param template
      * @param dossierContext
      * @return
      */
-    public Boolean evaluateBooleanExpression(String template,  Map<String, Object> dossierContext);
+    public Boolean evaluateBooleanExpression(String template, Map<String, Object> dossierContext);
 
 }

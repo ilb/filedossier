@@ -20,7 +20,7 @@ import java.net.URI;
 
 /**
  * Файловое хранилище
- * 
+ *
  * @author slavb
  */
 public class StoreFactory {
@@ -28,18 +28,18 @@ public class StoreFactory {
     private final URI storeRoot;
 
     private StoreFactory(URI storeRoot) {
-	this.storeRoot = storeRoot;
+        this.storeRoot = storeRoot;
     }
 
     public static StoreFactory newInstance(URI storeRoot) {
-	return new StoreFactory(storeRoot);
+        return new StoreFactory(storeRoot);
     }
 
     /**
      * Returns store with basic path - storageRoot/storeKey/
      */
     public Store getStore(String storeKey) {
-	return new FileStore(storeRoot, storeKey);
+        return new FileStore(storeRoot, storeKey);
     }
 
 }

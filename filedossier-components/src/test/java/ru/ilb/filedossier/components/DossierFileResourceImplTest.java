@@ -55,7 +55,7 @@ public class DossierFileResourceImplTest {
             String resourceUri = "http://localhost:" + port + "/web";
             System.out.println("resourceUri=" + resourceUri);
             resource = JAXRSClientFactory.create(resourceUri, DossiersResource.class,
-                                                 Arrays.asList(jsonMapObjectProvider));
+                    Arrays.asList(jsonMapObjectProvider));
         }
         return resource;
 
@@ -86,7 +86,7 @@ public class DossierFileResourceImplTest {
         DossierFileResource fileResource = getDossierFileResource("fairpricecalc");
         Response response = fileResource.getContents();
         Assert.assertEquals("application/vnd.oasis.opendocument.spreadsheet",
-                            response.getMediaType().toString());
+                response.getMediaType().toString());
 
         fileResource = getDossierFileResource("jurnals");
         response = fileResource.getContents();

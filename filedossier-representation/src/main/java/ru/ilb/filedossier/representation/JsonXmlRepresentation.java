@@ -20,6 +20,7 @@ import org.json.XML;
 
 /**
  * Json to XML conversion
+ *
  * @author slavb
  */
 public class JsonXmlRepresentation extends IdentityRepresentation {
@@ -36,15 +37,13 @@ public class JsonXmlRepresentation extends IdentityRepresentation {
     @Override
     public byte[] getContents() {
         JSONObject json = new JSONObject(new String(parent.getContents()));
-        String xml = XML.toString(json,"root");
+        String xml = XML.toString(json, "root");
         return xml.getBytes();
     }
-    
+
     @Override
     public String getExtension() {
         return "xml";
     }
-
-
 
 }

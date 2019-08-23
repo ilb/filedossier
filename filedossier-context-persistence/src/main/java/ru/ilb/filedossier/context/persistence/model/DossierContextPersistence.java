@@ -40,32 +40,32 @@ public class DossierContextPersistence {
     }
 
     public DossierContextPersistence(String contextKey, Map<String, Object> properties) {
-	this.contextKey = contextKey;
-	properties.forEach((key, value) -> {
-	    dossierContextDatas.add(new DossierContextData(key, value));
-	});
+        this.contextKey = contextKey;
+        properties.forEach((key, value) -> {
+            dossierContextDatas.add(new DossierContextData(key, value));
+        });
     }
 
     public Long getId() {
-	return id;
+        return id;
     }
 
     public void setId(Long id) {
-	this.id = id;
+        this.id = id;
     }
 
     public String getContextKey() {
-	return contextKey;
+        return contextKey;
     }
 
     public Map<String, Object> asMap() {
-	return dossierContextDatas.stream()
-		.collect(Collectors.toMap(data -> data.getDataKey(), data -> data.getDataValue()));
+        return dossierContextDatas.stream()
+                .collect(Collectors.toMap(data -> data.getDataKey(), data -> data.getDataValue()));
     }
 
     private DossierContextData createContextData(String key, Object value) {
-	DossierContextData contextData = new DossierContextData(key, value);
-	return contextData;
+        DossierContextData contextData = new DossierContextData(key, value);
+        return contextData;
     }
 
 }

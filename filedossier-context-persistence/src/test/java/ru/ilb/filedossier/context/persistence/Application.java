@@ -1,6 +1,5 @@
 package ru.ilb.filedossier.context.persistence;
 
-
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -22,7 +21,6 @@ import org.springframework.data.relational.core.mapping.NamingStrategy;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 /**
  *
  * @author kuznetsov_me
@@ -34,9 +32,10 @@ public class Application { // extends JpaBaseConfiguration
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }
-    
+
     /**
      * JPA-like NamingStrategy
+     *
      * @return
      */
     @Bean

@@ -22,19 +22,19 @@ import org.springframework.data.annotation.Id;
  * @author kuznetsov_me
  */
 public class DossierContextData {
-    
+
     @Id
     private Long Id;
-    
+
     private String dataKey;
-    
+
     private Object dataValue;
-    
+
     DossierContextData(String dataKey, Object dataValue) {
         this.dataKey = dataKey;
         this.dataValue = dataValue;
     }
-    
+
     public String getDataKey() {
         return dataKey;
     }
@@ -42,5 +42,5 @@ public class DossierContextData {
     public Object getDataValue() {
         return dataValue;
     }
-  
+
 }

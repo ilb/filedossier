@@ -31,13 +31,11 @@ import javax.naming.NamingException;
 import ru.ilb.filedossier.functions.MapRuntimeFunction;
 
 /**
- * SignatureDetector checks for signatures each page of PDF document by comparing original PDF page
- * with image scan. This class is a wrapper over python script, call it by MapRuntimeFunction with
- * request arguments and receives is exist value for each signature in JSON format.
+ * SignatureDetector checks for signatures each page of PDF document by comparing original PDF page with image scan. This class is a wrapper over python script, call it by
+ * MapRuntimeFunction with request arguments and receives is exist value for each signature in JSON format.
  * <p>
- * SignatureDetector request is a JSON structure in the form of {@code Map<String, Object>}. It's
- * contains path of original page, path of scan page and set of areas, where signatures should be
- * detected.
+ * SignatureDetector request is a JSON structure in the form of {@code Map<String, Object>}. It's contains path of original page, path of scan page and set of areas, where
+ * signatures should be detected.
  *
  * @see ru.ilb.filedossier.functions.MapRuntimeFunction
  * @author kuznetsov_me
@@ -50,8 +48,7 @@ public class SignatureDetector {
     private URI signatureDetectorUri;
 
     /**
-     * Request data for the script in the form of {@code Map<String, Object>}. Such a structure is
-     * easy to convert to/from JSON.
+     * Request data for the script in the form of {@code Map<String, Object>}. Such a structure is easy to convert to/from JSON.
      */
     private Map<String, Object> requestMap;
 
@@ -135,12 +132,12 @@ public class SignatureDetector {
             try {
                 Map<String, Object> requestMap = new HashMap<>();
                 requestMap.put("signatures", signatureAreas.stream()
-                               .map(signatureArea -> signatureArea.asMap())
-                               .collect(Collectors.toList()));
+                        .map(signatureArea -> signatureArea.asMap())
+                        .collect(Collectors.toList()));
                 requestMap.put("pdf_page", Optional.of(pdfPath)
-                               .orElseThrow(NullPointerException::new));
+                        .orElseThrow(NullPointerException::new));
                 requestMap.put("scan_page", Optional.of(scanPath)
-                               .orElseThrow(NullPointerException::new));
+                        .orElseThrow(NullPointerException::new));
                 return requestMap;
             } catch (NullPointerException e) {
                 throw new IllegalArgumentException("One of the arguments isn't set: " + e);

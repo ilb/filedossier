@@ -19,6 +19,7 @@ import ru.ilb.filedossier.entities.DossierContext;
 
 /**
  * Построитель контекста досье
+ *
  * @author slavb
  */
 public interface DossierContextBuilder {

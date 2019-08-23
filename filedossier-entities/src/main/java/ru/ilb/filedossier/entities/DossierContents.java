@@ -17,8 +17,7 @@ package ru.ilb.filedossier.entities;
 
 /**
  * <p>
- * This interface is a DossierPath extension, represents the physical file from the dossier
- * directory.
+ * This interface is a DossierPath extension, represents the physical file from the dossier directory.
  * <p>
  *
  * @author slavb

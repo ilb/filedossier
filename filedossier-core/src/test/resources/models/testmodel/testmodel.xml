@@ -22,7 +22,7 @@
                 <schema></schema>
             </representation>
         </dossierFile>
-<dossierFile>
+        <dossierFile>
             <code>jurnals</code>
             <name>Test name 1</name>
             <readonly>false</readonly>

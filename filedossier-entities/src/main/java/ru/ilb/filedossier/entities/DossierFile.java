@@ -18,8 +18,7 @@ package ru.ilb.filedossier.entities;
 import java.io.File;
 
 /**
- * Dossier file is an extension of DossierContents, it is the abstract dossier file, that contains
- * representation, context, and abstract flags of file.
+ * Dossier file is an extension of DossierContents, it is the abstract dossier file, that contains representation, context, and abstract flags of file.
  *
  * @author SPoket
  */

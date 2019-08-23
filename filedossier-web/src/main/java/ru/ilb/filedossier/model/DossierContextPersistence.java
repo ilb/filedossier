@@ -26,15 +26,14 @@ import org.springframework.data.relational.core.mapping.Table;
  *
  * @author slavb
  */
-
 @Table(value = "DOSSIERCONTEXT")
 public class DossierContextPersistence {
 
     @Id
     Long id;
-    
+
     private String contextKey;
-    
+
     private Set<DossierContextData> dossierContextDatas = new HashSet<>();
 
     public Long getId() {
@@ -52,18 +51,18 @@ public class DossierContextPersistence {
     public void setContextKey(String contextKey) {
         this.contextKey = contextKey;
     }
-    
+
     public List<DossierContextData> getDossierContextData() {
-        return new ArrayList<> (dossierContextDatas);
+        return new ArrayList<>(dossierContextDatas);
     }
-    
+
     public void addDossierContextData(String key, String value) {
         dossierContextDatas.add(createContextData(key, value));
     }
-    
+
     private DossierContextData createContextData(String key, String value) {
         DossierContextData contextData = new DossierContextData(key, value);
         return contextData;
     }
-    
+
 }

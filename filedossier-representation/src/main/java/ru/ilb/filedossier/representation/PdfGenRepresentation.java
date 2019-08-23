@@ -50,7 +50,7 @@ public class PdfGenRepresentation extends IdentityRepresentation {
 
         URL resourceUrl = new URL(
                 String.format(BASE_URI, stylesheetUri.toString(), schemeUri.toString(),
-                              metaUri.toString()));
+                        metaUri.toString()));
         webResourceFunction = new WebResourceFunction(resourceUrl);
 
         if (!mediaType.equals(OUTPUT_FORMAT)) {
@@ -92,7 +92,7 @@ public class PdfGenRepresentation extends IdentityRepresentation {
     public void setParent(DossierPath parent) {
         assert DossierContents.class.isAssignableFrom(
                 parent.getClass()) : "DossierContents instance should be passed as argument instead of "
-                                     + parent.getClass().getCanonicalName();
+                + parent.getClass().getCanonicalName();
 
         this.parent = (DossierContents) parent;
     }

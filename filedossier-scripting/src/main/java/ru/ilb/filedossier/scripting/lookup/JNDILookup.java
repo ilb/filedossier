@@ -28,22 +28,22 @@ public class JNDILookup implements StringLookup {
     private final Context context;
 
     public JNDILookup(Context context) {
-	this.context = context;
+        this.context = context;
     }
 
     // TODO: when NamingException catched throw IllegalStateException
     @Override
     public String lookup(String key) {
-	final String obj;
-	if (key.contains(".")) {
-	    try {
-		obj = (String) context.lookup(key);
-		return obj;
-	    } catch (NamingException | NullPointerException ex) {
-		return null;
-	    }
-	} else {
-	    return null;
-	}
+        final String obj;
+        if (key.contains(".")) {
+            try {
+                obj = (String) context.lookup(key);
+                return obj;
+            } catch (NamingException | NullPointerException ex) {
+                return null;
+            }
+        } else {
+            return null;
+        }
     }
 }

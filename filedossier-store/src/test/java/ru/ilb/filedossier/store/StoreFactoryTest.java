@@ -23,11 +23,11 @@ public class StoreFactoryTest {
     private static final URI TEST_STORE_ROOT;
 
     static {
-	try {
-	    TEST_STORE_ROOT = FileStoreTest.class.getClassLoader().getResource("teststoreroot").toURI();
-	} catch (URISyntaxException ex) {
-	    throw new RuntimeException(ex);
-	}
+        try {
+            TEST_STORE_ROOT = FileStoreTest.class.getClassLoader().getResource("teststoreroot").toURI();
+        } catch (URISyntaxException ex) {
+            throw new RuntimeException(ex);
+        }
     }
 
     public StoreFactoryTest() {
@@ -54,9 +54,9 @@ public class StoreFactoryTest {
      */
     @org.junit.Test
     public void testNewInstance() {
-	System.out.println("newInstance");
-	StoreFactory result = StoreFactory.newInstance(TEST_STORE_ROOT);
-	assertTrue(result instanceof StoreFactory);
+        System.out.println("newInstance");
+        StoreFactory result = StoreFactory.newInstance(TEST_STORE_ROOT);
+        assertTrue(result instanceof StoreFactory);
     }
 
     /**
@@ -64,11 +64,11 @@ public class StoreFactoryTest {
      */
     @org.junit.Test
     public void testGetFileStorage() {
-	System.out.println("getFileStorage");
-	String storeKey = "testkey";
-	StoreFactory instance = StoreFactory.newInstance(TEST_STORE_ROOT);
-	Store result = instance.getStore(storeKey);
-	assertTrue(result instanceof FileStore);
+        System.out.println("getFileStorage");
+        String storeKey = "testkey";
+        StoreFactory instance = StoreFactory.newInstance(TEST_STORE_ROOT);
+        Store result = instance.getStore(storeKey);
+        assertTrue(result instanceof FileStore);
     }
 
 }

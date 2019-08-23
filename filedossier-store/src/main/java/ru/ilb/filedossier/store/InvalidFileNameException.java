@@ -22,7 +22,7 @@ package ru.ilb.filedossier.store;
 public class InvalidFileNameException extends RuntimeException {
 
     public InvalidFileNameException(String fileName) {
-        super("Invalid file name "+ fileName);
+        super("Invalid file name " + fileName);
     }
 
 }

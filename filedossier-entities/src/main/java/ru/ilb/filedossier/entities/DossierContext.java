@@ -19,8 +19,7 @@ import java.util.Map;
 
 /**
  * <p>
- * Provides interface for work with context (String, Object) for a certain entity. Context needed to
- * save properties.
+ * Provides interface for work with context (String, Object) for a certain entity. Context needed to save properties.
  * <p>
  *
  * @author slavb

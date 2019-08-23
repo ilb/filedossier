@@ -34,40 +34,38 @@ public class SubstitutorTemplateEvaluatorTest {
     }
 
     /**
-     * Test of evaluateStringExpression method, of class
-     * SubstitutorTemplateEvaluator.
+     * Test of evaluateStringExpression method, of class SubstitutorTemplateEvaluator.
      */
     @Test
     public void testEvaluateStringExpression() throws NamingException {
-	System.out.println("evaluateStringExpression");
-	String template = "${name}";
-	Map<String, Object> map = new HashMap<>();
-	map.put("name", "testName");
-	DossierContext dossierContext = new DossierContextImpl(map);
-	SubstitutorTemplateEvaluator instance = new SubstitutorTemplateEvaluator(new InitialContext());
-	String expResult = "testName";
-	String result = instance.evaluateStringExpression(template, dossierContext.asMap());
-	assertEquals(expResult, result);
+        System.out.println("evaluateStringExpression");
+        String template = "${name}";
+        Map<String, Object> map = new HashMap<>();
+        map.put("name", "testName");
+        DossierContext dossierContext = new DossierContextImpl(map);
+        SubstitutorTemplateEvaluator instance = new SubstitutorTemplateEvaluator(new InitialContext());
+        String expResult = "testName";
+        String result = instance.evaluateStringExpression(template, dossierContext.asMap());
+        assertEquals(expResult, result);
     }
 
     /**
-     * Test of evaluateBooleanExpression method, of class
-     * SubstitutorTemplateEvaluator.
+     * Test of evaluateBooleanExpression method, of class SubstitutorTemplateEvaluator.
      */
     @Test
     public void testEvaluateBooleanExpression() {
-	// System.out.println("evaluateBooleanExpression");
-	// String template = "";
-	// DossierContext dossierContext = null;
-	// SubstitutorTemplateEvaluator instance = new
-	// SubstitutorTemplateEvaluator();
-	// Boolean expResult = null;
-	// Boolean result = instance.evaluateBooleanExpression(template,
-	// dossierContext);
-	// assertEquals(expResult, result);
-	// // TODO review the generated test code and remove the default call to
-	// fail.
-	// fail("The test case is a prototype.");
+        // System.out.println("evaluateBooleanExpression");
+        // String template = "";
+        // DossierContext dossierContext = null;
+        // SubstitutorTemplateEvaluator instance = new
+        // SubstitutorTemplateEvaluator();
+        // Boolean expResult = null;
+        // Boolean result = instance.evaluateBooleanExpression(template,
+        // dossierContext);
+        // assertEquals(expResult, result);
+        // // TODO review the generated test code and remove the default call to
+        // fail.
+        // fail("The test case is a prototype.");
     }
 
 }

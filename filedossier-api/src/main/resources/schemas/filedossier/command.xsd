@@ -8,7 +8,5 @@
 >
     <xsd:import namespace="urn:ru:ilb:filedossier:core" schemaLocation="./core.xsd"/>
     <xsd:import namespace="urn:ru:ilb:filedossier:view" schemaLocation="./view.xsd"/>
-    
 
-        
 </xsd:schema>

@@ -37,20 +37,20 @@ public class SubstitutorTemplateEvaluator implements TemplateEvaluator {
     private List<StringLookup> lookups;
 
     public SubstitutorTemplateEvaluator(Context context) {
-	this.context = context;
-	lookups = new ArrayList<>();
-	lookups.add(new JNDILookup(context));
+        this.context = context;
+        lookups = new ArrayList<>();
+        lookups.add(new JNDILookup(context));
     }
 
     @Override
-    public String evaluateStringExpression(String template,  Map<String, Object> dossierContext) {
-	lookups.add(StringLookupFactory.INSTANCE.mapStringLookup(dossierContext));
-	StringSubstitutor sub = new StringSubstitutor(new LookupPerformer(lookups));
-	return sub.replace(template);
+    public String evaluateStringExpression(String template, Map<String, Object> dossierContext) {
+        lookups.add(StringLookupFactory.INSTANCE.mapStringLookup(dossierContext));
+        StringSubstitutor sub = new StringSubstitutor(new LookupPerformer(lookups));
+        return sub.replace(template);
     }
 
     @Override
-    public Boolean evaluateBooleanExpression(String template,  Map<String, Object> dossierContext) {
-	return Boolean.valueOf(evaluateStringExpression(template, dossierContext));
+    public Boolean evaluateBooleanExpression(String template, Map<String, Object> dossierContext) {
+        return Boolean.valueOf(evaluateStringExpression(template, dossierContext));
     }
 }

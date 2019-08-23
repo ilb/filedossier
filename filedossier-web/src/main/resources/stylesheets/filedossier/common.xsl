@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet version="1.0" 
-                xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
-                xmlns="http://www.w3.org/1999/xhtml">
+<xsl:stylesheet
+    xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+    xmlns="http://www.w3.org/1999/xhtml"
+    version="1.0">
 
     <xsl:param name="absolute.path"/>
     <xsl:param name="base.path"/>
     <xsl:param name="relative.path"/>
-    <xsl:param name="xslt.template"/>    
+    <xsl:param name="xslt.template"/>
 
     <xsl:template name="css_and_js_includes">
         <xsl:variable name="docroot" select="substring-before($base.path,'/web/')"/>
         <xsl:variable name="webjars.path" select="concat($docroot,'/webjars')"/>
-    
+
         <link rel="stylesheet" type="text/css" href="{$webjars.path}/Semantic-UI/2.4.1/semantic.min.css"/>
 
         <link rel="stylesheet" type="text/css" href="{$docroot}css/styles.css"/>

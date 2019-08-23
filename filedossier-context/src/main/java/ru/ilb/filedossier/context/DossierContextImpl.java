@@ -35,49 +35,49 @@ public class DossierContextImpl implements Serializable, DossierContext {
     }
 
     public DossierContextImpl(Map<String, Object> values) {
-	this.values = values;
+        this.values = values;
     }
 
     @Override
     public Map<String, Object> asMap() {
-	return values;
+        return values;
     }
 
     @Override
     public void setProperty(String name, Object value) {
-	values.put(name, value);
+        values.put(name, value);
     }
 
     @Override
     public boolean containsProperty(String name) {
-	return values.containsKey(name);
+        return values.containsKey(name);
     }
 
     @Override
     public Object getProperty(String name) {
-	return values.get(name);
+        return values.get(name);
     }
 
     @Override
     public boolean equals(Object obj) {
-	if (this == obj) {
-	    return true;
-	}
-	if (obj == null) {
-	    return false;
-	}
-	if (getClass() != obj.getClass()) {
-	    return false;
-	}
-	final DossierContextImpl other = (DossierContextImpl) obj;
-	if (!Objects.equals(this.values, other.values)) {
-	    return false;
-	}
-	return true;
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final DossierContextImpl other = (DossierContextImpl) obj;
+        if (!Objects.equals(this.values, other.values)) {
+            return false;
+        }
+        return true;
     }
 
     @Override
     public int hashCode() {
-	return values.hashCode();
+        return values.hashCode();
     }
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet 
+<xsl:stylesheet
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
@@ -17,7 +17,7 @@
         doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" />
 
     <xsl:include href="common.xsl"/>
-    
+
     <xsl:strip-space elements="*" />
 
     <xsl:template match="/">
@@ -51,11 +51,10 @@
                         </xsl:if>
                     </td>
                     <td>
-                        
                     </td>
                 </tr>
             </xsl:for-each>
         </table>
     </xsl:template>
-    
+
 </xsl:stylesheet>

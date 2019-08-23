@@ -22,7 +22,7 @@ package ru.ilb.filedossier.core;
 public class DossierFileNotFoundException extends IllegalArgumentException {
 
     public DossierFileNotFoundException(String fileCode) {
-        super("Dossier file not found: "+ fileCode);
+        super("Dossier file not found: " + fileCode);
     }
 
 }

@@ -86,7 +86,7 @@ public class PdfUtils {
 
     public static byte[] extractPdfPage(byte[] document, int pageNum) {
         try (PDDocument pdfDocument = PDDocument.load(document);
-             PDDocument pdfPage = new PDDocument()) {
+                PDDocument pdfPage = new PDDocument()) {
 
             pdfPage.addPage(pdfDocument.getPage(pageNum));
 

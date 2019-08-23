@@ -65,9 +65,9 @@ public class DossierFileImpl implements DossierFile {
     protected final DossierContextService dossierContextService;
 
     public DossierFileImpl(Store store, String code, String name, boolean required,
-                           boolean readonly, boolean hidden, String mediaType,
-                           List<Representation> representations,
-                           DossierContextService dossierContextService) {
+            boolean readonly, boolean hidden, String mediaType,
+            List<Representation> representations,
+            DossierContextService dossierContextService) {
         this.store = store;
         this.code = code;
         this.name = name;
@@ -79,7 +79,7 @@ public class DossierFileImpl implements DossierFile {
         this.representationsMap = representations.stream().peek(r -> r.setParent(this))
                 .collect(Collectors.toMap(r -> r.getMediaType(), r -> r));
         this.representation = representations.isEmpty() ? new IdentityRepresentation(mediaType)
-                              : representations.iterator().next();
+                : representations.iterator().next();
         this.representation.setParent(this);
         this.dossierContextService = dossierContextService;
     }
@@ -162,7 +162,7 @@ public class DossierFileImpl implements DossierFile {
     public void setParent(DossierPath parent) {
         assert Dossier.class
                 .isAssignableFrom(parent.getClass()) : "Dossier instance should be passed as argument instead of "
-                                                       + parent.getClass().getCanonicalName();
+                + parent.getClass().getCanonicalName();
         this.parent = (Dossier) parent;
     }
 

@@ -43,22 +43,22 @@ public class WebResourceFunctionTest {
 
     @Before
     public void setup() throws IOException {
-	httpServer = HttpServer.create(new InetSocketAddress(8000), 0);
-	httpServer.createContext("/api/endpoint", new HttpHandler() {
-	    public void handle(HttpExchange exchange) throws IOException {
-		byte[] response = "test response data".getBytes();
-		exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, response.length);
-		exchange.getResponseBody().write(response);
-		exchange.close();
-	    }
+        httpServer = HttpServer.create(new InetSocketAddress(8000), 0);
+        httpServer.createContext("/api/endpoint", new HttpHandler() {
+            public void handle(HttpExchange exchange) throws IOException {
+                byte[] response = "test response data".getBytes();
+                exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, response.length);
+                exchange.getResponseBody().write(response);
+                exchange.close();
+            }
 
-	});
-	httpServer.start();
+        });
+        httpServer.start();
     }
 
     @After
     public void cleanup() {
-	httpServer.stop(0);
+        httpServer.stop(0);
     }
 
     /**
@@ -66,13 +66,13 @@ public class WebResourceFunctionTest {
      */
     @Test
     public void testApply() throws MalformedURLException {
-	System.out.println("apply");
-	byte[] template = "test request data".getBytes();
-	URL resourceUri = new URL("http://localhost:8000/api/endpoint");
-	WebResourceFunction instance = new WebResourceFunction(resourceUri);
-	byte[] result = instance.apply(template);
-	Logger.getGlobal().log(Level.INFO, "server response: " + new String(result));
-	Assert.assertNotNull(result);
+        System.out.println("apply");
+        byte[] template = "test request data".getBytes();
+        URL resourceUri = new URL("http://localhost:8000/api/endpoint");
+        WebResourceFunction instance = new WebResourceFunction(resourceUri);
+        byte[] result = instance.apply(template);
+        Logger.getGlobal().log(Level.INFO, "server response: " + new String(result));
+        Assert.assertNotNull(result);
     }
 
 }

@@ -22,17 +22,16 @@ import org.apache.commons.text.lookup.StringLookup;
 /**
  * @author kuznetsov_me
  */
-
 public class LookupPerformer implements StringLookup {
 
     List<StringLookup> lookups;
 
     public LookupPerformer(List<StringLookup> lookups) {
-	this.lookups = lookups;
+        this.lookups = lookups;
     }
 
     @Override
     public String lookup(String key) {
-	return lookups.stream().map(lookup -> lookup.lookup(key)).filter(Objects::nonNull).findFirst().orElse(null);
+        return lookups.stream().map(lookup -> lookup.lookup(key)).filter(Objects::nonNull).findFirst().orElse(null);
     }
 }

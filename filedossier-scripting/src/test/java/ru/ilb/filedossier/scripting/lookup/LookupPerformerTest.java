@@ -43,16 +43,16 @@ public class LookupPerformerTest {
      */
     @Test
     public void testLookup() throws NamingException {
-	InitialContext context = new InitialContext();
-	Map<String, Object> map = new HashMap<>();
-	map.put("name", "testName");
-	List<StringLookup> lookups = new ArrayList<>();
-	lookups.add(StringLookupFactory.INSTANCE.mapStringLookup(map));
-	System.out.println("lookup");
-	LookupPerformer instance = new LookupPerformer(lookups);
-	String expResult = "testName";
-	String result = instance.lookup("name");
-	assertEquals(expResult, result);
+        InitialContext context = new InitialContext();
+        Map<String, Object> map = new HashMap<>();
+        map.put("name", "testName");
+        List<StringLookup> lookups = new ArrayList<>();
+        lookups.add(StringLookupFactory.INSTANCE.mapStringLookup(map));
+        System.out.println("lookup");
+        LookupPerformer instance = new LookupPerformer(lookups);
+        String expResult = "testName";
+        String result = instance.lookup("name");
+        assertEquals(expResult, result);
     }
 
 }

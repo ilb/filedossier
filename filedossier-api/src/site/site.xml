@@ -4,6 +4,6 @@
         <menu ref="parent"/>
         <menu name="Documentation">
             <item href="application.html" name="Application resources" />
-        </menu>        
+        </menu>
     </body>
 </project>

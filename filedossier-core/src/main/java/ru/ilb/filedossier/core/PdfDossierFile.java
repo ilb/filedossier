@@ -39,11 +39,11 @@ import ru.ilb.filedossier.utils.PdfUtils;
 public class PdfDossierFile extends DossierFileImpl {
 
     public PdfDossierFile(Store store, String code, String name, boolean required, boolean readonly,
-                          boolean hidden, String mediaType, List<Representation> representations,
-                          DossierContextService dossierContextService) {
+            boolean hidden, String mediaType, List<Representation> representations,
+            DossierContextService dossierContextService) {
 
         super(store, code, name, required, readonly, hidden, mediaType, representations,
-              dossierContextService);
+                dossierContextService);
 
         this.representation.setParent(this);
     }
@@ -99,7 +99,7 @@ public class PdfDossierFile extends DossierFileImpl {
         byte[] pdfPage = PdfUtils.extractPdfPage(representation.getContents(), page - 1);
 
         boolean checkSignaturesResult = checkSignatures(metaProvider.getSignatureCoordinates(),
-                                                        pdfPage, data);
+                pdfPage, data);
 
         if (checkSignaturesResult != false) {
             nestedStore.setContents(String.valueOf(page), data);
@@ -108,7 +108,7 @@ public class PdfDossierFile extends DossierFileImpl {
     }
 
     private boolean checkSignatures(List<DocumentArea> signatureCoordinates, byte[] pdfPage,
-                                    byte[] scanPage) throws IOException {
+            byte[] scanPage) throws IOException {
 
         if (signatureCoordinates != null) {
 

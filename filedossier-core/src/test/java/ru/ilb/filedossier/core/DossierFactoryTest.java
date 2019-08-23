@@ -44,40 +44,40 @@ public class DossierFactoryTest {
 
     @ClassRule
     public static JndiRule jndi = new JndiRule() {
-	@Override
-	protected void bind(Context context) throws NamingException {
-	    context.bind("ru.bystrobank.apps.meta.url", "https://devel.net.ilb.ru/meta");
-	}
+        @Override
+        protected void bind(Context context) throws NamingException {
+            context.bind("ru.bystrobank.apps.meta.url", "https://devel.net.ilb.ru/meta");
+        }
 
     };
 
     public static DossierFactory getDossierFactory() throws NamingException {
-	DossierDefinitionRepository dossierModelRepository;
-	StoreFactory storeFactory;
-	try {
-	    dossierModelRepository = new FileDossierDefinitionRepository(
-		    DossierFactoryTest.class.getClassLoader().getResource("models").toURI());
-	    storeFactory = StoreFactory
-		    .newInstance(DossierFactoryTest.class.getClassLoader().getResource("teststoreroot").toURI());
-	} catch (URISyntaxException ex) {
-	    throw new RuntimeException(ex);
-	}
+        DossierDefinitionRepository dossierModelRepository;
+        StoreFactory storeFactory;
+        try {
+            dossierModelRepository = new FileDossierDefinitionRepository(
+                    DossierFactoryTest.class.getClassLoader().getResource("models").toURI());
+            storeFactory = StoreFactory
+                    .newInstance(DossierFactoryTest.class.getClassLoader().getResource("teststoreroot").toURI());
+        } catch (URISyntaxException ex) {
+            throw new RuntimeException(ex);
+        }
 
-	DossierContextBuilder dossierContextBuilder = (String dossierKey, String dossierPackage,
-		String dossierCode) -> {
-	    DossierContext dc = new DossierContextImpl();
-	    dc.setProperty("name", "Тест имя");
-	    dc.setProperty("prop", false);
-	    return dc;
-	};
-	TemplateEvaluator templateEvaluator;
-	templateEvaluator = new SubstitutorTemplateEvaluator(new InitialContext());
-	return new DossierFactory(dossierModelRepository, storeFactory, dossierContextBuilder, templateEvaluator);
+        DossierContextBuilder dossierContextBuilder = (String dossierKey, String dossierPackage,
+                String dossierCode) -> {
+            DossierContext dc = new DossierContextImpl();
+            dc.setProperty("name", "Тест имя");
+            dc.setProperty("prop", false);
+            return dc;
+        };
+        TemplateEvaluator templateEvaluator;
+        templateEvaluator = new SubstitutorTemplateEvaluator(new InitialContext());
+        return new DossierFactory(dossierModelRepository, storeFactory, dossierContextBuilder, templateEvaluator);
 
     }
 
     public DossierFactoryTest() throws NamingException {
-	dossierFactory = getDossierFactory();
+        dossierFactory = getDossierFactory();
     }
 
     /**
@@ -85,14 +85,14 @@ public class DossierFactoryTest {
      */
     @Test
     public void testCreateDossier() {
-	System.out.println("createDossier");
-	String dossierKey = "teststorekey";
-	String dossierPackage = "testmodel";
-	String dossierCode = "TEST";
+        System.out.println("createDossier");
+        String dossierKey = "teststorekey";
+        String dossierPackage = "testmodel";
+        String dossierCode = "TEST";
 
-	String expResult = "Тест имя";
-	Dossier result = dossierFactory.getDossier(dossierKey, dossierPackage, dossierCode);
-	assertEquals(expResult, result.getDossierFile("fairpricecalc").getName());
+        String expResult = "Тест имя";
+        Dossier result = dossierFactory.getDossier(dossierKey, dossierPackage, dossierCode);
+        assertEquals(expResult, result.getDossierFile("fairpricecalc").getName());
     }
 
 }

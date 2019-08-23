@@ -61,9 +61,9 @@ public class ScanXMPMetaProvider {
             for (String coordinates : signaturesArray) {
                 String[] coordinatesArray = coordinates.split(":");
                 signatureCoordinates.add(new DocumentArea(Float.valueOf(coordinatesArray[0]),
-                                                          Float.valueOf(coordinatesArray[1]),
-                                                          Float.valueOf(coordinatesArray[2]),
-                                                          Float.valueOf(coordinatesArray[3])));
+                        Float.valueOf(coordinatesArray[1]),
+                        Float.valueOf(coordinatesArray[2]),
+                        Float.valueOf(coordinatesArray[3])));
             }
             return signatureCoordinates;
 

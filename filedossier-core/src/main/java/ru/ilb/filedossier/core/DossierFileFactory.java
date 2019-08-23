@@ -28,18 +28,18 @@ import ru.ilb.filedossier.entities.Store;
 public class DossierFileFactory {
 
     public static DossierFile createDossierFile(Store store, String code, String name, boolean required,
-	    boolean readonly, boolean hidden, String mediaType, List<Representation> representations,
-	    DossierContextService dossierContextService) {
+            boolean readonly, boolean hidden, String mediaType, List<Representation> representations,
+            DossierContextService dossierContextService) {
 
-	// TODO: multiple representations
-	String defaultRepresentationMediaType = representations.get(0).getMediaType();
-	switch (defaultRepresentationMediaType) {
-	case "application/pdf":
-	    return new PdfDossierFile(store, code, name, required, readonly, hidden, mediaType, representations,
-		    dossierContextService);
-	default:
-	    return new DossierFileImpl(store, code, name, required, readonly, hidden, mediaType, representations,
-		    dossierContextService);
-	}
+        // TODO: multiple representations
+        String defaultRepresentationMediaType = representations.get(0).getMediaType();
+        switch (defaultRepresentationMediaType) {
+            case "application/pdf":
+                return new PdfDossierFile(store, code, name, required, readonly, hidden, mediaType, representations,
+                        dossierContextService);
+            default:
+                return new DossierFileImpl(store, code, name, required, readonly, hidden, mediaType, representations,
+                        dossierContextService);
+        }
     }
 }

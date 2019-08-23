@@ -21,7 +21,7 @@ import ru.ilb.filedossier.entities.DossierPath;
 
 /**
  * Represents raw file contents
- * 
+ *
  * @author slavb
  */
 public class IdentityRepresentation implements Representation {
@@ -30,50 +30,50 @@ public class IdentityRepresentation implements Representation {
     protected final String mediaType;
 
     public IdentityRepresentation(String mediaType) {
-	this.mediaType = mediaType;
+        this.mediaType = mediaType;
     }
 
     @Override
     public String getCode() {
-	return parent.getCode();
+        return parent.getCode();
     }
 
     @Override
     public String getName() {
-	return parent.getName();
+        return parent.getName();
     }
 
     @Override
     public void setParent(DossierPath parent) {
-	assert DossierContents.class.isAssignableFrom(
-		parent.getClass()) : "DossierContents instance should be passed as argument instead of "
-			+ parent.getClass().getCanonicalName();
-	this.parent = (DossierContents) parent;
+        assert DossierContents.class.isAssignableFrom(
+                parent.getClass()) : "DossierContents instance should be passed as argument instead of "
+                + parent.getClass().getCanonicalName();
+        this.parent = (DossierContents) parent;
     }
 
     @Override
     public DossierContents getParent() {
-	return parent;
+        return parent;
     }
 
     @Override
     public byte[] getContents() {
-	return parent.getContents();
+        return parent.getContents();
     }
 
     @Override
     public String getMediaType() {
-	return mediaType;
+        return mediaType;
     }
 
     @Override
     public void setContents(byte[] data) {
-	parent.setContents(data);
+        parent.setContents(data);
     }
 
     @Override
     public String getExtension() {
-	return parent.getExtension();
+        return parent.getExtension();
     }
 
 }

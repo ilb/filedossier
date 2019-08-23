@@ -29,22 +29,22 @@ import ru.ilb.filedossier.entities.DossierContext;
  * @author develop01
  */
 public class DossierContextImplTest {
-    
+
     public DossierContextImplTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -90,7 +90,7 @@ public class DossierContextImplTest {
         instance.setProperty("notexist", "keyvalue");
         boolean result2 = instance.containsProperty(name);
         assertEquals(expResult2, result2);
-        
+
     }
 
     /**
@@ -104,7 +104,7 @@ public class DossierContextImplTest {
         Object expResult = null;
         Object result = instance.getProperty(name);
         assertEquals(expResult, result);
-       
+
     }
 
     /**
@@ -124,7 +124,7 @@ public class DossierContextImplTest {
         boolean expResult2 = true;
         boolean result2 = instance.equals(instance2);
         assertEquals(expResult2, result2);
-        
+
     }
 
     /**
@@ -139,5 +139,5 @@ public class DossierContextImplTest {
         int result = instance.hashCode();
         assertEquals(expResult, result);
     }
-    
+
 }

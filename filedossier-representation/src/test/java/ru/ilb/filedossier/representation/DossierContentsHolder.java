@@ -38,7 +38,6 @@ public class DossierContentsHolder implements DossierContents {
         this.extension = extension;
     }
 
-
     @Override
     public byte[] getContents() {
         return contents;
@@ -92,8 +91,7 @@ public class DossierContentsHolder implements DossierContents {
 
     @Override
     public void setParent(DossierPath parent) {
-        
-    }
 
+    }
 
 }

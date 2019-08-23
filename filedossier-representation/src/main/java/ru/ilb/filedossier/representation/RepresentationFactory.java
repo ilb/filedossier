@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package ru.ilb.filedossier.representation;
 
 import java.net.MalformedURLException;
@@ -30,34 +29,34 @@ import ru.ilb.filedossier.scripting.TemplateEvaluator;
 public class RepresentationFactory {
 
     public Representation createRepresentation(URI baseUri, RepresentationDefinition representationModel,
-	    DossierContext dossierContext, TemplateEvaluator evaluator) {
-	String mediaType = representationModel.getMediaType();
-	switch (mediaType) {
-	case "application/vnd.oasis.opendocument.spreadsheet":
-	    return createOdsRepresentation(baseUri,representationModel);
-	case "application/pdf":
-	    return createPdfRepresentation(representationModel, evaluator, dossierContext);
-	default:
-	    throw new IllegalArgumentException("unsupported media type " + mediaType);
-	}
+            DossierContext dossierContext, TemplateEvaluator evaluator) {
+        String mediaType = representationModel.getMediaType();
+        switch (mediaType) {
+            case "application/vnd.oasis.opendocument.spreadsheet":
+                return createOdsRepresentation(baseUri, representationModel);
+            case "application/pdf":
+                return createPdfRepresentation(representationModel, evaluator, dossierContext);
+            default:
+                throw new IllegalArgumentException("unsupported media type " + mediaType);
+        }
     }
 
-    private Representation createOdsRepresentation(URI baseUri,RepresentationDefinition representationModel) {
-	return new OdsXsltRepresentation(representationModel.getMediaType(),
-		baseUri.resolve(representationModel.getStylesheet()), baseUri.resolve(representationModel.getTemplate()));
+    private Representation createOdsRepresentation(URI baseUri, RepresentationDefinition representationModel) {
+        return new OdsXsltRepresentation(representationModel.getMediaType(),
+                baseUri.resolve(representationModel.getStylesheet()), baseUri.resolve(representationModel.getTemplate()));
     }
 
     private Representation createPdfRepresentation(RepresentationDefinition representationModel,
-	    TemplateEvaluator evaluator, DossierContext dossierContext) {
-	URI stylesheetUri = URI
-		.create(evaluator.evaluateStringExpression(representationModel.getStylesheet(), dossierContext.asMap()));
-	URI schemaUri = URI.create(evaluator.evaluateStringExpression(representationModel.getSchema(), dossierContext.asMap()));
-	URI metaUri = URI.create(evaluator.evaluateStringExpression(representationModel.getMeta(), dossierContext.asMap()));
-	try {
-	    return new PdfGenRepresentation(representationModel.getMediaType(), stylesheetUri, schemaUri, metaUri);
-	} catch (MalformedURLException ex) {
-	    throw new RuntimeException(ex);
-	}
+            TemplateEvaluator evaluator, DossierContext dossierContext) {
+        URI stylesheetUri = URI
+                .create(evaluator.evaluateStringExpression(representationModel.getStylesheet(), dossierContext.asMap()));
+        URI schemaUri = URI.create(evaluator.evaluateStringExpression(representationModel.getSchema(), dossierContext.asMap()));
+        URI metaUri = URI.create(evaluator.evaluateStringExpression(representationModel.getMeta(), dossierContext.asMap()));
+        try {
+            return new PdfGenRepresentation(representationModel.getMediaType(), stylesheetUri, schemaUri, metaUri);
+        } catch (MalformedURLException ex) {
+            throw new RuntimeException(ex);
+        }
     }
 
 }

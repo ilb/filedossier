@@ -48,12 +48,12 @@ public class PdfGenRepresentationTest {
     public void testGetContents() throws URISyntaxException, IOException {
         System.out.println("getContents");
         PdfGenRepresentation instance = new PdfGenRepresentation("application/pdf", URI.create(xsl),
-                                                                 URI.create(xsd), URI.create(meta));
+                URI.create(xsd), URI.create(meta));
 
         URI dataUri = getClass().getClassLoader().getResource("jurnals/avto.xml").toURI();
         byte[] source = Files.readAllBytes(Paths.get(dataUri));
         DossierContentsHolder contents = new DossierContentsHolder(source, "application/pdf",
-                                                                   "jurnals", "Jurnals", "pdf");
+                "jurnals", "Jurnals", "pdf");
         instance.setParent(contents);
         representation = instance.getContents();
         assertNotNull(representation);

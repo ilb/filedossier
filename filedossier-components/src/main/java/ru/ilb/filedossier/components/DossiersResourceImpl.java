@@ -39,7 +39,6 @@ public class DossiersResourceImpl implements DossiersResource {
     @Context
     private ResourceContext resourceContext;
 
-
     @Override
     public DossierResource getDossierResource(String dossierKey, String dossierPackage, String dossierCode) {
         DossierResourceImpl resource = new DossierResourceImpl(dossierKey, dossierPackage, dossierCode);

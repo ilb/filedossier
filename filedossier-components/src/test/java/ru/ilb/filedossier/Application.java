@@ -71,7 +71,7 @@ public class Application {
         }
 
         DossierContextBuilder dossierContextBuilder = (String dossierKey, String dossierPackage,
-                                                       String dossierCode) -> {
+                String dossierCode) -> {
             DossierContext dc = new DossierContextImpl();
             dc.setProperty("name", "Тест имя");
             dc.setProperty("prop", false);
@@ -79,7 +79,7 @@ public class Application {
         };
         TemplateEvaluator templateEvaluator = new SubstitutorTemplateEvaluator(new InitialContext());
         return new DossierFactory(dossierModelRepository, storeFactory, dossierContextBuilder,
-                                  templateEvaluator);
+                templateEvaluator);
 
     }
 

@@ -31,30 +31,30 @@ public class JSTemplateEvaluator implements TemplateEvaluator {
 
     private final ScriptEngineManager scriptEngineManager = new ScriptEngineManager();
 
-    private Bindings getBindings( Map<String, Object> dossierContext) {
-	Bindings bindings = new SimpleBindings();
-	bindings.putAll(dossierContext);
-	return bindings;
+    private Bindings getBindings(Map<String, Object> dossierContext) {
+        Bindings bindings = new SimpleBindings();
+        bindings.putAll(dossierContext);
+        return bindings;
     }
 
     @Override
-    public String evaluateStringExpression(String template,  Map<String, Object> dossierContext) {
-	ScriptEngine engine = scriptEngineManager.getEngineByName(engineName);
-	try {
-	    return engine.eval(template, getBindings(dossierContext)).toString();
-	} catch (ScriptException ex) {
-	    throw new RuntimeException(ex);
-	}
+    public String evaluateStringExpression(String template, Map<String, Object> dossierContext) {
+        ScriptEngine engine = scriptEngineManager.getEngineByName(engineName);
+        try {
+            return engine.eval(template, getBindings(dossierContext)).toString();
+        } catch (ScriptException ex) {
+            throw new RuntimeException(ex);
+        }
     }
 
     @Override
-    public Boolean evaluateBooleanExpression(String template,  Map<String, Object> dossierContext) {
-	ScriptEngine engine = scriptEngineManager.getEngineByName(engineName);
-	try {
-	    return (Boolean) engine.eval(template, getBindings(dossierContext));
-	} catch (ScriptException ex) {
-	    throw new RuntimeException(ex);
-	}
+    public Boolean evaluateBooleanExpression(String template, Map<String, Object> dossierContext) {
+        ScriptEngine engine = scriptEngineManager.getEngineByName(engineName);
+        try {
+            return (Boolean) engine.eval(template, getBindings(dossierContext));
+        } catch (ScriptException ex) {
+            throw new RuntimeException(ex);
+        }
 
     }
 

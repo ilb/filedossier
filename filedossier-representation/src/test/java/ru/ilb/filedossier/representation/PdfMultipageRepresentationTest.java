@@ -48,13 +48,13 @@ public class PdfMultipageRepresentationTest {
         Store store = StoreFactory.newInstance(pagesUri).getStore("pages");
 
         PdfMultipageRepresentation instance = new PdfMultipageRepresentation("application/pdf",
-                                                                             store);
+                store);
         byte[] result = instance.getContents();
 
         assertNotNull(result);
 
         Files.write(Paths.get(System.getProperty("java.io.tmpdir") + "/MultipageRepresentation.pdf"),
-                    result);
+                result);
 
     }
 
@@ -66,7 +66,7 @@ public class PdfMultipageRepresentationTest {
         System.out.println("getExtension");
         Store store = StoreFactory.newInstance(pagesUri).getStore("pages");
         PdfMultipageRepresentation instance = new PdfMultipageRepresentation("application/pdf",
-                                                                             store);
+                store);
         String expResult = "pdf";
         String result = instance.getExtension();
         Assert.assertEquals(expResult, result);
@@ -80,7 +80,7 @@ public class PdfMultipageRepresentationTest {
         System.out.println("getMediaType");
         Store store = StoreFactory.newInstance(pagesUri).getStore("pages");
         PdfMultipageRepresentation instance = new PdfMultipageRepresentation("application/pdf",
-                                                                             store);
+                store);
         String expResult = "application/pdf";
         String result = instance.getMediaType();
         Assert.assertEquals(expResult, result);

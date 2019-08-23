@@ -18,8 +18,7 @@ package ru.ilb.filedossier.entities;
 /**
  *
  * <p>
- * This interface marks DossierFiles representations. For example, DossierFile is xml, it's
- * representation is PDF.
+ * This interface marks DossierFiles representations. For example, DossierFile is xml, it's representation is PDF.
  * <p>
  *
  * @author slavb

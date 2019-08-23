@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <actions>
-        <action>
-            <actionName>CUSTOM-clean install debug</actionName>
-            <displayName>clean install debug</displayName>
-            <goals>
-                <goal>clean</goal>
-                <goal>install</goal>
-                <goal>-X</goal>
-            </goals>
-            <properties>
-                <jpda.listen>maven</jpda.listen>
-                <OASISCatalogManager.catalog.debug.level>99</OASISCatalogManager.catalog.debug.level> 
-            </properties>
-        </action>
-    </actions>
+    <action>
+        <actionName>CUSTOM-clean install debug</actionName>
+        <displayName>clean install debug</displayName>
+        <goals>
+            <goal>clean</goal>
+            <goal>install</goal>
+            <goal>-X</goal>
+        </goals>
+        <properties>
+            <jpda.listen>maven</jpda.listen>
+            <OASISCatalogManager.catalog.debug.level>99</OASISCatalogManager.catalog.debug.level>
+        </properties>
+    </action>
+</actions>

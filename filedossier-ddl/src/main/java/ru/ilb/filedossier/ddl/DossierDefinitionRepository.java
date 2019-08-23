@@ -20,6 +20,7 @@ import ru.ilb.filedossier.ddl.DossierDefinition;
 
 /**
  * Репозиторий моделей досье
+ *
  * @author slavb
  */
 public interface DossierDefinitionRepository {

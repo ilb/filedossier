@@ -58,7 +58,7 @@ public class DossierImpl implements Dossier {
     }
 
     public DossierImpl(String code, String name, String dossierPackage, String dossierKey,
-                       List<DossierFile> dossierFiles) {
+            List<DossierFile> dossierFiles) {
         this.code = code;
         this.name = name;
         this.dossierFiles = dossierFiles.stream().peek(df -> df.setParent(this))
@@ -101,7 +101,7 @@ public class DossierImpl implements Dossier {
     @Override
     public void setParent(DossierPath parent) {
         assert Dossier.class.isAssignableFrom(parent.getClass()) : "Dossier instance should be passed as argument instead of "
-                                                                   + parent.getClass().getCanonicalName();
+                + parent.getClass().getCanonicalName();
         this.parent = (Dossier) parent;
     }
 }

@@ -75,7 +75,7 @@ public class RuntimeFunction implements ByteFunction {
             int exitCode = p.waitFor();
             switch (exitCode) {
                 case 127:
-                    throw new IllegalArgumentException(commandFile.toString() +" does not exist");
+                    throw new IllegalArgumentException(commandFile.toString() + " does not exist");
                 case 0:
                     break;
                 default:

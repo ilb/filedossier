@@ -45,20 +45,17 @@ public class DossierFactory {
     private final DossierDefinitionRepository dossierModelRepository;
 
     /**
-     * Файловое хранилище TODO возможно реализацию нужно иметь возможность
-     * настраивать в досье
+     * Файловое хранилище TODO возможно реализацию нужно иметь возможность настраивать в досье
      */
     private final StoreFactory storeFactory;
 
     /**
-     * Построитель контекста досье TODO возможно реализацию нужно иметь
-     * возможность настраивать в досье
+     * Построитель контекста досье TODO возможно реализацию нужно иметь возможность настраивать в досье
      */
     private final DossierContextBuilder dossierContextBuilder;
 
     /**
-     * Движок вычисления выражений по-умолчанию TODO возможно реализацию нужно
-     * иметь возможность настраивать в досье
+     * Движок вычисления выражений по-умолчанию TODO возможно реализацию нужно иметь возможность настраивать в досье
      */
     private final TemplateEvaluator templateEvaluator;
 
@@ -71,55 +68,55 @@ public class DossierFactory {
     DossierContextService dossierContextService;
 
     public DossierFactory(DossierDefinitionRepository dossierModelRepository, StoreFactory storeFactory,
-	    DossierContextBuilder dossierContextBuilder, TemplateEvaluator templateEvaluator) {
-	this.dossierModelRepository = dossierModelRepository;
-	this.storeFactory = storeFactory;
-	this.dossierContextBuilder = dossierContextBuilder;
-	this.templateEvaluator = templateEvaluator;
+            DossierContextBuilder dossierContextBuilder, TemplateEvaluator templateEvaluator) {
+        this.dossierModelRepository = dossierModelRepository;
+        this.storeFactory = storeFactory;
+        this.dossierContextBuilder = dossierContextBuilder;
+        this.templateEvaluator = templateEvaluator;
     }
 
     public void setDossierContextService(DossierContextService dossierContextService) {
-	this.dossierContextService = dossierContextService;
+        this.dossierContextService = dossierContextService;
     }
 
     public Dossier getDossier(String dossierKey, String dossierPackage, String dossierCode) {
-	DossierDefinition dossierModel = dossierModelRepository.getDossierDefinition(dossierPackage, dossierCode);
-	URI baseUri = dossierModelRepository.getDossierDefinitionUri(dossierPackage);
-	Store store = storeFactory.getStore(dossierKey);
-	DossierContext dossierContext = dossierContextBuilder.createDossierContext(dossierKey, dossierPackage,
-		dossierCode);
-	return getDossier(baseUri, dossierModel, store, dossierKey, dossierPackage, dossierContext);
+        DossierDefinition dossierModel = dossierModelRepository.getDossierDefinition(dossierPackage, dossierCode);
+        URI baseUri = dossierModelRepository.getDossierDefinitionUri(dossierPackage);
+        Store store = storeFactory.getStore(dossierKey);
+        DossierContext dossierContext = dossierContextBuilder.createDossierContext(dossierKey, dossierPackage,
+                dossierCode);
+        return getDossier(baseUri, dossierModel, store, dossierKey, dossierPackage, dossierContext);
     }
 
     private Dossier getDossier(URI baseUri, DossierDefinition dossierModel, Store store, String dossierKey,
-	    String dossierPackage, DossierContext dossierContext) {
-	String code = dossierModel.getCode();
-	String name = dossierModel.getName();
+            String dossierPackage, DossierContext dossierContext) {
+        String code = dossierModel.getCode();
+        String name = dossierModel.getName();
 
-	List<DossierFile> dossierFiles = dossierModel.getDossierFiles().stream()
-		.filter(modelFile -> modelFile.getRepresentations().size() > 0)
-		.map(modelFile -> createDossierFile(baseUri, modelFile, store, dossierContext))
-		.collect(Collectors.toList());
+        List<DossierFile> dossierFiles = dossierModel.getDossierFiles().stream()
+                .filter(modelFile -> modelFile.getRepresentations().size() > 0)
+                .map(modelFile -> createDossierFile(baseUri, modelFile, store, dossierContext))
+                .collect(Collectors.toList());
 
-	return new DossierImpl(code, name, dossierPackage, dossierKey, dossierFiles);
+        return new DossierImpl(code, name, dossierPackage, dossierKey, dossierFiles);
     }
 
     private DossierFile createDossierFile(URI baseUri, DossierFileDefinition modelFile, Store store,
-	    DossierContext dossierContext) {
-	List<Representation> representations = modelFile
-		.getRepresentations().stream().map(representationModel -> representationFactory
-			.createRepresentation(baseUri, representationModel, dossierContext, templateEvaluator))
-		.collect(Collectors.toList());
+            DossierContext dossierContext) {
+        List<Representation> representations = modelFile
+                .getRepresentations().stream().map(representationModel -> representationFactory
+                .createRepresentation(baseUri, representationModel, dossierContext, templateEvaluator))
+                .collect(Collectors.toList());
 
-	return DossierFileFactory.createDossierFile(store,
-		templateEvaluator.evaluateStringExpression(modelFile.getCode(), dossierContext.asMap()),
-		templateEvaluator.evaluateStringExpression(modelFile.getName(), dossierContext.asMap()),
-		Boolean.TRUE.equals(
-			templateEvaluator.evaluateBooleanExpression(modelFile.getRequired(), dossierContext.asMap())),
-		Boolean.TRUE.equals(
-			templateEvaluator.evaluateBooleanExpression(modelFile.getReadonly(), dossierContext.asMap())),
-		Boolean.TRUE.equals(
-			templateEvaluator.evaluateBooleanExpression(modelFile.getHidden(), dossierContext.asMap())),
-		modelFile.getMediaType(), representations, dossierContextService);
+        return DossierFileFactory.createDossierFile(store,
+                templateEvaluator.evaluateStringExpression(modelFile.getCode(), dossierContext.asMap()),
+                templateEvaluator.evaluateStringExpression(modelFile.getName(), dossierContext.asMap()),
+                Boolean.TRUE.equals(
+                        templateEvaluator.evaluateBooleanExpression(modelFile.getRequired(), dossierContext.asMap())),
+                Boolean.TRUE.equals(
+                        templateEvaluator.evaluateBooleanExpression(modelFile.getReadonly(), dossierContext.asMap())),
+                Boolean.TRUE.equals(
+                        templateEvaluator.evaluateBooleanExpression(modelFile.getHidden(), dossierContext.asMap())),
+                modelFile.getMediaType(), representations, dossierContextService);
     }
 }

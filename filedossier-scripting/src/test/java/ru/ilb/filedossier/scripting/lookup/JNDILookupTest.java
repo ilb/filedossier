@@ -31,10 +31,10 @@ public class JNDILookupTest {
 
     @ClassRule
     public static JndiRule jndi = new JndiRule() {
-	@Override
-	protected void bind(Context context) throws NamingException {
-	    context.bind("ru.bystrobank.apps.meta.url", "https://devel.net.ilb.ru/meta");
-	}
+        @Override
+        protected void bind(Context context) throws NamingException {
+            context.bind("ru.bystrobank.apps.meta.url", "https://devel.net.ilb.ru/meta");
+        }
 
     };
 
@@ -43,11 +43,11 @@ public class JNDILookupTest {
      */
     @Test
     public void testStringLookup() throws NamingException {
-	JNDILookup instance = new JNDILookup(new InitialContext());
+        JNDILookup instance = new JNDILookup(new InitialContext());
 
-	String expectedResult = "https://devel.net.ilb.ru/meta";
-	String result = instance.lookup("ru.bystrobank.apps.meta.url");
-	Assert.assertEquals(expectedResult, result);
+        String expectedResult = "https://devel.net.ilb.ru/meta";
+        String result = instance.lookup("ru.bystrobank.apps.meta.url");
+        Assert.assertEquals(expectedResult, result);
     }
 
 }

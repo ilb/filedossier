@@ -34,6 +34,7 @@ import ru.ilb.filedossier.jndi.JndiRule;
  */
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class DossierFileImplTest {
+
     private final DossierFactory dossierFactory;
 
     private final Dossier dossier;
@@ -42,17 +43,17 @@ public class DossierFileImplTest {
 
     @ClassRule
     public static JndiRule jndi = new JndiRule() {
-	@Override
-	protected void bind(Context context) throws NamingException {
-	    context.bind("ru.bystrobank.apps.meta.url", "https://devel.net.ilb.ru/meta");
-	}
+        @Override
+        protected void bind(Context context) throws NamingException {
+            context.bind("ru.bystrobank.apps.meta.url", "https://devel.net.ilb.ru/meta");
+        }
 
     };
 
     public DossierFileImplTest() throws NamingException {
-	dossierFactory = getDossierFactory();
-	dossier = dossierFactory.getDossier("teststorekey", "testmodel", "TEST");
-	dossierFile1 = dossier.getDossierFile("fairpricecalc");
+        dossierFactory = getDossierFactory();
+        dossier = dossierFactory.getDossier("teststorekey", "testmodel", "TEST");
+        dossierFile1 = dossier.getDossierFile("fairpricecalc");
     }
 
     /**
@@ -60,10 +61,10 @@ public class DossierFileImplTest {
      */
     @Test
     public void testGetCode() {
-	System.out.println("getCode");
-	String expResult = "fairpricecalc";
-	String result = dossierFile1.getCode();
-	assertEquals(expResult, result);
+        System.out.println("getCode");
+        String expResult = "fairpricecalc";
+        String result = dossierFile1.getCode();
+        assertEquals(expResult, result);
     }
 
     /**
@@ -71,10 +72,10 @@ public class DossierFileImplTest {
      */
     @Test
     public void testGetName() {
-	System.out.println("getName");
-	String expResult = "Тест имя";
-	String result = dossierFile1.getName();
-	assertEquals(expResult, result);
+        System.out.println("getName");
+        String expResult = "Тест имя";
+        String result = dossierFile1.getName();
+        assertEquals(expResult, result);
     }
 
     /**
@@ -82,10 +83,10 @@ public class DossierFileImplTest {
      */
     @Test
     public void testGetRequired() {
-	System.out.println("getRequired");
-	boolean expResult = true;
-	boolean result = dossierFile1.getRequired();
-	assertEquals(expResult, result);
+        System.out.println("getRequired");
+        boolean expResult = true;
+        boolean result = dossierFile1.getRequired();
+        assertEquals(expResult, result);
     }
 
     /**
@@ -93,10 +94,10 @@ public class DossierFileImplTest {
      */
     @Test
     public void testGetReadonly() {
-	System.out.println("getReadonly");
-	boolean expResult = false;
-	boolean result = dossierFile1.getReadonly();
-	assertEquals(expResult, result);
+        System.out.println("getReadonly");
+        boolean expResult = false;
+        boolean result = dossierFile1.getReadonly();
+        assertEquals(expResult, result);
     }
 
     /**
@@ -104,10 +105,10 @@ public class DossierFileImplTest {
      */
     @Test
     public void testGetHidden() {
-	System.out.println("getHidden");
-	boolean expResult = false;
-	boolean result = dossierFile1.getHidden();
-	assertEquals(expResult, result);
+        System.out.println("getHidden");
+        boolean expResult = false;
+        boolean result = dossierFile1.getHidden();
+        assertEquals(expResult, result);
     }
 
     /**
@@ -115,10 +116,10 @@ public class DossierFileImplTest {
      */
     @Test
     public void ztestGetExists() {
-	System.out.println("getExists");
-	boolean expResult = true;
-	boolean result = dossierFile1.getExists();
-	assertEquals(expResult, result);
+        System.out.println("getExists");
+        boolean expResult = true;
+        boolean result = dossierFile1.getExists();
+        assertEquals(expResult, result);
     }
 
     /**
@@ -126,10 +127,10 @@ public class DossierFileImplTest {
      */
     @Test // (expected = FileNotExistsException.class)
     public void ztestGetContents_0args() throws Exception {
-	System.out.println("getContents");
-	byte[] expResult = "test".getBytes();
-	byte[] result = dossierFile1.getContents();
-	assertArrayEquals(expResult, result);
+        System.out.println("getContents");
+        byte[] expResult = "test".getBytes();
+        byte[] result = dossierFile1.getContents();
+        assertArrayEquals(expResult, result);
     }
 
     /**
@@ -137,9 +138,9 @@ public class DossierFileImplTest {
      */
     @Test
     public void testPutContents() throws Exception {
-	System.out.println("putContents");
-	byte[] data = "test".getBytes();
-	dossierFile1.setContents(data);
+        System.out.println("putContents");
+        byte[] data = "test".getBytes();
+        dossierFile1.setContents(data);
     }
 
     /**
@@ -147,10 +148,10 @@ public class DossierFileImplTest {
      */
     @Test
     public void testGetMediaType() {
-	System.out.println("getMediaType");
-	String expResult = "application/xml";
-	String result = dossierFile1.getMediaType();
-	assertEquals(expResult, result);
+        System.out.println("getMediaType");
+        String expResult = "application/xml";
+        String result = dossierFile1.getMediaType();
+        assertEquals(expResult, result);
     }
 
 }

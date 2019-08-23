@@ -29,17 +29,17 @@ public class SimpleInitialContext extends NotImplementedContext implements Conte
 
     @Override
     public Object lookup(String name) throws NamingException {
-	Object result = container.get(name);
-	if (result == null) {
-	    throw new NamingException("any object is not binded to name : " + name.toString());
-	}
+        Object result = container.get(name);
+        if (result == null) {
+            throw new NamingException("any object is not binded to name : " + name.toString());
+        }
 
-	return result;
+        return result;
     }
 
     @Override
     public void bind(String name, Object obj) throws NamingException {
-	container.put(name, obj);
+        container.put(name, obj);
     }
 
 }

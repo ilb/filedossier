@@ -10,8 +10,7 @@ import java.util.List;
 
 /**
  * <p>
- * Store represents a physical dossier directory, it allows to set and get contents from dossier
- * files.
+ * Store represents a physical dossier directory, it allows to set and get contents from dossier files.
  * <p>
  *
  * @author slavb

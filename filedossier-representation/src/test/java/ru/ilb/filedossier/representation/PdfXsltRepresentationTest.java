@@ -34,23 +34,23 @@ public class PdfXsltRepresentationTest {
 
     @Test
     public void testGetPdf() throws URISyntaxException, IOException {
-	System.out.println("getContents");
+        System.out.println("getContents");
 
-	URI stylesheetUri = getClass().getClassLoader().getResource("projectteam/projectteam2fo.xsl").toURI();
-	URI dataUri = getClass().getClassLoader().getResource("projectteam/projectteam.xml").toURI();
+        URI stylesheetUri = getClass().getClassLoader().getResource("projectteam/projectteam2fo.xsl").toURI();
+        URI dataUri = getClass().getClassLoader().getResource("projectteam/projectteam.xml").toURI();
 
-	byte[] source = Files.readAllBytes(Paths.get(dataUri));
-	DossierContentsHolder contents = new DossierContentsHolder(source, "application/pdf", "projectteam", "Отчет",
-		"pdf");
+        byte[] source = Files.readAllBytes(Paths.get(dataUri));
+        DossierContentsHolder contents = new DossierContentsHolder(source, "application/pdf", "projectteam", "Отчет",
+                "pdf");
 
-	PdfXsltRepresentation instance = new PdfXsltRepresentation("application/pdf", stylesheetUri, dataUri);
-	instance.setParent(contents);
+        PdfXsltRepresentation instance = new PdfXsltRepresentation("application/pdf", stylesheetUri, dataUri);
+        instance.setParent(contents);
 
-	byte[] result = instance.getContents();
-	Files.write(Paths.get(System.getProperty("java.io.tmpdir") + "/projectteam.pdf"), result);
-	assertNotNull(result);
-	assertEquals("projectteam.pdf", instance.getFileName());
-	assertEquals("application/pdf", instance.getMediaType());
+        byte[] result = instance.getContents();
+        Files.write(Paths.get(System.getProperty("java.io.tmpdir") + "/projectteam.pdf"), result);
+        assertNotNull(result);
+        assertEquals("projectteam.pdf", instance.getFileName());
+        assertEquals("application/pdf", instance.getMediaType());
     }
 
 }

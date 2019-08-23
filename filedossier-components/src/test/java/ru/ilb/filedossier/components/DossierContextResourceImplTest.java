@@ -29,7 +29,6 @@ import ru.ilb.filedossier.api.DossiersResource;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 /**
  *
  * @author kuznetsov_me
@@ -47,20 +46,20 @@ public class DossierContextResourceImplTest {
     private JsonMapObjectProvider jsonMapObjectProvider;
 
     private DossiersResource getDossiersResource() {
-	if (resource == null) {
-	    String port = randomPort.toString();
-	    String resourceUri = "http://localhost:" + port + "/web";
-	    System.out.println("resourceUri=" + resourceUri);
-	    resource = JAXRSClientFactory.create(resourceUri, DossiersResource.class,
-		    Arrays.asList(jsonMapObjectProvider));
-	}
-	return resource;
+        if (resource == null) {
+            String port = randomPort.toString();
+            String resourceUri = "http://localhost:" + port + "/web";
+            System.out.println("resourceUri=" + resourceUri);
+            resource = JAXRSClientFactory.create(resourceUri, DossiersResource.class,
+                    Arrays.asList(jsonMapObjectProvider));
+        }
+        return resource;
 
     }
 
     private DossierContextResource getDossierContextResource(String name) {
-	return getDossiersResource().getDossierResource("teststorekey", "testmodel", "TEST")
-		.getDossierFileResource(name).getDossierContextResource();
+        return getDossiersResource().getDossierResource("teststorekey", "testmodel", "TEST")
+                .getDossierFileResource(name).getDossierContextResource();
     }
 
     /**
@@ -68,8 +67,8 @@ public class DossierContextResourceImplTest {
      */
     @org.junit.Test
     public void testGetContext() throws URISyntaxException {
-	DossierContextResource contextResource = getDossierContextResource("jurnals");
-	JsonMapObject context = contextResource.getContext();
-	Assert.assertNotNull(context.asMap());
+        DossierContextResource contextResource = getDossierContextResource("jurnals");
+        JsonMapObject context = contextResource.getContext();
+        Assert.assertNotNull(context.asMap());
     }
 }

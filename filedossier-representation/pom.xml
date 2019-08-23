@@ -32,9 +32,9 @@
             <version>20180813</version>
         </dependency>
         <dependency>
-        <groupId>org.apache.httpcomponents</groupId>
-        <artifactId>httpclient</artifactId>
-        <version>4.5.8</version>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.8</version>
         </dependency>
         <dependency>
             <groupId>ru.bb.pdfgen</groupId>
@@ -46,7 +46,7 @@
             <artifactId>fop</artifactId>
             <version>2.2</version>
         </dependency>
-<!--        <dependency>
+        <!--        <dependency>
             <groupId>org.apache.cxf</groupId>
             <artifactId>cxf-rt-rs-json-basic</artifactId>
             <version>${apache-cxf.version}</version>

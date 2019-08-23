@@ -24,13 +24,11 @@ import java.util.Optional;
 import ru.ilb.filedossier.functions.MapRuntimeFunction;
 
 /**
- * BarcodeScanner gets the bar codes from each page of PDF file specified in the request. This class
- * is a wrapper over python script, call it by MapRuntimeFunction with request arguments and
- * receives founded bar codes in JSON format.
+ * BarcodeScanner gets the bar codes from each page of PDF file specified in the request. This class is a wrapper over python script, call it by MapRuntimeFunction with request
+ * arguments and receives founded bar codes in JSON format.
  * <p>
- * BarcodeScanner request is a JSON structure in the form of {@code Map<String, Object>}. It's
- * contains path of source PDF document, bar code search area, and path of directory, where pages
- * will be saved.
+ * BarcodeScanner request is a JSON structure in the form of {@code Map<String, Object>}. It's contains path of source PDF document, bar code search area, and path of directory,
+ * where pages will be saved.
  * <p>
  * Bar code format example:
  * <p>
@@ -49,8 +47,7 @@ public class BarcodeScanner {
     private URI commandUri;
 
     /**
-     * Request data for the script in the form of {@code Map<String, Object>}. Such a structure is
-     * easy to convert to/from JSON.
+     * Request data for the script in the form of {@code Map<String, Object>}. Such a structure is easy to convert to/from JSON.
      */
     Map<String, Object> requestMap;
 
@@ -134,11 +131,11 @@ public class BarcodeScanner {
 
                 Map<String, Object> barcode = new HashMap<>();
                 barcode.put("area", Optional.of(barcodeArea.asMap()).orElseThrow(
-                            NullPointerException::new));
+                        NullPointerException::new));
 
                 Map<String, Object> source = new HashMap<>();
                 source.put("document", Optional.of(documentPath).orElseThrow(
-                           NullPointerException::new));
+                        NullPointerException::new));
 
                 source.put("barcode", Optional.of(barcode).orElseThrow(NullPointerException::new));
 

@@ -39,13 +39,13 @@ public class WebResourceFunction implements ByteFunction {
             httpConnection.setDoOutput(true);
 
             try (OutputStream outStream = httpConnection.getOutputStream();
-                 OutputStreamWriter outStreamWriter = new OutputStreamWriter(outStream)) {
+                    OutputStreamWriter outStreamWriter = new OutputStreamWriter(outStream)) {
                 outStreamWriter.write(new String(template));
                 outStreamWriter.flush();
             }
 
             try (InputStream responseContent = httpConnection.getInputStream();
-                 ByteArrayOutputStream out = new ByteArrayOutputStream()) {
+                    ByteArrayOutputStream out = new ByteArrayOutputStream()) {
                 byte[] buffer = new byte[1024];
                 int len;
                 while ((len = responseContent.read(buffer)) != -1) {

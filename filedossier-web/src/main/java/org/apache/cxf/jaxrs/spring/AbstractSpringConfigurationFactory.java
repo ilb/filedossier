@@ -36,7 +36,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
 public abstract class AbstractSpringConfigurationFactory
-    extends AbstractBasicInterceptorProvider implements ApplicationContextAware {
+        extends AbstractBasicInterceptorProvider implements ApplicationContextAware {
 
     protected ApplicationContext applicationContext;
     @Value("${cxf.jaxrs.server.address:}")
@@ -58,12 +58,12 @@ public abstract class AbstractSpringConfigurationFactory
         factory.setOutFaultInterceptors(getOutFaultInterceptors());
         factory.setFeatures(getFeatures());
         if (!StringUtils.isEmpty(jaxrsExtensions)) {
-            factory.setExtensionMappings((Map)parseMapSequence(jaxrsExtensions));
+            factory.setExtensionMappings((Map) parseMapSequence(jaxrsExtensions));
         }
         finalizeFactorySetup(factory);
         return factory.create();
     }
-    
+
     protected Bus getBus() {
         return applicationContext.getBean(SpringBus.class);
     }
@@ -97,6 +97,7 @@ public abstract class AbstractSpringConfigurationFactory
     protected void finalizeFactorySetup(JAXRSServerFactoryBean factory) {
         // complete
     }
+
     protected static Map<String, String> parseMapSequence(String sequence) {
         if (sequence != null) {
             sequence = sequence.trim();

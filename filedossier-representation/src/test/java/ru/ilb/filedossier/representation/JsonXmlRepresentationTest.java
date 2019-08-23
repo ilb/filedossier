@@ -42,17 +42,14 @@ public class JsonXmlRepresentationTest {
         URI dataXmlUri = getClass().getClassLoader().getResource("fairpriceorder/data.xml").toURI();
 
         byte[] source = Files.readAllBytes(Paths.get(dataUri));
-        DossierContentsHolder contents = new DossierContentsHolder(source, "application/json","fairpriceorder", "Отчет","json");
+        DossierContentsHolder contents = new DossierContentsHolder(source, "application/json", "fairpriceorder", "Отчет", "json");
 
         JsonXmlRepresentation instance = new JsonXmlRepresentation();
         instance.setParent(contents);
-        
 
         String expResult = new String(Files.readAllBytes(Paths.get(dataXmlUri)));
         String result = new String(instance.getContents());
         assertEquals(expResult, result);
     }
-
-
 
 }

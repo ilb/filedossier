@@ -27,7 +27,7 @@
     <xsl:import href="subdirtest1/documenttest.xsl" />
     <xsl:output method="xml" version="1.0" omit-xml-declaration="no" indent="yes"/>
     <xsl:param name="versionParam" select="'1.0'"/>
-    
+
     <!-- ========================= -->
     <!-- root element: projectteam -->
     <!-- ========================= -->

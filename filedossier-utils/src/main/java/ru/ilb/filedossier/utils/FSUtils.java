@@ -26,11 +26,12 @@ import java.util.Collections;
  * @author slavb
  */
 public class FSUtils {
+
     /**
-     * hot fix to open uri from different filesystems
-     * https://stackoverflow.com/a/48298758
-     * @param uri 
-     * @return  
+     * hot fix to open uri from different filesystems https://stackoverflow.com/a/48298758
+     *
+     * @param uri
+     * @return
      */
     public static URI loadFileSystemProvider(URI uri) {
         if (!"file".equals(uri.getScheme())) {
@@ -50,5 +51,5 @@ public class FSUtils {
             }
         }
         return uri;
-    }    
+    }
 }

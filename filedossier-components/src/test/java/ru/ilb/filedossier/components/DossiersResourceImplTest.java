@@ -54,14 +54,14 @@ public class DossiersResourceImplTest {
     }
 
     private DossiersResource getDossiersResource() {
-	if (resource == null) {
-	    String port = randomPort.toString();
-	    String resourceUri = "http://localhost:" + port + "/web";
-	    System.out.println("resourceUri=" + resourceUri);
-	    resource = JAXRSClientFactory.create(resourceUri, DossiersResource.class,
-		    Arrays.asList(jsonMapObjectProvider));
-	}
-	return resource;
+        if (resource == null) {
+            String port = randomPort.toString();
+            String resourceUri = "http://localhost:" + port + "/web";
+            System.out.println("resourceUri=" + resourceUri);
+            resource = JAXRSClientFactory.create(resourceUri, DossiersResource.class,
+                    Arrays.asList(jsonMapObjectProvider));
+        }
+        return resource;
 
     }
 
@@ -70,25 +70,25 @@ public class DossiersResourceImplTest {
      */
     @org.junit.Test
     public void testGetDossierResource() {
-	String dossierKey = "teststorekey";
-	String dossierPackage = "testmodel";
-	String dossierCode = "TEST";
-	DossierResource dossierResource = getDossiersResource().getDossierResource(dossierKey, dossierPackage,
-		dossierCode);
-	DossierView dossier = dossierResource.getDossier();
-	assertNotNull(dossier);
-	DossierFileResource dossierFileResource = dossierResource.getDossierFileResource("fairpricecalc");
-	String res = dossierFileResource.getContents().readEntity(String.class);
+        String dossierKey = "teststorekey";
+        String dossierPackage = "testmodel";
+        String dossierCode = "TEST";
+        DossierResource dossierResource = getDossiersResource().getDossierResource(dossierKey, dossierPackage,
+                dossierCode);
+        DossierView dossier = dossierResource.getDossier();
+        assertNotNull(dossier);
+        DossierFileResource dossierFileResource = dossierResource.getDossierFileResource("fairpricecalc");
+        String res = dossierFileResource.getContents().readEntity(String.class);
 
-	DossierContextResource dossierContextResource = dossierFileResource.getDossierContextResource();
+        DossierContextResource dossierContextResource = dossierFileResource.getDossierContextResource();
 
-	JsonMapObject context = dossierContextResource.getContext();
+        JsonMapObject context = dossierContextResource.getContext();
 
-	JsonMapObject inputContext = new JsonMapObject();
-	inputContext.setProperty("test", "123");
-	dossierContextResource.setContext(inputContext);
-	JsonMapObject result = dossierContextResource.getContext();
-	assertEquals(result, inputContext);
+        JsonMapObject inputContext = new JsonMapObject();
+        inputContext.setProperty("test", "123");
+        dossierContextResource.setContext(inputContext);
+        JsonMapObject result = dossierContextResource.getContext();
+        assertEquals(result, inputContext);
     }
 
 }

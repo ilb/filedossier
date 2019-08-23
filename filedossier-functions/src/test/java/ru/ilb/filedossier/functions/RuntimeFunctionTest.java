@@ -60,7 +60,7 @@ public class RuntimeFunctionTest {
     public void testApply() throws URISyntaxException {
         System.out.println("apply");
         byte[] t = "{'test':'123'}".getBytes();
-        URI commandUri =this.getClass().getClassLoader().getResource("runtime/command.sh").toURI();
+        URI commandUri = this.getClass().getClassLoader().getResource("runtime/command.sh").toURI();
         RuntimeFunction instance = new RuntimeFunction(commandUri);
         File commandFile = Paths.get(commandUri.getPath()).toFile();
         commandFile.setExecutable(true);
@@ -79,7 +79,7 @@ public class RuntimeFunctionTest {
         exceptionRule.expectMessage("Wrong command exit code");
         System.out.println("apply");
         byte[] t = "{'test':'123'}".getBytes();
-        URI commandUri =this.getClass().getClassLoader().getResource("runtime/error_command.sh").toURI();
+        URI commandUri = this.getClass().getClassLoader().getResource("runtime/error_command.sh").toURI();
         RuntimeFunction instance = new RuntimeFunction(commandUri);
         File commandFile = Paths.get(commandUri.getPath()).toFile();
         commandFile.setExecutable(true);

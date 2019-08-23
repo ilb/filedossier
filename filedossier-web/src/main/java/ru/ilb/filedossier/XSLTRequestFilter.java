@@ -24,6 +24,7 @@ import org.apache.cxf.jaxrs.provider.XSLTJaxbProvider;
 
 /**
  * REFRESH TEMPLATES UGLY FIX
+ *
  * @author slavb
  */
 @Provider

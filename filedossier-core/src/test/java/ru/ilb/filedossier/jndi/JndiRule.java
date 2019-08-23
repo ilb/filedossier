@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package ru.ilb.filedossier.jndi;
 
 import javax.naming.Context;
@@ -29,8 +28,8 @@ public class JndiRule extends ExternalResource {
 
     @Override
     protected final void before() throws Throwable {
-	System.setProperty("java.naming.factory.initial", JNDIInitialContextFactory.class.getName());
-	bind(new InitialContext());
+        System.setProperty("java.naming.factory.initial", JNDIInitialContextFactory.class.getName());
+        bind(new InitialContext());
     }
 
     @Override

@@ -78,7 +78,7 @@ public class Application { // extends JpaBaseConfiguration
         }
 
         DossierContextBuilder dossierContextBuilder = (String dossierKey, String dossierPackage,
-                                                       String dossierCode) -> {
+                String dossierCode) -> {
             DossierContext dc = new DossierContextImpl();
             dc.setProperty("name", "Тест имя");
             dc.setProperty("prop", false);
@@ -91,7 +91,7 @@ public class Application { // extends JpaBaseConfiguration
             throw new RuntimeException(ex);
         }
         return new DossierFactory(dossierModelRepository, storeFactory, dossierContextBuilder,
-                                  templateEvaluator);
+                templateEvaluator);
 
     }
 
