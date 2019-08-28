@@ -28,6 +28,8 @@ import ru.ilb.filedossier.entities.Store;
 import ru.ilb.filedossier.filedossier.document.validation.DocumentArea;
 import ru.ilb.filedossier.filedossier.document.validation.ScanXMPMetaProvider;
 import ru.ilb.filedossier.filedossier.document.validation.SignatureDetector;
+import ru.ilb.filedossier.functions.BarcodeScannerFunction;
+import ru.ilb.filedossier.functions.XmpBarcodeScannerFunctionImpl;
 import ru.ilb.filedossier.mimetype.MimeTypeUtil;
 import ru.ilb.filedossier.representation.PdfMultipageRepresentation;
 import ru.ilb.filedossier.utils.PdfUtils;
@@ -81,9 +83,10 @@ public class PdfDossierFile extends DossierFileImpl {
         int page;
 
         try {
-            Barcode barcode = metaProvider.getBarcode();
+            BarcodeScannerFunction function = new XmpBarcodeScannerFunctionImpl();
+            Barcode barcode = function.apply(data);
             page = barcode.getPageNumber();
-        } catch (NullPointerException | IOException e) {
+        } catch (NullPointerException e) {
             int numberOfScans = (int) contextEditor
                     .getProperty("pages", getContextCode())
                     .orElse(0);
