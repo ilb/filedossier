@@ -25,6 +25,7 @@ import ru.ilb.filedossier.api.DossierContextResource;
 import ru.ilb.filedossier.api.DossierFileResource;
 import ru.ilb.filedossier.entities.DossierFile;
 import ru.ilb.filedossier.entities.Representation;
+import ru.ilb.filedossier.filedossier.usecases.upload.UploadDossierFileContents;
 
 public class DossierFileResourceImpl implements DossierFileResource {
 
@@ -50,9 +51,11 @@ public class DossierFileResourceImpl implements DossierFileResource {
     @Override
     public void setContents(InputStream inputstream) {
         try {
-            dossierFile.setContents(Util.toByteArray(inputstream));
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
+            UploadDossierFileContents useCase = new UploadDossierFileContents(
+                    Util.toByteArray(inputstream), dossierFile);
+            useCase.upload();
+        } catch (IOException e) {
+            throw new RuntimeException("Unable to read input stream: " + e);
         }
     }
 

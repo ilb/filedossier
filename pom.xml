@@ -138,5 +138,6 @@
         <module>filedossier-context-persistence</module>
         <module>filedossier-functions</module>
         <module>filedossier-document-validation</module>
+        <module>filedossier-usecases</module>
     </modules>
 </project>
