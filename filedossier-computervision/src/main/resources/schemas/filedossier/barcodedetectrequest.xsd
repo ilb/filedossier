@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema version="1.0"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            elementFormDefault="qualified"
+            xmlns="urn:ru:ilb:filedossier:computervision:barcodedetectrequest"
+            attributeFormDefault="unqualified"
+            targetNamespace="urn:ru:ilb:filedossier:computervision:barcodedetectrequest"
+>
+    <xsd:element name="barcodeDetectRequest" type="barcodeDetectRequest"/>
+    <xsd:complexType name="barcodeDetectRequest">
+        <xsd:sequence>
+            <xsd:element name="source" type="sourceType"/>
+            <xsd:element name="pages" type="pagesType"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="sourceType">
+        <xsd:annotation>
+            <xsd:documentation></xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="document" type="xsd:string"/>
+            <xsd:element name="barcode" type="barcodeType"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="barcodeType">
+        <xsd:annotation>
+            <xsd:documentation></xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="area" type="areaType"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="areaType">
+        <xsd:annotation>
+            <xsd:documentation>В %% от ширины/высоты изображения.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="left" type="xsd:float"/>
+            <xsd:element name="top" type="xsd:float"/>
+            <xsd:element name="right" type="xsd:float"/>
+            <xsd:element name="lower" type="xsd:float"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="pagesType">
+        <xsd:annotation>
+            <xsd:documentation></xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="directory" type="xsd:string"/>
+            <xsd:element name="prefix" type="xsd:string"/>
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>

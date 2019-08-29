@@ -1,0 +1,13 @@
+<application xmlns="http://wadl.dev.java.net/2009/02" 
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+             xmlns:ocr="urn:ru:ilb:filedossier:ocr"
+>    
+    <grammars>
+        <include href="signaturedetectrequest.xsd" />
+        <include href="barcodedetectrequest.xsd" />
+    </grammars>
+    <resources>
+        <resource path="computervision">
+        </resource>
+    </resources>
+</application>
