@@ -140,6 +140,7 @@
             </xsd:element>
         </xsd:sequence>
     </xsd:complexType>
+    <xsd:element name="attribute" type="attribute"/>
     <xsd:complexType name="attribute">
         <xsd:annotation>
             <xsd:documentation>Аттрибут документа</xsd:documentation>
