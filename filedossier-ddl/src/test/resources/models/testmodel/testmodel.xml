@@ -2,7 +2,7 @@
 <package
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns="urn:ru:ilb:filedossier:ddl"
-    xsi:schemaLocation="urn:ru:ilb:filedossier:ddl ../../../../../filedossier-ddl/src/main/resources/schemas/filedossier/ddl.xsd">
+    xsi:schemaLocation="urn:ru:ilb:filedossier:ddl ../../../../main/resources/schemas/filedossier/ddl.xsd">
     <code>testmodel</code>
     <name>Тестовый пакет досье</name>
     <dossier>
@@ -29,6 +29,10 @@
             <required>true</required>
             <hidden>false</hidden>
             <mediaType>application/xml</mediaType>
+            <attribute>
+                <code>number</code>
+                <name>Номер документа</name>
+            </attribute>
             <representation>
                 <mediaType>application/pdf</mediaType>
                 <stylesheet>https://${ru.bystrobank.apps.meta.url}/schemas/doctemplates/jurnals/percentsheet.xsd</stylesheet>
