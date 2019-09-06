@@ -45,7 +45,7 @@ public class OdsXsltRepresentationTest {
         System.out.println("getContents");
 
         URI stylesheet = getClass().getClassLoader().getResource("fairpriceorder/content.xsl").toURI();
-        URI dataUri = getClass().getClassLoader().getResource("fairpriceorder/data.txt").toURI();
+        URI dataUri = getClass().getClassLoader().getResource("fairpriceorder/data.xml").toURI();
         URI template = getClass().getClassLoader().getResource("fairpriceorder/template.ods").toURI();
 
         byte[] source = Files.readAllBytes(Paths.get(dataUri));

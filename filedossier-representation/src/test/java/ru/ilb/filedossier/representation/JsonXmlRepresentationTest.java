@@ -41,7 +41,7 @@ public class JsonXmlRepresentationTest {
     public void testGenerateRepresentation() throws URISyntaxException, IOException {
         System.out.println("getContents");
         URI dataUri = getClass().getClassLoader().getResource("fairpriceorder/data.json").toURI();
-        URI dataXmlUri = getClass().getClassLoader().getResource("fairpriceorder/data.txt").toURI();
+        URI dataXmlUri = getClass().getClassLoader().getResource("fairpriceorder/data.xml").toURI();
 
         byte[] source = Files.readAllBytes(Paths.get(dataUri));
         DossierContentsHolder contents = new DossierContentsHolder(source, "application/json", "fairpriceorder", "Отчет", "json");
