@@ -42,6 +42,7 @@ public class JsonXmlRepresentation extends IdentityRepresentation {
 
     @Override
     public byte[] generateRepresentation() {
+        // TODO: add header
         JSONObject json = new JSONObject(new String(parent.getContents()));
         String xml = XML.toString(json, "root");
         return xml.getBytes();

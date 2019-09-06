@@ -43,6 +43,17 @@
                 <meta>https://devel.net.ilb.ru/meta/&amp;uid=doctree:11f462ebdb14a5673ff41a5c75c5176552fad343:</meta>
             </representation>
         </dossierFile>
+        <dossierFile>
+            <code>bailregistry</code>
+            <name>reestr zalogov</name>
+            <readonly>false</readonly>
+            <required>true</required>
+            <hidden>false</hidden>
+            <mediaType>application/json</mediaType>
+            <representation>
+                <mediaType>application/xml</mediaType>
+            </representation>
+        </dossierFile>
     </dossier>
     <dossier>
         <code>TEST2</code>

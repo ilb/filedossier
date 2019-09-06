@@ -41,13 +41,14 @@ public class RepresentationFactory {
         switch (model.getMediaType()) {
             case "application/vnd.oasis.opendocument.spreadsheet":
                 return createOdsRepresentation(model);
-            case "application/pdf": {
+            case "application/pdf":
                 try {
                     return createPdfRepresentation(model);
                 } catch (MalformedURLException e) {
                     throw new IllegalArgumentException("Bad uri for representation resources: " + e);
                 }
-            }
+            case "application/xml":
+                return new JsonXmlRepresentation(store);
             default:
                 throw new IllegalArgumentException(
                         "unsupported media type: " + model.getMediaType());
