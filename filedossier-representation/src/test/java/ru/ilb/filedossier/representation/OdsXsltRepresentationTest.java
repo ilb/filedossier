@@ -20,8 +20,10 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Test;
+import ru.ilb.filedossier.entities.Store;
+import ru.ilb.filedossier.store.StoreFactory;
 
 /**
  *
@@ -43,13 +45,14 @@ public class OdsXsltRepresentationTest {
         System.out.println("getContents");
 
         URI stylesheet = getClass().getClassLoader().getResource("fairpriceorder/content.xsl").toURI();
-        URI dataUri = getClass().getClassLoader().getResource("fairpriceorder/data.xml").toURI();
+        URI dataUri = getClass().getClassLoader().getResource("fairpriceorder/data.txt").toURI();
         URI template = getClass().getClassLoader().getResource("fairpriceorder/template.ods").toURI();
 
         byte[] source = Files.readAllBytes(Paths.get(dataUri));
         DossierContentsHolder contents = new DossierContentsHolder(source, "application/xml", "fairpriceorder", "Отчет", "xml");
 
-        OdsXsltRepresentation instance = new OdsXsltRepresentation("application/vnd.oasis.opendocument.spreadsheet", stylesheet, template);
+        Store store = StoreFactory.newInstance(Files.createTempDirectory("storeroot").toUri()).getStore("storekey");
+        OdsXsltRepresentation instance = new OdsXsltRepresentation(store, "application/vnd.oasis.opendocument.spreadsheet", stylesheet, template);
         instance.setParent(contents);
 
         byte[] result = instance.getContents();
@@ -69,7 +72,7 @@ public class OdsXsltRepresentationTest {
      * @throws java.io.IOException
      */
     @Test
-    public void testGetContentsJson() throws URISyntaxException, IOException {
+    public void testGenerateRepresentation() throws URISyntaxException, IOException {
         System.out.println("getContents");
 
         URI stylesheet = getClass().getClassLoader().getResource("fairpriceorder/content.xsl").toURI();
@@ -79,10 +82,11 @@ public class OdsXsltRepresentationTest {
         byte[] source = Files.readAllBytes(Paths.get(dataUri));
         DossierContentsHolder contents = new DossierContentsHolder(source, "application/json", "fairpriceorder", "Отчет", "json");
 
-        OdsXsltRepresentation instance = new OdsXsltRepresentation("application/vnd.oasis.opendocument.spreadsheet", stylesheet, template);
+        Store store = StoreFactory.newInstance(Files.createTempDirectory("storeroot").toUri()).getStore("storekey");
+        OdsXsltRepresentation instance = new OdsXsltRepresentation(store, "application/vnd.oasis.opendocument.spreadsheet", stylesheet, template);
         instance.setParent(contents);
 
-        byte[] result = instance.getContents();
+        byte[] result = instance.generateRepresentation();
         assertNotNull(result);
         assertEquals("fairpriceorder.ods", instance.getFileName());
         assertEquals("application/vnd.oasis.opendocument.spreadsheet", instance.getMediaType());

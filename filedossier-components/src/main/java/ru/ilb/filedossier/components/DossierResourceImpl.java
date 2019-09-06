@@ -16,67 +16,38 @@
 package ru.ilb.filedossier.components;
 
 import javax.inject.Inject;
-import javax.ws.rs.container.ResourceContext;
-import javax.ws.rs.core.Context;
+import javax.inject.Named;
 import ru.ilb.filedossier.api.DossierFileResource;
 import ru.ilb.filedossier.api.DossierResource;
-import ru.ilb.filedossier.core.DossierFactory;
+import ru.ilb.filedossier.entities.Dossier;
 import ru.ilb.filedossier.entities.DossierFile;
 import ru.ilb.filedossier.mappers.DossierMapper;
 import ru.ilb.filedossier.view.DossierView;
 
+@Named
 public class DossierResourceImpl implements DossierResource {
-
-    private final String dossierKey;
-
-    private final String dossierPackage;
-
-    private final String dossierCode;
-
-    @Inject
-    private DossierFactory dossierFactory;
 
     @Inject
     private DossierMapper dossierMapper;
 
-    @Context
-    private ResourceContext resourceContext;
+    @Inject
+    private DossierFileResourceImpl resource;
 
-    private ru.ilb.filedossier.entities.Dossier dossier;
-
-    public DossierResourceImpl(String dossierKey, String dossierPackage, String dossierCode) {
-        this.dossierKey = dossierKey;
-        this.dossierPackage = dossierPackage;
-        this.dossierCode = dossierCode;
-    }
-
-    private ru.ilb.filedossier.entities.Dossier getDossierInternal() {
-        // lazy loading
-        if (this.dossier == null) {
-            this.dossier = dossierFactory.getDossier(dossierKey, dossierPackage, dossierCode);
-        }
-        return this.dossier;
-    }
-
-    public void setDossierFactory(DossierFactory dossierFactory) {
-        this.dossierFactory = dossierFactory;
-    }
-
-    public void setDossierMapper(DossierMapper dossierMapper) {
-        this.dossierMapper = dossierMapper;
-    }
+    private Dossier dossier;
 
     @Override
     public DossierView getDossier() {
-        return dossierMapper.fromModel(getDossierInternal());
+        return dossierMapper.fromModel(dossier);
     }
 
     @Override
     public DossierFileResource getDossierFileResource(String fileCode) {
-        //можно перенести инициализацию в конструктор
-        DossierFile dossierFile = this.getDossierInternal().getDossierFile(fileCode);
-        DossierFileResourceImpl resource = new DossierFileResourceImpl(dossierFile);
-        return resourceContext.initResource(resource);
+        DossierFile dossierFile = dossier.getDossierFile(fileCode);
+        resource.setDossierFile(dossierFile);
+        return resource;
     }
 
+    public void setDossier(Dossier dossier) {
+        this.dossier = dossier;
+    }
 }

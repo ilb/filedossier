@@ -31,10 +31,9 @@
             <mediaType>application/xml</mediaType>
             <representation>
                 <mediaType>application/pdf</mediaType>
-                <stylesheet>https://${ru.bystrobank.apps.meta.url}/schemas/doctemplates/jurnals/percentsheet.xsd</stylesheet>
-                <template>representations/jurnals/content.xml</template>
-                <schema>https://${ru.bystrobank.apps.meta.url}/stylesheets/doctemplates/jurnals/percentsheet.xsl</schema>
-                <meta>https://${ru.bystrobank.apps.meta.url}/&amp;uid=doctree:11f462ebdb14a5673ff41a5c75c5176552fad343:</meta>
+                <stylesheet>https://devel.net.ilb.ru/meta/stylesheets/doctemplates/primary/loantreaty/credits/auto/V20140707.xsl</stylesheet>
+                <schema>https://devel.net.ilb.ru/meta/schemas/doctemplates/primary/loantreaty/credits/auto/V20140707.xsd</schema>
+                <meta>https://devel.net.ilb.ru/meta/&amp;uid=doctree:11f462ebdb14a5673ff41a5c75c5176552fad343:</meta>
             </representation>
         </dossierFile>
     </dossier>

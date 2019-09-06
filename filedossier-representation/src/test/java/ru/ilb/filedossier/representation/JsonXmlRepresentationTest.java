@@ -20,8 +20,10 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Test;
+import ru.ilb.filedossier.entities.Store;
+import ru.ilb.filedossier.store.StoreFactory;
 
 /**
  *
@@ -36,19 +38,21 @@ public class JsonXmlRepresentationTest {
      * Test of getContents method, of class JsonXmlRepresentation.
      */
     @Test
-    public void testGetContents() throws URISyntaxException, IOException {
+    public void testGenerateRepresentation() throws URISyntaxException, IOException {
         System.out.println("getContents");
         URI dataUri = getClass().getClassLoader().getResource("fairpriceorder/data.json").toURI();
-        URI dataXmlUri = getClass().getClassLoader().getResource("fairpriceorder/data.xml").toURI();
+        URI dataXmlUri = getClass().getClassLoader().getResource("fairpriceorder/data.txt").toURI();
 
         byte[] source = Files.readAllBytes(Paths.get(dataUri));
         DossierContentsHolder contents = new DossierContentsHolder(source, "application/json", "fairpriceorder", "Отчет", "json");
 
-        JsonXmlRepresentation instance = new JsonXmlRepresentation();
+        Store store = StoreFactory.newInstance(Files.createTempDirectory("storeroot").toUri()).getStore("storekey");
+
+        JsonXmlRepresentation instance = new JsonXmlRepresentation(store);
         instance.setParent(contents);
 
         String expResult = new String(Files.readAllBytes(Paths.get(dataXmlUri)));
-        String result = new String(instance.getContents());
+        String result = new String(instance.generateRepresentation());
         assertEquals(expResult, result);
     }
 

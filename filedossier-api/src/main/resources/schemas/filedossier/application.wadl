@@ -10,10 +10,10 @@
         <include href="command.xsd" />
         <include href="view.xsd" />
     </grammars>
-    <resource_type id="dossierResource">
-        <doc title="dossier resource">
 
-        </doc>
+    <resource_type id="dossierResource">
+        <doc title="dossier resource"/>
+
         <method name="GET" id="getDossier">
             <doc>get dossier instance</doc>
             <request></request>
@@ -29,6 +29,7 @@
                 </representation>
             </response>
         </method>
+
         <resource path="dossierfiles">
             <resource path="{fileCode}" id="dossierFileResource" type="#dossierFileResource">
                 <param name="fileCode" style="template" type="xsd:string">
@@ -37,6 +38,7 @@
             </resource>
         </resource>
     </resource_type>
+
     <resource_type id="dossierContextResource">
         <method name="GET" id="getContext">
             <doc>get dossier context</doc>
@@ -50,6 +52,7 @@
                 </representation>-->
             </response>
         </method>
+
         <method name="PUT" id="setContext">
             <doc>store dossier cotnext</doc>
             <request>
@@ -63,36 +66,46 @@
             <response status="204"></response>
         </method>
     </resource_type>
+
     <resource_type id="dossierFileResource">
-        <method name="GET" id="getContents">
+        <method name="GET" id="download">
             <doc>get dossier file contents</doc>
-            <request></request>
             <response status="200">
                 <param name="Content-Disposition" style="header" type="xsd:string"/>
                  <representation mediaType="application/vnd.oasis.opendocument.spreadsheet" element="global:map"/>
                  <representation mediaType="application/pdf" element="global:map"/>
             </response>
         </method>
-        <method name="PUT" id="setContents">
-            <doc>store dossier file contents</doc>
-            <request>
-                <representation mediaType="*/*">
-                    <doc>file data</doc>
-                </representation>
-            </request>
-            <response status="204"></response>
-        </method>
-        <method name="POST" id="uploadContents">
-            <doc>store dossier file contents</doc>
-            <request>
-                <representation mediaType="multipart/form-data">
-                    <param style="query" name="file" type="java.io.File" />
-                </representation>
-            </request>
-            <response status="204"></response>
-        </method>
+
+        <resource path="upload">
+            <method name="POST" id="upload">
+                <doc>store dossier file contents</doc>
+                <request>
+                    <representation mediaType="multipart/form-data">
+                        <doc>file data</doc>
+                        <param style="query" name="file" type="java.io.File" />
+                    </representation>
+                </request>
+                <response status="204"/>
+            </method>
+        </resource>
+
+        <resource path="publish">
+            <method name="PUT" id="publish">
+                <doc>store dossier file contents</doc>
+                <request>
+                    <representation mediaType="application/json, application/xml">
+                        <doc>file data</doc>
+                        <param style="query" name="inputStream" type="java.io.InputStream" />
+                    </representation>
+                </request>
+                <response status="204"/>
+            </method>
+        </resource>
+
         <resource path="context" id="dossierContextResource" type="#dossierContextResource"/>
     </resource_type>
+
     <resources>
         <resource path="dossiers">
             <resource path="{dossierKey}/{dossierPackage}/{dossierCode}" id="dossierResource" type="#dossierResource">

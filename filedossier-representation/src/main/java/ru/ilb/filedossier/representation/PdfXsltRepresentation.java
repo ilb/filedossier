@@ -35,6 +35,7 @@ import org.apache.fop.apps.FOUserAgent;
 import org.apache.fop.apps.Fop;
 import org.apache.fop.apps.FopFactory;
 import org.xml.sax.SAXException;
+import ru.ilb.filedossier.entities.Store;
 
 /**
  *
@@ -50,8 +51,8 @@ public class PdfXsltRepresentation extends IdentityRepresentation {
 
     private static FopFactory fopFactory = null;
 
-    public PdfXsltRepresentation(String mediaType, URI stylesheetUri, URI contentUri) {
-        super(mediaType);
+    public PdfXsltRepresentation(Store store, String mediaType, URI stylesheetUri, URI contentUri) {
+        super(store, mediaType);
 
         if (!mediaType.equals(OUTPUT_FORMAT)) {
             throw new IllegalArgumentException("Unsupported media type: " + mediaType);

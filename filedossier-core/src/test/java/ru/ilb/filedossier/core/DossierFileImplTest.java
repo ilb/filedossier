@@ -17,15 +17,14 @@ package ru.ilb.filedossier.core;
 
 import javax.naming.Context;
 import javax.naming.NamingException;
-import ru.ilb.filedossier.core.DossierFactory;
-import ru.ilb.filedossier.entities.DossierFile;
-import ru.ilb.filedossier.entities.Dossier;
-import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.ClassRule;
 import org.junit.FixMethodOrder;
+import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import static ru.ilb.filedossier.core.DossierFactoryTest.getDossierFactory;
+import ru.ilb.filedossier.entities.Dossier;
+import ru.ilb.filedossier.entities.DossierFile;
 import ru.ilb.filedossier.jndi.JndiRule;
 
 /**

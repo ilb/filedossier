@@ -18,34 +18,25 @@ package ru.ilb.filedossier.components;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.container.ResourceContext;
-import javax.ws.rs.core.Context;
 import ru.ilb.filedossier.api.DossierResource;
 import ru.ilb.filedossier.api.DossiersResource;
 import ru.ilb.filedossier.core.DossierFactory;
-import ru.ilb.filedossier.mappers.DossierMapper;
+import ru.ilb.filedossier.entities.Dossier;
 
 @Named
 @Path("dossiers")
 public class DossiersResourceImpl implements DossiersResource {
 
     @Inject
-    private DossierFactory dossierFactory;
+    private DossierResourceImpl resource;
 
     @Inject
-    private DossierMapper dossierMapper;
-
-    @Context
-    private ResourceContext resourceContext;
+    private DossierFactory dossierFactory;
 
     @Override
     public DossierResource getDossierResource(String dossierKey, String dossierPackage, String dossierCode) {
-        DossierResourceImpl resource = new DossierResourceImpl(dossierKey, dossierPackage, dossierCode);
-        // applicationContext.getAutowireCapableBeanFactory().autowireBean(resource); could be used in case of spring
-        resource.setDossierFactory(dossierFactory);
-        resource.setDossierMapper(dossierMapper);
-        return resourceContext.initResource(resource);
+        Dossier dossier = dossierFactory.getDossier(dossierKey, dossierPackage, dossierCode);
+        resource.setDossier(dossier);
+        return resource;
     }
-
 }

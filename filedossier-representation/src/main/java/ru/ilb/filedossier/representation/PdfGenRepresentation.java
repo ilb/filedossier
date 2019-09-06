@@ -23,8 +23,7 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
-import ru.ilb.filedossier.entities.DossierContents;
-import ru.ilb.filedossier.entities.DossierPath;
+import ru.ilb.filedossier.entities.Store;
 import ru.ilb.filedossier.functions.WebResourceFunction;
 
 /**
@@ -42,15 +41,13 @@ public class PdfGenRepresentation extends IdentityRepresentation {
 
     private final WebResourceFunction webResourceFunction;
 
-    private byte[] content;
-
-    public PdfGenRepresentation(String mediaType, URI stylesheetUri, URI schemeUri, URI metaUri)
-            throws MalformedURLException {
-        super(mediaType);
+    public PdfGenRepresentation(Store parentStore, String mediaType,
+            URI stylesheetUri, URI schemeUri, URI metaUri) throws MalformedURLException {
+        super(parentStore, mediaType);
 
         URL resourceUrl = new URL(
-                String.format(BASE_URI, stylesheetUri.toString(), schemeUri.toString(),
-                        metaUri.toString()));
+            String.format(BASE_URI, stylesheetUri.toString(), schemeUri.toString(),
+                          metaUri.toString()));
         webResourceFunction = new WebResourceFunction(resourceUrl);
 
         if (!mediaType.equals(OUTPUT_FORMAT)) {
@@ -58,15 +55,12 @@ public class PdfGenRepresentation extends IdentityRepresentation {
         }
     }
 
-    // MVP realization
     @Override
-    public byte[] getContents() {
+    public byte[] generateRepresentation() {
         //byte[] document = webResourceFunction.apply(parent.getContents());
-
-        byte[] result = null;
-
-        InputStream representationStream = getClass().getClassLoader().getResourceAsStream(
-                "representation.pdf");
+        InputStream representationStream = getClass()
+                .getClassLoader()
+                .getResourceAsStream("representation.pdf");
 
         Path tmpFile;
         try {
@@ -86,14 +80,5 @@ public class PdfGenRepresentation extends IdentityRepresentation {
     @Override
     public String getMediaType() {
         return mediaType;
-    }
-
-    @Override
-    public void setParent(DossierPath parent) {
-        assert DossierContents.class.isAssignableFrom(
-                parent.getClass()) : "DossierContents instance should be passed as argument instead of "
-                + parent.getClass().getCanonicalName();
-
-        this.parent = (DossierContents) parent;
     }
 }

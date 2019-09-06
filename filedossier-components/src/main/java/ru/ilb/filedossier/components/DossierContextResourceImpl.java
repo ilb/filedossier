@@ -15,27 +15,35 @@
  */
 package ru.ilb.filedossier.components;
 
+import javax.inject.Inject;
+import javax.inject.Named;
 import org.apache.cxf.jaxrs.json.basic.JsonMapObject;
 import ru.ilb.filedossier.api.DossierContextResource;
-import ru.ilb.filedossier.context.DossierContextImpl;
-import ru.ilb.filedossier.entities.DossierFile;
+import ru.ilb.filedossier.filedossier.usecases.download.DownloadDossierFileContext;
+import ru.ilb.filedossier.filedossier.usecases.upload.UploadDossierFileContext;
 
+@Named
 public class DossierContextResourceImpl implements DossierContextResource {
 
-    private final DossierFile dossierFile;
+    @Inject
+    private DownloadDossierFileContext downloadDossierFileContext;
 
-    public DossierContextResourceImpl(DossierFile dossierFile) {
-        this.dossierFile = dossierFile;
-    }
+    @Inject
+    private UploadDossierFileContext uploadDossierFileContext;
+
+    private String contextKey;
 
     @Override
     public JsonMapObject getContext() {
-        return new JsonMapObject(dossierFile.getContext().asMap());
+        return downloadDossierFileContext.download(contextKey);
     }
 
     @Override
     public void setContext(JsonMapObject jsonmapobject) {
-        dossierFile.setDossierContext(new DossierContextImpl(jsonmapobject.asMap()));
+        uploadDossierFileContext.upload(contextKey, jsonmapobject);
     }
 
+    public void setContextKey(String contextKey) {
+        this.contextKey = contextKey;
+    }
 }

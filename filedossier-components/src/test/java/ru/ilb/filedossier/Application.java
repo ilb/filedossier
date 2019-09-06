@@ -16,20 +16,16 @@
 package ru.ilb.filedossier;
 
 import java.net.URISyntaxException;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import org.apache.cxf.jaxrs.provider.json.JsonMapObjectProvider;
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
-import ru.ilb.filedossier.context.DossierContextBuilder;
-import ru.ilb.filedossier.context.DossierContextImpl;
-import ru.ilb.filedossier.core.DossierFactory;
-import ru.ilb.filedossier.ddl.DossierDefinitionRepository;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jdbc.repository.config.EnableJdbcRepositories;
+import org.springframework.data.relational.core.mapping.NamingStrategy;
+import ru.ilb.filedossier.context.persistence.DossierContextNamingStrategy;
 import ru.ilb.filedossier.ddl.FileDossierDefinitionRepository;
-import ru.ilb.filedossier.entities.DossierContext;
-import ru.ilb.filedossier.scripting.SubstitutorTemplateEvaluator;
-import ru.ilb.filedossier.scripting.TemplateEvaluator;
 import ru.ilb.filedossier.store.StoreFactory;
 
 /**
@@ -37,50 +33,64 @@ import ru.ilb.filedossier.store.StoreFactory;
  * @author slavb
  */
 @SpringBootApplication
-// @EnableJdbcRepositories(basePackages =
-// "ru.ilb.filedossier.context.persistence.repositories")
-@ComponentScan
-public class Application {
+@EnableJdbcRepositories(basePackages = "ru.ilb.filedossier.context.persistence.repositories")
+@ComponentScan //(basePackages = {"ru.ilb.filedossier.components", "ru.ilb.filedossier.mappers"})
+@Configuration
+public class Application { // extends JpaBaseConfiguration
 
-    // @Bean
-    // public DossierContextService dossierContextService() {
-    // return new DBDossierContextService();
-    // }
-    //
-    // @Bean
-    // public NamingStrategy namingStrategy() {
-    // return new DossierContextNamingStrategy();
-    // }
+    public static void main(String[] args) {
+        SpringApplication.run(Application.class, args);
+    }
+
+    @Bean
+    public StoreFactory storeFactory() {
+        try {
+            return StoreFactory.newInstance(getClass()
+                    .getClassLoader()
+                    .getResource("teststoreroot")
+                    .toURI());
+        } catch (URISyntaxException e) {
+            throw new RuntimeException("Incorrect store root path: " + e);
+        }
+    }
+
+    @Bean
+    public FileDossierDefinitionRepository dossierDefinitionRepository() {
+        try {
+            return new FileDossierDefinitionRepository(getClass()
+                    .getClassLoader()
+                    .getResource("models")
+                    .toURI());
+        } catch (URISyntaxException e) {
+            throw new RuntimeException("Incorrect definition path: " + e);
+        }
+    }
+
+//    @Bean
+//    @ConditionalOnExpression("'${ILB_SYSID}'=='DEVEL'")
+//    public XSLTRequestFilter xsltRequestFilter() {
+//        // REFRESH TEMPLATES
+//        return new XSLTRequestFilter();
+//    }
+//
+//    @Bean
+//    public XSLTJaxbProvider xsltJaxbProvider() {
+//        XSLTJaxbProvider xsltJaxbProvider = new XSLTJaxbProvider();
+//        xsltJaxbProvider.setResolver(new ServletContextURIResolver());
+//        xsltJaxbProvider.setRefreshTemplates(true);
+//        xsltJaxbProvider.setProduceMediaTypes(Arrays.asList("application/xhtml+xml,text/csv,application/pdf"));
+//        xsltJaxbProvider.setOutTemplate("classpath:/stylesheets/filedossier/dossier.xsl");
+//        xsltJaxbProvider.setRefreshTemplates(true);
+//        return xsltJaxbProvider;
+//    }
+
+    @Bean
+    public NamingStrategy namingStrategy() {
+        return new DossierContextNamingStrategy();
+    }
+
     @Bean
     public JsonMapObjectProvider jsonMapObjectProvider() {
         return new JsonMapObjectProvider();
     }
-
-    @Bean
-    public DossierFactory dossierFactory() throws NamingException {
-        DossierDefinitionRepository dossierModelRepository;
-        StoreFactory storeFactory;
-        try {
-            dossierModelRepository = new FileDossierDefinitionRepository(
-                    Application.class.getClassLoader().getResource("models").toURI());
-            storeFactory = StoreFactory
-                    .newInstance(
-                            Application.class.getClassLoader().getResource("teststoreroot").toURI());
-        } catch (URISyntaxException ex) {
-            throw new RuntimeException(ex);
-        }
-
-        DossierContextBuilder dossierContextBuilder = (String dossierKey, String dossierPackage,
-                String dossierCode) -> {
-            DossierContext dc = new DossierContextImpl();
-            dc.setProperty("name", "Тест имя");
-            dc.setProperty("prop", false);
-            return dc;
-        };
-        TemplateEvaluator templateEvaluator = new SubstitutorTemplateEvaluator(new InitialContext());
-        return new DossierFactory(dossierModelRepository, storeFactory, dossierContextBuilder,
-                templateEvaluator);
-
-    }
-
 }

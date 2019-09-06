@@ -22,9 +22,7 @@ import java.nio.file.NoSuchFileException;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import ru.ilb.filedossier.context.DossierContextService;
 import ru.ilb.filedossier.entities.Dossier;
-import ru.ilb.filedossier.entities.DossierContext;
 import ru.ilb.filedossier.entities.DossierFile;
 import ru.ilb.filedossier.entities.DossierPath;
 import ru.ilb.filedossier.entities.Representation;
@@ -37,8 +35,6 @@ import ru.ilb.filedossier.representation.IdentityRepresentation;
  * @author SPoket
  */
 public class DossierFileImpl implements DossierFile {
-
-    protected DossierContext context;
 
     protected Dossier parent;
 
@@ -62,12 +58,9 @@ public class DossierFileImpl implements DossierFile {
 
     protected final Representation representation;
 
-    protected final DossierContextService dossierContextService;
-
     public DossierFileImpl(Store store, String code, String name, boolean required,
             boolean readonly, boolean hidden, String mediaType,
-            List<Representation> representations,
-            DossierContextService dossierContextService) {
+            List<Representation> representations) {
         this.store = store;
         this.code = code;
         this.name = name;
@@ -78,10 +71,9 @@ public class DossierFileImpl implements DossierFile {
         this.extension = MimeTypeUtil.getExtension(mediaType);
         this.representationsMap = representations.stream().peek(r -> r.setParent(this))
                 .collect(Collectors.toMap(r -> r.getMediaType(), r -> r));
-        this.representation = representations.isEmpty() ? new IdentityRepresentation(mediaType)
+        this.representation = representations.isEmpty() ? new IdentityRepresentation(store, mediaType)
                 : representations.iterator().next();
         this.representation.setParent(this);
-        this.dossierContextService = dossierContextService;
     }
 
     @Override
@@ -150,6 +142,7 @@ public class DossierFileImpl implements DossierFile {
 
     @Override
     public Representation getRepresentation() {
+        System.out.println("REPR: " + representation);
         return representation;
     }
 
@@ -164,19 +157,6 @@ public class DossierFileImpl implements DossierFile {
                 .isAssignableFrom(parent.getClass()) : "Dossier instance should be passed as argument instead of "
                 + parent.getClass().getCanonicalName();
         this.parent = (Dossier) parent;
-    }
-
-    @Override
-    public DossierContext getContext() {
-        if (this.context == null) {
-            this.context = dossierContextService.getContext(getContextCode());
-        }
-        return this.context;
-    }
-
-    @Override
-    public void setDossierContext(DossierContext dossierContext) {
-        dossierContextService.putContext(getContextCode(), dossierContext);
     }
 
     protected String getContextCode() {

@@ -15,6 +15,8 @@
  */
 package ru.ilb.filedossier.entities;
 
+import java.io.File;
+
 /**
  * <p>
  * This interface is a DossierPath extension, represents the physical file from the dossier directory.
@@ -30,11 +32,17 @@ public interface DossierContents extends DossierPath {
     byte[] getContents();
 
     /**
-     * Stores given contents to a file
+     * Stores given contents to a file from byte array
      *
-     * @param contents data, which needs to be saved to a file.
+     * @param contents data, which needs to be saved to a dossier file
      */
     void setContents(byte[] contents);
+
+    /**
+     * Stores given contents to a file from file
+     * @param file file, which needs to be saved to a dossier file
+     */
+    void setContents(File file);
 
     /**
      * @return file's media type using default representation.

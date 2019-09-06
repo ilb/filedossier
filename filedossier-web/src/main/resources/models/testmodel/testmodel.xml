@@ -13,12 +13,15 @@
             <name>Файл 1</name>
             <readonly>false</readonly>
             <required>true</required>
+            <hidden>false</hidden>
             <mediaType>application/json</mediaType>
         </dossierFile>
         <dossierFile>
             <code>fairpricecalc</code>
             <name>fairpricecalc (.ods test)</name>
             <readonly>false</readonly>
+            <required>true</required>
+            <hidden>false</hidden>
             <mediaType>application/xml</mediaType>
             <representation>
                 <mediaType>application/vnd.oasis.opendocument.spreadsheet</mediaType>
@@ -49,12 +52,15 @@
             <name>Файл 1</name>
             <readonly>false</readonly>
             <required>true</required>
+            <hidden>false</hidden>
             <mediaType>application/json</mediaType>
         </dossierFile>
         <dossierFile>
             <code>fairpricecalc2</code>
             <name>fairpricecalc (.ods test)</name>
             <readonly>true</readonly>
+            <required>true</required>
+            <hidden>false</hidden>
             <mediaType>application/xml</mediaType>
             <representation>
                 <mediaType>application/vnd.oasis.opendocument.spreadsheet</mediaType>

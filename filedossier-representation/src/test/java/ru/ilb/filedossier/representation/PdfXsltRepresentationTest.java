@@ -20,8 +20,10 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Test;
+import ru.ilb.filedossier.entities.Store;
+import ru.ilb.filedossier.store.StoreFactory;
 
 /**
  *
@@ -33,7 +35,7 @@ public class PdfXsltRepresentationTest {
     }
 
     @Test
-    public void testGetPdf() throws URISyntaxException, IOException {
+    public void testGenerateRepresentation() throws URISyntaxException, IOException {
         System.out.println("getContents");
 
         URI stylesheetUri = getClass().getClassLoader().getResource("projectteam/projectteam2fo.xsl").toURI();
@@ -43,10 +45,11 @@ public class PdfXsltRepresentationTest {
         DossierContentsHolder contents = new DossierContentsHolder(source, "application/pdf", "projectteam", "Отчет",
                 "pdf");
 
-        PdfXsltRepresentation instance = new PdfXsltRepresentation("application/pdf", stylesheetUri, dataUri);
+        Store store = StoreFactory.newInstance(Files.createTempDirectory("storeroot").toUri()).getStore("storekey");
+        PdfXsltRepresentation instance = new PdfXsltRepresentation(store, "application/pdf", stylesheetUri, dataUri);
         instance.setParent(contents);
 
-        byte[] result = instance.getContents();
+        byte[] result = instance.generateRepresentation();
         Files.write(Paths.get(System.getProperty("java.io.tmpdir") + "/projectteam.pdf"), result);
         assertNotNull(result);
         assertEquals("projectteam.pdf", instance.getFileName());

@@ -15,6 +15,7 @@
  */
 package ru.ilb.filedossier.representation;
 
+import java.io.File;
 import ru.ilb.filedossier.entities.DossierContents;
 import ru.ilb.filedossier.entities.DossierPath;
 
@@ -94,4 +95,7 @@ public class DossierContentsHolder implements DossierContents {
 
     }
 
+    @Override
+    public void setContents(File file) {
+    }
 }

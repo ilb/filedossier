@@ -22,6 +22,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
+import ru.ilb.filedossier.entities.Store;
+import ru.ilb.filedossier.store.StoreFactory;
 
 /**
  *
@@ -45,9 +47,10 @@ public class PdfGenRepresentationTest {
      * Test of getContents method, of class XmlPdfRepresentation.
      */
     @Test
-    public void testGetContents() throws URISyntaxException, IOException {
+    public void testGenerateRepresentation() throws URISyntaxException, IOException {
         System.out.println("getContents");
-        PdfGenRepresentation instance = new PdfGenRepresentation("application/pdf", URI.create(xsl),
+        Store store = StoreFactory.newInstance(Files.createTempDirectory("storeroot").toUri()).getStore("storekey");
+        PdfGenRepresentation instance = new PdfGenRepresentation(store, "application/pdf", URI.create(xsl),
                 URI.create(xsd), URI.create(meta));
 
         URI dataUri = getClass().getClassLoader().getResource("jurnals/avto.xml").toURI();
@@ -55,7 +58,7 @@ public class PdfGenRepresentationTest {
         DossierContentsHolder contents = new DossierContentsHolder(source, "application/pdf",
                 "jurnals", "Jurnals", "pdf");
         instance.setParent(contents);
-        representation = instance.getContents();
+        representation = instance.generateRepresentation();
         assertNotNull(representation);
         Files.write(Paths.get(System.getProperty("java.io.tmpdir") + "/result"), representation);
     }

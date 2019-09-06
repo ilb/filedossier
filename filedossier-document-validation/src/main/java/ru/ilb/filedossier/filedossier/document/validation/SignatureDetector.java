@@ -120,11 +120,6 @@ public class SignatureDetector {
             return this;
         }
 
-        public RequestBuilder toCommand(URI commandUri) {
-            SignatureDetector.this.signatureDetectorUri = commandUri;
-            return this;
-        }
-
         /**
          * Converts specified values into Map structure.
          */

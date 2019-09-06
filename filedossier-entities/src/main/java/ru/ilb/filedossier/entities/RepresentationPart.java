@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 slavb.
+ * Copyright 2019 kuznetsov_me.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,16 +17,18 @@ package ru.ilb.filedossier.entities;
 
 /**
  *
- * <p>
- * This interface marks DossierFiles representations. For example, DossierFile is xml, it's representation is PDF.
- * <p>
- *
- * @author slavb
+ * @author kuznetsov_me
  */
-public interface Representation extends DossierContents {
+public interface RepresentationPart {
 
-    byte[] generateRepresentation();
+    /**
+     * @return name of part
+     */
+    String getCode();
 
-    void setRepresentationPart(RepresentationPart part);
+    /**
+     * @return content in byte array
+     */
+    byte[] getContents();
 
 }

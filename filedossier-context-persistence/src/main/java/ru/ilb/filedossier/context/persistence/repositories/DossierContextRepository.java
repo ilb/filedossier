@@ -19,12 +19,14 @@ import java.util.Optional;
 import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 import ru.ilb.filedossier.context.persistence.model.DossierContextPersistence;
 
 /**
  *
  * @author slavb
  */
+@Repository
 public interface DossierContextRepository extends CrudRepository<DossierContextPersistence, Long> {
 
     @Query("SELECT * FROM DOSSIERCONTEXT WHERE CONTEXTKEY=:contextKey")

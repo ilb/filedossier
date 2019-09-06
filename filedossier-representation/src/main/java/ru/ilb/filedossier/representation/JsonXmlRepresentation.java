@@ -17,6 +17,7 @@ package ru.ilb.filedossier.representation;
 
 import org.json.JSONObject;
 import org.json.XML;
+import ru.ilb.filedossier.entities.Store;
 
 /**
  * Json to XML conversion
@@ -25,8 +26,8 @@ import org.json.XML;
  */
 public class JsonXmlRepresentation extends IdentityRepresentation {
 
-    public JsonXmlRepresentation() {
-        super("application/xml");
+    public JsonXmlRepresentation(Store store) {
+        super(store, "application/xml");
     }
 
     @Override
@@ -35,15 +36,14 @@ public class JsonXmlRepresentation extends IdentityRepresentation {
     }
 
     @Override
-    public byte[] getContents() {
-        JSONObject json = new JSONObject(new String(parent.getContents()));
-        String xml = XML.toString(json, "root");
-        return xml.getBytes();
-    }
-
-    @Override
     public String getExtension() {
         return "xml";
     }
 
+    @Override
+    public byte[] generateRepresentation() {
+        JSONObject json = new JSONObject(new String(parent.getContents()));
+        String xml = XML.toString(json, "root");
+        return xml.getBytes();
+    }
 }

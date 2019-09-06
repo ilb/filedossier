@@ -73,7 +73,7 @@ public class DossierFileResourceImplTest {
     public void testAUploadContents() throws URISyntaxException {
 
         DossierFileResource fileResource = getDossierFileResource("jurnals");
-        fileResource.uploadContents(Paths.get(getClass()
+        fileResource.upload(Paths.get(getClass()
                 .getClassLoader()
                 .getResource("page1.jpg")
                 .toURI())
@@ -84,12 +84,12 @@ public class DossierFileResourceImplTest {
     public void testBGetContents() {
 
         DossierFileResource fileResource = getDossierFileResource("fairpricecalc");
-        Response response = fileResource.getContents();
+        Response response = fileResource.download();
         Assert.assertEquals("application/vnd.oasis.opendocument.spreadsheet",
                 response.getMediaType().toString());
 
         fileResource = getDossierFileResource("jurnals");
-        response = fileResource.getContents();
+        response = fileResource.download();
         Assert.assertEquals("application/pdf", response.getMediaType().toString());
     }
 }

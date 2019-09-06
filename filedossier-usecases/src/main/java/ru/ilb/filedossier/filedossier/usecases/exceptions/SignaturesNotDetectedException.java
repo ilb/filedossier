@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 slavb.
+ * Copyright 2019 kuznetsov_me.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,20 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ru.ilb.filedossier.entities;
+package ru.ilb.filedossier.filedossier.usecases.exceptions;
+
+import java.util.List;
 
 /**
  *
- * <p>
- * This interface marks DossierFiles representations. For example, DossierFile is xml, it's representation is PDF.
- * <p>
- *
- * @author slavb
+ * @author kuznetsov_me
  */
-public interface Representation extends DossierContents {
+public class SignaturesNotDetectedException extends RuntimeException{
 
-    byte[] generateRepresentation();
+    List<String> notDetectedSignatures;
 
-    void setRepresentationPart(RepresentationPart part);
+    public SignaturesNotDetectedException(List<String> notDetectedSignatures) {
+        this.notDetectedSignatures = notDetectedSignatures;
+    }
 
+    @Override
+    public String toString() {
+        String message = "";
+        notDetectedSignatures.forEach(error -> message.concat(error + "\n"));
+        return message;
+    }
 }

@@ -96,17 +96,19 @@ class FileStore implements Store {
     }
 
     @Override
-    public List<byte[]> getAllContents() throws IOException {
+    public List<byte[]> getAllContents() {
         try (Stream<Path> paths = Files.walk(getStorePath()).sorted()) {
             List<byte[]> bytes = new ArrayList<>();
             paths.filter(Files::isRegularFile).forEach(path -> {
                 try {
                     bytes.add(Files.readAllBytes(path));
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
+                } catch (IOException e) {
+                    throw new RuntimeException("Error while read file: " + e);
                 }
             });
             return bytes;
+        } catch (IOException e) {
+            return new ArrayList<>();
         }
     }
 }

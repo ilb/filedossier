@@ -17,13 +17,14 @@ package ru.ilb.filedossier.functions;
 
 import com.drew.imaging.ImageProcessingException;
 import java.io.IOException;
+import java.util.Optional;
 import ru.ilb.filedossier.entities.Barcode;
 import ru.ilb.filedossier.utils.ImageUtils;
 
-public class XmpBarcodeScannerFunctionImpl implements BarcodeScannerFunction {
+public class XmpBarcodeScannerFunction implements BarcodeScannerFunction {
 
     @Override
-    public Barcode apply(byte[] t) {
+    public Optional<Barcode> apply(byte[] t) {
         String barcode = null;
         try {
             barcode = ImageUtils.extractXMPMetadata(t, "barcode");
@@ -33,10 +34,9 @@ public class XmpBarcodeScannerFunctionImpl implements BarcodeScannerFunction {
             throw new RuntimeException("Error while barcode scanning" + e);
         }
 
-        if (barcode != null) {
-            return new Barcode(barcode);
-        } else {
-            return null;
+        if (barcode == null) {
+            return Optional.empty();
         }
+        return Optional.of(new Barcode(barcode));
     }
 }

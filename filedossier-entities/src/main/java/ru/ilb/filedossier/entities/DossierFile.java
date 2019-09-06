@@ -58,20 +58,6 @@ public interface DossierFile extends DossierContents {
     Representation getRepresentation();
 
     /**
-     * @return context of this dossier file
-     * @see ru.ilb.filedossier.entities.DossierContext
-     */
-    DossierContext getContext();
-
-    /**
-     * Sets context for dossier file.
-     *
-     * @param context context for current dossier file
-     * @see ru.ilb.filedossier.entities.DossierContext
-     */
-    void setDossierContext(DossierContext context);
-
-    /**
      * @return is dossier file valid
      */
     boolean isValid();

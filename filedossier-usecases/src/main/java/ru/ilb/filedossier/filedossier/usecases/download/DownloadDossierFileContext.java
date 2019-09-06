@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 slavb.
+ * Copyright 2019 kuznetsov_me.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,20 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ru.ilb.filedossier.entities;
+package ru.ilb.filedossier.filedossier.usecases.download;
+
+import javax.inject.Inject;
+import javax.inject.Named;
+import org.apache.cxf.jaxrs.json.basic.JsonMapObject;
+import ru.ilb.filedossier.context.DossierContextService;
 
 /**
  *
- * <p>
- * This interface marks DossierFiles representations. For example, DossierFile is xml, it's representation is PDF.
- * <p>
- *
- * @author slavb
+ * @author kuznetsov_me
  */
-public interface Representation extends DossierContents {
+@Named
+public class DownloadDossierFileContext {
 
-    byte[] generateRepresentation();
+    @Inject
+    private DossierContextService dossierContextService;
 
-    void setRepresentationPart(RepresentationPart part);
-
+    public JsonMapObject download(String contextKey) {
+        return new JsonMapObject(dossierContextService
+                .getContext(contextKey)
+                .asMap());
+    }
 }

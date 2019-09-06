@@ -15,20 +15,17 @@
  */
 package ru.ilb.filedossier.core;
 
-import ru.ilb.filedossier.entities.DossierFile;
-import ru.ilb.filedossier.entities.Dossier;
 import java.net.URI;
-import ru.ilb.filedossier.entities.DossierContext;
-import ru.ilb.filedossier.context.DossierContextBuilder;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.inject.Inject;
+import javax.inject.Named;
 import ru.ilb.filedossier.ddl.DossierDefinition;
 import ru.ilb.filedossier.ddl.DossierFileDefinition;
-import ru.ilb.filedossier.ddl.DossierDefinitionRepository;
-import ru.ilb.filedossier.context.DossierContextService;
+import ru.ilb.filedossier.ddl.FileDossierDefinitionRepository;
+import ru.ilb.filedossier.entities.Dossier;
+import ru.ilb.filedossier.entities.DossierFile;
 import ru.ilb.filedossier.entities.Representation;
-import ru.ilb.filedossier.scripting.TemplateEvaluator;
 import ru.ilb.filedossier.entities.Store;
 import ru.ilb.filedossier.representation.RepresentationFactory;
 import ru.ilb.filedossier.store.StoreFactory;
@@ -37,86 +34,58 @@ import ru.ilb.filedossier.store.StoreFactory;
  *
  * @author slavb
  */
+@Named
 public class DossierFactory {
 
-    /**
-     * Репозиторий моделей досье
-     */
-    private final DossierDefinitionRepository dossierModelRepository;
+    private FileDossierDefinitionRepository dossierDefinitionRepository;
 
-    /**
-     * Файловое хранилище TODO возможно реализацию нужно иметь возможность настраивать в досье
-     */
-    private final StoreFactory storeFactory;
+    private StoreFactory storeFactory;
 
-    /**
-     * Построитель контекста досье TODO возможно реализацию нужно иметь возможность настраивать в досье
-     */
-    private final DossierContextBuilder dossierContextBuilder;
-
-    /**
-     * Движок вычисления выражений по-умолчанию TODO возможно реализацию нужно иметь возможность настраивать в досье
-     */
-    private final TemplateEvaluator templateEvaluator;
-
-    /**
-     * Фабрика представлений
-     */
-    private final RepresentationFactory representationFactory = new RepresentationFactory();
+    private RepresentationFactory representationFactory;
 
     @Inject
-    DossierContextService dossierContextService;
-
-    public DossierFactory(DossierDefinitionRepository dossierModelRepository, StoreFactory storeFactory,
-            DossierContextBuilder dossierContextBuilder, TemplateEvaluator templateEvaluator) {
-        this.dossierModelRepository = dossierModelRepository;
+    public DossierFactory(FileDossierDefinitionRepository dossierDefinitionRepository,
+            StoreFactory storeFactory) {
+        this.dossierDefinitionRepository = dossierDefinitionRepository;
         this.storeFactory = storeFactory;
-        this.dossierContextBuilder = dossierContextBuilder;
-        this.templateEvaluator = templateEvaluator;
-    }
-
-    public void setDossierContextService(DossierContextService dossierContextService) {
-        this.dossierContextService = dossierContextService;
     }
 
     public Dossier getDossier(String dossierKey, String dossierPackage, String dossierCode) {
-        DossierDefinition dossierModel = dossierModelRepository.getDossierDefinition(dossierPackage, dossierCode);
-        URI baseUri = dossierModelRepository.getDossierDefinitionUri(dossierPackage);
+
+        DossierDefinition dossierModel = dossierDefinitionRepository
+                .getDossierDefinition(dossierPackage, dossierCode);
+
+        URI baseDefinitionUri = dossierDefinitionRepository
+                .getDossierDefinitionUri(dossierPackage);
+
         Store store = storeFactory.getStore(dossierKey);
-        DossierContext dossierContext = dossierContextBuilder.createDossierContext(dossierKey, dossierPackage,
-                dossierCode);
-        return getDossier(baseUri, dossierModel, store, dossierKey, dossierPackage, dossierContext);
+        System.out.println("dossierCode:" + dossierCode);
+        System.out.println("dossierKey: " + dossierKey);
+
+        if (representationFactory == null) {
+            representationFactory = new RepresentationFactory(store, baseDefinitionUri);
+        }
+        return createDossier(dossierModel, store, dossierKey, dossierPackage);
     }
 
-    private Dossier getDossier(URI baseUri, DossierDefinition dossierModel, Store store, String dossierKey,
-            String dossierPackage, DossierContext dossierContext) {
-        String code = dossierModel.getCode();
-        String name = dossierModel.getName();
+    private Dossier createDossier(DossierDefinition model, Store store, String dossierKey,
+            String dossierPackage) {
 
-        List<DossierFile> dossierFiles = dossierModel.getDossierFiles().stream()
-                .filter(modelFile -> modelFile.getRepresentations().size() > 0)
-                .map(modelFile -> createDossierFile(baseUri, modelFile, store, dossierContext))
+        List<DossierFile> dossierFiles = model.getDossierFiles().stream()
+                .filter(fileModel -> fileModel.getRepresentations().size() > 0)
+                .map(fileModel -> createDossierFile(fileModel, store))
                 .collect(Collectors.toList());
-
-        return new DossierImpl(code, name, dossierPackage, dossierKey, dossierFiles);
+        return new DossierImpl(model.getCode(), model.getName(), dossierPackage, dossierKey,
+                dossierFiles);
     }
 
-    private DossierFile createDossierFile(URI baseUri, DossierFileDefinition modelFile, Store store,
-            DossierContext dossierContext) {
-        List<Representation> representations = modelFile
-                .getRepresentations().stream().map(representationModel -> representationFactory
-                .createRepresentation(baseUri, representationModel, dossierContext, templateEvaluator))
+    private DossierFile createDossierFile(DossierFileDefinition model, Store store) {
+        List<Representation> representations = model.getRepresentations().stream()
+                .map(representationModel
+                        -> representationFactory.createRepresentation(representationModel))
                 .collect(Collectors.toList());
-
-        return DossierFileFactory.createDossierFile(store,
-                templateEvaluator.evaluateStringExpression(modelFile.getCode(), dossierContext.asMap()),
-                templateEvaluator.evaluateStringExpression(modelFile.getName(), dossierContext.asMap()),
-                Boolean.TRUE.equals(
-                        templateEvaluator.evaluateBooleanExpression(modelFile.getRequired(), dossierContext.asMap())),
-                Boolean.TRUE.equals(
-                        templateEvaluator.evaluateBooleanExpression(modelFile.getReadonly(), dossierContext.asMap())),
-                Boolean.TRUE.equals(
-                        templateEvaluator.evaluateBooleanExpression(modelFile.getHidden(), dossierContext.asMap())),
-                modelFile.getMediaType(), representations, dossierContextService);
+        return new DossierFileImpl(store,
+                model.getCode(), model.getName(), model.getRequired(), model.getReadonly(),
+                model.getHidden(), model.getMediaType(), representations);
     }
 }

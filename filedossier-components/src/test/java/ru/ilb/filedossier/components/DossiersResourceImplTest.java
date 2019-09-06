@@ -15,8 +15,6 @@
  */
 package ru.ilb.filedossier.components;
 
-import java.net.URISyntaxException;
-import java.nio.file.Paths;
 import java.util.Arrays;
 import javax.inject.Inject;
 import org.apache.cxf.jaxrs.client.JAXRSClientFactory;
@@ -78,7 +76,7 @@ public class DossiersResourceImplTest {
         DossierView dossier = dossierResource.getDossier();
         assertNotNull(dossier);
         DossierFileResource dossierFileResource = dossierResource.getDossierFileResource("fairpricecalc");
-        String res = dossierFileResource.getContents().readEntity(String.class);
+        String res = dossierFileResource.download().readEntity(String.class);
 
         DossierContextResource dossierContextResource = dossierFileResource.getDossierContextResource();
 

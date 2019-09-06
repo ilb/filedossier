@@ -36,14 +36,15 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 import ru.ilb.filedossier.entities.DossierContents;
 import ru.ilb.filedossier.entities.DossierPath;
+import ru.ilb.filedossier.entities.Store;
 
 public class OdsXsltRepresentation extends IdentityRepresentation {
 
     protected final URI stylesheetUri;
     protected final URI templateUri;
 
-    public OdsXsltRepresentation(String mediaType, URI stylesheetUri, URI templateUri) {
-        super(mediaType);
+    public OdsXsltRepresentation(Store store, String mediaType, URI stylesheetUri, URI templateUri) {
+        super(store, mediaType);
         this.stylesheetUri = stylesheetUri;
         this.templateUri = templateUri;
     }
@@ -133,7 +134,7 @@ public class OdsXsltRepresentation extends IdentityRepresentation {
                 this.parent = dossierContents;
                 break;
             case "application/json":
-                JsonXmlRepresentation jsonXmlRepresentation = new JsonXmlRepresentation();
+                JsonXmlRepresentation jsonXmlRepresentation = new JsonXmlRepresentation(store);
                 jsonXmlRepresentation.setParent(parent);
                 this.parent = jsonXmlRepresentation;
                 break;

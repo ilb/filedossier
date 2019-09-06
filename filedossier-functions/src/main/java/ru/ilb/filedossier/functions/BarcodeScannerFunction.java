@@ -15,6 +15,7 @@
  */
 package ru.ilb.filedossier.functions;
 
+import java.util.Optional;
 import java.util.function.Function;
 import ru.ilb.filedossier.entities.Barcode;
 
@@ -22,6 +23,6 @@ import ru.ilb.filedossier.entities.Barcode;
  *
  * @author kuznetsov_me
  */
-public interface BarcodeScannerFunction extends Function<byte[], Barcode> {
+public interface BarcodeScannerFunction extends Function<byte[], Optional<Barcode>> {
 }
 

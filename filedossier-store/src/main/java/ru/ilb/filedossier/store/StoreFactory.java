@@ -15,8 +15,8 @@
  */
 package ru.ilb.filedossier.store;
 
-import ru.ilb.filedossier.entities.Store;
 import java.net.URI;
+import ru.ilb.filedossier.entities.Store;
 
 /**
  * Файловое хранилище
@@ -39,6 +39,7 @@ public class StoreFactory {
      * Returns store with basic path - storageRoot/storeKey/
      */
     public Store getStore(String storeKey) {
+        System.out.println("storeKey: " + storeKey);
         return new FileStore(storeRoot, storeKey);
     }
 

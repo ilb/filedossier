@@ -15,23 +15,18 @@
  */
 package ru.ilb.filedossier.core;
 
-import ru.ilb.filedossier.core.DossierFactory;
-import ru.ilb.filedossier.entities.Dossier;
-import ru.ilb.filedossier.context.DossierContextBuilder;
 import java.net.URISyntaxException;
 import javax.naming.Context;
-import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.ClassRule;
+import org.junit.Test;
+import ru.ilb.filedossier.context.DossierContextBuilder;
 import ru.ilb.filedossier.context.DossierContextImpl;
-import ru.ilb.filedossier.entities.DossierContext;
 import ru.ilb.filedossier.ddl.FileDossierDefinitionRepository;
-import ru.ilb.filedossier.ddl.DossierDefinitionRepository;
+import ru.ilb.filedossier.entities.Dossier;
+import ru.ilb.filedossier.entities.DossierContext;
 import ru.ilb.filedossier.jndi.JndiRule;
-import ru.ilb.filedossier.scripting.SubstitutorTemplateEvaluator;
-import ru.ilb.filedossier.scripting.TemplateEvaluator;
 import ru.ilb.filedossier.store.StoreFactory;
 
 /**
@@ -52,7 +47,7 @@ public class DossierFactoryTest {
     };
 
     public static DossierFactory getDossierFactory() throws NamingException {
-        DossierDefinitionRepository dossierModelRepository;
+        FileDossierDefinitionRepository dossierModelRepository;
         StoreFactory storeFactory;
         try {
             dossierModelRepository = new FileDossierDefinitionRepository(
@@ -70,9 +65,7 @@ public class DossierFactoryTest {
             dc.setProperty("prop", false);
             return dc;
         };
-        TemplateEvaluator templateEvaluator;
-        templateEvaluator = new SubstitutorTemplateEvaluator(new InitialContext());
-        return new DossierFactory(dossierModelRepository, storeFactory, dossierContextBuilder, templateEvaluator);
+        return new DossierFactory(dossierModelRepository, storeFactory);
 
     }
 

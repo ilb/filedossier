@@ -34,8 +34,7 @@ import ru.ilb.filedossier.mimetype.MimeTypeUtil;
 public class ImageUtils {
 
     public static String extractXMPMetadata(byte[] rawImage, String propName) throws
-            IOException,
-            ImageProcessingException {
+            IOException, ImageProcessingException {
 
         if (!MimeTypeUtil.guessMimeTypeFromByteArray(rawImage).equals("image/jpeg")) {
             return null;

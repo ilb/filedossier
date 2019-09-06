@@ -24,7 +24,7 @@ public interface Store {
      */
     public byte[] getContents(String code) throws IOException;
 
-    public List<byte[]> getAllContents() throws IOException;
+    public List<byte[]> getAllContents();
 
     public void setContents(String code, byte[] contents) throws IOException;
 

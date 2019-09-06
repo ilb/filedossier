@@ -18,55 +18,64 @@ package ru.ilb.filedossier.components;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import javax.ws.rs.container.ResourceContext;
-import javax.ws.rs.core.Context;
+import javax.inject.Inject;
+import javax.inject.Named;
 import javax.ws.rs.core.Response;
 import ru.ilb.filedossier.api.DossierContextResource;
 import ru.ilb.filedossier.api.DossierFileResource;
 import ru.ilb.filedossier.entities.DossierFile;
 import ru.ilb.filedossier.entities.Representation;
-import ru.ilb.filedossier.filedossier.usecases.upload.UploadDossierFileContents;
+import ru.ilb.filedossier.filedossier.usecases.upload.UploadDocument;
 
+@Named
 public class DossierFileResourceImpl implements DossierFileResource {
 
-    private final DossierFile dossierFile;
+    @Inject
+    private DossierContextResourceImpl resource;
 
-    @Context
-    private ResourceContext resourceContext;
+    @Inject
+    private UploadDocument uploadDocument;
 
-    public DossierFileResourceImpl(DossierFile dossierFile) {
-        this.dossierFile = dossierFile;
-    }
+    private DossierFile dossierFile;
 
     @Override
-    public Response getContents() {
+    public Response download() {
         Representation representation = dossierFile.getRepresentation();
         return Response.ok(representation.getContents())
                 .header("Content-Type", representation.getMediaType())
-                .header("Content-Disposition",
-                        "attachment; filename=" + representation.getFileName())
+                .header("Content-Disposition attachment;",
+                        "filename=" + representation.getFileName())
                 .build();
     }
 
     @Override
-    public void setContents(InputStream inputstream) {
+    public void publish(InputStream inputstream) {
         try {
-            UploadDossierFileContents useCase = new UploadDossierFileContents(
-                    Util.toByteArray(inputstream), dossierFile);
-            useCase.upload();
+            byte[] data = Util.toByteArray(inputstream);
+            dossierFile.setContents(data);
         } catch (IOException e) {
             throw new RuntimeException("Unable to read input stream: " + e);
         }
     }
 
     @Override
-    public void uploadContents(File file) {
-        dossierFile.setContents(file);
+    public void upload(File file) {
+        try {
+            uploadDocument.upload(file, dossierFile);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public DossierContextResource getDossierContextResource() {
-        DossierContextResourceImpl resource = new DossierContextResourceImpl(dossierFile);
-        return resourceContext.initResource(resource);
+        String fileContextKey = dossierFile.getParent()
+                .getCode() + "/" + dossierFile.getCode();
+        resource.setContextKey(fileContextKey);
+        return resource;
+    }
+
+    public void setDossierFile(DossierFile dossierFile) {
+        this.dossierFile = dossierFile;
     }
 }
