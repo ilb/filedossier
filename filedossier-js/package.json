@@ -1,67 +1,67 @@
 {
-  "name": "@ilb/filedossier-js",
-  "version": "0.1.7",
-  "description": "Файловое досье",
-  "main": "lib/index.js",
-  "module": "lib/index.js",
-  "author": "slavb18 <slavb@bystrobank.ru>",
-  "homepage": "/filedossier-js",
-  "proxy": "http://localhost:8080",
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "build-lib": "cross-env NODE_ENV=production && rimraf lib && mkdir lib && npx babel src --out-dir lib --copy-files",
-    "prepack": "npm run build-lib",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/ilb/filedossier/tree/master/filedossier-js"
-  },
-  "babel": {
-    "presets": [
-      "@babel/react"
+    "name": "@ilb/filedossier-js",
+    "version": "0.1.7",
+    "description": "Файловое досье",
+    "main": "lib/index.js",
+    "module": "lib/index.js",
+    "author": "slavb18 <slavb@bystrobank.ru>",
+    "homepage": "/filedossier-js",
+    "proxy": "http://localhost:8080",
+    "scripts": {
+        "start": "react-scripts start",
+        "build": "react-scripts build",
+        "build-lib": "cross-env NODE_ENV=production && rimraf lib && mkdir lib && npx babel src --out-dir lib --copy-files",
+        "prepack": "npm run build-lib",
+        "test": "react-scripts test",
+        "eject": "react-scripts eject"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/ilb/filedossier/tree/master/filedossier-js"
+    },
+    "babel": {
+        "presets": [
+            "@babel/react"
+        ],
+        "plugins": [
+            "@babel/plugin-proposal-class-properties"
+        ]
+    },
+    "dependencies": {
+        "@bb/semantic-ui-css": "^2.2.12",
+        "@ilb/filedossier-api": "^1.0.0",
+        "formik": "^1.5.7",
+        "react": "^16.8.6",
+        "react-dom": "^16.8.6",
+        "react-error-boundary": "^1.2.5",
+        "react-hooks-fetch": "^0.10.0",
+        "react-router-dom": "^5.0.1",
+        "react-scripts": "3.0.1",
+        "semantic-ui-react": "^0.87.1",
+        "whatwg-fetch": "^3.0.0"
+    },
+    "devDependencies": {
+        "@babel/cli": "^7.4.4",
+        "@babel/plugin-proposal-class-properties": "^7.4.4",
+        "cross-env": "^5.2.0",
+        "rimraf": "^2.6.3"
+    },
+    "files": [
+        "lib"
     ],
-    "plugins": [
-      "@babel/plugin-proposal-class-properties"
-    ]
-  },
-  "dependencies": {
-    "@bb/semantic-ui-css": "^2.2.12",
-    "@ilb/filedossier-api": "^1.0.0",
-    "formik": "^1.5.7",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "react-error-boundary": "^1.2.5",
-    "react-hooks-fetch": "^0.10.0",
-    "react-router-dom": "^5.0.1",
-    "react-scripts": "3.0.1",
-    "semantic-ui-react": "^0.87.1",
-    "whatwg-fetch": "^3.0.0"
-  },
-  "devDependencies": {
-    "@babel/cli": "^7.4.4",
-    "@babel/plugin-proposal-class-properties": "^7.4.4",
-    "cross-env": "^5.2.0",
-    "rimraf": "^2.6.3"
-  },
-  "files": [
-    "lib"
-  ],
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  }
+    "eslintConfig": {
+        "extends": "react-app"
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    }
 }
