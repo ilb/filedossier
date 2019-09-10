@@ -13,20 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package ru.ilb.filedossier.representation;
 
 import org.json.JSONObject;
 import org.json.XML;
+
 import ru.ilb.filedossier.entities.Store;
 
 /**
- * Json to XML conversion
- *
+ * Json to XML conversion.
  * @author slavb
  */
+
 public class JsonXmlRepresentation extends IdentityRepresentation {
 
-    public JsonXmlRepresentation(Store store) {
+    /**
+     * Base header for all output XML files.
+     */
+    private static final String XML_HEADER = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
+
+    JsonXmlRepresentation(Store store) {
         super(store, "application/xml");
     }
 
@@ -42,9 +49,8 @@ public class JsonXmlRepresentation extends IdentityRepresentation {
 
     @Override
     public byte[] generateRepresentation() {
-        // TODO: add header
-        JSONObject json = new JSONObject(new String(parent.getContents()));
-        String xml = XML.toString(json, "root");
+        final JSONObject json = new JSONObject(new String(parent.getContents()));
+        final String xml = XML_HEADER + XML.toString(json, "root");
         return xml.getBytes();
     }
 }
