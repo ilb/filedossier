@@ -28,6 +28,10 @@ import ru.ilb.filedossier.context.persistence.DossierContextNamingStrategy;
 import ru.ilb.filedossier.ddl.FileDossierDefinitionRepository;
 import ru.ilb.filedossier.store.StoreFactory;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+
 /**
  *
  * @author slavb
@@ -64,6 +68,13 @@ public class Application { // extends JpaBaseConfiguration
         } catch (URISyntaxException e) {
             throw new RuntimeException("Incorrect definition path: " + e);
         }
+    }
+
+    @Bean
+    public Context context() throws NamingException {
+        final Context context = new InitialContext();
+        context.bind("ru.bystrobank.apps.meta.url", "https://devel.net.ilb.ru/meta");
+        return context;
     }
 
 //    @Bean

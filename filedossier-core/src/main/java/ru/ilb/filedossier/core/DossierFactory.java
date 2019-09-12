@@ -20,6 +20,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 import javax.inject.Inject;
 import javax.inject.Named;
+
+import org.apache.xalan.xsltc.compiler.Template;
 import ru.ilb.filedossier.ddl.DossierDefinition;
 import ru.ilb.filedossier.ddl.DossierFileDefinition;
 import ru.ilb.filedossier.ddl.DossierDefinitionRepository;
@@ -28,6 +30,7 @@ import ru.ilb.filedossier.entities.DossierFile;
 import ru.ilb.filedossier.entities.Representation;
 import ru.ilb.filedossier.entities.Store;
 import ru.ilb.filedossier.representation.RepresentationFactory;
+import ru.ilb.filedossier.scripting.TemplateEvaluator;
 import ru.ilb.filedossier.store.StoreFactory;
 
 /**
@@ -43,11 +46,14 @@ public class DossierFactory {
 
     private RepresentationFactory representationFactory;
 
+    private TemplateEvaluator templateEvaluator;
+
     @Inject
     public DossierFactory(DossierDefinitionRepository dossierDefinitionRepository,
-            StoreFactory storeFactory) {
+                          StoreFactory storeFactory, TemplateEvaluator templateEvaluator) {
         this.dossierDefinitionRepository = dossierDefinitionRepository;
         this.storeFactory = storeFactory;
+        this.templateEvaluator = templateEvaluator;
     }
 
     public Dossier getDossier(String dossierKey, String dossierPackage, String dossierCode) {
@@ -63,7 +69,8 @@ public class DossierFactory {
         System.out.println("dossierKey: " + dossierKey);
 
         if (representationFactory == null) {
-            representationFactory = new RepresentationFactory(store, baseDefinitionUri);
+            representationFactory = new RepresentationFactory(
+                    store, baseDefinitionUri, templateEvaluator);
         }
         return createDossier(dossierModel, store, dossierKey, dossierPackage);
     }
@@ -79,6 +86,7 @@ public class DossierFactory {
                 dossierFiles);
     }
 
+    // TODO: evaluate model values
     private DossierFile createDossierFile(DossierFileDefinition model, Store store) {
         List<Representation> representations = model.getRepresentations().stream()
                 .map(representationModel -> representationFactory.createRepresentation(representationModel))

@@ -35,9 +35,9 @@
             </attribute>
             <representation>
                 <mediaType>application/pdf</mediaType>
-                <stylesheet>https://${ru.bystrobank.apps.meta.url}/schemas/doctemplates/jurnals/percentsheet.xsd</stylesheet>
-                <schema>https://${ru.bystrobank.apps.meta.url}/stylesheets/doctemplates/jurnals/percentsheet.xsl</schema>
-                <meta>https://${ru.bystrobank.apps.meta.url}/&amp;uid=doctree:11f462ebdb14a5673ff41a5c75c5176552fad343:</meta>
+                <stylesheet>${ru.bystrobank.apps.meta.url}/schemas/doctemplates/jurnals/percentsheet.xsd</stylesheet>
+                <schema>${ru.bystrobank.apps.meta.url}/stylesheets/doctemplates/jurnals/percentsheet.xsl</schema>
+                <meta>${ru.bystrobank.apps.meta.url}/&amp;uid=doctree:11f462ebdb14a5673ff41a5c75c5176552fad343:</meta>
                 <multipart>true</multipart>
             </representation>
         </dossierFile>

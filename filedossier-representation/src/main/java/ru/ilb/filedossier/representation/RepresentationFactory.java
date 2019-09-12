@@ -17,9 +17,12 @@ package ru.ilb.filedossier.representation;
 
 import java.net.MalformedURLException;
 import java.net.URI;
+
+import org.apache.xalan.xsltc.compiler.Template;
 import ru.ilb.filedossier.ddl.RepresentationDefinition;
 import ru.ilb.filedossier.entities.Representation;
 import ru.ilb.filedossier.entities.Store;
+import ru.ilb.filedossier.scripting.TemplateEvaluator;
 
 /**
  *
@@ -29,12 +32,13 @@ public class RepresentationFactory {
 
     // TODO: process with evaluation
     private URI definitionUri;
-
     private Store store;
+    private TemplateEvaluator templateEvaluator;
 
-    public RepresentationFactory(Store store, URI definitionUri) {
-        this.definitionUri = definitionUri;
+    public RepresentationFactory(Store store, URI definitionUri, TemplateEvaluator templateEvaluator) {
         this.store = store;
+        this.definitionUri = definitionUri;
+        this.templateEvaluator = templateEvaluator;
     }
 
     public Representation createRepresentation(RepresentationDefinition model) {
@@ -63,9 +67,12 @@ public class RepresentationFactory {
 
     private Representation createPdfRepresentation(RepresentationDefinition model)
             throws MalformedURLException {
-        URI stylesheetUri = definitionUri.resolve(model.getStylesheet());
-        URI schema = definitionUri.resolve(model.getSchema());
-        URI meta = definitionUri.resolve(model.getMeta());
+        URI stylesheetUri = definitionUri.resolve(
+                templateEvaluator.evaluateStringExpression(model.getStylesheet(), null));
+        URI schema = definitionUri.resolve(
+                templateEvaluator.evaluateStringExpression(model.getSchema(), null));
+        URI meta = definitionUri.resolve(
+                templateEvaluator.evaluateStringExpression(model.getMeta(), null));
         return new PdfGenRepresentation(store, model.getMediaType(), stylesheetUri, schema, meta);
     }
 }

@@ -27,6 +27,9 @@ import ru.ilb.filedossier.ddl.FileDossierDefinitionRepository;
 import ru.ilb.filedossier.entities.Dossier;
 import ru.ilb.filedossier.entities.DossierContext;
 import ru.ilb.filedossier.jndi.JndiRule;
+import ru.ilb.filedossier.jndi.SimpleInitialContext;
+import ru.ilb.filedossier.scripting.SubstitutorTemplateEvaluator;
+import ru.ilb.filedossier.scripting.TemplateEvaluator;
 import ru.ilb.filedossier.store.StoreFactory;
 
 /**
@@ -58,14 +61,10 @@ public class DossierFactoryTest {
             throw new RuntimeException(ex);
         }
 
-        DossierContextBuilder dossierContextBuilder = (String dossierKey, String dossierPackage,
-                String dossierCode) -> {
-            DossierContext dc = new DossierContextImpl();
-            dc.setProperty("name", "Тест имя");
-            dc.setProperty("prop", false);
-            return dc;
-        };
-        return new DossierFactory(dossierModelRepository, storeFactory);
+        Context context = new SimpleInitialContext();
+        context.bind("ru.bystrobank.apps.meta.url", "https://devel.net.ilb.ru/meta");
+        TemplateEvaluator templateEvaluator = new SubstitutorTemplateEvaluator(context);
+        return new DossierFactory(dossierModelRepository, storeFactory, templateEvaluator);
 
     }
 
