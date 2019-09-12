@@ -85,7 +85,7 @@ public class DossierFactory {
                         -> representationFactory.createRepresentation(representationModel))
                 .collect(Collectors.toList());
         return new DossierFileImpl(store,
-                model.getCode(), model.getName(), model.getRequired(), model.getReadonly(),
+                model.getCode(), model.getName(), Boolean.TRUE.equals(model.getRequired()), model.getReadonly(),
                 model.getHidden(), model.getMediaType(), representations);
     }
 }
