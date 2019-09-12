@@ -16,13 +16,15 @@
 package ru.ilb.filedossier.scripting;
 
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.Map;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
+import javax.naming.*;
+
 import org.junit.Test;
 import static org.junit.Assert.*;
 import ru.ilb.filedossier.context.DossierContextImpl;
 import ru.ilb.filedossier.entities.DossierContext;
+import ru.ilb.filedossier.jndi.SimpleInitialContext;
 
 /**
  *
@@ -40,12 +42,13 @@ public class SubstitutorTemplateEvaluatorTest {
     public void testEvaluateStringExpression() throws NamingException {
         System.out.println("evaluateStringExpression");
         String template = "${name}";
-        Map<String, Object> map = new HashMap<>();
-        map.put("name", "testName");
-        DossierContext dossierContext = new DossierContextImpl(map);
-        SubstitutorTemplateEvaluator instance = new SubstitutorTemplateEvaluator(new InitialContext());
+
+        SimpleInitialContext context = new SimpleInitialContext();
+        context.bind("name", "testName");
+
+        SubstitutorTemplateEvaluator instance = new SubstitutorTemplateEvaluator(context);
         String expResult = "testName";
-        String result = instance.evaluateStringExpression(template, dossierContext.asMap());
+        String result = instance.evaluateStringExpression(template, null);
         assertEquals(expResult, result);
     }
 

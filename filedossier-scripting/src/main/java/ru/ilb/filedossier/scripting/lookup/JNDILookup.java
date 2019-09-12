@@ -17,10 +17,10 @@ package ru.ilb.filedossier.scripting.lookup;
 
 import javax.naming.Context;
 import javax.naming.NamingException;
+
 import org.apache.commons.text.lookup.StringLookup;
 
 /**
- *
  * @author kuznetsov_me
  */
 public class JNDILookup implements StringLookup {
@@ -35,14 +35,10 @@ public class JNDILookup implements StringLookup {
     @Override
     public String lookup(String key) {
         final String obj;
-        if (key.contains(".")) {
-            try {
-                obj = (String) context.lookup(key);
-                return obj;
-            } catch (NamingException | NullPointerException ex) {
-                return null;
-            }
-        } else {
+        try {
+            obj = (String) context.lookup(key);
+            return obj;
+        } catch (NamingException | NullPointerException ex) {
             return null;
         }
     }

@@ -18,7 +18,11 @@ package ru.ilb.filedossier.scripting;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import javax.inject.Inject;
+import javax.inject.Named;
 import javax.naming.Context;
+
+import com.sun.istack.internal.Nullable;
 import org.apache.commons.text.StringSubstitutor;
 import org.apache.commons.text.lookup.StringLookup;
 import org.apache.commons.text.lookup.StringLookupFactory;
@@ -31,11 +35,13 @@ import ru.ilb.filedossier.scripting.lookup.LookupPerformer;
  *
  * @author slavb
  */
+@Named
 public class SubstitutorTemplateEvaluator implements TemplateEvaluator {
 
-    private Context context;
+    private final Context context;
     private List<StringLookup> lookups;
 
+    @Inject
     public SubstitutorTemplateEvaluator(Context context) {
         this.context = context;
         lookups = new ArrayList<>();
@@ -43,14 +49,14 @@ public class SubstitutorTemplateEvaluator implements TemplateEvaluator {
     }
 
     @Override
-    public String evaluateStringExpression(String template, Map<String, Object> dossierContext) {
-        lookups.add(StringLookupFactory.INSTANCE.mapStringLookup(dossierContext));
+    public String evaluateStringExpression(String template, @Nullable Map<String, Object> dossierContext) {
+        //lookups.add(StringLookupFactory.INSTANCE.mapStringLookup(dossierContext));
         StringSubstitutor sub = new StringSubstitutor(new LookupPerformer(lookups));
         return sub.replace(template);
     }
 
     @Override
-    public Boolean evaluateBooleanExpression(String template, Map<String, Object> dossierContext) {
+    public Boolean evaluateBooleanExpression(String template, @Nullable Map<String, Object> dossierContext) {
         return Boolean.valueOf(evaluateStringExpression(template, dossierContext));
     }
 }
