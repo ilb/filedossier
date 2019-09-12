@@ -22,7 +22,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import ru.ilb.filedossier.ddl.DossierDefinition;
 import ru.ilb.filedossier.ddl.DossierFileDefinition;
-import ru.ilb.filedossier.ddl.FileDossierDefinitionRepository;
+import ru.ilb.filedossier.ddl.DossierDefinitionRepository;
 import ru.ilb.filedossier.entities.Dossier;
 import ru.ilb.filedossier.entities.DossierFile;
 import ru.ilb.filedossier.entities.Representation;
@@ -37,14 +37,14 @@ import ru.ilb.filedossier.store.StoreFactory;
 @Named
 public class DossierFactory {
 
-    private FileDossierDefinitionRepository dossierDefinitionRepository;
+    private DossierDefinitionRepository dossierDefinitionRepository;
 
     private StoreFactory storeFactory;
 
     private RepresentationFactory representationFactory;
 
     @Inject
-    public DossierFactory(FileDossierDefinitionRepository dossierDefinitionRepository,
+    public DossierFactory(DossierDefinitionRepository dossierDefinitionRepository,
             StoreFactory storeFactory) {
         this.dossierDefinitionRepository = dossierDefinitionRepository;
         this.storeFactory = storeFactory;

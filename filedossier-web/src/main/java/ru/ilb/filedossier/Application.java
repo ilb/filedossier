@@ -27,6 +27,7 @@ import org.springframework.data.jdbc.repository.config.EnableJdbcRepositories;
 import org.springframework.data.relational.core.mapping.NamingStrategy;
 import ru.ilb.common.jaxrs.jaxb.JaxbContextResolver;
 import ru.ilb.filedossier.context.persistence.DossierContextNamingStrategy;
+import ru.ilb.filedossier.ddl.DossierDefinitionRepository;
 import ru.ilb.filedossier.ddl.FileDossierDefinitionRepository;
 import ru.ilb.filedossier.store.StoreFactory;
 
@@ -69,7 +70,7 @@ public class Application { // extends JpaBaseConfiguration
     }
 
     @Bean
-    public FileDossierDefinitionRepository dossierDefinitionRepository() {
+    public DossierDefinitionRepository dossierDefinitionRepository() {
         try {
             return new FileDossierDefinitionRepository(getClass()
                     .getClassLoader()
