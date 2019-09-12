@@ -81,11 +81,11 @@ public class DossierFactory {
 
     private DossierFile createDossierFile(DossierFileDefinition model, Store store) {
         List<Representation> representations = model.getRepresentations().stream()
-                .map(representationModel
-                        -> representationFactory.createRepresentation(representationModel))
+                .map(representationModel -> representationFactory.createRepresentation(representationModel))
                 .collect(Collectors.toList());
         return new DossierFileImpl(store,
-                model.getCode(), model.getName(), Boolean.TRUE.equals(model.getRequired()), model.getReadonly(),
-                model.getHidden(), model.getMediaType(), representations);
+                model.getCode(), model.getName(), Boolean.TRUE.equals(model.getRequired()),
+                Boolean.TRUE.equals(model.getReadonly()), Boolean.TRUE.equals(model.getHidden()),
+                model.getMediaType(), representations);
     }
 }
