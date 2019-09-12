@@ -51,8 +51,8 @@
         <maven-javadoc-plugin.version>3.1.0</maven-javadoc-plugin.version>
         <javax-xml-bind-jaxb-api.version>2.3.1</javax-xml-bind-jaxb-api.version>
         <spring.boot.version>2.1.4.RELEASE</spring.boot.version>
+        <maven.test.skip>true</maven.test.skip>
     </properties>
-
     <build>
         <pluginManagement>
             <plugins>
@@ -120,7 +120,6 @@
             </properties>
         </profile>
     </profiles>
-
     <modules>
         <module>filedossier-api</module>
         <module>filedossier-components</module>

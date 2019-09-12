@@ -8,9 +8,7 @@
     </parent>
     <artifactId>filedossier-context-persistence</artifactId>
     <packaging>jar</packaging>
-
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <mysql-connector.version>8.0.13</mysql-connector.version>
         <javax-persistence.version>2.2.1</javax-persistence.version>
@@ -18,14 +16,8 @@
         <org.springframework.version>5.1.5.RELEASE</org.springframework.version>
         <spring.boot.version>2.1.4.RELEASE</spring.boot.version>
         <swagger.ui.version>3.22.2</swagger.ui.version>
-        <maven.test.skip>false</maven.test.skip>
-        <maven.tomcat.skip>true</maven.tomcat.skip>
         <org.mapstruct.version>1.2.0.Final</org.mapstruct.version>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
-
-
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -37,7 +29,6 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -78,7 +69,6 @@
             <version>1</version>
         </dependency>
     </dependencies>
-
     <build>
         <finalName>${project.name}</finalName>
         <plugins>

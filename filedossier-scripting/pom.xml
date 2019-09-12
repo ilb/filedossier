@@ -8,7 +8,6 @@
     </parent>
     <artifactId>filedossier-scripting</artifactId>
     <packaging>jar</packaging>
-
     <build>
         <plugins>
             <plugin>

@@ -6,7 +6,6 @@
         <artifactId>filedossier</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-
     <groupId>ru.ilb.filedossier</groupId>
     <artifactId>filedossier-api</artifactId>
     <packaging>jar</packaging>
@@ -76,8 +75,6 @@
                                         <extraarg>*/*=java.io.InputStream</extraarg>
                                         <extraarg>-jaxbClassNameSuffix</extraarg>
                                         <extraarg>View</extraarg>
-
-
                                         <!-- repMap examples
                                         <extraarg>-repMap</extraarg>
                                         <extraarg>application/*=java.io.InputStream</extraarg>
@@ -105,7 +102,6 @@
                                         <extraarg>-xjc-Xxew</extraarg>
                                         <extraarg>-xjc-Xxew:instantiate lazy</extraarg>
                                         -->
-
                                         <extraarg>-xjc-Xannotate</extraarg>
                                         <extraarg>-xjc-Xinheritance</extraarg>
                                         <!--<extraarg>-xjc-XenumValue</extraarg>-->
@@ -277,5 +273,4 @@
             </build>
         </profile>
     </profiles>
-
 </project>

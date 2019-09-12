@@ -9,26 +9,17 @@
     <groupId>ru.ilb.filedossier</groupId>
     <artifactId>filedossier-web</artifactId>
     <packaging>war</packaging>
-
     <name>filedossier-web</name>
     <description>REST service</description>
-
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <mysql-connector.version>8.0.13</mysql-connector.version>
         <javax-persistence.version>2.2.1</javax-persistence.version>
         <javax.ws.rs-api.version>2.1</javax.ws.rs-api.version>
         <org.springframework.version>5.1.5.RELEASE</org.springframework.version>
         <swagger.ui.version>3.22.2</swagger.ui.version>
-        <maven.test.skip>false</maven.test.skip>
-        <maven.tomcat.skip>true</maven.tomcat.skip>
         <org.mapstruct.version>1.2.0.Final</org.mapstruct.version>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
-
-
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -40,7 +31,6 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-
     <dependencies>
         <dependency>
             <groupId>javax.ws.rs</groupId>
@@ -186,7 +176,6 @@
             <scope>provided</scope>
         </dependency>
     </dependencies>
-
     <build>
         <finalName>${project.name}</finalName>
         <plugins>
@@ -299,5 +288,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>
