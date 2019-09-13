@@ -63,8 +63,8 @@ public class DossierFactoryTest {
 
         Context context = new SimpleInitialContext();
         context.bind("ru.bystrobank.apps.meta.url", "https://devel.net.ilb.ru/meta");
-        TemplateEvaluator templateEvaluator = new SubstitutorTemplateEvaluator(context);
-        return new DossierFactory(dossierModelRepository, storeFactory, templateEvaluator);
+        //TemplateEvaluator templateEvaluator = new SubstitutorTemplateEvaluator(context);
+        return new DossierFactory(dossierModelRepository, storeFactory/*, templateEvaluator*/);
 
     }
 

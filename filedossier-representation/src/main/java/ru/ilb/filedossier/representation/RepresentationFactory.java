@@ -33,12 +33,12 @@ public class RepresentationFactory {
     // TODO: process with evaluation
     private URI definitionUri;
     private Store store;
-    private TemplateEvaluator templateEvaluator;
+    //private TemplateEvaluator templateEvaluator;
 
-    public RepresentationFactory(Store store, URI definitionUri, TemplateEvaluator templateEvaluator) {
+    public RepresentationFactory(Store store, URI definitionUri /*, TemplateEvaluator templateEvaluator */) {
         this.store = store;
         this.definitionUri = definitionUri;
-        this.templateEvaluator = templateEvaluator;
+        //this.templateEvaluator = templateEvaluator;
     }
 
     public Representation createRepresentation(RepresentationDefinition model) {
@@ -67,12 +67,18 @@ public class RepresentationFactory {
 
     private Representation createPdfRepresentation(RepresentationDefinition model)
             throws MalformedURLException {
-        URI stylesheetUri = definitionUri.resolve(
-                templateEvaluator.evaluateStringExpression(model.getStylesheet(), null));
-        URI schema = definitionUri.resolve(
-                templateEvaluator.evaluateStringExpression(model.getSchema(), null));
-        URI meta = definitionUri.resolve(
-                templateEvaluator.evaluateStringExpression(model.getMeta(), null));
+        //URI stylesheetUri = definitionUri.resolve(
+        //        templateEvaluator.evaluateStringExpression(model.getStylesheet(), null));
+        //URI schema = definitionUri.resolve(
+        //        templateEvaluator.evaluateStringExpression(model.getSchema(), null));
+        //URI meta = definitionUri.resolve(
+        //        templateEvaluator.evaluateStringExpression(model.getMeta(), null));
+        //return new PdfGenRepresentation(store, model.getMediaType(), stylesheetUri, schema, meta);
+
+        URI stylesheetUri = definitionUri.resolve(model.getStylesheet());
+        URI schema = definitionUri.resolve(model.getSchema());
+        URI meta = definitionUri.resolve(model.getMeta());
         return new PdfGenRepresentation(store, model.getMediaType(), stylesheetUri, schema, meta);
+
     }
 }

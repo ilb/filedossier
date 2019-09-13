@@ -34,13 +34,13 @@ import ru.ilb.filedossier.scripting.lookup.LookupPerformer;
  *
  * @author slavb
  */
-@Named
+//@Named
 public class SubstitutorTemplateEvaluator implements TemplateEvaluator {
 
     private final Context context;
     private List<StringLookup> lookups;
 
-    @Inject
+    //@Inject
     public SubstitutorTemplateEvaluator(Context context) {
         this.context = context;
         lookups = new ArrayList<>();

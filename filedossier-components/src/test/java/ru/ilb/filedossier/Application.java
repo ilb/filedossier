@@ -70,12 +70,12 @@ public class Application { // extends JpaBaseConfiguration
         }
     }
 
-    @Bean
-    public Context context() throws NamingException {
-        final Context context = new InitialContext();
-        context.bind("ru.bystrobank.apps.meta.url", "https://devel.net.ilb.ru/meta");
-        return context;
-    }
+    //@Bean
+    //public Context context() throws NamingException {
+    //    final Context context = new InitialContext();
+    //    context.bind("ru.bystrobank.apps.meta.url", "https://devel.net.ilb.ru/meta");
+    //    return context;
+    //}
 
 //    @Bean
 //    @ConditionalOnExpression("'${ILB_SYSID}'=='DEVEL'")

@@ -46,14 +46,14 @@ public class DossierFactory {
 
     private RepresentationFactory representationFactory;
 
-    private TemplateEvaluator templateEvaluator;
+    //private TemplateEvaluator templateEvaluator;
 
     @Inject
     public DossierFactory(DossierDefinitionRepository dossierDefinitionRepository,
-                          StoreFactory storeFactory, TemplateEvaluator templateEvaluator) {
+                          StoreFactory storeFactory/*,  TemplateEvaluator templateEvaluator */) {
         this.dossierDefinitionRepository = dossierDefinitionRepository;
         this.storeFactory = storeFactory;
-        this.templateEvaluator = templateEvaluator;
+        //this.templateEvaluator = templateEvaluator;
     }
 
     public Dossier getDossier(String dossierKey, String dossierPackage, String dossierCode) {
@@ -70,7 +70,7 @@ public class DossierFactory {
 
         if (representationFactory == null) {
             representationFactory = new RepresentationFactory(
-                    store, baseDefinitionUri, templateEvaluator);
+                    store, baseDefinitionUri /* , templateEvaluator */);
         }
         return createDossier(dossierModel, store, dossierKey, dossierPackage);
     }
