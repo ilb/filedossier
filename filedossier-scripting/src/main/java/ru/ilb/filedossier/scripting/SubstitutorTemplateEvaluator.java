@@ -49,7 +49,7 @@ public class SubstitutorTemplateEvaluator implements TemplateEvaluator {
 
     @Override
     public String evaluateStringExpression(String template, Map<String, Object> dossierContext) {
-        //lookups.add(StringLookupFactory.INSTANCE.mapStringLookup(dossierContext));
+        lookups.add(StringLookupFactory.INSTANCE.mapStringLookup(dossierContext));
         StringSubstitutor sub = new StringSubstitutor(new LookupPerformer(lookups));
         return sub.replace(template);
     }
