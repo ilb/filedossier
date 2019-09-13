@@ -22,7 +22,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.naming.Context;
 
-import com.sun.istack.internal.Nullable;
 import org.apache.commons.text.StringSubstitutor;
 import org.apache.commons.text.lookup.StringLookup;
 import org.apache.commons.text.lookup.StringLookupFactory;
@@ -49,14 +48,14 @@ public class SubstitutorTemplateEvaluator implements TemplateEvaluator {
     }
 
     @Override
-    public String evaluateStringExpression(String template, @Nullable Map<String, Object> dossierContext) {
+    public String evaluateStringExpression(String template, Map<String, Object> dossierContext) {
         //lookups.add(StringLookupFactory.INSTANCE.mapStringLookup(dossierContext));
         StringSubstitutor sub = new StringSubstitutor(new LookupPerformer(lookups));
         return sub.replace(template);
     }
 
     @Override
-    public Boolean evaluateBooleanExpression(String template, @Nullable Map<String, Object> dossierContext) {
+    public Boolean evaluateBooleanExpression(String template, Map<String, Object> dossierContext) {
         return Boolean.valueOf(evaluateStringExpression(template, dossierContext));
     }
 }
