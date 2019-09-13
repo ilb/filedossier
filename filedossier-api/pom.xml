@@ -183,9 +183,11 @@
                                 <package>ru.ilb.filedossier.api</package>
                             </resourcePackages>
                             <prettyPrint>true</prettyPrint>
-                            <filterClass>ru.ilb.common.openapi.generator.OpenAPISpecFilterImpl</filterClass>
-                            <modelConverterClasses>ru.ilb.common.openapi.generator.ModelConverterImpl</modelConverterClasses>
-                            <objectMapperProcessorClass>ru.ilb.common.openapi.generator.ObjectMapperProcessorImpl</objectMapperProcessorClass>
+                            <filterClass>ru.ilb.openapiutils.generator.OpenAPISpecFilterImpl</filterClass>
+                            <modelConverterClasses>ru.ilb.openapiutils.generator.ModelConverterImpl</modelConverterClasses>
+                            <objectMapperProcessorClass>ru.ilb.openapiutils.generator.ObjectMapperProcessorImpl</objectMapperProcessorClass>
+                            <scannerClass>ru.ilb.openapiutils.generator.OpenApiScannerImpl</scannerClass>
+                            <readerClass>ru.ilb.openapiutils.generator.OpenApiReaderImpl</readerClass>
                         </configuration>
                         <executions>
                             <execution>
@@ -198,9 +200,9 @@
                         </executions>
                         <dependencies>
                             <dependency>
-                                <groupId>ru.ilb.common</groupId>
-                                <artifactId>common-openapi</artifactId>
-                                <version>${ilb-common.version}</version>
+                                <groupId>ru.ilb.openapiutils</groupId>
+                                <artifactId>openapiutils</artifactId>
+                                <version>1.1</version>
                             </dependency>
                         </dependencies>
                     </plugin>
