@@ -42,7 +42,7 @@
             <version>4.5.8</version>
         </dependency>
         <dependency>
-            <groupId>ru.bb.pdfgen</groupId>
+            <groupId>ru.ilb.pdfgen</groupId>
             <artifactId>pdfgen-resources</artifactId>
             <version>1.16</version>
         </dependency>
@@ -120,7 +120,7 @@
                         <configuration>
                             <artifactItems>
                                 <artifactItem>
-                                    <groupId>ru.bb.pdfgen</groupId>
+                                    <groupId>ru.ilb.pdfgen</groupId>
                                     <artifactId>pdfgen-resources</artifactId>
                                     <version>${pdfgen.version}</version>
                                     <type>jar</type>
