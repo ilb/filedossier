@@ -12,6 +12,7 @@
     <properties>
         <eclipselink.version>2.7.4</eclipselink.version>
         <swagger-version>2.0.8</swagger-version>
+        <generated-api-version>1.0.1</generated-api-version>
     </properties>
     <name>filedossier-api</name>
     <description>API shared module</description>
@@ -222,51 +223,39 @@
                         <version>4.0.0</version>
                         <executions>
                             <execution>
+                                <id>generate_javascript</id>
                                 <phase>compile</phase>
                                 <goals>
                                     <goal>generate</goal>
                                 </goals>
                                 <configuration>
                                     <inputSpec>${openapi.generated.path}/openapi.json</inputSpec>
-                                    <!--<inputSpec>${basedir}/src/main/resources/openapi.json</inputSpec>-->
+                                    <output>${project.build.directory}/generated-sources/openapi-javascript</output>
                                     <skipValidateSpec>true</skipValidateSpec>
-                                    <!--<generatorName>php</generatorName>-->
-                                    <!--<generatorName>typescript-fetch</generatorName>-->
-                                    <!--<generatorName>jaxrs-cxf</generatorName>-->
                                     <generatorName>javascript</generatorName>
                                     <configOptions>
                                         <usePromises>true</usePromises>
-                                        <sortParamsByRequiredFlag>false</sortParamsByRequiredFlag>
-                                        <projectName>${project.name}</projectName>
-                                        <projectVersion>${project.version}</projectVersion>
+                                        <projectName>@ilb/${project.name}</projectName>
+                                        <projectVersion>${generated-api-version}</projectVersion>
                                     </configOptions>
                                 </configuration>
                             </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>swagger-codegen-maven-plugin</id>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>io.swagger.codegen.v3</groupId>
-                        <artifactId>swagger-codegen-maven-plugin</artifactId>
-                        <version>3.0.4</version>
-                        <executions>
                             <execution>
+                                <id>generate_python</id>
+                                <phase>compile</phase>
                                 <goals>
                                     <goal>generate</goal>
                                 </goals>
-                                <phase>process-classes</phase>
                                 <configuration>
                                     <inputSpec>${openapi.generated.path}/openapi.json</inputSpec>
-                                    <language>php</language>
+                                    <output>${project.build.directory}/generated-sources/openapi-python</output>
+                                    <skipValidateSpec>true</skipValidateSpec>
+                                    <generatorName>python</generatorName>
+                                    <configOptions>
+                                        <packageName>filedossier</packageName>
+                                        <packageVersion>${generated-api-version}</packageVersion>
+                                        <projectName>${project.name}</projectName>
+                                    </configOptions>
                                 </configuration>
                             </execution>
                         </executions>
