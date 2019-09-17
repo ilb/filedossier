@@ -24,9 +24,9 @@
                 <representation mediaType="application/json">
                     <doc>dossier data</doc>
                 </representation>
-                <representation mediaType="application/xhtml+xml">
+<!--                <representation mediaType="application/xhtml+xml">
                     <doc>dossier data</doc>
-                </representation>
+                </representation>-->
             </response>
         </method>
 
