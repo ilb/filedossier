@@ -41,13 +41,13 @@ public class DossiersResourceImpl implements DossiersResource {
     private DossierFactory dossierFactory;
 
     /**
-     * JAX-RS resources context.
+     * Spring application context.
      */
     @Inject
     private ApplicationContext applicationContext;
 
     /**
-     * Context for resources initialization.
+     * JAX-RS resources context.
      */
     @Context
     private ResourceContext resourceContext;
