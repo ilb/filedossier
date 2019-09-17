@@ -114,7 +114,7 @@
             <artifactId>swagger-ui</artifactId>
             <version>${swagger.ui.version}</version>
         </dependency>
-<!--        <dependency>
+        <!--        <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>Semantic-UI</artifactId>
             <version>2.4.1</version>
@@ -250,34 +250,6 @@
                     </compilerArgs>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <version>2.10</version>
-                <executions>
-                    <execution>
-                        <id>unpack</id>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>unpack</goal>
-                        </goals>
-                        <configuration>
-                            <artifactItems>
-                                <!-- packaging org.eclipse.persistence.jaxb.rs.MOXyJsonProvider required becouse of javax.ws.rs-api conflicts -->
-                                <artifactItem>
-                                    <groupId>org.eclipse.persistence</groupId>
-                                    <artifactId>org.eclipse.persistence.moxy</artifactId>
-                                    <version>${eclipselink.version}</version>
-                                    <type>jar</type>
-                                    <overWrite>false</overWrite>
-                                    <outputDirectory>${project.build.directory}/classes</outputDirectory>
-                                    <includes>org/eclipse/persistence/jaxb/rs/*.class</includes>
-                                </artifactItem>
-                            </artifactItems>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
     </build>
     <profiles>
@@ -296,6 +268,35 @@
                             <packagingExcludes>WEB-INF/lib/org.eclipse.persistence*.jar,WEB-INF/lib/javax.persistence-*.jar,WEB-INF/lib/jakarta.persistence-*.jar,WEB-INF/lib/mysql-connector-java-*.jar</packagingExcludes>
                         </configuration>
                     </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-dependency-plugin</artifactId>
+                        <version>2.10</version>
+                        <executions>
+                            <execution>
+                                <id>unpack</id>
+                                <phase>validate</phase>
+                                <goals>
+                                    <goal>unpack</goal>
+                                </goals>
+                                <configuration>
+                                    <artifactItems>
+                                        <!-- packaging org.eclipse.persistence.jaxb.rs.MOXyJsonProvider required becouse of javax.ws.rs-api conflicts -->
+                                        <artifactItem>
+                                            <groupId>org.eclipse.persistence</groupId>
+                                            <artifactId>org.eclipse.persistence.moxy</artifactId>
+                                            <version>${eclipselink.version}</version>
+                                            <type>jar</type>
+                                            <overWrite>false</overWrite>
+                                            <outputDirectory>${project.build.directory}/classes</outputDirectory>
+                                            <includes>org/eclipse/persistence/jaxb/rs/*.class</includes>
+                                        </artifactItem>
+                                    </artifactItems>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
                 </plugins>
             </build>
         </profile>
