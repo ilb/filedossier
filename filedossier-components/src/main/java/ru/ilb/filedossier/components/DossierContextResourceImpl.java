@@ -13,25 +13,40 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package ru.ilb.filedossier.components;
 
 import javax.inject.Inject;
-import javax.inject.Named;
 import org.apache.cxf.jaxrs.json.basic.JsonMapObject;
 import ru.ilb.filedossier.api.DossierContextResource;
 import ru.ilb.filedossier.filedossier.usecases.download.DownloadDossierFileContext;
 import ru.ilb.filedossier.filedossier.usecases.upload.UploadDossierFileContext;
 
-@Named
+/**
+ * Resource for work with dossier file context.
+ */
 public class DossierContextResourceImpl implements DossierContextResource {
 
+    /**
+     * Use case of download context from the requested dossier file.
+     */
     @Inject
     private DownloadDossierFileContext downloadDossierFileContext;
 
+    /**
+     * Use case of upload context to the requested dossier file.
+     */
     @Inject
     private UploadDossierFileContext uploadDossierFileContext;
 
+    /**
+     * Key of context.
+     */
     private String contextKey;
+
+    final void setContextKey(String contextKey) {
+        this.contextKey = contextKey;
+    }
 
     @Override
     public JsonMapObject getContext() {
@@ -41,9 +56,5 @@ public class DossierContextResourceImpl implements DossierContextResource {
     @Override
     public void setContext(JsonMapObject jsonmapobject) {
         uploadDossierFileContext.upload(contextKey, jsonmapobject);
-    }
-
-    public void setContextKey(String contextKey) {
-        this.contextKey = contextKey;
     }
 }

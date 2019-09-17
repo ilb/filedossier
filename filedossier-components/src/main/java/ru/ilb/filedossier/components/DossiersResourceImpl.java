@@ -13,30 +13,51 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package ru.ilb.filedossier.components;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.ws.rs.Path;
+import javax.ws.rs.container.ResourceContext;
+import javax.ws.rs.core.Context;
+import org.springframework.context.ApplicationContext;
 import ru.ilb.filedossier.api.DossierResource;
 import ru.ilb.filedossier.api.DossiersResource;
 import ru.ilb.filedossier.core.DossierFactory;
 import ru.ilb.filedossier.entities.Dossier;
 
+/**
+ *  Root resource of filedossier api.
+ */
 @Named
 @Path("dossiers")
 public class DossiersResourceImpl implements DossiersResource {
 
-    @Inject
-    private DossierResourceImpl resource;
-
+    /**
+     * Factory for creating dossier files, based on request params.
+     */
     @Inject
     private DossierFactory dossierFactory;
 
+    /**
+     * JAX-RS resources context.
+     */
+    @Inject
+    private ApplicationContext applicationContext;
+
+    /**
+     * Context for resources initialization.
+     */
+    @Context
+    private ResourceContext resourceContext;
+
     @Override
     public DossierResource getDossierResource(String dossierKey, String dossierPackage, String dossierCode) {
-        Dossier dossier = dossierFactory.getDossier(dossierKey, dossierPackage, dossierCode);
+        final Dossier dossier = dossierFactory.getDossier(dossierKey, dossierPackage, dossierCode);
+        final DossierResourceImpl resource = new DossierResourceImpl();
         resource.setDossier(dossier);
-        return resource;
+        applicationContext.getAutowireCapableBeanFactory().autowireBean(resource);
+        return resourceContext.initResource(resource);
     }
 }

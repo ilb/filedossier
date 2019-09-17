@@ -16,7 +16,9 @@
 package ru.ilb.filedossier.components;
 
 import javax.inject.Inject;
-import javax.inject.Named;
+import javax.ws.rs.container.ResourceContext;
+import javax.ws.rs.core.Context;
+import org.springframework.context.ApplicationContext;
 import ru.ilb.filedossier.api.DossierFileResource;
 import ru.ilb.filedossier.api.DossierResource;
 import ru.ilb.filedossier.entities.Dossier;
@@ -24,16 +26,37 @@ import ru.ilb.filedossier.entities.DossierFile;
 import ru.ilb.filedossier.mappers.DossierMapper;
 import ru.ilb.filedossier.view.DossierView;
 
-@Named
+/**
+ * Resource for getting dossiers and dossier files sub resources.
+ */
 public class DossierResourceImpl implements DossierResource {
 
+    /**
+     * DossierMapper is needed for mapping dossier views from models.
+     */
     @Inject
     private DossierMapper dossierMapper;
 
+    /**
+     * Spring application context.
+     */
     @Inject
-    private DossierFileResourceImpl resource;
+    private ApplicationContext applicationContext;
 
+    /**
+     * JAX-RS resources context.
+     */
+    @Context
+    private ResourceContext resourceContext;
+
+    /**
+     * Dossier model.
+     */
     private Dossier dossier;
+
+    final void setDossier(Dossier dossier) {
+        this.dossier = dossier;
+    }
 
     @Override
     public DossierView getDossier() {
@@ -42,12 +65,10 @@ public class DossierResourceImpl implements DossierResource {
 
     @Override
     public DossierFileResource getDossierFileResource(String fileCode) {
-        DossierFile dossierFile = dossier.getDossierFile(fileCode);
+        final DossierFile dossierFile = dossier.getDossierFile(fileCode);
+        final DossierFileResourceImpl resource = new DossierFileResourceImpl();
         resource.setDossierFile(dossierFile);
-        return resource;
-    }
-
-    public void setDossier(Dossier dossier) {
-        this.dossier = dossier;
+        applicationContext.getAutowireCapableBeanFactory().autowireBean(resource);
+        return resourceContext.initResource(resource);
     }
 }
