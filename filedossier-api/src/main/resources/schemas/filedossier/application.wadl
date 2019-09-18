@@ -72,8 +72,7 @@
             <doc>get dossier file contents</doc>
             <response status="200">
                 <param name="Content-Disposition" style="header" type="xsd:string"/>
-                 <representation mediaType="application/vnd.oasis.opendocument.spreadsheet" element="global:map"/>
-                 <representation mediaType="application/pdf" element="global:map"/>
+                 <representation mediaType="*/*" element="global:map"/>
             </response>
         </method>
 
@@ -94,7 +93,7 @@
             <method name="PUT" id="publish">
                 <doc>store dossier file contents</doc>
                 <request>
-                    <representation mediaType="application/json, application/xml">
+                    <representation mediaType="*/*">
                         <doc>file data</doc>
                         <param style="query" name="inputStream" type="java.io.InputStream" />
                     </representation>
