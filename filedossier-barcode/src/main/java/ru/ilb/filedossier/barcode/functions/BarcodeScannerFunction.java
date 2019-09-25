@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ru.ilb.filedossier.functions;
+package ru.ilb.filedossier.barcode.functions;
 
 import java.util.Optional;
 import java.util.function.Function;
-import ru.ilb.filedossier.entities.Barcode;
+import ru.ilb.filedossier.barcode.entities.Barcode;
 
 /**
  *

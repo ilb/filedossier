@@ -138,5 +138,7 @@
         <module>filedossier-functions</module>
         <module>filedossier-document-validation</module>
         <module>filedossier-usecases</module>
+        <module>filedossier-barcode</module>
+        <module>filedossier-metadata</module>
     </modules>
 </project>

@@ -1,4 +1,4 @@
-package ru.ilb.filedossier.utils;
+package ru.ilb.filedossier.metadata.extractor;
 
 /*
  * Copyright 2019 kuznetsov_me.

@@ -19,8 +19,8 @@ import com.drew.imaging.ImageProcessingException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import ru.ilb.filedossier.entities.Barcode;
-import ru.ilb.filedossier.utils.ImageUtils;
+import ru.ilb.filedossier.barcode.entities.Barcode;
+import ru.ilb.filedossier.metadata.extractor.ImageUtils;
 
 /**
  *

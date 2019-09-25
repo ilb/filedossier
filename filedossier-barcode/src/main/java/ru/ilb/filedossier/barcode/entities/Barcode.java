@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ru.ilb.filedossier.entities;
+package ru.ilb.filedossier.barcode.entities;
 
 /**
  *

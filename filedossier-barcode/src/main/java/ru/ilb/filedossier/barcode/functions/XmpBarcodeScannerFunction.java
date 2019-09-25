@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ru.ilb.filedossier.functions;
+package ru.ilb.filedossier.barcode.functions;
 
 import com.drew.imaging.ImageProcessingException;
 import java.io.IOException;
 import java.util.Optional;
-import ru.ilb.filedossier.entities.Barcode;
-import ru.ilb.filedossier.utils.ImageUtils;
+import ru.ilb.filedossier.barcode.entities.Barcode;
+import ru.ilb.filedossier.metadata.extractor.ImageUtils;
 
 public class XmpBarcodeScannerFunction implements BarcodeScannerFunction {
 

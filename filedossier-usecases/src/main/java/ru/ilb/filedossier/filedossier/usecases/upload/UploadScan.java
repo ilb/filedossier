@@ -21,7 +21,9 @@ import java.nio.file.Files;
 import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
-import ru.ilb.filedossier.entities.Barcode;
+import ru.ilb.filedossier.barcode.entities.Barcode;
+import ru.ilb.filedossier.barcode.functions.BarcodeScannerFunction;
+import ru.ilb.filedossier.barcode.functions.XmpBarcodeScannerFunction;
 import ru.ilb.filedossier.entities.DossierFile;
 import ru.ilb.filedossier.entities.Scan;
 import ru.ilb.filedossier.filedossier.document.validation.DocumentArea;
@@ -32,9 +34,7 @@ import ru.ilb.filedossier.filedossier.document.validation.SignatureValidationStr
 import ru.ilb.filedossier.filedossier.document.validation.ValidationReport;
 import ru.ilb.filedossier.filedossier.usecases.exceptions.BarcodeNotFoundException;
 import ru.ilb.filedossier.filedossier.usecases.exceptions.SignaturesNotDetectedException;
-import ru.ilb.filedossier.functions.BarcodeScannerFunction;
-import ru.ilb.filedossier.functions.XmpBarcodeScannerFunction;
-import ru.ilb.filedossier.utils.PdfUtils;
+import ru.ilb.filedossier.metadata.extractor.PdfUtils;
 
 /**
  *
