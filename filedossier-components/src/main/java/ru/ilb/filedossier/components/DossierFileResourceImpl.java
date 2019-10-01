@@ -17,7 +17,6 @@ package ru.ilb.filedossier.components;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import javax.inject.Inject;
 import javax.ws.rs.container.ResourceContext;
 import javax.ws.rs.core.Context;
@@ -70,14 +69,8 @@ public class DossierFileResourceImpl implements DossierFileResource {
     }
 
     @Override
-    public void publish(InputStream inputstream) {
-        try {
-            final byte[] data = Util.toByteArray(inputstream);
-            dossierFile.setContents(data);
-        }
-        catch (IOException ex) {
-            throw new RuntimeException("Unable to read input stream: " + ex);
-        }
+    public void publish(File file) {
+        dossierFile.setContents(file);
     }
 
     @Override
