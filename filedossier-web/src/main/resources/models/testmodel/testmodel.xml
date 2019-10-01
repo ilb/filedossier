@@ -30,18 +30,12 @@
             </representation>
         </dossierFile>
         <dossierFile>
-            <code>avto</code>
-            <name>avto (.pdf test)</name>
+            <code>pts</code>
+            <name>Скан ПТС</name>
             <readonly>false</readonly>
             <required>true</required>
             <hidden>false</hidden>
-            <mediaType>application/xml</mediaType>
-            <representation>
-                <mediaType>application/pdf</mediaType>
-                <stylesheet>https://devel.net.ilb.ru/meta/stylesheets/doctemplates/primary/loantreaty/credits/auto/V20140707.xsl</stylesheet>
-                <schema>https://devel.net.ilb.ru/meta/schemas/doctemplates/primary/loantreaty/credits/auto/V20140707.xsd</schema>
-                <meta>https://devel.net.ilb.ru/meta/&amp;uid=doctree:11f462ebdb14a5673ff41a5c75c5176552fad343:</meta>
-            </representation>
+            <mediaType>image/jpeg</mediaType>
         </dossierFile>
         <dossierFile>
             <code>bailregistry</code>
