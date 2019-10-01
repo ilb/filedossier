@@ -90,12 +90,12 @@
         </resource>
 
         <resource path="publish">
-            <method name="PUT" id="publish">
+            <method name="POST" id="publish">
                 <doc>store dossier file contents</doc>
                 <request>
-                    <representation mediaType="*/*">
+                    <representation mediaType="multipart/form-data">
                         <doc>file data</doc>
-                        <param style="query" name="inputStream" type="java.io.InputStream" />
+                        <param style="query" name="file" type="java.io.File" />
                     </representation>
                 </request>
                 <response status="204"/>
