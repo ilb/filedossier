@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="urn:ru:ilb:filedossier:ddl"
+  xsi:schemaLocation="urn:ru:ilb:filedossier:ddl ../../../../../filedossier-ddl/src/main/resources/schemas/filedossier/ddl.xsd">
+  <code>bailverification</code>
+  <name>Проверка залога</name>
+  <dossier>
+    <code>bailverification</code>
+    <name>Проверка залога</name>
+    <dossierFile>
+      <code>pts</code>
+      <name>Скан ПТС</name>
+      <readonly>false</readonly>
+      <required>true</required>
+      <hidden>false</hidden>
+      <mediaType>image/jpeg</mediaType>
+    </dossierFile>
+  </dossier>
+</package>
