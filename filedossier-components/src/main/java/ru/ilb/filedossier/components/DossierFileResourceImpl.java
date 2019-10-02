@@ -18,6 +18,7 @@ package ru.ilb.filedossier.components;
 import org.springframework.context.ApplicationContext;
 import ru.ilb.filedossier.api.DossierContextResource;
 import ru.ilb.filedossier.api.DossierFileResource;
+import ru.ilb.filedossier.core.ContentDispositionMode;
 import ru.ilb.filedossier.entities.DossierFile;
 import ru.ilb.filedossier.entities.Representation;
 import ru.ilb.filedossier.filedossier.usecases.upload.UploadDocument;
@@ -30,17 +31,6 @@ import java.io.File;
 import java.io.IOException;
 
 public class DossierFileResourceImpl implements DossierFileResource {
-
-    /**
-     * Header for indicating that file can be displayed
-     * inside the web page, or as the web page.
-     */
-    private static final String DISPOSITION_MODE_INLINE = "inline";
-
-    /**
-     * Header for indicating that file should be downloaded.
-     */
-    private static final String DISPOSITION_MODE_ATTACHMENT = "attachment";
 
     /**
      * Upload document use case.
@@ -70,23 +60,12 @@ public class DossierFileResourceImpl implements DossierFileResource {
     }
 
     @Override
-    public Response download(String mode) {
+    public Response download(ContentDispositionMode mode) {
         final Representation representation = dossierFile.getRepresentation();
-        // set as attachment by default
-        String contentDisposition = DISPOSITION_MODE_ATTACHMENT;
 
-        if (mode != null) {
-            switch (mode) {
-                case DISPOSITION_MODE_INLINE:
-                    contentDisposition = DISPOSITION_MODE_INLINE;
-                    break;
-                case DISPOSITION_MODE_ATTACHMENT:
-                    contentDisposition += "; filename=" + representation.getFileName();
-                    break;
-            }
-        }
-        // mode param is unnecessary and nullable
-        else contentDisposition += "; filename" + representation.getFileName();
+        final String contentDisposition = mode == ContentDispositionMode.ATTACHMENT
+                ? mode.value() + "; filename=" + representation.getFileName()
+                : mode.value();
 
         return Response.ok(representation.getContents())
                 .header("Content-Type", representation.getMediaType())

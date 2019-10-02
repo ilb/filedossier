@@ -16,4 +16,10 @@
         </xsd:restriction>
     </xsd:simpleType>
 
+    <xsd:simpleType name="contentDispositionMode">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="inline"/>
+            <xsd:enumeration value="attachment"/>
+        </xsd:restriction>
+    </xsd:simpleType>
 </xsd:schema>
