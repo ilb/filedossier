@@ -32,6 +32,17 @@ import java.io.IOException;
 public class DossierFileResourceImpl implements DossierFileResource {
 
     /**
+     * Header for indicating that file can be displayed
+     * inside the web page, or as the web page.
+     */
+    private static final String DISPOSITION_MODE_INLINE = "inline";
+
+    /**
+     * Header for indicating that file should be downloaded.
+     */
+    private static final String DISPOSITION_MODE_ATTACHMENT = "attachment";
+
+    /**
      * Upload document use case.
      */
     @Inject
@@ -61,14 +72,21 @@ public class DossierFileResourceImpl implements DossierFileResource {
     @Override
     public Response download(String mode) {
         final Representation representation = dossierFile.getRepresentation();
-        final String contentDisposition;
+        // set as attachment by default
+        String contentDisposition = DISPOSITION_MODE_ATTACHMENT;
 
-        if ("image".equals(mode)) {
-            contentDisposition = "inline";
+        if (mode != null) {
+            switch (mode) {
+                case DISPOSITION_MODE_INLINE:
+                    contentDisposition = DISPOSITION_MODE_INLINE;
+                    break;
+                case DISPOSITION_MODE_ATTACHMENT:
+                    contentDisposition += "; filename=" + representation.getFileName();
+                    break;
+            }
         }
-        else {
-            contentDisposition = "attachment; filename=" + representation.getFileName();
-        }
+        // mode param is unnecessary and nullable
+        else contentDisposition += "; filename" + representation.getFileName();
 
         return Response.ok(representation.getContents())
                 .header("Content-Type", representation.getMediaType())
