@@ -15,12 +15,9 @@
  */
 package ru.ilb.filedossier.components;
 
-import java.util.Arrays;
-import javax.inject.Inject;
 import org.apache.cxf.jaxrs.client.JAXRSClientFactory;
 import org.apache.cxf.jaxrs.json.basic.JsonMapObject;
 import org.apache.cxf.jaxrs.provider.json.JsonMapObjectProvider;
-import static org.junit.Assert.*;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
@@ -31,6 +28,12 @@ import ru.ilb.filedossier.api.DossierFileResource;
 import ru.ilb.filedossier.api.DossierResource;
 import ru.ilb.filedossier.api.DossiersResource;
 import ru.ilb.filedossier.view.DossierView;
+
+import javax.inject.Inject;
+import java.util.Arrays;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  *
@@ -76,7 +79,7 @@ public class DossiersResourceImplTest {
         DossierView dossier = dossierResource.getDossier();
         assertNotNull(dossier);
         DossierFileResource dossierFileResource = dossierResource.getDossierFileResource("fairpricecalc");
-        String res = dossierFileResource.download().readEntity(String.class);
+        String res = dossierFileResource.download(null).readEntity(String.class);
 
         DossierContextResource dossierContextResource = dossierFileResource.getDossierContextResource();
 

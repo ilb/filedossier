@@ -15,19 +15,19 @@
  */
 package ru.ilb.filedossier.components;
 
-import java.io.File;
-import java.io.IOException;
-import javax.inject.Inject;
-import javax.ws.rs.container.ResourceContext;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.Response;
-
 import org.springframework.context.ApplicationContext;
 import ru.ilb.filedossier.api.DossierContextResource;
 import ru.ilb.filedossier.api.DossierFileResource;
 import ru.ilb.filedossier.entities.DossierFile;
 import ru.ilb.filedossier.entities.Representation;
 import ru.ilb.filedossier.filedossier.usecases.upload.UploadDocument;
+
+import javax.inject.Inject;
+import javax.ws.rs.container.ResourceContext;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.Response;
+import java.io.File;
+import java.io.IOException;
 
 public class DossierFileResourceImpl implements DossierFileResource {
 
@@ -59,12 +59,20 @@ public class DossierFileResourceImpl implements DossierFileResource {
     }
 
     @Override
-    public Response download() {
+    public Response download(String mode) {
         final Representation representation = dossierFile.getRepresentation();
+        final String contentDisposition;
+
+        if ("image".equals(mode)) {
+            contentDisposition = "inline";
+        }
+        else {
+            contentDisposition = "attachment; filename=" + representation.getFileName();
+        }
+
         return Response.ok(representation.getContents())
                 .header("Content-Type", representation.getMediaType())
-                .header("Content-Disposition",
-                        "attachment; filename=" + representation.getFileName())
+                .header("Content-Disposition", contentDisposition)
                 .build();
     }
 
@@ -86,7 +94,8 @@ public class DossierFileResourceImpl implements DossierFileResource {
     @Override
     public DossierContextResource getDossierContextResource() {
         final DossierContextResourceImpl resource = new DossierContextResourceImpl();
-        final String fileContextKey = dossierFile.getParent().getCode() + "/" + dossierFile.getCode();
+        final String fileContextKey = dossierFile.getParent().getCode()
+                + "/" + dossierFile.getCode();
         resource.setContextKey(fileContextKey);
         applicationContext.getAutowireCapableBeanFactory().autowireBean(resource);
         return resourceContext.initResource(resource);

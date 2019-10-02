@@ -70,6 +70,9 @@
     <resource_type id="dossierFileResource">
         <method name="GET" id="download">
             <doc>get dossier file contents</doc>
+            <request>
+                <param name="mode" style="query" type="xsd:string"/>
+            </request>
             <response status="200">
                 <param name="Content-Disposition" style="header" type="xsd:string"/>
                  <representation mediaType="*/*" element="global:map"/>

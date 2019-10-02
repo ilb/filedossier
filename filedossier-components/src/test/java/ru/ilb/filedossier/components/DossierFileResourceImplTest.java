@@ -15,11 +15,6 @@
  */
 package ru.ilb.filedossier.components;
 
-import java.net.URISyntaxException;
-import java.nio.file.Paths;
-import java.util.Arrays;
-import javax.inject.Inject;
-import javax.ws.rs.core.Response;
 import org.apache.cxf.jaxrs.client.JAXRSClientFactory;
 import org.apache.cxf.jaxrs.provider.json.JsonMapObjectProvider;
 import org.junit.Assert;
@@ -31,6 +26,12 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.junit4.SpringRunner;
 import ru.ilb.filedossier.api.DossierFileResource;
 import ru.ilb.filedossier.api.DossiersResource;
+
+import javax.inject.Inject;
+import javax.ws.rs.core.Response;
+import java.net.URISyntaxException;
+import java.nio.file.Paths;
+import java.util.Arrays;
 
 /**
  *
@@ -84,12 +85,12 @@ public class DossierFileResourceImplTest {
     public void testBGetContents() {
 
         DossierFileResource fileResource = getDossierFileResource("fairpricecalc");
-        Response response = fileResource.download();
+        Response response = fileResource.download(null);
         Assert.assertEquals("application/vnd.oasis.opendocument.spreadsheet",
                 response.getMediaType().toString());
 
         fileResource = getDossierFileResource("jurnals");
-        response = fileResource.download();
+        response = fileResource.download(null);
         Assert.assertEquals("application/pdf", response.getMediaType().toString());
     }
 }
