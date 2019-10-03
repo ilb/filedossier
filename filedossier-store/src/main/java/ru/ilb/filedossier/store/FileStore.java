@@ -15,6 +15,8 @@
  */
 package ru.ilb.filedossier.store;
 
+import ru.ilb.filedossier.entities.Store;
+
 import java.io.IOException;
 import java.net.URI;
 import java.nio.file.Files;
@@ -25,7 +27,6 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
-import ru.ilb.filedossier.entities.Store;
 
 /**
  * Store using files

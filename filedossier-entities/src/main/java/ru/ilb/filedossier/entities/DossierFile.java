@@ -52,6 +52,11 @@ public interface DossierFile extends DossierContents {
     boolean getExists();
 
     /**
+     * @return last modification date and time
+     */
+    String lastModified();
+
+    /**
      * @return default representation of this dossier file
      * @see ru.ilb.filedossier.entities.Representation
      */

@@ -15,16 +15,13 @@
  */
 package ru.ilb.filedossier.representation;
 
+import ru.ilb.filedossier.entities.*;
+import ru.ilb.filedossier.representation.delegate.MultipartDelegate;
+import ru.ilb.filedossier.representation.delegate.PDFMultipartDelegate;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import ru.ilb.filedossier.entities.DossierContents;
-import ru.ilb.filedossier.entities.DossierPath;
-import ru.ilb.filedossier.entities.Representation;
-import ru.ilb.filedossier.entities.RepresentationPart;
-import ru.ilb.filedossier.entities.Store;
-import ru.ilb.filedossier.representation.delegate.MultipartDelegate;
-import ru.ilb.filedossier.representation.delegate.PDFMultipartDelegate;
 
 /**
  * Represents raw file contents

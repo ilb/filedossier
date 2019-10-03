@@ -58,6 +58,11 @@
                     <xsd:documentation>Наличие файла</xsd:documentation>
                 </xsd:annotation>
             </xsd:element>
+            <xsd:element name="lastModified" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:documentation>Время последней модификации</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
             <xsd:element name="readonly" type="xsd:boolean">
                 <xsd:annotation>
                     <xsd:documentation>Только для чтения</xsd:documentation>

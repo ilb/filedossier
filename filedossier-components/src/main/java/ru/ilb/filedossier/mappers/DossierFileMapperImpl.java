@@ -15,8 +15,9 @@
  */
 package ru.ilb.filedossier.mappers;
 
-import javax.inject.Named;
 import ru.ilb.filedossier.view.DossierFileView;
+
+import javax.inject.Named;
 
 @Named
 public class DossierFileMapperImpl implements DossierFileMapper {
@@ -29,6 +30,7 @@ public class DossierFileMapperImpl implements DossierFileMapper {
         df.setExists(model.getExists());
         df.setReadonly(model.getReadonly());
         df.setRequired(model.getRequired());
+        df.setLastModified(model.lastModified());
         return df;
     }
 

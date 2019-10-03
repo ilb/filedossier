@@ -21,6 +21,7 @@ import ru.ilb.filedossier.api.DossierFileResource;
 import ru.ilb.filedossier.core.ContentDispositionMode;
 import ru.ilb.filedossier.entities.DossierFile;
 import ru.ilb.filedossier.entities.Representation;
+import ru.ilb.filedossier.filedossier.usecases.upload.PublishDossierFile;
 import ru.ilb.filedossier.filedossier.usecases.upload.UploadDocument;
 
 import javax.inject.Inject;
@@ -37,6 +38,9 @@ public class DossierFileResourceImpl implements DossierFileResource {
      */
     @Inject
     private UploadDocument uploadDocument;
+
+    @Inject
+    private PublishDossierFile publishDossierFile;
 
     /**
      * Spring application context.
@@ -75,13 +79,13 @@ public class DossierFileResourceImpl implements DossierFileResource {
 
     @Override
     public void publish(File file) {
-        dossierFile.setContents(file);
+        publishDossierFile.publish(file, dossierFile, getCurrentContextKey());
     }
 
     @Override
     public void upload(File file) {
         try {
-            uploadDocument.upload(file, dossierFile);
+            uploadDocument.upload(file, dossierFile, getCurrentContextKey());
         }
         catch (IOException ex) {
             throw new RuntimeException(ex);
@@ -91,10 +95,12 @@ public class DossierFileResourceImpl implements DossierFileResource {
     @Override
     public DossierContextResource getDossierContextResource() {
         final DossierContextResourceImpl resource = new DossierContextResourceImpl();
-        final String fileContextKey = dossierFile.getParent().getCode()
-                + "/" + dossierFile.getCode();
-        resource.setContextKey(fileContextKey);
+        resource.setContextKey(getCurrentContextKey());
         applicationContext.getAutowireCapableBeanFactory().autowireBean(resource);
         return resourceContext.initResource(resource);
+    }
+
+    private String getCurrentContextKey() {
+        return dossierFile.getParent().getCode() + "/" + dossierFile.getCode();
     }
 }

@@ -15,6 +15,10 @@
  */
 package ru.ilb.filedossier.core;
 
+import ru.ilb.filedossier.entities.*;
+import ru.ilb.filedossier.mimetype.MimeTypeUtil;
+import ru.ilb.filedossier.representation.IdentityRepresentation;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -22,13 +26,6 @@ import java.nio.file.NoSuchFileException;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import ru.ilb.filedossier.entities.Dossier;
-import ru.ilb.filedossier.entities.DossierFile;
-import ru.ilb.filedossier.entities.DossierPath;
-import ru.ilb.filedossier.entities.Representation;
-import ru.ilb.filedossier.entities.Store;
-import ru.ilb.filedossier.mimetype.MimeTypeUtil;
-import ru.ilb.filedossier.representation.IdentityRepresentation;
 
 /**
  *
@@ -54,12 +51,14 @@ public class DossierFileImpl implements DossierFile {
 
     protected final String extension;
 
+    protected final String lastModified;
+
     protected final Map<String, Representation> representationsMap;
 
     protected final Representation representation;
 
     public DossierFileImpl(Store store, String code, String name, boolean required,
-            boolean readonly, boolean hidden, String mediaType,
+            boolean readonly, boolean hidden, String mediaType, String lastModified,
             List<Representation> representations) {
         this.store = store;
         this.code = code;
@@ -69,6 +68,7 @@ public class DossierFileImpl implements DossierFile {
         this.hidden = hidden;
         this.mediaType = mediaType;
         this.extension = MimeTypeUtil.getExtension(mediaType);
+        this.lastModified = lastModified;
         this.representationsMap = representations.stream().peek(r -> r.setParent(this))
                 .collect(Collectors.toMap(r -> r.getMediaType(), r -> r));
         this.representation = representations.isEmpty() ? new IdentityRepresentation(store, mediaType)
@@ -111,6 +111,11 @@ public class DossierFileImpl implements DossierFile {
     }
 
     @Override
+    public String lastModified() {
+        return lastModified;
+    }
+
+    @Override
     public byte[] getContents() {
         try {
             return store.getContents(getStoreFileName());
@@ -142,7 +147,6 @@ public class DossierFileImpl implements DossierFile {
 
     @Override
     public Representation getRepresentation() {
-        System.out.println("REPR: " + representation);
         return representation;
     }
 

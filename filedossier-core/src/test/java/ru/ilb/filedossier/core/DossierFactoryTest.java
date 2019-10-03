@@ -15,22 +15,22 @@
  */
 package ru.ilb.filedossier.core;
 
-import java.net.URISyntaxException;
-import javax.naming.Context;
-import javax.naming.NamingException;
-import static org.junit.Assert.*;
 import org.junit.ClassRule;
 import org.junit.Test;
-import ru.ilb.filedossier.context.DossierContextBuilder;
 import ru.ilb.filedossier.context.DossierContextImpl;
+import ru.ilb.filedossier.context.DossierContextService;
 import ru.ilb.filedossier.ddl.FileDossierDefinitionRepository;
 import ru.ilb.filedossier.entities.Dossier;
 import ru.ilb.filedossier.entities.DossierContext;
 import ru.ilb.filedossier.jndi.JndiRule;
 import ru.ilb.filedossier.jndi.SimpleInitialContext;
-import ru.ilb.filedossier.scripting.SubstitutorTemplateEvaluator;
-import ru.ilb.filedossier.scripting.TemplateEvaluator;
 import ru.ilb.filedossier.store.StoreFactory;
+
+import javax.naming.Context;
+import javax.naming.NamingException;
+import java.net.URISyntaxException;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  *
@@ -64,7 +64,17 @@ public class DossierFactoryTest {
         Context context = new SimpleInitialContext();
         context.bind("ru.bystrobank.apps.meta.url", "https://devel.net.ilb.ru/meta");
         //TemplateEvaluator templateEvaluator = new SubstitutorTemplateEvaluator(context);
-        return new DossierFactory(dossierModelRepository, storeFactory/*, templateEvaluator*/);
+        return new DossierFactory(dossierModelRepository, storeFactory, new DossierContextService() {
+            @Override
+            public DossierContext getContext(String contextKey) {
+                return new DossierContextImpl();
+            }
+
+            @Override
+            public void putContext(String contextKey, DossierContext context) {
+
+            }
+        } /*, templateEvaluator*/);
 
     }
 

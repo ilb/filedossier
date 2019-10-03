@@ -15,15 +15,16 @@
  */
 package ru.ilb.filedossier.context.persistence;
 
-import java.util.Optional;
-import javax.inject.Inject;
-import javax.inject.Named;
 import org.springframework.stereotype.Service;
 import ru.ilb.filedossier.context.DossierContextImpl;
 import ru.ilb.filedossier.context.DossierContextService;
 import ru.ilb.filedossier.context.persistence.model.DossierContextPersistence;
 import ru.ilb.filedossier.context.persistence.repositories.DossierContextRepository;
 import ru.ilb.filedossier.entities.DossierContext;
+
+import javax.inject.Inject;
+import javax.inject.Named;
+import java.util.Optional;
 
 // TODO: create idMap
 /**
@@ -55,7 +56,6 @@ public class DBDossierContextService implements DossierContextService {
      */
     @Override
     public DossierContext getContext(String contextKey) {
-        System.out.println("CONTEXTKEY: " + contextKey);
         DossierContextPersistence contextPersistence = repository.findByContextKey(contextKey)
                 .orElse(new DossierContextPersistence());
         return new DossierContextImpl(contextPersistence.asMap());
@@ -69,7 +69,6 @@ public class DBDossierContextService implements DossierContextService {
      */
     @Override
     public void putContext(String contextKey, DossierContext dossierContext) {
-        System.out.println("CONTEXTKEY: " + contextKey);
         Optional<DossierContextPersistence> oldContext = repository.findByContextKey(contextKey);
         DossierContextPersistence updatedContext = new DossierContextPersistence(contextKey, dossierContext.asMap());
         // if old context founded, perform merge instead save

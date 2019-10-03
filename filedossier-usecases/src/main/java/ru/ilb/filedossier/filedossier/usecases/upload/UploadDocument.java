@@ -15,24 +15,31 @@
  */
 package ru.ilb.filedossier.filedossier.usecases.upload;
 
-import java.io.File;
-import java.io.IOException;
-import javax.inject.Inject;
-import javax.inject.Named;
+import ru.ilb.filedossier.context.DossierContextService;
 import ru.ilb.filedossier.entities.DossierFile;
 import ru.ilb.filedossier.mimetype.MimeTypeUtil;
+
+import javax.inject.Inject;
+import javax.inject.Named;
+import java.io.File;
+import java.io.IOException;
 
 /**
  *
  * @author kuznetsov_me
  */
 @Named
-public class UploadDocument {
+public class UploadDocument extends UploadUseCase {
+
+    private UploadScan uploadScan;
 
     @Inject
-    UploadScan uploadScan;
+    public UploadDocument(DossierContextService contextService, UploadScan uploadScan) {
+        super(contextService);
+        this.uploadScan = uploadScan;
+    }
 
-    public void upload(File document, DossierFile dossierFile) throws
+    public void upload(File document, DossierFile dossierFile, String contextKey) throws
             IOException {
 
         String mimeType;
@@ -43,5 +50,6 @@ public class UploadDocument {
         } else {
             dossierFile.getRepresentation().setContents(document);
         }
+        setUploadTime(contextKey);
     }
 }
