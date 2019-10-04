@@ -12,7 +12,7 @@
     <properties>
         <eclipselink.version>2.7.4</eclipselink.version>
         <swagger-version>2.0.8</swagger-version>
-        <generated-api-version>1.0.4</generated-api-version>
+        <generated-api-version>1.0.5</generated-api-version>
     </properties>
     <name>filedossier-api</name>
     <description>API shared module</description>
@@ -203,7 +203,7 @@
                             <dependency>
                                 <groupId>ru.ilb.openapiutils</groupId>
                                 <artifactId>openapiutils</artifactId>
-                                <version>1.1</version>
+                                <version>1.2-SNAPSHOT</version>
                             </dependency>
                         </dependencies>
                     </plugin>
