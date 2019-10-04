@@ -118,7 +118,7 @@ class BystroScan extends Component {
 
         <Button as="div" basic className="bystro-scan-file-button" disabled={loading} title={fileName}>
           <span>{fileName || 'Выбрать файл'}</span>
-          <input type="file" id={fileId} accept="application/pdf" onChange={this.selectFile} disabled={loading}/>
+          <input type="file" id={fileId} /* accept="application/pdf" */ onChange={this.selectFile} disabled={loading}/>
         </Button>
 
         <Button type="button" color="green" content="Загрузить" onClick={this.uploadFile} loading={loading} disabled={loading}/>

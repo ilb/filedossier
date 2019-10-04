@@ -4,11 +4,11 @@ import { useState } from 'react';
 import DossierResourceProvider from './DossierResourceProvider';
 
 export default class FileDossier {
-  constructor ({ dossierKey, dossierPackage, dossierCode } = {}) {
+  constructor ({ dossierKey, dossierPackage, dossierCode, req } = {}) {
     this.dossierKey = dossierKey;
     this.dossierPackage = dossierPackage;
     this.dossierCode = dossierCode;
-    this.api = new DossierResourceProvider();
+    this.api = new DossierResourceProvider(req);
   }
 
   getDossier = async function () {
