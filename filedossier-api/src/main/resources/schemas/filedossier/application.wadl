@@ -75,7 +75,7 @@
             </request>
             <response status="200">
                 <param name="Content-Disposition" style="header" type="xsd:string"/>
-                 <representation mediaType="multipart/form-data"/>
+                 <representation mediaType="application/octet-stream"/>
             </response>
         </method>
 
