@@ -1,10 +1,7 @@
 import PropTypes from 'prop-types';
 import { Table } from 'semantic-ui-react';
 import DossierActions from './DossierActions';
-
-export const getFileLink = ({ dossierKey, dossierPackage, dossierCode, file, inline }) => (
-  `https://devel.net.ilb.ru/workflow-web/web/v2/dossiers/${dossierKey}/${dossierPackage}/${dossierCode}/dossierfiles/${file.code}${inline ? '?mode=inline' : ''}`
-);
+import { getFileLink } from '../Dossier';
 
 function DossierFile ({ dossierFile, dossierActions, query }) {
   return (

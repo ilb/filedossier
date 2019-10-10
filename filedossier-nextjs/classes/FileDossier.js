@@ -1,55 +1,51 @@
 import '@bb/datetime-picker/lib/index.css';
 import '@bb/semantic-ui-css/semantic.min.css';
 import { useState } from 'react';
-import DossierResourceProvider from './DossierResourceProvider';
+import { createDossierApi } from '../conf/config';
+import { createJsProxy } from '@ilb/js-auto-proxy';
 
 export default class FileDossier {
   constructor ({ dossierKey, dossierPackage, dossierCode, req } = {}) {
     this.dossierKey = dossierKey;
     this.dossierPackage = dossierPackage;
     this.dossierCode = dossierCode;
-    this.api = new DossierResourceProvider(req);
+
+    const apiDossier = createDossierApi((req && req.headers) ? req.headers['x-remote-user'] : null);
+    this.api = createJsProxy(apiDossier, 'dossier');
   }
 
-  getDossier = async function () {
-    const query = { method: 'getDossier', dossierKey: this.dossierKey, dossierPackage: this.dossierPackage, dossierCode: this.dossierCode };
-    const dossierData = { query };
-    try {
-      dossierData.response = await this.api.execute({ query });
-    } catch (e) {
-      dossierData.error = parseResponseError(e);
-    }
-    return dossierData;
+  getDossier = async () => {
+    const query = { dossierKey: this.dossierKey, dossierPackage: this.dossierPackage, dossierCode: this.dossierCode };
+    const { response, error } = await this.api.getDossier(this.dossierKey, this.dossierPackage, this.dossierCode);
+    return { query, response, error };
   }
 
-  upload = async function ({ fileCode, file }) {
-    const query = { method: 'upload', fileCode, dossierKey: this.dossierKey, dossierPackage: this.dossierPackage, dossierCode: this.dossierCode };
-    const response = await this.api.execute({ query, file });
+  upload = async ({ fileCode, file }) => {
+    const response = await this.api.publish(file, [fileCode, this.dossierKey, this.dossierPackage, this.dossierCode]);
     return response;
   }
 
   _createRequestAction = ({ state, setState, action, withUpdate }) => async (...params) => {
     setState({ ...state, loading: true, error: null });
     const result = {};
-    try {
-      if (action) {
-        result.response = await action(...params);
+    if (action) {
+      const result = await action(...params);
+      if (result.error) {
+        setState({ ...state, loading: false, error: result.error });
+        return;
       }
+    }
 
-      if (withUpdate) { // update dossier
-        const dossierData = await this.getDossier();
-        setState({ ...state, dossierData, loading: false });
-      } else {
-        setState({ ...state, loading: false });
-      }
-    } catch (e) {
-      result.error = parseResponseError(e);
-      setState({ ...state, loading: false, error: result.error });
+    if (withUpdate) { // update dossier
+      const dossierData = await this.getDossier();
+      setState({ ...state, dossierData, loading: false });
+    } else {
+      setState({ ...state, loading: false });
     }
     return result;
   };
 
-  useDossier (dossierData = {}) {
+  useDossier = (dossierData = {}) => {
     const [state, setState] = useState({ dossierData, loading: false, error: null }); // init state
     const dossierActions = {
       updateDossier: this._createRequestAction({ state, setState, withUpdate: true }),
@@ -59,9 +55,3 @@ export default class FileDossier {
     return [state, dossierActions];
   }
 }
-
-const parseResponseError = (error) => {
-  return typeof error === 'string'
-    ? error : error.response
-      ? error.response.text : error.statusText || error.data || error.message || 'Внутренняя ошибка приложения';
-};

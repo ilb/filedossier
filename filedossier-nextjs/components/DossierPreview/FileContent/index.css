@@ -1,0 +1,57 @@
+.dossier-img {
+  position: relative;
+}
+
+.dossier-img-container {
+  overflow: auto;
+  width: 100%;
+  height: calc(100vh - 11rem); /* TODO */
+}
+
+.dossier-rotate-buttons {
+  position: absolute;
+  top: 0.76em;
+  right: 0.76em;
+  z-index: 1;
+  opacity: 0.5;
+  background-color: white;
+  border-radius: 4px;
+}
+
+.dossier-rotate-buttons .button:first-child {
+  transform: scaleX(-1) !important;
+  -webkit-transform: scaleX(-1) !important;
+  -moz-transform: scaleX(-1) !important;
+}
+
+.dossier-rotate-buttons .button:last-child {
+  margin: 0 !important;
+}
+
+.dossier-rotate-buttons:hover {
+  opacity: 0.9;
+}
+
+.dossier-img-rotate0 {
+  transform: rotate(0deg);
+  -webkit-transform: rotate(0deg);
+  -moz-transform: rotate(0deg);
+}
+
+.dossier-img-rotate90 {
+  transform: rotate(90deg);
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+}
+
+.dossier-img-rotate180 {
+  transform: rotate(180deg);
+  -webkit-transform: rotate(180deg);
+  -moz-transform: rotate(180deg);
+}
+
+.dossier-img-rotate270 {
+  transform: rotate(270deg);
+  -webkit-transform: rotate(270deg);
+  -moz-transform: rotate(270deg);
+}

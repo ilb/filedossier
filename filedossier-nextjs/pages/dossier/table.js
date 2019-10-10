@@ -1,7 +1,7 @@
 import '@bb/semantic-ui-css/semantic.min.css';
 import PropTypes from 'prop-types';
 import FileDossier from '../../classes/FileDossier';
-import DossierTable from '../../components/DossierTable';
+import Dossier from '../../components/Dossier';
 
 function DossierApp ({ dossierData }) {
   /*
@@ -10,8 +10,8 @@ function DossierApp ({ dossierData }) {
    * because it's gonna mutate later INSIDE CHILDRENS but NOT HERE (eg on file upload, remove, etc)
    */
   return (
-    <div className="ui segment" style={{ margin: '1rem' }}>
-      <DossierTable dossierData={dossierData}/>
+    <div className="ui segment">
+      <Dossier dossierData={dossierData} mode="table" header/>
     </div>
   );
 }
@@ -24,8 +24,8 @@ DossierApp.propTypes = {
   }).isRequired,
 };
 
-DossierApp.getInitialProps = async function ({ query, req }) {
-  const dossier = new FileDossier({ ...query, req }); // { dossierKey, dossierPackage, dossierCode, req }
+DossierApp.getInitialProps = async function ({ query }) {
+  const dossier = new FileDossier(query); // { dossierKey, dossierPackage, dossierCode }
   const dossierData = await dossier.getDossier();
   return { dossierData };
 };

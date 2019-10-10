@@ -1,33 +1,28 @@
+import { DossiersApi, ApiClient } from '@ilb/filedossier-api';
 require('@ilb/node_context').config({ debug: true });
-const dossierApi = require('@ilb/filedossier-api');
 
-let certfile, passphrase, cert, ca;
-
+const config = {};
 if (!process.browser) {
-  certfile = process.env['ru.bystrobank.apps.workflow.certfile'];
-  passphrase = process.env['ru.bystrobank.apps.workflow.cert_PASSWORD'];
+  config.certfile = process.env['ru.bystrobank.apps.workflow.certfile'];
+  config.passphrase = process.env['ru.bystrobank.apps.workflow.cert_PASSWORD'];
   const fs = require('fs');
-  cert = certfile !== null ? fs.readFileSync(certfile) : null;
-  ca = process.env.NODE_EXTRA_CA_CERTS ? fs.readFileSync(process.env.NODE_EXTRA_CA_CERTS) : null;
+  config.cert = config.certfile !== null ? fs.readFileSync(config.certfile) : null;
+  config.ca = process.env.NODE_EXTRA_CA_CERTS ? fs.readFileSync(process.env.NODE_EXTRA_CA_CERTS) : null;
 }
 
-function dossierApiClient (xRemoteUser) {
-  const apiClient = new dossierApi.ApiClient();
+export function createDossierApi (xRemoteUser) {
+  const apiClient = new ApiClient();
   apiClient.basePath = 'https://devel.net.ilb.ru/workflow-web/web/v2';
   if (!process.browser) {
     apiClient.applyAuthToRequest = (request/* , authNames */) => {
-      request.ca(ca).key(cert).cert(cert);
-      request._passphrase = passphrase;
+      request.ca(config.ca).key(config.cert).cert(config.cert);
+      request._passphrase = config.passphrase;
       request.set('x-remote-user', xRemoteUser || process.env.USER);
     };
   }
-  return apiClient;
+
+  const apiDossier = new DossiersApi(apiClient);
+  return apiDossier;
 }
 
-module.exports = {
-  certfile,
-  passphrase,
-  cert,
-  ca,
-  dossierApiClient,
-};
+export default config;
