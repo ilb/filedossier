@@ -15,6 +15,12 @@
  */
 package ru.ilb.filedossier.components;
 
+import java.io.File;
+import java.io.IOException;
+import javax.inject.Inject;
+import javax.ws.rs.container.ResourceContext;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.Response;
 import org.springframework.context.ApplicationContext;
 import ru.ilb.filedossier.api.DossierContextResource;
 import ru.ilb.filedossier.api.DossierFileResource;
@@ -23,13 +29,6 @@ import ru.ilb.filedossier.entities.DossierFile;
 import ru.ilb.filedossier.entities.Representation;
 import ru.ilb.filedossier.filedossier.usecases.upload.PublishDossierFile;
 import ru.ilb.filedossier.filedossier.usecases.upload.UploadDocument;
-
-import javax.inject.Inject;
-import javax.ws.rs.container.ResourceContext;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.Response;
-import java.io.File;
-import java.io.IOException;
 
 public class DossierFileResourceImpl implements DossierFileResource {
 
@@ -67,7 +66,7 @@ public class DossierFileResourceImpl implements DossierFileResource {
     public Response download(ContentDispositionMode mode) {
         final Representation representation = dossierFile.getRepresentation();
 
-        final String contentDisposition = mode == ContentDispositionMode.ATTACHMENT
+        final String contentDisposition = ContentDispositionMode.ATTACHMENT.equals(mode)
                 ? mode.value() + "; filename=" + representation.getFileName()
                 : mode.value();
 
