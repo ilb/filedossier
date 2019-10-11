@@ -47,10 +47,8 @@
         <apache-cxf.version>3.3.3</apache-cxf.version>
         <eclipselink.version>2.7.4</eclipselink.version>
         <ilb-common.version>1.30</ilb-common.version>
-        <maven-source-plugin.version>3.1.0</maven-source-plugin.version>
-        <maven-javadoc-plugin.version>3.1.0</maven-javadoc-plugin.version>
         <javax-xml-bind-jaxb-api.version>2.3.1</javax-xml-bind-jaxb-api.version>
-        <spring.boot.version>2.1.4.RELEASE</spring.boot.version>
+        <spring.boot.version>2.1.9.RELEASE</spring.boot.version>
         <maven.test.skip>true</maven.test.skip>
     </properties>
     <build>

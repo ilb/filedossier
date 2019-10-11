@@ -13,12 +13,10 @@
     <description>REST service</description>
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
-        <mysql-connector.version>8.0.13</mysql-connector.version>
         <javax-persistence.version>2.2.1</javax-persistence.version>
-        <javax.ws.rs-api.version>2.1</javax.ws.rs-api.version>
-        <org.springframework.version>5.1.5.RELEASE</org.springframework.version>
+        <javax.ws.rs-api.version>2.1.1</javax.ws.rs-api.version>
         <swagger.ui.version>3.22.2</swagger.ui.version>
-        <org.mapstruct.version>1.2.0.Final</org.mapstruct.version>
+        <org.mapstruct.version>1.3.0.Final</org.mapstruct.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -39,7 +37,7 @@
         </dependency>
         <dependency>
             <groupId>org.mapstruct</groupId>
-            <artifactId>mapstruct-jdk8</artifactId>
+            <artifactId>mapstruct</artifactId>
             <version>${org.mapstruct.version}</version>
         </dependency>
         <dependency>

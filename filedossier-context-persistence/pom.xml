@@ -10,13 +10,6 @@
     <packaging>jar</packaging>
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
-        <mysql-connector.version>8.0.13</mysql-connector.version>
-        <javax-persistence.version>2.2.1</javax-persistence.version>
-        <javax.ws.rs-api.version>2.1</javax.ws.rs-api.version>
-        <org.springframework.version>5.1.5.RELEASE</org.springframework.version>
-        <spring.boot.version>2.1.4.RELEASE</spring.boot.version>
-        <swagger.ui.version>3.22.2</swagger.ui.version>
-        <org.mapstruct.version>1.2.0.Final</org.mapstruct.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -44,10 +37,6 @@
             <artifactId>spring-data-jdbc</artifactId>
         </dependency>
         <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-        </dependency>
-        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <scope>test</scope>
@@ -70,14 +59,6 @@
         </dependency>
     </dependencies>
     <build>
-        <finalName>${project.name}</finalName>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>${spring.boot.version}</version>
-            </plugin>
-        </plugins>
     </build>
     <name>filedossier-context-persistence</name>
 </project>

@@ -1,1 +1,1 @@
-DROP TABLE `filedossier`.`DOSSIERCONTEXT`, `filedossier`.`DOSSIERCONTEXTDATA`; 
+DROP TABLE if exists `filedossier`.`DOSSIERCONTEXT`, `filedossier`.`DOSSIERCONTEXTDATA`;
