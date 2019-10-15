@@ -14,7 +14,7 @@ export const getFileLink = ({ dossierKey, dossierPackage, dossierCode, file, inl
 function Dossier (props) {
   const dossierInst = new FileDossier(props.dossierData.query); // create instance { dossierKey, dossierPackage, dossierCode }
   const [{ dossierData, loading, error }, dossierActions] = dossierInst.useDossier(props.dossierData); // init hook
-  const { query, response: dossier, error: dossierError } = dossierData;
+  const { query, response: dossier, error: dossierError } = dossierData || {};
   let DossierComponent;
   switch (props.mode) {
     case 'preview': DossierComponent = DossierPreview; break;
@@ -28,7 +28,8 @@ function Dossier (props) {
         {props.header && <Header dividing content={dossier.name}/>}
         {!!dossierError && <Message error visible header="Ошибка при загрузке досье" content={dossierError}/>}
         {!!error && <Message error visible header="Ошибка при выполнении действия" content={error}/>}
-        {(!dossier.dossierFile || !dossier.dossierFile.length) && <Message error visible header="Отсутствуют файлы в досье"/>}
+        {(!query || (!dossier && !dossierError)) && <Message error visible header="В компонент не переданы данные по досье"/>}
+        {(dossier && (!dossier.dossierFile || !dossier.dossierFile.length)) && <Message error visible header="Отсутствуют файлы в досье"/>}
         {dossier && dossier.dossierFile && dossier.dossierFile.length > 0 &&
           <DossierComponent
             dossier={dossier}

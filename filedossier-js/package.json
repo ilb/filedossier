@@ -1,6 +1,6 @@
 {
   "name": "@ilb/filedossier-js",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -25,6 +25,8 @@
     "@zeit/next-css": "^1.0.1",
     "babel-plugin-css-modules-transform": "^1.6.2",
     "next": "^9.0.2",
+    "next-transpile-modules": "^2.3.1",
+    "pdfjs-dist": "^2.2.228",
     "react": "^16.8.6",
     "react-addons-shallow-compare": "^15.6.2",
     "react-dom": "^16.8.6",

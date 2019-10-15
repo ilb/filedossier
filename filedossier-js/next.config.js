@@ -1,9 +1,11 @@
 const withCSS = require('@zeit/next-css');
+const withTM = require('next-transpile-modules');
 // see https://github.com/zeit/next.js/issues/257
 const isProd = process.env.NODE_ENV === 'production';
 const prefix = isProd ? '/filedossier' : '';
 
-module.exports = withCSS({
+module.exports = withCSS(withTM({
+  transpileModules: ['@ilb/js-auto-proxy'],
   assetPrefix: prefix, // affects page bundles and app/commons/vendor scripts
   env: {
     API_PATH: prefix + '/api',
@@ -46,4 +48,4 @@ module.exports = withCSS({
     }
     return config;
   },
-});
+}));

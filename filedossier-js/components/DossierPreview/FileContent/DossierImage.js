@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Image, Button } from 'semantic-ui-react';
+import ControlsMenu, { getZoomOutScale, getZoomInScale, dragToScroll } from './ControlsMenu';
 import { getFileLink } from '../../Dossier';
 
 class DossierImage extends React.Component {
   state = {
-    img: null,
     src: null,
-    fileDate: null,
+    scale: 1,
     rotate: 0,
+    fileDate: null,
   };
 
   componentDidMount () {
@@ -27,76 +27,89 @@ class DossierImage extends React.Component {
   }
 
   rotateFile = (angle) => {
-    const { img } = this.state;
+    this.resetContainerScroll();
     let rotate = this.state.rotate + angle;
     if (rotate < 0) { rotate = 270; }
     if (rotate > 270) { rotate = 0; }
-    this.setupRotatedImageSize(img, rotate);
+    this.setupRotatedImageSize(rotate);
   };
 
-  imageOnLoadHandler = (event) => {
-    const img = event.currentTarget;
-    this.setState({ img });
-    this.setupRotatedImageSize(img, 0);
-    this.initImageManipulations(img, 0);
+  resetContainerScroll = () => {
+    const img = this.props.contentRef.current;
+    if (img) {
+      const imgContainer = img.parentNode;
+      imgContainer.scrollTop = imgContainer.scrollLeft = 0;
+    }
   };
 
-  setupRotatedImageSize = async (img, rotate) => {
+  imageOnLoadHandler = async () => {
+    this.setupRotatedImageSize(0); // reset rotation
+    await new Promise(resolve => { setTimeout(resolve, 10); });
+    this.setScale(null); // reset scale
+    this.initManipulations();
+  };
+
+  setupRotatedImageSize = async (rotate) => {
+    const img = this.props.contentRef.current;
     if (img) {
       this.setState({ rotate });
       await new Promise(resolve => { setTimeout(resolve, 10); });
-      // reset
-      img.style.height = null;
-      img.style.minHeight = null;
-      img.style.width = null;
-      img.style.minWidth = null;
-      img.style.maxWidth = null;
-      img.style.marginTop = null;
-      img.style.marginLeft = null;
-
-      if (rotate % 180 !== 0) {
-        const { clientWidth, clientHeight } = img;
-        const newHeight = clientWidth;
-        const newWidth = clientWidth * clientWidth / clientHeight;
-
-        img.style.height = newHeight + 'px';
-        img.style.minHeight = newHeight + 'px';
-        img.style.width = newWidth + 'px';
-        img.style.minWidth = newWidth + 'px';
-        img.style.maxWidth = newWidth + 'px';
-
-        img.style.marginTop = (newWidth - newHeight) / 2 + 'px';
-        img.style.marginLeft = -(newWidth - newHeight) / 2 + 'px';
-      }
+      this.setScale(null); // reset scale
     }
   };
 
-  initImageManipulations = (img/* , rotate */) => {
+  initManipulations = () => {
+    const img = this.props.contentRef.current;
     if (img) {
       const imgContainer = img.parentNode;
       // scroll
-      imgContainer.removeEventListener('DOMMouseScroll', this.menuMouseScroll, false);
-      imgContainer.onmousewheel = this.menuMouseScroll;
-      imgContainer.addEventListener('DOMMouseScroll', this.menuMouseScroll, false);
+      imgContainer.removeEventListener('DOMMouseScroll', this.onMouseScrollHandler, false);
+      imgContainer.onmousewheel = this.onMouseScrollHandler;
+      imgContainer.addEventListener('DOMMouseScroll', this.onMouseScrollHandler, false);
 
       // drag
-      img.onmousedown = this.onMouseDownHandler;
+      imgContainer.onmousedown = dragToScroll;
     }
   };
 
-  menuMouseScroll = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    const img = e.currentTarget.querySelector('img');
-    const coefficient = (e.deltaY || e.detail) > 0 ? 10 / 11 : 11 / 10;
-    let { width, height } = img.getBoundingClientRect();
-    const rotated = img.classList.contains('dossier-img-rotate90') || img.classList.contains('dossier-img-rotate270');
-    if (rotated) {
-      [width, height] = [height, width]; // swap
+  onMouseScrollHandler = (e) => {
+    if (e.ctrlKey) {
+      e.preventDefault();
+      e.stopPropagation();
+      const { scale } = this.state;
+      if (scale) {
+        const newScale = (e.deltaY || e.detail) > 0 ? getZoomOutScale(scale) : getZoomInScale(scale);
+        this.setScale(newScale);
+      }
     }
-    const newWidth = width * coefficient;
-    const newHeight = height * coefficient;
-    if (newWidth && (newWidth < 50 || newWidth > 10000)) { return; }
+  }
+
+  setScale = (scale) => {
+    const { rotate } = this.state;
+    const img = this.props.contentRef.current;
+    const canvasContainer = img.parentNode;
+    const { width, height } = window.getComputedStyle(canvasContainer);
+    const containerSize = { width: parseFloat(width), height: parseFloat(height) };
+    const { naturalWidth: imgWidth, naturalHeight: imgHeight } = img;
+    const rotated = rotate % 180 !== 0; // 90 or 270
+
+    let currentScale = scale || 'pageWidthOption'; // default on width
+    if (currentScale === 'pageActualOption') { currentScale = 1.0; } else
+    if (currentScale === 'pageWidthOption' || currentScale === 'pageFitOption') { // calc container size
+      // TODO rotate
+      currentScale = containerSize.width / (rotated ? imgHeight : imgWidth); // scale by width
+      if (currentScale * imgHeight > containerSize.height) {
+        if (scale === 'pageFitOption') {
+          currentScale = containerSize.height / (rotated ? imgWidth : imgHeight); // scale by height
+        } else {
+          currentScale = (containerSize.width - 15) / (rotated ? imgHeight : imgWidth); // vertical scroll size
+        }
+      }
+    }
+    if (!Number(currentScale)) { throw new Error(`Invalid scale value = ${currentScale}`); }
+
+    const newWidth = imgWidth * currentScale;
+    const newHeight = imgHeight * currentScale;
     img.style.width = `${newWidth}px`;
     img.style.minWidth = `${newWidth}px`;
     img.style.maxWidth = `${newWidth}px`;
@@ -106,43 +119,31 @@ class DossierImage extends React.Component {
     if (rotated) {
       img.style.marginTop = (newWidth - newHeight) / 2 + 'px';
       img.style.marginLeft = -(newWidth - newHeight) / 2 + 'px';
+    } else {
+      img.style.marginTop = 0;
+      img.style.marginLeft = 0;
     }
-  }
 
-  onMouseDownHandler = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    const img = e.currentTarget;
-    const imgContainer = img.parentNode;
-    const startScrollTop = imgContainer.scrollTop || 0;
-    const startscrollLeft = imgContainer.scrollLeft || 0;
-    const startX = e.pageX;
-    const startY = e.pageY;
-
-    document.onmousemove = (e) => {
-      imgContainer.scrollTop = startScrollTop + startY - e.pageY;
-      imgContainer.scrollLeft = startscrollLeft + startX - e.pageX;
-    };
-
-    document.onmouseup = () => {
-      document.onmousemove = null;
-      document.onmouseup = null;
-    };
+    this.setState({ scale: currentScale });
   }
 
   render () {
-    const { src, rotate } = this.state;
+    const { query, dossierFile, contentRef } = this.props;
+    const { src, scale, rotate } = this.state;
     return (
       <div className="dossier-img">
-        <div className="dossier-rotate-buttons">
-          <Button basic size="tiny" icon="repeat" onClick={this.rotateFile.bind(this, -90)} attached="right"/>
-          <Button basic size="tiny" icon="repeat" onClick={this.rotateFile.bind(this, 90)} attached="right"/>
-        </div>
+        <ControlsMenu
+          query={query}
+          dossierFile={dossierFile}
+          scale={scale}
+          setScale={this.setScale}
+          rotateFile={this.rotateFile}
+        />
         <div className="dossier-img-container">
-          <Image fluid src={src}
-            className={`dossier-img-rotate${rotate}`}
+          <img ref={contentRef} src={src}
+            className={`ui fluid image dossier-img-rotate${rotate}`}
             onLoad={this.imageOnLoadHandler}
-            // alt="Не удалось отобразить preview файла"
+            alt="Не удалось отобразить preview файла"
           />
         </div>
       </div>
@@ -154,6 +155,7 @@ DossierImage.propTypes = {
   dossierFile: PropTypes.object.isRequired,
   dossierActions: PropTypes.object.isRequired,
   query: PropTypes.object.isRequired,
+  contentRef: PropTypes.object.isRequired,
 };
 
 export default DossierImage;

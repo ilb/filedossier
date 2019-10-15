@@ -1,35 +1,73 @@
-.dossier-img {
-  position: relative;
+.file-content,
+.dossier-img-container img,
+.dossier-pdf-container canvas {
+  box-shadow: 0 0 13px -5px #777 !important;
 }
 
-.dossier-img-container {
+.dossier-pdf-container canvas {
+   width: 0;
+   height: 0;
+ }
+
+.dossier-img-container img {
+  line-height: 1.5rem;
+}
+
+.file-controls {
+  margin: 0 !important;
+  border-radius: 0 !important;
+  min-height: 2rem !important;
+}
+
+.file-controls .item {
+  padding: 0.5rem 0.8rem !important;
+}
+
+.file-controls .item input {
+  padding: 0.1rem 0.5rem !important;
+}
+
+.file-controls a.item.disabled {
+  color: rgba(225, 225, 225, 0.3) !important;
+}
+
+.file-controls .page-count-label {
+  white-space: nowrap;
+  margin-left: 0.5rem;
+}
+
+.file-controls .file-name > span {
+  white-space: nowrap;
+  max-width: 15rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.file-controls .scale-selection > .menu > .item:nth-child(3) {
+  border-bottom: 1px solid rgba(34, 36, 38, 0.15) !important;
+}
+
+.dossier-img,
+.dossier-pdf {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.dossier-img-container,
+.dossier-pdf-container {
   overflow: auto;
   width: 100%;
-  height: calc(100vh - 11rem); /* TODO */
+  height: calc(100% - 28px); /* file-controls height */
+  cursor: grab;
+  text-align: center;
+  line-height: 0;
 }
 
-.dossier-rotate-buttons {
-  position: absolute;
-  top: 0.76em;
-  right: 0.76em;
-  z-index: 1;
-  opacity: 0.5;
-  background-color: white;
-  border-radius: 4px;
-}
-
-.dossier-rotate-buttons .button:first-child {
+.mirror-horizontal {
   transform: scaleX(-1) !important;
   -webkit-transform: scaleX(-1) !important;
   -moz-transform: scaleX(-1) !important;
-}
-
-.dossier-rotate-buttons .button:last-child {
-  margin: 0 !important;
-}
-
-.dossier-rotate-buttons:hover {
-  opacity: 0.9;
 }
 
 .dossier-img-rotate0 {
@@ -54,4 +92,12 @@
   transform: rotate(270deg);
   -webkit-transform: rotate(270deg);
   -moz-transform: rotate(270deg);
+}
+
+.file-controls .item.no-padding {
+  padding: 0 !important;
+}
+
+.dossier-info > .icon {
+  margin: 0 !important;
 }
