@@ -1,5 +1,3 @@
-import '@bb/datetime-picker/lib/index.css';
-import '@bb/semantic-ui-css/semantic.min.css';
 import { useState } from 'react';
 import { createDossierApi } from '../conf/config';
 import { createJsProxy } from '@ilb/js-auto-proxy';

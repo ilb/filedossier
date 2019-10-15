@@ -90,26 +90,29 @@ class DossierImage extends React.Component {
     const canvasContainer = img.parentNode;
     const { width, height } = window.getComputedStyle(canvasContainer);
     const containerSize = { width: parseFloat(width), height: parseFloat(height) };
-    const { naturalWidth: imgWidth, naturalHeight: imgHeight } = img;
+    let { naturalWidth: imgWidth, naturalHeight: imgHeight } = img;
     const rotated = rotate % 180 !== 0; // 90 or 270
+    if (rotated) {
+      [imgWidth, imgHeight] = [imgHeight, imgWidth]; // swap
+    }
 
     let currentScale = scale || 'pageWidthOption'; // default on width
     if (currentScale === 'pageActualOption') { currentScale = 1.0; } else
     if (currentScale === 'pageWidthOption' || currentScale === 'pageFitOption') { // calc container size
       // TODO rotate
-      currentScale = containerSize.width / (rotated ? imgHeight : imgWidth); // scale by width
+      currentScale = containerSize.width / imgWidth; // scale by width
       if (currentScale * imgHeight > containerSize.height) {
         if (scale === 'pageFitOption') {
-          currentScale = containerSize.height / (rotated ? imgWidth : imgHeight); // scale by height
+          currentScale = containerSize.height / imgHeight; // scale by height
         } else {
-          currentScale = (containerSize.width - 15) / (rotated ? imgHeight : imgWidth); // vertical scroll size
+          currentScale = (containerSize.width - 15) / imgWidth; // vertical scroll size
         }
       }
     }
     if (!Number(currentScale)) { throw new Error(`Invalid scale value = ${currentScale}`); }
 
-    const newWidth = imgWidth * currentScale;
-    const newHeight = imgHeight * currentScale;
+    const newWidth = img.naturalWidth * currentScale;
+    const newHeight = img.naturalHeight * currentScale;
     img.style.width = `${newWidth}px`;
     img.style.minWidth = `${newWidth}px`;
     img.style.maxWidth = `${newWidth}px`;

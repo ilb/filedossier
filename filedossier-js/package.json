@@ -1,6 +1,6 @@
 {
   "name": "@ilb/filedossier-js",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -17,7 +17,6 @@
     "conf/config.js"
   ],
   "dependencies": {
-    "@bb/jsonschema-form": "^1.0.2",
     "@bb/semantic-ui-css": "^2.2.12",
     "@ilb/filedossier-api": "^1.0.5",
     "@ilb/js-auto-proxy": "^1.0.2",
