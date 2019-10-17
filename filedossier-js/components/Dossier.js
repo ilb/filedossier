@@ -54,7 +54,7 @@ Dossier.propTypes = {
   }).isRequired,
   mode: PropTypes.string,
   header: PropTypes.bool,
-  children: PropTypes.element,
+  children: PropTypes.oneOfType([PropTypes.element, PropTypes.func]),
 };
 
 export default Dossier;
