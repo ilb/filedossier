@@ -11,7 +11,6 @@ function DossierPreview ({ query, dossier, dossierActions }) {
 
   return (
     <div>
-      {/* <Header dividing content={dossier.name}/> */}
       {dossierFiles.length > 1 && <Menu compact style={{ marginBottom: '1rem' }}
         onItemClick={(event, { name }) => { selectFile(name); }}
         items={dossierFiles.map(dossierFile => ({

@@ -25,7 +25,7 @@ function Dossier (props) {
   return (
     <div className="dossier-wrap">
       <Segment basic loading={loading} style={{ padding: 0 }}>
-        {props.header && <Header dividing content={dossier.name}/>}
+        {props.header && dossier && <Header dividing content={dossier.name}/>}
         {!!dossierError && <Message error visible header="Ошибка при загрузке досье" content={dossierError}/>}
         {!!error && <Message error visible header="Ошибка при выполнении действия" content={error}/>}
         {(!query || (!dossier && !dossierError)) && <Message error visible header="В компонент не переданы данные по досье"/>}
@@ -39,7 +39,8 @@ function Dossier (props) {
         }
       </Segment>
       {props.children && <div className="dossier-children">
-        {React.cloneElement(props.children, { dossier, dossierParams: query })}
+        {props.children && typeof props.children === 'function' && props.children({ dossier, dossierParams: query })}
+        {props.children && typeof props.children === 'object' && React.cloneElement(props.children, { dossier, dossierParams: query })}
       </div>}
     </div>
   );
