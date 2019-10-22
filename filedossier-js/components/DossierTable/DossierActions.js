@@ -39,7 +39,7 @@ function DossierActions ({ dossierFile, dossierActions, query }) {
       <Segment style={{ position: 'absolute', top: -20, zIndex: 1000, display: uploadOpened ? '' : 'none' }}>
         {uploadOpened && <div>
           <BystroScan
-            fileId={`${dossierKey}_${dossierPackage}_${dossierCode}_${dossierFile.code}`}
+            fileId={`file_${dossierKey}_${dossierPackage}_${dossierCode}_${dossierFile.code}`}
             uploadFile={({ fileId, fileInput, error } = {}) => {
               if (fileId && fileInput && !error) {
                 dossierActions.upload({ fileCode: fileId, file: fileInput.files[0] });
