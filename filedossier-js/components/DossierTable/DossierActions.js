@@ -42,7 +42,7 @@ function DossierActions ({ dossierFile, dossierActions, query }) {
             fileId={`file_${dossierKey}_${dossierPackage}_${dossierCode}_${dossierFile.code}`}
             uploadFile={({ fileId, fileInput, error } = {}) => {
               if (fileId && fileInput && !error) {
-                dossierActions.upload({ fileCode: fileId, file: fileInput.files[0] });
+                dossierActions.upload({ fileCode: dossierFile.code, file: fileInput.files[0] });
                 closeUploadModal();
               }
             }}

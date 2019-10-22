@@ -23,7 +23,7 @@ function DossierPreview ({ query, dossier, dossierActions }) {
           fileId={`file_${dossierKey}_${dossierPackage}_${dossierCode}_${selectedFileCode}`}
           uploadFile={({ fileId, fileInput, error } = {}) => {
             if (fileId && fileInput && !error) {
-              dossierActions.upload({ fileCode: fileId, file: fileInput.files[0] });
+              dossierActions.upload({ fileCode: selectedFileCode, file: fileInput.files[0] });
             }
           }}
         />}
