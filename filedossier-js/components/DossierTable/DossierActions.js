@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import { Segment, Button, Icon } from 'semantic-ui-react';
 import BystroScan from '../BystroScan';
 
-function DossierActions ({ dossierFile, dossierActions }) {
+function DossierActions ({ dossierFile, dossierActions, query }) {
   if (dossierFile.readonly) { return <div/>; }
+  const { dossierKey, dossierPackage, dossierCode } = query;
   const [uploadOpened, setUploadOpen] = useState(null);
 
   const closeUploadModal = () => {
@@ -38,7 +39,7 @@ function DossierActions ({ dossierFile, dossierActions }) {
       <Segment style={{ position: 'absolute', top: -20, zIndex: 1000, display: uploadOpened ? '' : 'none' }}>
         {uploadOpened && <div>
           <BystroScan
-            fileId={dossierFile.code}
+            fileId={`${dossierKey}_${dossierPackage}_${dossierCode}_${dossierFile.code}`}
             uploadFile={({ fileId, fileInput, error } = {}) => {
               if (fileId && fileInput && !error) {
                 dossierActions.upload({ fileCode: fileId, file: fileInput.files[0] });
@@ -56,6 +57,7 @@ function DossierActions ({ dossierFile, dossierActions }) {
 DossierActions.propTypes = {
   dossierFile: PropTypes.object.isRequired,
   dossierActions: PropTypes.object.isRequired,
+  query: PropTypes.object.isRequired,
 };
 
 export default DossierActions;

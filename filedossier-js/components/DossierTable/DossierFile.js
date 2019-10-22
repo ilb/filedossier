@@ -16,6 +16,7 @@ function DossierFile ({ dossierFile, dossierActions, query }) {
         <DossierActions
           dossierFile={dossierFile}
           dossierActions={dossierActions}
+          query={query}
         />
       </Table.Cell>
     </Table.Row>
