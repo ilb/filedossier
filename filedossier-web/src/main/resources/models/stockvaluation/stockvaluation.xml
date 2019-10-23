@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:ru:ilb:filedossier:ddl" xsi:schemaLocation="urn:ru:ilb:filedossier:ddl ../../../../../filedossier-ddl/src/main/resources/schemas/filedossier/ddl.xsd">
+    <code>stockvaluation</code>
+    <name>Оценка стоимости ценных бумаг</name>
+    <dossier>
+        <code>stockvaluation_fairpricecalc</code>
+        <name>Расчет справедливой цены</name>
+        <dossierFile>
+            <code>fairpricecalc</code>
+            <name>Распоряжение</name>
+            <readonly>true</readonly>
+            <mediaType>application/json</mediaType>
+            <representation>
+                <mediaType>application/vnd.oasis.opendocument.spreadsheet</mediaType>
+                <stylesheet>representations/fairpriceorder/content.xsl</stylesheet>
+                <template>representations/fairpriceorder/template.ods</template>
+            </representation>
+        </dossierFile>
+
+    </dossier>
+</package>
+
