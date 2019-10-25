@@ -16,8 +16,6 @@
 package ru.ilb.filedossier.representation;
 
 import ru.ilb.filedossier.entities.*;
-import ru.ilb.filedossier.representation.delegate.MultipartDelegate;
-import ru.ilb.filedossier.representation.delegate.PDFMultipartDelegate;
 
 import java.io.File;
 import java.io.IOException;
@@ -32,15 +30,11 @@ public class IdentityRepresentation implements Representation {
 
     protected DossierContents parent;
 
-    protected Store store;
-
     protected final String mediaType;
 
-    protected MultipartDelegate multipartDelegate;
 
-    public IdentityRepresentation(Store store, String mediaType) {
+    public IdentityRepresentation(String mediaType) {
         this.mediaType = mediaType;
-        this.store = store;
     }
 
     @Override
@@ -59,7 +53,6 @@ public class IdentityRepresentation implements Representation {
                 parent.getClass()) : "DossierContents instance should be passed as argument instead of "
                 + parent.getClass().getCanonicalName();
         this.parent = (DossierContents) parent;
-        initMultipartDelegate();
     }
 
     @Override
@@ -69,14 +62,7 @@ public class IdentityRepresentation implements Representation {
 
     @Override
     public byte[] getContents() {
-       try {
-            return multipartDelegate.isEmpty()
-                   ? store.isExist(getFileName())
-                   ? store.getContents(getFileName()) : generateRepresentation()
-                   : multipartDelegate.getContents();
-        } catch (IOException e) {
-            throw new RuntimeException("Error getting representation: " + e);
-        }
+        return parent.getContents();
     }
 
     @Override
@@ -86,47 +72,16 @@ public class IdentityRepresentation implements Representation {
 
     @Override
     public void setContents(byte[] contents) {
-        try {
-            store.setContents(getFileName(), contents);
-        } catch (IOException e) {
-            throw new RuntimeException("Error while saving representation: " + e);
-        }
+        parent.setContents(contents);
     }
 
     @Override
     public void setContents(File file) {
-        byte[] contents;
-        try {
-            contents = Files.readAllBytes(file.toPath());
-        } catch (IOException e) {
-            throw new RuntimeException("File not exist: " + e);
-        }
-        try {
-            store.setContents(getFileName(), contents);
-        } catch (IOException e) {
-            throw new RuntimeException("Error while saving representation: " + e);
-        }
-    }
-
-    @Override
-    public byte[] generateRepresentation() {
-        return getContents();
+        parent.setContents(file);
     }
 
     @Override
     public String getExtension() {
         return parent.getExtension();
-    }
-
-    @Override
-    public void setRepresentationPart(RepresentationPart part) {
-        multipartDelegate.setRepresentationPart(part);
-    }
-
-    private void initMultipartDelegate() {
-        if (multipartDelegate == null) {
-            Store nestedStore = store.getNestedFileStore(getCode());
-            multipartDelegate = new PDFMultipartDelegate(nestedStore);
-        }
     }
 }

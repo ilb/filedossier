@@ -48,11 +48,11 @@ public class JsonXmlRepresentationTest {
 
         Store store = StoreFactory.newInstance(Files.createTempDirectory("storeroot").toUri()).getStore("storekey");
 
-        JsonXmlRepresentation instance = new JsonXmlRepresentation(store);
+        JsonXmlRepresentation instance = new JsonXmlRepresentation();
         instance.setParent(contents);
 
         String expResult = new String(Files.readAllBytes(Paths.get(dataXmlUri)));
-        String result = new String(instance.generateRepresentation());
+        String result = new String(instance.getContents());
         assertTrue(expResult.contains(result)); // assertion failed using test xml with end newline
     }
 

@@ -27,8 +27,7 @@ import ru.ilb.filedossier.api.DossierFileResource;
 import ru.ilb.filedossier.core.ContentDispositionMode;
 import ru.ilb.filedossier.entities.DossierFile;
 import ru.ilb.filedossier.entities.Representation;
-import ru.ilb.filedossier.filedossier.usecases.upload.PublishDossierFile;
-import ru.ilb.filedossier.filedossier.usecases.upload.UploadDocument;
+import ru.ilb.filedossier.filedossier.usecases.upload.PublishFile;
 
 public class DossierFileResourceImpl implements DossierFileResource {
 
@@ -36,10 +35,7 @@ public class DossierFileResourceImpl implements DossierFileResource {
      * Upload document use case.
      */
     @Inject
-    private UploadDocument uploadDocument;
-
-    @Inject
-    private PublishDossierFile publishDossierFile;
+    private PublishFile publishFile;
 
     /**
      * Spring application context.
@@ -78,17 +74,7 @@ public class DossierFileResourceImpl implements DossierFileResource {
 
     @Override
     public void publish(File file) {
-        publishDossierFile.publish(file, dossierFile, getCurrentContextKey());
-    }
-
-    @Override
-    public void upload(File file) {
-        try {
-            uploadDocument.upload(file, dossierFile, getCurrentContextKey());
-        }
-        catch (IOException ex) {
-            throw new RuntimeException(ex);
-        }
+        publishFile.publish(file, dossierFile, getCurrentContextKey());
     }
 
     @Override

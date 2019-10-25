@@ -43,8 +43,8 @@ public class OdsXsltRepresentation extends IdentityRepresentation {
     protected final URI stylesheetUri;
     protected final URI templateUri;
 
-    public OdsXsltRepresentation(Store store, String mediaType, URI stylesheetUri, URI templateUri) {
-        super(store, mediaType);
+    public OdsXsltRepresentation(String mediaType, URI stylesheetUri, URI templateUri) {
+        super(mediaType);
         this.stylesheetUri = stylesheetUri;
         this.templateUri = templateUri;
     }
@@ -134,7 +134,7 @@ public class OdsXsltRepresentation extends IdentityRepresentation {
                 this.parent = dossierContents;
                 break;
             case "application/json":
-                JsonXmlRepresentation jsonXmlRepresentation = new JsonXmlRepresentation(store);
+                JsonXmlRepresentation jsonXmlRepresentation = new JsonXmlRepresentation();
                 jsonXmlRepresentation.setParent(parent);
                 this.parent = jsonXmlRepresentation;
                 break;

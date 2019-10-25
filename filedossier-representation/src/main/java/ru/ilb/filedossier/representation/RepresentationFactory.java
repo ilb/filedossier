@@ -52,7 +52,7 @@ public class RepresentationFactory {
                     throw new IllegalArgumentException("Bad uri for representation resources: " + e);
                 }
             case "application/xml":
-                return new JsonXmlRepresentation(store);
+                return new JsonXmlRepresentation();
             default:
                 throw new IllegalArgumentException(
                         "unsupported media type: " + model.getMediaType());
@@ -62,7 +62,7 @@ public class RepresentationFactory {
     private Representation createOdsRepresentation(RepresentationDefinition model) {
         URI stylesheetUri = definitionUri.resolve(model.getStylesheet());
         URI templateUri = definitionUri.resolve(model.getTemplate());
-        return new OdsXsltRepresentation(store, model.getMediaType(), stylesheetUri, templateUri);
+        return new OdsXsltRepresentation(model.getMediaType(), stylesheetUri, templateUri);
     }
 
     private Representation createPdfRepresentation(RepresentationDefinition model)
@@ -78,7 +78,7 @@ public class RepresentationFactory {
         URI stylesheetUri = definitionUri.resolve(model.getStylesheet());
         URI schema = definitionUri.resolve(model.getSchema());
         URI meta = definitionUri.resolve(model.getMeta());
-        return new PdfGenRepresentation(store, model.getMediaType(), stylesheetUri, schema, meta);
+        return new PdfGenRepresentation(model.getMediaType(), stylesheetUri, schema, meta);
 
     }
 }

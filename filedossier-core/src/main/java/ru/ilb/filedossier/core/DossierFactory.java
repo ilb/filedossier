@@ -104,7 +104,7 @@ public class DossierFactory {
         final List<Representation> representations = model.getRepresentations().stream()
                 .map(representationModel -> representationFactory.createRepresentation(representationModel))
                 .collect(Collectors.toList());
-        return new DossierFileImpl(store,
+        return new DossierFileImpl(store.getNestedFileStore(model.getCode()),
                 model.getCode(), model.getName(), Boolean.TRUE.equals(model.getRequired()),
                 Boolean.TRUE.equals(model.getReadonly()), Boolean.TRUE.equals(model.getHidden()),
                 model.getMediaType(), lastModified, representations);

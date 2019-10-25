@@ -17,7 +17,7 @@
 
         <method name="GET" id="getDossier">
             <doc>get dossier instance</doc>
-            <request></request>
+            <request/>
             <response>
                 <representation mediaType="application/xml" element="view:dossier">
                     <doc>dossier data</doc>
@@ -43,7 +43,7 @@
     <resource_type id="dossierContextResource">
         <method name="GET" id="getContext">
             <doc>get dossier context</doc>
-            <request></request>
+            <request/>
             <response status="200">
                 <representation mediaType="application/json" element="global:map">
                     <doc>processInstances data</doc>
@@ -64,7 +64,7 @@
                     <doc>processInstances data</doc>
                 </representation>-->
             </request>
-            <response status="204"></response>
+            <response status="204"/>
         </method>
     </resource_type>
 
@@ -80,19 +80,6 @@
             </response>
         </method>
 
-        <resource path="upload">
-            <method name="POST" id="upload">
-                <doc>store dossier file contents</doc>
-                <request>
-                    <representation mediaType="multipart/form-data">
-                        <doc>file data</doc>
-                        <param style="query" name="file" type="java.io.File" />
-                    </representation>
-                </request>
-                <response status="204"/>
-            </method>
-        </resource>
-
         <resource path="publish">
             <method name="POST" id="publish">
                 <doc>store dossier file contents</doc>
@@ -105,7 +92,6 @@
                 <response status="204"/>
             </method>
         </resource>
-
         <resource path="context" id="dossierContextResource" type="#dossierContextResource"/>
     </resource_type>
 

@@ -41,9 +41,9 @@ public class PdfGenRepresentation extends IdentityRepresentation {
 
     private final WebResourceFunction webResourceFunction;
 
-    public PdfGenRepresentation(Store parentStore, String mediaType,
-            URI stylesheetUri, URI schemeUri, URI metaUri) throws MalformedURLException {
-        super(parentStore, mediaType);
+    public PdfGenRepresentation(String mediaType, URI stylesheetUri, URI schemeUri, URI metaUri)
+            throws MalformedURLException {
+        super(mediaType);
 
         URL resourceUrl = new URL(
             String.format(BASE_URI, stylesheetUri.toString(), schemeUri.toString(),
@@ -56,7 +56,7 @@ public class PdfGenRepresentation extends IdentityRepresentation {
     }
 
     @Override
-    public byte[] generateRepresentation() {
+    public byte[] getContents() {
         //byte[] document = webResourceFunction.apply(parent.getContents());
         InputStream representationStream = getClass()
                 .getClassLoader()
@@ -65,6 +65,7 @@ public class PdfGenRepresentation extends IdentityRepresentation {
         Path tmpFile;
         try {
             tmpFile = Files.createTempFile("representation", ".pdf");
+            assert representationStream != null;
             Files.copy(representationStream, tmpFile, StandardCopyOption.REPLACE_EXISTING);
             return Files.readAllBytes(tmpFile);
         } catch (IOException | NullPointerException ex) {

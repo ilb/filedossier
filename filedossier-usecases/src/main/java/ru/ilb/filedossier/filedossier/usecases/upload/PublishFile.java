@@ -29,27 +29,16 @@ import java.io.IOException;
  * @author kuznetsov_me
  */
 @Named
-public class UploadDocument extends UploadUseCase {
+public class PublishFile extends UploadUseCase {
 
-    private UploadScan uploadScan;
 
     @Inject
-    public UploadDocument(DossierContextService contextService, UploadScan uploadScan) {
+    public PublishFile(DossierContextService contextService) {
         super(contextService);
-        this.uploadScan = uploadScan;
     }
 
-    public void upload(File document, DossierFile dossierFile, String contextKey) throws
-            IOException {
-
-        String mimeType;
-        mimeType = MimeTypeUtil.guessMimeTypeFromFile(document);
-
-        if (mimeType.contains("image/")) {
-            uploadScan.upload(document, dossierFile);
-        } else {
-            dossierFile.getRepresentation().setContents(document);
-        }
+    public void publish(File file, DossierFile dossierFile, String contextKey) {
+        dossierFile.setContents(file);
         setUploadTime(contextKey);
     }
 }

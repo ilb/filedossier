@@ -52,7 +52,7 @@ public class OdsXsltRepresentationTest {
         DossierContentsHolder contents = new DossierContentsHolder(source, "application/xml", "fairpriceorder", "Отчет", "xml");
 
         Store store = StoreFactory.newInstance(Files.createTempDirectory("storeroot").toUri()).getStore("storekey");
-        OdsXsltRepresentation instance = new OdsXsltRepresentation(store, "application/vnd.oasis.opendocument.spreadsheet", stylesheet, template);
+        OdsXsltRepresentation instance = new OdsXsltRepresentation("application/vnd.oasis.opendocument.spreadsheet", stylesheet, template);
         instance.setParent(contents);
 
         byte[] result = instance.getContents();
@@ -83,10 +83,10 @@ public class OdsXsltRepresentationTest {
         DossierContentsHolder contents = new DossierContentsHolder(source, "application/json", "fairpriceorder", "Отчет", "json");
 
         Store store = StoreFactory.newInstance(Files.createTempDirectory("storeroot").toUri()).getStore("storekey");
-        OdsXsltRepresentation instance = new OdsXsltRepresentation(store, "application/vnd.oasis.opendocument.spreadsheet", stylesheet, template);
+        OdsXsltRepresentation instance = new OdsXsltRepresentation("application/vnd.oasis.opendocument.spreadsheet", stylesheet, template);
         instance.setParent(contents);
 
-        byte[] result = instance.generateRepresentation();
+        byte[] result = instance.getContents();
         assertNotNull(result);
         assertEquals("fairpriceorder.ods", instance.getFileName());
         assertEquals("application/vnd.oasis.opendocument.spreadsheet", instance.getMediaType());

@@ -71,7 +71,7 @@ public class DossierFileImpl implements DossierFile {
         this.lastModified = lastModified;
         this.representationsMap = representations.stream().peek(r -> r.setParent(this))
                 .collect(Collectors.toMap(r -> r.getMediaType(), r -> r));
-        this.representation = representations.isEmpty() ? new IdentityRepresentation(store, mediaType)
+        this.representation = representations.isEmpty() ? new IdentityRepresentation(mediaType)
                 : representations.iterator().next();
         this.representation.setParent(this);
     }

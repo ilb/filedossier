@@ -74,7 +74,7 @@ public class DossierFileResourceImplTest {
     public void testAUploadContents() throws URISyntaxException {
 
         DossierFileResource fileResource = getDossierFileResource("jurnals");
-        fileResource.upload(Paths.get(getClass()
+        fileResource.publish(Paths.get(getClass()
                 .getClassLoader()
                 .getResource("page1.jpg")
                 .toURI())
