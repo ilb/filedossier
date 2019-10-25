@@ -18,6 +18,12 @@ export default class FileDossier {
     return { query, response, error };
   }
 
+  // download file
+  download = async ({ fileCode }) => {
+    const response = await this.api.download(fileCode, this.dossierKey, this.dossierPackage, this.dossierCode);
+    return response;
+  }
+
   upload = async ({ fileCode, file }) => {
     const response = await this.api.publish(file, [fileCode, this.dossierKey, this.dossierPackage, this.dossierCode]);
     return response;
