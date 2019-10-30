@@ -83,7 +83,7 @@
     </xsd:complexType>
     <xsd:complexType name="allowedMediaTypes">
         <xsd:sequence>
-            <xsd:element name="allowedType" type="xsd:string" maxOccurs="unbounded"/>
+            <xsd:element name="allowedMediaType" type="xsd:string" maxOccurs="unbounded"/>
         </xsd:sequence>
     </xsd:complexType>
 </xsd:schema>
