@@ -37,6 +37,7 @@ import javax.xml.transform.stream.StreamSource;
 import ru.ilb.filedossier.entities.DossierContents;
 import ru.ilb.filedossier.entities.DossierPath;
 import ru.ilb.filedossier.entities.Store;
+import ru.ilb.filedossier.mimetype.MimeTypeUtil;
 
 public class OdsXsltRepresentation extends IdentityRepresentation {
 

@@ -16,10 +16,11 @@
 package ru.ilb.filedossier.entities;
 
 import java.io.File;
+import java.io.IOException;
 
 /**
  * <p>
- * This interface is a DossierPath extension, represents the physical file from the dossier directory.
+ * This interface is a DossierPath extension, represents the directory in the dossier path.
  * <p>
  *
  * @author slavb
@@ -29,20 +30,20 @@ public interface DossierContents extends DossierPath {
     /**
      * @return file contents using default representation.
      */
-    byte[] getContents();
+    byte[] getContents() throws IOException;
 
     /**
-     * Stores given contents to a file from byte array
+     * Stores given contents to a default dir from given byte array
      *
      * @param contents data, which needs to be saved to a dossier file
      */
-    void setContents(byte[] contents);
+    void setContents(byte[] contents) throws IOException;
 
     /**
-     * Stores given contents to a file from file
+     * Stores given contents to a default dir from given file
      * @param file file, which needs to be saved to a dossier file
      */
-    void setContents(File file);
+    void setContents(File file) throws IOException;
 
     /**
      * @return file's media type using default representation.

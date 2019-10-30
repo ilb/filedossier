@@ -17,6 +17,7 @@ package ru.ilb.filedossier.filedossier.usecases.upload;
 
 import ru.ilb.filedossier.context.DossierContextService;
 import ru.ilb.filedossier.entities.DossierFile;
+import ru.ilb.filedossier.entities.DossierFileVersion;
 import ru.ilb.filedossier.mimetype.MimeTypeUtil;
 
 import javax.inject.Inject;
@@ -29,16 +30,19 @@ import java.io.IOException;
  * @author kuznetsov_me
  */
 @Named
-public class PublishFile extends UploadUseCase {
+public class PublishFile {
 
+    public void publish(File file, DossierFile dossierFile) {
+        DossierFileVersion version = dossierFile.getLatestVersion();
 
-    @Inject
-    public PublishFile(DossierContextService contextService) {
-        super(contextService);
-    }
+        if (version == null) {
+            throw new RuntimeException("dossier file isn't created");
+        }
 
-    public void publish(File file, DossierFile dossierFile, String contextKey) {
-        dossierFile.setContents(file);
-        setUploadTime(contextKey);
+        try {
+            version.setContents(file);
+        } catch (IOException e) {
+            throw new RuntimeException("error while saving");
+        }
     }
 }

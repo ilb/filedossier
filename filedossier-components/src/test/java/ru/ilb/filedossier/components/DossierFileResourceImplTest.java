@@ -85,12 +85,12 @@ public class DossierFileResourceImplTest {
     public void testBGetContents() {
 
         DossierFileResource fileResource = getDossierFileResource("fairpricecalc");
-        Response response = fileResource.download(null);
+        Response response = fileResource.download(null, null);
         Assert.assertEquals("application/vnd.oasis.opendocument.spreadsheet",
                 response.getMediaType().toString());
 
         fileResource = getDossierFileResource("jurnals");
-        response = fileResource.download(null);
+        response = fileResource.download(null, null);
         Assert.assertEquals("application/pdf", response.getMediaType().toString());
     }
 }

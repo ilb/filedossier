@@ -72,6 +72,7 @@
         <method name="GET" id="download">
             <doc>get dossier file contents</doc>
             <request>
+                <param name="version" style="query" type="xsd:int" />
                 <param name="mode" style="query" type="core:contentDispositionMode" default="attachment"/>
             </request>
             <response status="200">
@@ -81,7 +82,7 @@
         </method>
 
         <resource path="publish">
-            <method name="POST" id="publish">
+            <method name="PUT" id="publish">
                 <doc>store dossier file contents</doc>
                 <request>
                     <representation mediaType="multipart/form-data">
@@ -92,6 +93,19 @@
                 <response status="204"/>
             </method>
         </resource>
+
+        <resource path="publish">
+            <method name="POST" id="publishNewVersion">
+                <doc>upload dossier file contents</doc>
+                <request>
+                    <representation mediaType="multipart/form-data">
+                        <doc>file data</doc>
+                        <param style="query" name="file" type="java.io.File"/>
+                    </representation>
+                </request>
+            </method>
+        </resource>
+
         <resource path="context" id="dossierContextResource" type="#dossierContextResource"/>
     </resource_type>
 

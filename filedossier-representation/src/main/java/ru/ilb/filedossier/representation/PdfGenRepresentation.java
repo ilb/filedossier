@@ -56,7 +56,7 @@ public class PdfGenRepresentation extends IdentityRepresentation {
     }
 
     @Override
-    public byte[] getContents() {
+    public byte[] getContents() throws IOException {
         //byte[] document = webResourceFunction.apply(parent.getContents());
         InputStream representationStream = getClass()
                 .getClassLoader()

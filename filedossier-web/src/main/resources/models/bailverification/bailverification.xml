@@ -14,7 +14,9 @@
       <readonly>false</readonly>
       <required>true</required>
       <hidden>false</hidden>
-      <mediaType>image/jpeg</mediaType>
+      <variation>
+        <mediaType>image/jpeg</mediaType>
+      </variation>
     </dossierFile>
   </dossier>
 </package>

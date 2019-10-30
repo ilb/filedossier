@@ -61,7 +61,7 @@ public class IdentityRepresentation implements Representation {
     }
 
     @Override
-    public byte[] getContents() {
+    public byte[] getContents() throws IOException {
         return parent.getContents();
     }
 
@@ -71,12 +71,12 @@ public class IdentityRepresentation implements Representation {
     }
 
     @Override
-    public void setContents(byte[] contents) {
+    public void setContents(byte[] contents) throws IOException {
         parent.setContents(contents);
     }
 
     @Override
-    public void setContents(File file) {
+    public void setContents(File file) throws IOException {
         parent.setContents(file);
     }
 

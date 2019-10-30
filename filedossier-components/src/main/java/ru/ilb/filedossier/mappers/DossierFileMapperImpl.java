@@ -15,6 +15,8 @@
  */
 package ru.ilb.filedossier.mappers;
 
+import ru.ilb.filedossier.entities.DossierFileVersion;
+import ru.ilb.filedossier.view.AllowedMediaTypes;
 import ru.ilb.filedossier.view.DossierFileView;
 
 import javax.inject.Named;
@@ -30,7 +32,13 @@ public class DossierFileMapperImpl implements DossierFileMapper {
         df.setExists(model.getExists());
         df.setReadonly(model.getReadonly());
         df.setRequired(model.getRequired());
-        df.setLastModified(model.lastModified());
+        df.setAllowedMediaTypes(new AllowedMediaTypes().withAllowedTypes(model.getAllowedMediaTypes()));
+        if (model.getExists()) {
+            DossierFileVersion latestVersion = model.getLatestVersion();
+            df.setVersion(String.valueOf(model.getVersionsCount()));
+            df.setMediaType(latestVersion.getMediaType());
+            df.setLastModified(model.lastModified());
+        }
         return df;
     }
 

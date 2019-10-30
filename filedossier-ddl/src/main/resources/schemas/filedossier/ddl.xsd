@@ -85,17 +85,12 @@
                     <xsd:documentation>Скрытый файл</xsd:documentation>
                 </xsd:annotation>
             </xsd:element>
-            <xsd:element name="mediaType" type="xsd:string">
-                <xsd:annotation>
-                    <xsd:documentation>Тип содержимого</xsd:documentation>
-                </xsd:annotation>
-            </xsd:element>
             <xsd:element name="attribute" type="attribute"  minOccurs="0" maxOccurs="unbounded">
                 <xsd:annotation>
                     <xsd:documentation>Аттрибуты документа</xsd:documentation>
                 </xsd:annotation>
             </xsd:element>
-            <xsd:element name="representation" type="representation"  minOccurs="0" maxOccurs="unbounded">
+            <xsd:element name="variation" type="variation" maxOccurs="unbounded">
                 <xsd:annotation>
                     <xsd:documentation>Представления файла</xsd:documentation>
                 </xsd:annotation>
@@ -103,6 +98,16 @@
         </xsd:sequence>
     </xsd:complexType>
     <xsd:element name="representation" type="representation"/>
+
+    <xsd:complexType name="variation">
+        <xsd:sequence>
+            <xsd:element name="mediaType" type="xsd:string">
+            </xsd:element>
+            <xsd:element name="representation" type="representation" minOccurs="0" maxOccurs="unbounded">
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
     <xsd:complexType name="representation">
         <xsd:annotation>
             <xsd:documentation>Преставление файла досье</xsd:documentation>
@@ -131,11 +136,6 @@
             <xsd:element name="meta" type="xsd:string" minOccurs="0">
                 <xsd:annotation>
                     <xsd:documentation>meta URL</xsd:documentation>
-                </xsd:annotation>
-            </xsd:element>
-            <xsd:element name="multipart" type="xsd:string" minOccurs="0">
-                <xsd:annotation>
-                    <xsd:documentation>Is representation in multiple files</xsd:documentation>
                 </xsd:annotation>
             </xsd:element>
         </xsd:sequence>

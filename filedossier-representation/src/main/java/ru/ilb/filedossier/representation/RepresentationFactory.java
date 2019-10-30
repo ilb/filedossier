@@ -18,11 +18,8 @@ package ru.ilb.filedossier.representation;
 import java.net.MalformedURLException;
 import java.net.URI;
 
-import org.apache.xalan.xsltc.compiler.Template;
 import ru.ilb.filedossier.ddl.RepresentationDefinition;
 import ru.ilb.filedossier.entities.Representation;
-import ru.ilb.filedossier.entities.Store;
-import ru.ilb.filedossier.scripting.TemplateEvaluator;
 
 /**
  *
@@ -32,11 +29,9 @@ public class RepresentationFactory {
 
     // TODO: process with evaluation
     private URI definitionUri;
-    private Store store;
     //private TemplateEvaluator templateEvaluator;
 
-    public RepresentationFactory(Store store, URI definitionUri /*, TemplateEvaluator templateEvaluator */) {
-        this.store = store;
+    public RepresentationFactory(URI definitionUri /*, TemplateEvaluator templateEvaluator */) {
         this.definitionUri = definitionUri;
         //this.templateEvaluator = templateEvaluator;
     }
