@@ -82,8 +82,8 @@
         </method>
 
         <resource path="publish">
-            <method name="PUT" id="publish">
-                <doc>store dossier file contents</doc>
+            <method name="PUT" id="update">
+                <doc>add file to current dossier file version</doc>
                 <request>
                     <representation mediaType="multipart/form-data">
                         <doc>file data</doc>
@@ -95,8 +95,8 @@
         </resource>
 
         <resource path="publish">
-            <method name="POST" id="publishNewVersion">
-                <doc>upload dossier file contents</doc>
+            <method name="POST" id="publish">
+                <doc>create new dossier file version</doc>
                 <request>
                     <representation mediaType="multipart/form-data">
                         <doc>file data</doc>

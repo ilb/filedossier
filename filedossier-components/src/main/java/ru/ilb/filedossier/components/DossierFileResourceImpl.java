@@ -93,12 +93,12 @@ public class DossierFileResourceImpl implements DossierFileResource {
     }
 
     @Override
-    public void publish(File file) {
+    public void update(File file) {
         publishFile.publish(file, dossierFile);
     }
 
     @Override
-    public void publishNewVersion(File file) {
+    public void publish(File file) {
         publishFileNewVersion.publish(file, dossierFile);
     }
 
