@@ -8,7 +8,8 @@ import DossierTable from './DossierTable';
 export const getFileLink = ({ dossierKey, dossierPackage, dossierCode, file, inline }) => (
   `https://devel.net.ilb.ru/workflow-web/web/v2/` +
     `dossiers/${dossierKey}/${dossierPackage}/${dossierCode}/dossierfiles/${file.code}` +
-    `${inline ? `?mode=inline&nocache=${file.lastModified.replace(/\D/g, '')}` : ''}`
+    `?nocache=${file.lastModified.replace(/\D/g, '')}` +
+    `${inline ? `&mode=inline` : ''}`
 );
 
 function Dossier (props) {
@@ -22,12 +23,14 @@ function Dossier (props) {
     default: DossierComponent = DossierTable; // default as table
   }
 
+  const childrenProps = { dossier, dossierParams: query };
+
   return (
     <div className="dossier-wrap">
       <Segment basic loading={loading} style={{ padding: 0 }}>
         {props.header && dossier && <Header dividing content={dossier.name}/>}
         {!!dossierError && <Message error visible header="Ошибка при загрузке досье" content={dossierError}/>}
-        {!!error && <Message error visible header="Ошибка при выполнении действия" content={error}/>}
+        {!!error && <Message error visible header="Ошибка при выполнении действия с досье" content={error}/>}
         {(!query || (!dossier && !dossierError)) && <Message error visible header="В компонент не переданы данные по досье"/>}
         {(dossier && (!dossier.dossierFile || !dossier.dossierFile.length)) && <Message error visible header="Отсутствуют файлы в досье"/>}
         {dossier && dossier.dossierFile && dossier.dossierFile.length > 0 &&
@@ -39,8 +42,8 @@ function Dossier (props) {
         }
       </Segment>
       {props.children && <div className="dossier-children">
-        {props.children && typeof props.children === 'function' && props.children({ dossier, dossierParams: query })}
-        {props.children && typeof props.children === 'object' && React.cloneElement(props.children, { dossier, dossierParams: query })}
+        {props.children && typeof props.children === 'function' && props.children(childrenProps)}
+        {props.children && typeof props.children === 'object' && React.cloneElement(props.children, childrenProps)}
       </div>}
     </div>
   );

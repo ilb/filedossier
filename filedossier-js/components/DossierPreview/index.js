@@ -8,6 +8,7 @@ function DossierPreview ({ query, dossier, dossierActions }) {
   const dossierFiles = dossier.dossierFile;
   const [selectedFileCode, selectFile] = useState(dossierFiles[0] ? dossierFiles[0].code : null);
   const selectedFile = selectedFileCode && dossierFiles.find(file => file.code === selectedFileCode);
+  const { dossierKey, dossierPackage, dossierCode } = query;
 
   return (
     <div>
@@ -19,10 +20,10 @@ function DossierPreview ({ query, dossier, dossierActions }) {
       />}
       {selectedFileCode && selectedFile && <div>
         {!selectedFile.readonly && <BystroScan
-          fileId={selectedFileCode}
+          fileId={`file_${dossierKey}_${dossierPackage}_${dossierCode}_${selectedFileCode}`}
           uploadFile={({ fileId, fileInput, error } = {}) => {
             if (fileId && fileInput && !error) {
-              dossierActions.upload({ fileCode: fileId, file: fileInput.files[0] });
+              dossierActions.upload({ fileCode: selectedFileCode, file: fileInput.files[0] });
             }
           }}
         />}
