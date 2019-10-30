@@ -24,9 +24,4 @@ package ru.ilb.filedossier.entities;
  * @author slavb
  */
 public interface Representation extends DossierContents {
-
-    byte[] generateRepresentation();
-
-    void setRepresentationPart(RepresentationPart part);
-
 }

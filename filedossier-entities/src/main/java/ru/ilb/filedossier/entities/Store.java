@@ -17,18 +17,27 @@ import java.util.List;
  */
 public interface Store {
 
+    boolean isExist(String code);
+
+    void setContents(String code, byte[] contents) throws IOException;
+
     /**
      * @param code
      * @return
      * @throws IOException
      */
-    public byte[] getContents(String code) throws IOException;
+    byte[] getContents(String code) throws IOException;
 
-    public List<byte[]> getAllContents();
+    List<byte[]> getAllContents();
 
-    public void setContents(String code, byte[] contents) throws IOException;
+    Store getNestedFileStore(String code);
 
-    public boolean isExist(String code);
+    /**
+     * Returns count of dirs/files in store.
+     */
+    int getObjectsCount();
 
-    public Store getNestedFileStore(String code);
+    Long lastModified(String code);
+
+    String getFileMimeType(String code) throws IOException;
 }

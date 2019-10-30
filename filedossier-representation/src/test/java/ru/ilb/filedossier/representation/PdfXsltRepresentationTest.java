@@ -46,10 +46,10 @@ public class PdfXsltRepresentationTest {
                 "pdf");
 
         Store store = StoreFactory.newInstance(Files.createTempDirectory("storeroot").toUri()).getStore("storekey");
-        PdfXsltRepresentation instance = new PdfXsltRepresentation(store, "application/pdf", stylesheetUri, dataUri);
+        PdfXsltRepresentation instance = new PdfXsltRepresentation("application/pdf", stylesheetUri, dataUri);
         instance.setParent(contents);
 
-        byte[] result = instance.generateRepresentation();
+        byte[] result = instance.getContents();
         Files.write(Paths.get(System.getProperty("java.io.tmpdir") + "/projectteam.pdf"), result);
         assertNotNull(result);
         assertEquals("projectteam.pdf", instance.getFileName());

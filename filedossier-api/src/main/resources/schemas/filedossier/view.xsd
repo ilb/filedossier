@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema
-    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-    xmlns="urn:ru:ilb:filedossier:view"
-    attributeFormDefault="unqualified"
-    elementFormDefault="qualified"
-    targetNamespace="urn:ru:ilb:filedossier:view"
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        xmlns="urn:ru:ilb:filedossier:view" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+        attributeFormDefault="unqualified"
+        elementFormDefault="qualified"
+        targetNamespace="urn:ru:ilb:filedossier:view"
 >
 
     <xsd:element name="dossier" type="dossier"/>
@@ -58,11 +58,6 @@
                     <xsd:documentation>Наличие файла</xsd:documentation>
                 </xsd:annotation>
             </xsd:element>
-            <xsd:element name="lastModified" type="xsd:string">
-                <xsd:annotation>
-                    <xsd:documentation>Время последней модификации</xsd:documentation>
-                </xsd:annotation>
-            </xsd:element>
             <xsd:element name="readonly" type="xsd:boolean">
                 <xsd:annotation>
                     <xsd:documentation>Только для чтения</xsd:documentation>
@@ -73,7 +68,22 @@
                     <xsd:documentation>Обязательный</xsd:documentation>
                 </xsd:annotation>
             </xsd:element>
-
+            <xsd:element name="mediaType" type="xsd:string">
+            </xsd:element>
+            <xsd:element name="allowedMediaTypes" type="allowedMediaTypes">
+            </xsd:element>
+            <xsd:element name="version" type="xsd:string" minOccurs="0">
+            </xsd:element>
+            <xsd:element name="lastModified" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:documentation>Время последней модификации</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="allowedMediaTypes">
+        <xsd:sequence>
+            <xsd:element name="allowedType" type="xsd:string" maxOccurs="unbounded"/>
         </xsd:sequence>
     </xsd:complexType>
 </xsd:schema>

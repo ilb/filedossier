@@ -16,20 +16,14 @@
 package ru.ilb.filedossier.entities;
 
 import java.io.File;
+import java.util.List;
 
 /**
  * Dossier file is an extension of DossierContents, it is the abstract dossier file, that contains representation, context, and abstract flags of file.
  *
  * @author SPoket
  */
-public interface DossierFile extends DossierContents {
-
-    /**
-     * Store given file as contents of this dossier file.
-     *
-     * @param file file, needed to save
-     */
-    void setContents(File file);
+public interface DossierFile extends DossierPath {
 
     /**
      * @return is file required to be present.
@@ -52,18 +46,33 @@ public interface DossierFile extends DossierContents {
     boolean getExists();
 
     /**
-     * @return last modification date and time
+     * Returns last modified date of latest version
+     * @return millis
      */
     String lastModified();
 
     /**
-     * @return default representation of this dossier file
-     * @see ru.ilb.filedossier.entities.Representation
+     * @return count of file versions
      */
-    Representation getRepresentation();
+    Integer getVersionsCount();
 
     /**
-     * @return is dossier file valid
+     * @return list with media types, allowed to store in current dossier file.
      */
-    boolean isValid();
+    List<String> getAllowedMediaTypes();
+
+    /**
+     * Creates new dossier file version
+     */
+    DossierFileVersion createNewVersion(String mediaType);
+
+    /**
+     * @return specified dossier file version
+     */
+    DossierFileVersion getVersion(int version);
+
+    /**
+     * @return latest dossier file version
+     */
+    DossierFileVersion getLatestVersion();
 }

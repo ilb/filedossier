@@ -51,8 +51,8 @@ public class PdfXsltRepresentation extends IdentityRepresentation {
 
     private static FopFactory fopFactory = null;
 
-    public PdfXsltRepresentation(Store store, String mediaType, URI stylesheetUri, URI contentUri) {
-        super(store, mediaType);
+    public PdfXsltRepresentation(String mediaType, URI stylesheetUri, URI contentUri) {
+        super(mediaType);
 
         if (!mediaType.equals(OUTPUT_FORMAT)) {
             throw new IllegalArgumentException("Unsupported media type: " + mediaType);

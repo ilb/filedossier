@@ -21,6 +21,8 @@ import org.json.XML;
 
 import ru.ilb.filedossier.entities.Store;
 
+import java.io.IOException;
+
 /**
  * Json to XML conversion.
  * @author slavb
@@ -33,8 +35,8 @@ public class JsonXmlRepresentation extends IdentityRepresentation {
      */
     private static final String XML_HEADER = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
 
-    JsonXmlRepresentation(Store store) {
-        super(store, "application/xml");
+    JsonXmlRepresentation() {
+        super("application/xml");
     }
 
     @Override
@@ -48,7 +50,7 @@ public class JsonXmlRepresentation extends IdentityRepresentation {
     }
 
     @Override
-    public byte[] generateRepresentation() {
+    public byte[] getContents() throws IOException {
         final JSONObject json = new JSONObject(new String(parent.getContents()));
         final String xml = XML_HEADER + XML.toString(json, "root");
         return xml.getBytes();

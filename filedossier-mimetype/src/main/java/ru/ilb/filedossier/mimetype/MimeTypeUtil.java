@@ -15,6 +15,14 @@
  */
 package ru.ilb.filedossier.mimetype;
 
+import jdk.nashorn.internal.parser.JSONParser;
+import org.apache.tika.Tika;
+import org.apache.tika.metadata.Metadata;
+import org.apache.tika.sax.ContentHandlerFactory;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -43,7 +51,11 @@ public class MimeTypeUtil {
     public static String guessMimeTypeFromByteArray(byte[] data) {
         InputStream is = new BufferedInputStream(new ByteArrayInputStream(data));
         try {
-            String mimeType = URLConnection.guessContentTypeFromStream(is);
+            Tika tikaDetector = new Tika();
+            String mimeType = tikaDetector.detect(is);
+            if (mimeType.equals("text/plain")) {
+                return checkIsJSON(is) ? "application/json" : mimeType;
+            }
             return mimeType;
         } catch (IOException e) {
             throw new RuntimeException("Bad byte array data: " + e);
@@ -51,7 +63,42 @@ public class MimeTypeUtil {
     }
 
     public static String guessMimeTypeFromFile(File file) {
-        return guessMimeType(file.toPath());
+        try {
+            Tika tikaDetector = new Tika();
+            String mimeType = tikaDetector.detect(file);
+            if (mimeType.equals("text/plain")) {
+                return checkIsJSON(file) ? "application/json" : mimeType;
+            }
+            return mimeType;
+        } catch (IOException e) {
+            throw new RuntimeException("Error while guessing media type: " + e);
+        }
+    }
+
+    private static boolean checkIsJSON(File file){
+       try {
+           new JSONObject(file);
+       } catch (JSONException e) {
+           try {
+               new JSONArray(file);
+           } catch (JSONException e1) {
+               return false;
+           }
+       }
+       return true;
+    }
+
+    private static boolean checkIsJSON(InputStream stream){
+        try {
+            new JSONObject(stream);
+        } catch (JSONException e) {
+            try {
+                new JSONArray(stream);
+            } catch (JSONException e1) {
+                return false;
+            }
+        }
+        return true;
     }
 
     private static String guessMimeType(Path path) {

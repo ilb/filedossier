@@ -25,6 +25,7 @@ import ru.ilb.filedossier.store.StoreFactory;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.io.IOException;
 import java.net.URI;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -76,7 +77,7 @@ public class DossierFactory {
 
         if (representationFactory == null) {
             representationFactory = new RepresentationFactory(
-                    store, baseDefinitionUri /* , templateEvaluator */);
+                    baseDefinitionUri /* , templateEvaluator */);
         }
         return createDossier(dossierModel, store, dossierKey, dossierPackage);
     }
@@ -85,28 +86,20 @@ public class DossierFactory {
             String dossierPackage) {
 
         final List<DossierFile> dossierFiles = model.getDossierFiles().stream()
-                .map(fileModel -> createDossierFile(fileModel, store))
+                .map(fileModel -> {
+                    try {
+                        return createDossierFile(fileModel, store);
+                    } catch (IOException e) {
+                        throw new RuntimeException("Error while creating dossier file");
+                    }
+                })
                 .collect(Collectors.toList());
         return new DossierImpl(model.getCode(), model.getName(), dossierPackage, dossierKey,
                 dossierFiles);
     }
 
     // TODO: evaluate model values
-    private DossierFile createDossierFile(DossierFileDefinition model, Store store) {
-        final DossierContext context = contextService.getContext(contextRoot + "/" + model.getCode());
-
-        String lastModified = null;
-        if (context.containsProperty("lastModified")) {
-            DateFormat format = new SimpleDateFormat("dd-MM-yy hh:mm:ss");
-            format.setTimeZone(TimeZone.getTimeZone(ZoneOffset.UTC));
-            lastModified = (String) context.getProperty("lastModified");
-        }
-        final List<Representation> representations = model.getRepresentations().stream()
-                .map(representationModel -> representationFactory.createRepresentation(representationModel))
-                .collect(Collectors.toList());
-        return new DossierFileImpl(store,
-                model.getCode(), model.getName(), Boolean.TRUE.equals(model.getRequired()),
-                Boolean.TRUE.equals(model.getReadonly()), Boolean.TRUE.equals(model.getHidden()),
-                model.getMediaType(), lastModified, representations);
+    private DossierFile createDossierFile(DossierFileDefinition model, Store store) throws IOException {
+       return DossierFileFactory.createDossierFile(store, representationFactory, model);
     }
 }

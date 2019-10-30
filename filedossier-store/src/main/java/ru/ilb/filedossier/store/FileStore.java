@@ -15,15 +15,20 @@
  */
 package ru.ilb.filedossier.store;
 
+import com.sun.org.apache.xerces.internal.impl.xpath.XPath;
 import ru.ilb.filedossier.entities.Store;
+import ru.ilb.filedossier.mimetype.MimeTypeUtil;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
@@ -94,6 +99,39 @@ class FileStore implements Store {
     @Override
     public FileStore getNestedFileStore(String key) {
         return new FileStore(getStorePath().toUri(), key);
+    }
+
+    @Override
+    public int getObjectsCount() {
+        String[] allObjects = getStorePath().toFile().list();
+        if (allObjects == null){
+            return 0;
+        }
+        return allObjects.length;
+    }
+
+    @Override
+    public Long lastModified(String code) {
+        try {
+            BasicFileAttributes attrs = Files.readAttributes(getFilePath(code), BasicFileAttributes.class);
+            return attrs.lastModifiedTime().toMillis();
+        } catch (IOException e) {
+            return null;
+        }
+    }
+
+    // FIXME
+    @Override
+    public String getFileMimeType(String code) throws IOException {
+        Path path = getFilePath(code);
+        System.out.println(path);
+        if (Files.isDirectory(path)){
+            File dir = new File(path.toString());
+            byte[] firstFileContents = Files.readAllBytes(dir.listFiles()[0].toPath());
+            return MimeTypeUtil.guessMimeTypeFromByteArray(firstFileContents);
+        } else {
+            return MimeTypeUtil.guessMimeTypeFromByteArray(getContents(code));
+        }
     }
 
     @Override

@@ -26,20 +26,25 @@ import ru.ilb.filedossier.api.DossierContextResource;
 import ru.ilb.filedossier.api.DossierFileResource;
 import ru.ilb.filedossier.core.ContentDispositionMode;
 import ru.ilb.filedossier.entities.DossierFile;
+import ru.ilb.filedossier.entities.DossierFileVersion;
 import ru.ilb.filedossier.entities.Representation;
-import ru.ilb.filedossier.filedossier.usecases.upload.PublishDossierFile;
-import ru.ilb.filedossier.filedossier.usecases.upload.UploadDocument;
+import ru.ilb.filedossier.filedossier.usecases.upload.PublishFile;
+import ru.ilb.filedossier.filedossier.usecases.upload.PublishFileNewVersion;
+import ru.ilb.filedossier.mimetype.MimeTypeUtil;
 
 public class DossierFileResourceImpl implements DossierFileResource {
 
     /**
-     * Upload document use case.
+     * Publish file use case.
      */
     @Inject
-    private UploadDocument uploadDocument;
+    private PublishFile publishFile;
 
+    /**
+     * Publish new version of file use case.
+     */
     @Inject
-    private PublishDossierFile publishDossierFile;
+    private PublishFileNewVersion publishFileNewVersion;
 
     /**
      * Spring application context.
@@ -63,32 +68,38 @@ public class DossierFileResourceImpl implements DossierFileResource {
     }
 
     @Override
-    public Response download(ContentDispositionMode mode) {
-        final Representation representation = dossierFile.getRepresentation();
+    public Response download(Integer version, ContentDispositionMode mode) {
 
+        DossierFileVersion dossierFileVersion;
+        if (version == null) {
+            dossierFileVersion = dossierFile.getLatestVersion();
+        } else {
+            dossierFileVersion = dossierFile.getVersion(version);
+        }
+
+        Representation representation = dossierFileVersion.getRepresentation();
         final String contentDisposition = ContentDispositionMode.ATTACHMENT.equals(mode)
                 ? mode.value() + "; filename=" + representation.getFileName()
                 : mode.value();
 
-        return Response.ok(representation.getContents())
-                .header("Content-Type", representation.getMediaType())
-                .header("Content-Disposition", contentDisposition)
-                .build();
+        try {
+            return Response.ok(representation.getContents())
+                    .header("Content-Type", representation.getMediaType())
+                    .header("Content-Disposition", contentDisposition)
+                    .build();
+        } catch (IOException e) {
+            throw new RuntimeException("can not load representation: " + e);
+        }
     }
 
     @Override
     public void publish(File file) {
-        publishDossierFile.publish(file, dossierFile, getCurrentContextKey());
+        publishFile.publish(file, dossierFile);
     }
 
     @Override
-    public void upload(File file) {
-        try {
-            uploadDocument.upload(file, dossierFile, getCurrentContextKey());
-        }
-        catch (IOException ex) {
-            throw new RuntimeException(ex);
-        }
+    public void publishNewVersion(File file) {
+        publishFileNewVersion.publish(file, dossierFile);
     }
 
     @Override

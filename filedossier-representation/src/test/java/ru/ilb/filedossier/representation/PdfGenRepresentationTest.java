@@ -50,7 +50,7 @@ public class PdfGenRepresentationTest {
     public void testGenerateRepresentation() throws URISyntaxException, IOException {
         System.out.println("getContents");
         Store store = StoreFactory.newInstance(Files.createTempDirectory("storeroot").toUri()).getStore("storekey");
-        PdfGenRepresentation instance = new PdfGenRepresentation(store, "application/pdf", URI.create(xsl),
+        PdfGenRepresentation instance = new PdfGenRepresentation("application/pdf", URI.create(xsl),
                 URI.create(xsd), URI.create(meta));
 
         URI dataUri = getClass().getClassLoader().getResource("jurnals/avto.xml").toURI();
@@ -58,7 +58,7 @@ public class PdfGenRepresentationTest {
         DossierContentsHolder contents = new DossierContentsHolder(source, "application/pdf",
                 "jurnals", "Jurnals", "pdf");
         instance.setParent(contents);
-        representation = instance.generateRepresentation();
+        representation = instance.getContents();
         assertNotNull(representation);
         Files.write(Paths.get(System.getProperty("java.io.tmpdir") + "/result"), representation);
     }

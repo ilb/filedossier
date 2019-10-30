@@ -16,13 +16,12 @@
 package ru.ilb.filedossier.core;
 
 import ru.ilb.filedossier.entities.*;
-import ru.ilb.filedossier.mimetype.MimeTypeUtil;
-import ru.ilb.filedossier.representation.IdentityRepresentation;
+import ru.ilb.filedossier.entities.DossierFileVersion;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.NoSuchFileException;
+import javax.xml.crypto.Data;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -33,47 +32,38 @@ import java.util.stream.Collectors;
  */
 public class DossierFileImpl implements DossierFile {
 
-    protected Dossier parent;
+    private Dossier parent;
 
-    protected Store store;
+    private Store store;
 
-    protected final String code;
+    private final String code;
 
     protected final String name;
 
     protected final boolean required;
 
-    protected final boolean readonly;
+    private final boolean readonly;
 
-    protected final boolean hidden;
+    private final boolean hidden;
 
-    protected final String mediaType;
+    private List<DossierFileVersion> versions;
 
-    protected final String extension;
+    private Map<String, DossierFileVariation> variations;
 
-    protected final String lastModified;
-
-    protected final Map<String, Representation> representationsMap;
-
-    protected final Representation representation;
-
-    public DossierFileImpl(Store store, String code, String name, boolean required,
-            boolean readonly, boolean hidden, String mediaType, String lastModified,
-            List<Representation> representations) {
+    DossierFileImpl(Store store, String code, String name,
+                    boolean required, boolean readonly,
+                    boolean hidden, List<DossierFileVersion> versions,
+                    Map<String, DossierFileVariation> variations) {
         this.store = store;
         this.code = code;
         this.name = name;
         this.required = required;
         this.readonly = readonly;
         this.hidden = hidden;
-        this.mediaType = mediaType;
-        this.extension = MimeTypeUtil.getExtension(mediaType);
-        this.lastModified = lastModified;
-        this.representationsMap = representations.stream().peek(r -> r.setParent(this))
-                .collect(Collectors.toMap(r -> r.getMediaType(), r -> r));
-        this.representation = representations.isEmpty() ? new IdentityRepresentation(store, mediaType)
-                : representations.iterator().next();
-        this.representation.setParent(this);
+        this.variations = variations;
+        this.versions = versions.stream()
+                .peek(version -> version.setParent(this))
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -84,10 +74,6 @@ public class DossierFileImpl implements DossierFile {
     @Override
     public String getName() {
         return name;
-    }
-
-    protected String getStoreFileName() {
-        return extension == null ? code : code + "." + extension;
     }
 
     @Override
@@ -107,47 +93,56 @@ public class DossierFileImpl implements DossierFile {
 
     @Override
     public boolean getExists() {
-        return store.isExist(getStoreFileName());
+        return store.getObjectsCount() > 0;
     }
 
     @Override
     public String lastModified() {
-        return lastModified;
+        Long millis =  store.lastModified(String.valueOf(versions.size() - 1));
+        Date date = new Date(millis);
+        return new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(date);
     }
 
     @Override
-    public byte[] getContents() {
-        try {
-            return store.getContents(getStoreFileName());
-        } catch (NoSuchFileException ex) {
-            throw new FileNotExistsException(getStoreFileName());
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
+    public Integer getVersionsCount() {
+        return store.getObjectsCount();
+    }
+
+    @Override
+    public List<String> getAllowedMediaTypes() {
+        List<String> allowedMediaTypes = new ArrayList<>();
+        variations.forEach((mt, v) -> allowedMediaTypes.add(mt));
+        return allowedMediaTypes;
+    }
+
+    @Override
+    public DossierFileVersion createNewVersion(String mediaType) {
+        if (!variations.containsKey(mediaType)) {
+           throw new RuntimeException("Specified media type is not allowed");
         }
+        DossierFileVariation variation = variations.get(mediaType);
+        DossierFileVersion newVersion = new ConcreteDossierFileVersion(
+                variation.getMediaType(),
+                variation.getRepresentations());
+        Store newVersionStore = store.getNestedFileStore(String.valueOf(versions.size()));
+
+        newVersion.setStore(newVersionStore);
+        newVersion.setParent(this);
+        return newVersion;
     }
 
     @Override
-    public void setContents(byte[] data) {
-        try {
-            store.setContents(getStoreFileName(), data);
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
+    public DossierFileVersion getVersion(int version) {
+        return versions.get(version - 1);
+    }
+
+    @Override
+    public DossierFileVersion getLatestVersion() {
+        if (versions.size() > 0) {
+            return versions.get(versions.size() - 1);
+        } else {
+            return null;
         }
-    }
-
-    @Override
-    public String getMediaType() {
-        return mediaType;
-    }
-
-    @Override
-    public String getExtension() {
-        return extension;
-    }
-
-    @Override
-    public Representation getRepresentation() {
-        return representation;
     }
 
     @Override
@@ -161,23 +156,5 @@ public class DossierFileImpl implements DossierFile {
                 .isAssignableFrom(parent.getClass()) : "Dossier instance should be passed as argument instead of "
                 + parent.getClass().getCanonicalName();
         this.parent = (Dossier) parent;
-    }
-
-    protected String getContextCode() {
-        return parent.getCode() + "/" + code;
-    }
-
-    @Override
-    public void setContents(File contentsFile) {
-        try {
-            setContents(Files.readAllBytes(contentsFile.toPath()));
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
-        }
-    }
-
-    @Override
-    public boolean isValid() {
-        return getExists();
     }
 }

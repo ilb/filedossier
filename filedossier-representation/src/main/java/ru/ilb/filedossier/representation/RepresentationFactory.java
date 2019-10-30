@@ -18,11 +18,8 @@ package ru.ilb.filedossier.representation;
 import java.net.MalformedURLException;
 import java.net.URI;
 
-import org.apache.xalan.xsltc.compiler.Template;
 import ru.ilb.filedossier.ddl.RepresentationDefinition;
 import ru.ilb.filedossier.entities.Representation;
-import ru.ilb.filedossier.entities.Store;
-import ru.ilb.filedossier.scripting.TemplateEvaluator;
 
 /**
  *
@@ -32,11 +29,9 @@ public class RepresentationFactory {
 
     // TODO: process with evaluation
     private URI definitionUri;
-    private Store store;
     //private TemplateEvaluator templateEvaluator;
 
-    public RepresentationFactory(Store store, URI definitionUri /*, TemplateEvaluator templateEvaluator */) {
-        this.store = store;
+    public RepresentationFactory(URI definitionUri /*, TemplateEvaluator templateEvaluator */) {
         this.definitionUri = definitionUri;
         //this.templateEvaluator = templateEvaluator;
     }
@@ -52,7 +47,7 @@ public class RepresentationFactory {
                     throw new IllegalArgumentException("Bad uri for representation resources: " + e);
                 }
             case "application/xml":
-                return new JsonXmlRepresentation(store);
+                return new JsonXmlRepresentation();
             default:
                 throw new IllegalArgumentException(
                         "unsupported media type: " + model.getMediaType());
@@ -62,7 +57,7 @@ public class RepresentationFactory {
     private Representation createOdsRepresentation(RepresentationDefinition model) {
         URI stylesheetUri = definitionUri.resolve(model.getStylesheet());
         URI templateUri = definitionUri.resolve(model.getTemplate());
-        return new OdsXsltRepresentation(store, model.getMediaType(), stylesheetUri, templateUri);
+        return new OdsXsltRepresentation(model.getMediaType(), stylesheetUri, templateUri);
     }
 
     private Representation createPdfRepresentation(RepresentationDefinition model)
@@ -78,7 +73,7 @@ public class RepresentationFactory {
         URI stylesheetUri = definitionUri.resolve(model.getStylesheet());
         URI schema = definitionUri.resolve(model.getSchema());
         URI meta = definitionUri.resolve(model.getMeta());
-        return new PdfGenRepresentation(store, model.getMediaType(), stylesheetUri, schema, meta);
+        return new PdfGenRepresentation(model.getMediaType(), stylesheetUri, schema, meta);
 
     }
 }
