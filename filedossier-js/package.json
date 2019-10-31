@@ -1,6 +1,6 @@
 {
   "name": "@ilb/filedossier-js",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -18,8 +18,8 @@
   ],
   "dependencies": {
     "@bb/semantic-ui-css": "^2.2.12",
-    "@ilb/filedossier-api": "^1.0.7",
-    "@ilb/js-auto-proxy": "^1.0.4",
+    "@ilb/filedossier-api": "^1.0.8",
+    "@ilb/js-auto-proxy": "^1.0.6",
     "@ilb/node_context": "^1.0.1",
     "@zeit/next-css": "^1.0.1",
     "babel-plugin-css-modules-transform": "^1.6.2",
