@@ -19,6 +19,7 @@ class BystroScan extends Component {
     loading: PropTypes.bool,
     scanColor: PropTypes.string,
     scanDpi: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    accept: PropTypes.string,
   };
 
   constructor (props) {
@@ -85,7 +86,7 @@ class BystroScan extends Component {
   };
 
   render () {
-    const { fileId, loading } = this.props;
+    const { fileId, loading, accept } = this.props;
     const { fileName, scanColor, scanDpi } = this.state;
 
     return (
@@ -118,7 +119,7 @@ class BystroScan extends Component {
 
         <Button as="div" basic className="bystro-scan-file-button" disabled={loading} title={fileName}>
           <span>{fileName || 'Выбрать файл'}</span>
-          <input type="file" id={fileId} /* accept="application/pdf" */ onChange={this.selectFile} disabled={loading}/>
+          <input type="file" id={fileId} accept={accept} onChange={this.selectFile} disabled={loading}/>
         </Button>
 
         <Button type="button" color="green" content="Загрузить" onClick={this.uploadFile} loading={loading} disabled={loading}/>

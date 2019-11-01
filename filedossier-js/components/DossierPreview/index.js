@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Menu } from 'semantic-ui-react';
 import BystroScan from '../BystroScan';
 import FileContent from './FileContent';
+import { getFileAccept } from '../Dossier';
 
 function DossierPreview ({ query, dossier, dossierActions }) {
   const dossierFiles = dossier.dossierFile;
@@ -21,6 +22,7 @@ function DossierPreview ({ query, dossier, dossierActions }) {
       {selectedFileCode && selectedFile && <div>
         {!selectedFile.readonly && <BystroScan
           fileId={`file_${dossierKey}_${dossierPackage}_${dossierCode}_${selectedFileCode}`}
+          accept={getFileAccept(selectedFile)}
           uploadFile={({ fileId, fileInput, error } = {}) => {
             if (fileId && fileInput && !error) {
               dossierActions.upload({ fileCode: selectedFileCode, file: fileInput.files[0] });

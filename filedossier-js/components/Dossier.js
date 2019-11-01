@@ -12,6 +12,12 @@ export const getFileLink = ({ dossierKey, dossierPackage, dossierCode, file, inl
     `${inline ? `&mode=inline` : ''}`
 );
 
+export const getFileAccept = (file) => {
+  if (file && file.allowedMediaTypes && file.allowedMediaTypes.allowedMediaType) {
+    return file.allowedMediaTypes.allowedMediaType.join(',');
+  }
+};
+
 function Dossier (props) {
   const dossierInst = new FileDossier(props.dossierData.query); // create instance { dossierKey, dossierPackage, dossierCode }
   const [{ dossierData, loading, error }, dossierActions] = dossierInst.useDossier(props.dossierData); // init hook

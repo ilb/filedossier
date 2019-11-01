@@ -2,6 +2,7 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Segment, Button, Icon } from 'semantic-ui-react';
 import BystroScan from '../BystroScan';
+import { getFileAccept } from '../Dossier';
 
 function DossierActions ({ dossierFile, dossierActions, query }) {
   if (dossierFile.readonly) { return <div/>; }
@@ -40,6 +41,7 @@ function DossierActions ({ dossierFile, dossierActions, query }) {
         {uploadOpened && <div>
           <BystroScan
             fileId={`file_${dossierKey}_${dossierPackage}_${dossierCode}_${dossierFile.code}`}
+            accept={getFileAccept(dossierFile)}
             uploadFile={({ fileId, fileInput, error } = {}) => {
               if (fileId && fileInput && !error) {
                 dossierActions.upload({ fileCode: dossierFile.code, file: fileInput.files[0] });

@@ -42,9 +42,9 @@ export default class FileDossier {
 
     if (withUpdate) { // update dossier
       const dossierData = await this.getDossier();
-      setState({ ...state, dossierData, loading: false });
+      setState({ ...state, dossierData, loading: false, error: null });
     } else {
-      setState({ ...state, loading: false });
+      setState({ ...state, loading: false, error: null });
     }
     return result;
   };
