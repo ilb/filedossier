@@ -41,6 +41,8 @@ class DossierPdf extends React.Component {
     }).then(null, (error) => {
       this.setState({ error });
     });
+
+    this.resetContainerScroll();
   };
 
   drawPage = ({ pdf, pageNum, scale, rotate = 0 }) => {

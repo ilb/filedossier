@@ -9,7 +9,7 @@
 }
 
 .bystro-scan-params {
-  margin-right: 0.5rem;
+  padding: 0.5rem !important;
 }
 
 .bystro-scan-params :global(.radio) {
@@ -22,24 +22,15 @@
 }
 
 .bystro-scan-params :global(.input) input {
-  padding: 0 0.5rem !important;
+  padding: 0.2rem 0.5rem !important;
   text-align: center;
-
-  /* border: none !important; */
-}
-
-.vertical-devider {
-  display: inline-block;
-  margin: 0 0.5rem 0 0.25rem;
-  height: 2.55rem;
-  border-left: 1px solid rgba(34, 36, 38, 0.15);
-  vertical-align: middle;
 }
 
 .bystro-scan-file-button {
   position: relative;
   overflow: hidden;
   width: 11rem !important;
+  margin: 0 0.5rem !important;
   white-space: nowrap;
   text-overflow: ellipsis;
 }

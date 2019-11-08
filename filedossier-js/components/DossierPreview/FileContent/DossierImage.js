@@ -47,6 +47,7 @@ class DossierImage extends React.Component {
     await new Promise(resolve => { setTimeout(resolve, 10); });
     this.setScale(null); // reset scale
     this.initManipulations();
+    this.resetContainerScroll();
   };
 
   setupRotatedImageSize = async (rotate) => {

@@ -24,6 +24,7 @@ export const getZoomOutScale = (scale) => {
 export const dragToScroll = (e) => {
   e.preventDefault();
   e.stopPropagation();
+  if (document.activeElement) { document.activeElement.blur(); }
   const container = e.currentTarget;
   const startScrollTop = container.scrollTop || 0;
   const startscrollLeft = container.scrollLeft || 0;

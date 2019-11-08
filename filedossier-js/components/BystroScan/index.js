@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import propOr from 'lodash/fp/propOr';
-import { Button, Radio, Input } from 'semantic-ui-react';
+import { Button, Dropdown, Radio, Input } from 'semantic-ui-react';
 import PrivAPI from './PrivAPI';
 import './index.css';
 
@@ -91,31 +91,30 @@ class BystroScan extends Component {
 
     return (
       <div className="bystro-scan">
-        <div className="bystro-scan-params">
-          <div>
-            <Radio name="scanColor" value="color"
-              label={makeRainbow('цветное')}
-              checked={scanColor === 'color'}
-              onChange={this.changeField}
-            />
-            <Radio name="scanColor" value="bw"
-              label="ч/б"
-              checked={scanColor === 'bw'}
-              onChange={this.changeField}
-            />
-          </div>
-          <div>
-            <label>Разрешение</label>
-            <Input title="Разрешение" type="text" name="scanDpi" maxLength="3" size="mini"
-              value={scanDpi} onChange={this.changeField}
-            />
-            <label>dpi</label>
-          </div>
-        </div>
-
-        <Button type="button" basic content="БыстроСкан" onClick={this.scanStart} disabled={loading}/>
-
-        <div className="vertical-devider"></div>
+        <Button type="button" basic attached="left" content="БыстроСкан" onClick={this.scanStart} disabled={loading}/>
+        <Dropdown simple basic open={false} className="right attached button icon setting">
+          <Dropdown.Menu className="bystro-scan-params">
+            <div>
+              <Radio name="scanColor" value="color"
+                label={makeRainbow('цветное')}
+                checked={scanColor === 'color'}
+                onChange={this.changeField}
+              />
+              <Radio name="scanColor" value="bw"
+                label="ч/б"
+                checked={scanColor === 'bw'}
+                onChange={this.changeField}
+              />
+            </div>
+            <div>
+              <label>Разрешение</label>
+              <Input title="Разрешение" type="text" name="scanDpi" maxLength="3" size="mini"
+                value={scanDpi} onChange={this.changeField}
+              />
+              <label>dpi</label>
+            </div>
+          </Dropdown.Menu>
+        </Dropdown>
 
         <Button as="div" basic className="bystro-scan-file-button" disabled={loading} title={fileName}>
           <span>{fileName || 'Выбрать файл'}</span>
