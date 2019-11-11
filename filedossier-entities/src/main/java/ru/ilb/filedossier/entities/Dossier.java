@@ -28,6 +28,8 @@ public interface Dossier extends DossierPath {
 
     List<DossierFile> getDossierFiles();
 
+    String getContextKey();
+
     boolean isValid();
 
 }

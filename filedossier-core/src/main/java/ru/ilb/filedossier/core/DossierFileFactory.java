@@ -1,6 +1,7 @@
 package ru.ilb.filedossier.core;
 
 import ru.ilb.filedossier.ddl.DossierFileDefinition;
+import ru.ilb.filedossier.entities.DossierContext;
 import ru.ilb.filedossier.entities.DossierFile;
 import ru.ilb.filedossier.entities.DossierFileVersion;
 import ru.ilb.filedossier.entities.Store;
@@ -10,12 +11,13 @@ import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class DossierFileFactory {
+class DossierFileFactory {
 
-    // TODO: change manual walk in dossier file store to creating the config file.
-    public static DossierFile createDossierFile(Store dossierStore,
-                                                RepresentationFactory representationFactory,
-                                                DossierFileDefinition model) throws IOException {
+    // TODO: change manual walk in store by creating the definition file.
+    static DossierFile createDossierFile(Store dossierStore,
+                                         RepresentationFactory representationFactory,
+                                         DossierFileDefinition model,
+                                         DossierContext context) throws IOException {
 
         Store dossierFileStore = dossierStore.getNestedFileStore(model.getCode());
 
@@ -42,19 +44,31 @@ public class DossierFileFactory {
                             variation.getRepresentations()))
                     .collect(Collectors.toList());
 
-            int j = 0;
+            int i = 0;
             for (DossierFileVersion version: versions) {
-                Store versionStore = dossierFileStore.getNestedFileStore(String.valueOf(j));
+                Store versionStore = dossierFileStore.getNestedFileStore(String.valueOf(i));
                 version.setStore(versionStore);
-                j++;
+                i++;
             }
         } else {
             versions = new ArrayList<>();
         }
 
-        return new DossierFileImpl(dossierFileStore, model.getCode(),
-                model.getName(), model.getRequired(),
-                model.getReadonly(), model.getHidden(),
+        return new DossierFileImpl(
+                dossierFileStore, model.getCode(), model.getName(),
+
+                Boolean.parseBoolean((String) Optional.ofNullable(
+                        context.getProperty("required"))
+                        .orElse(model.getRequired())),
+
+                Boolean.parseBoolean((String) Optional.ofNullable(
+                        context.getProperty("readonly"))
+                        .orElse(model.getReadonly())),
+
+                Boolean.parseBoolean((String) Optional.ofNullable(
+                        context.getProperty("hidden"))
+                        .orElse(model.getHidden())),
+
                 versions, variations);
     }
 }

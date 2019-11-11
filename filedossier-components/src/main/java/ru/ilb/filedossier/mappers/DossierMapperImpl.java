@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import javax.inject.Inject;
 import javax.inject.Named;
+
 import ru.ilb.filedossier.view.DossierFileView;
 import ru.ilb.filedossier.view.DossierView;
 
@@ -34,8 +35,9 @@ public class DossierMapperImpl implements DossierMapper {
         view.setCode(model.getCode());
         view.setName(model.getName());
         view.setValid(String.valueOf(model.isValid()));
-        List<DossierFileView> files = model.getDossierFiles().stream().map(
-                mf -> dossierFileMapper.fromModel(mf)).collect(Collectors.toList());
+        List<DossierFileView> files = model.getDossierFiles().stream()
+                .map(mf -> dossierFileMapper.fromModel(mf))
+                .collect(Collectors.toList());
         view.setDossierFiles(files);
         return view;
     }

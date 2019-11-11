@@ -46,6 +46,11 @@ public interface DossierFile extends DossierPath {
     boolean getExists();
 
     /**
+     * @return dossier file context key
+     */
+    String getContextKey();
+
+    /**
      * Returns last modified date of latest version
      * @return millis
      */

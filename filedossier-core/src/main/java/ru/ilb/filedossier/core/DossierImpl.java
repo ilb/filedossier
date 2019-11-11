@@ -38,6 +38,8 @@ public class DossierImpl implements Dossier {
 
     private final String name;
 
+    private final String contextRoot;
+
     // validate all dossier files for dossier validation
     @Override
     public boolean isValid() {
@@ -47,14 +49,15 @@ public class DossierImpl implements Dossier {
                 -> dossierFilesValids.add(true/*dossierFile.isValid())*/));
 
         return dossierFilesValids.stream()
-                .filter(dossierFileValid -> dossierFileValid == false)
+                .filter(dossierFileValid -> !dossierFileValid)
                 .findFirst()
                 .orElse(true);
     }
 
-    public DossierImpl(String code, String name, String dossierPackage, String contextKey) {
+    public DossierImpl(String code, String name, String dossierPackage, String dossierKey) {
         this.code = code;
         this.name = name;
+        this.contextRoot = String.format("%s/%s", dossierKey, code);
     }
 
     public DossierImpl(String code, String name, String dossierPackage, String dossierKey,
@@ -62,7 +65,9 @@ public class DossierImpl implements Dossier {
         this.code = code;
         this.name = name;
         this.dossierFiles = dossierFiles.stream().peek(df -> df.setParent(this))
-                .collect(Collectors.toMap(df -> df.getCode(), df -> df));
+                .collect(Collectors.toMap(DossierPath::getCode, df -> df));
+
+        this.contextRoot = String.format("%s/%s", dossierKey, code);
     }
 
     @Override
@@ -82,6 +87,11 @@ public class DossierImpl implements Dossier {
     @Override
     public List<DossierFile> getDossierFiles() {
         return new ArrayList<>(dossierFiles.values());
+    }
+
+    @Override
+    public String getContextKey() {
+        return contextRoot;
     }
 
     @Override

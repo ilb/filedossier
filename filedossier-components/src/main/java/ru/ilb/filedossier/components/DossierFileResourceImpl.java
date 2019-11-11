@@ -28,9 +28,10 @@ import ru.ilb.filedossier.core.ContentDispositionMode;
 import ru.ilb.filedossier.entities.DossierFile;
 import ru.ilb.filedossier.entities.DossierFileVersion;
 import ru.ilb.filedossier.entities.Representation;
+import ru.ilb.filedossier.filedossier.usecases.actions.HideDossierFile;
+import ru.ilb.filedossier.filedossier.usecases.actions.LockDossierFile;
 import ru.ilb.filedossier.filedossier.usecases.upload.PublishFile;
 import ru.ilb.filedossier.filedossier.usecases.upload.PublishFileNewVersion;
-import ru.ilb.filedossier.mimetype.MimeTypeUtil;
 
 public class DossierFileResourceImpl implements DossierFileResource {
 
@@ -45,6 +46,12 @@ public class DossierFileResourceImpl implements DossierFileResource {
      */
     @Inject
     private PublishFileNewVersion publishFileNewVersion;
+
+    @Inject
+    private LockDossierFile lockDossierFile;
+
+    @Inject
+    private HideDossierFile hideDossierFile;
 
     /**
      * Spring application context.
@@ -103,14 +110,20 @@ public class DossierFileResourceImpl implements DossierFileResource {
     }
 
     @Override
-    public DossierContextResource getDossierContextResource() {
-        final DossierContextResourceImpl resource = new DossierContextResourceImpl();
-        resource.setContextKey(getCurrentContextKey());
-        applicationContext.getAutowireCapableBeanFactory().autowireBean(resource);
-        return resourceContext.initResource(resource);
+    public void lock() {
+        lockDossierFile.lock(dossierFile);
     }
 
-    private String getCurrentContextKey() {
-        return dossierFile.getParent().getCode() + "/" + dossierFile.getCode();
+    @Override
+    public void hide() {
+        hideDossierFile.hide(dossierFile);
+    }
+
+    @Override
+    public DossierContextResource getDossierContextResource() {
+        final DossierContextResourceImpl resource = new DossierContextResourceImpl();
+        resource.setContextKey(dossierFile.getContextKey());
+        applicationContext.getAutowireCapableBeanFactory().autowireBean(resource);
+        return resourceContext.initResource(resource);
     }
 }

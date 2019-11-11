@@ -21,17 +21,14 @@ import ru.ilb.filedossier.ddl.DossierDefinitionRepository;
 import ru.ilb.filedossier.ddl.DossierFileDefinition;
 import ru.ilb.filedossier.entities.*;
 import ru.ilb.filedossier.representation.RepresentationFactory;
+import ru.ilb.filedossier.scripting.TemplateEvaluator;
 import ru.ilb.filedossier.store.StoreFactory;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.IOException;
 import java.net.URI;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.ZoneOffset;
 import java.util.List;
-import java.util.TimeZone;
 import java.util.stream.Collectors;
 
 /**
@@ -51,21 +48,20 @@ public class DossierFactory {
 
     private String contextRoot;
 
-    //private TemplateEvaluator templateEvaluator;
+    private TemplateEvaluator templateEvaluator;
 
     @Inject
     public DossierFactory(DossierDefinitionRepository dossierDefinitionRepository,
-                          StoreFactory storeFactory, DossierContextService contextService
-            /*,  TemplateEvaluator templateEvaluator */) {
+                          StoreFactory storeFactory, DossierContextService contextService) {
+
         this.dossierDefinitionRepository = dossierDefinitionRepository;
         this.storeFactory = storeFactory;
         this.contextService = contextService;
-        //this.templateEvaluator = templateEvaluator;
     }
 
     public Dossier getDossier(String dossierKey, String dossierPackage, String dossierCode) {
 
-        contextRoot = dossierCode;
+        contextRoot = String.format("%s/%s", dossierKey, dossierCode);
 
         final DossierDefinition dossierModel = dossierDefinitionRepository
                 .getDossierDefinition(dossierPackage, dossierCode);
@@ -98,8 +94,11 @@ public class DossierFactory {
                 dossierFiles);
     }
 
-    // TODO: evaluate model values
     private DossierFile createDossierFile(DossierFileDefinition model, Store store) throws IOException {
-       return DossierFileFactory.createDossierFile(store, representationFactory, model);
+        DossierContext context = contextService.getContext(String.format("%s/%s", contextRoot, model.getCode()));
+
+        return DossierFileFactory.createDossierFile(
+                store, representationFactory,
+                model, context);
     }
 }

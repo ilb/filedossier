@@ -18,7 +18,6 @@ package ru.ilb.filedossier.core;
 import ru.ilb.filedossier.entities.*;
 import ru.ilb.filedossier.entities.DossierFileVersion;
 
-import javax.xml.crypto.Data;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -97,6 +96,11 @@ public class DossierFileImpl implements DossierFile {
     }
 
     @Override
+    public String getContextKey() {
+        return String.format("%s/%s", parent.getContextKey(), getCode());
+    }
+
+    @Override
     public String lastModified() {
         Long millis =  store.lastModified(String.valueOf(versions.size() - 1));
         Date date = new Date(millis);
@@ -117,9 +121,15 @@ public class DossierFileImpl implements DossierFile {
 
     @Override
     public DossierFileVersion createNewVersion(String mediaType) {
+
+        if (getReadonly()){
+            throw new RuntimeException("Dossier file is readonly: " + getCode());
+        }
+
         if (!variations.containsKey(mediaType)) {
            throw new RuntimeException("Specified media type is not allowed");
         }
+
         DossierFileVariation variation = variations.get(mediaType);
         DossierFileVersion newVersion = new ConcreteDossierFileVersion(
                 variation.getMediaType(),
