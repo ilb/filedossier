@@ -20,18 +20,17 @@ function DossierPreview ({ query, dossier, dossierActions }) {
         }))}
       />}
       {selectedFileCode && selectedFile && <div>
-        {!!selectedFile.readonly && <div>
-          <BystroScan
-            fileId={`file_${dossierKey}_${dossierPackage}_${dossierCode}_${selectedFileCode}`}
-            accept={getFileAccept(selectedFile)}
-            uploadFile={({ fileId, fileInput, error } = {}) => {
-              if (fileId && fileInput && !error) {
-                dossierActions.publish({ fileCode: selectedFileCode, file: fileInput.files[0] });
-              }
-            }}
-          />
-          <div className="ui divider"/>
-        </div>}
+        {<BystroScan
+          fileId={`file_${dossierKey}_${dossierPackage}_${dossierCode}_${selectedFileCode}`}
+          accept={getFileAccept(selectedFile)}
+          uploadFile={({ fileId, fileInput, error } = {}) => {
+            if (fileId && fileInput && !error) {
+              dossierActions.publish({ fileCode: selectedFileCode, file: fileInput.files[0] });
+            }
+          }}
+        />}
+
+        {!selectedFile.readonly && selectedFile.exists && <div className="ui divider"/>}
 
         {selectedFile.exists && <div>
           <FileContent
