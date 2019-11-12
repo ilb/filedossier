@@ -29,7 +29,7 @@ function Dossier (props) {
     default: DossierComponent = DossierTable; // default as table
   }
 
-  const childrenProps = { dossier, dossierParams: query };
+  const childrenProps = { dossier, dossierParams: query, dossierActions };
 
   return (
     <div className="dossier-wrap">
