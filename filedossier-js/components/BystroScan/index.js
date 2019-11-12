@@ -92,7 +92,7 @@ class BystroScan extends Component {
     return (
       <div className="bystro-scan">
         <Button type="button" basic attached="left" content="БыстроСкан" onClick={this.scanStart} disabled={loading}/>
-        <Dropdown simple basic open={false} className="right attached button icon setting">
+        <Dropdown simple basic icon="setting" open={false} className="right attached button icon">
           <Dropdown.Menu className="bystro-scan-params">
             <div>
               <Radio name="scanColor" value="color"

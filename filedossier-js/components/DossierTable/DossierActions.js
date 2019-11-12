@@ -44,7 +44,7 @@ function DossierActions ({ dossierFile, dossierActions, query }) {
             accept={getFileAccept(dossierFile)}
             uploadFile={({ fileId, fileInput, error } = {}) => {
               if (fileId && fileInput && !error) {
-                dossierActions.upload({ fileCode: dossierFile.code, file: fileInput.files[0] });
+                dossierActions.publish({ fileCode: dossierFile.code, file: fileInput.files[0] });
                 closeUploadModal();
               }
             }}
