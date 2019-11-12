@@ -63,7 +63,7 @@ export default class FileDossier {
       const result = await action(...params);
       if (result.error) {
         setState({ ...state, loading: false, error: result.error });
-        return;
+        return result;
       }
     }
 
