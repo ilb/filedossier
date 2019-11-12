@@ -20,7 +20,7 @@ function DossierPreview ({ query, dossier, dossierActions }) {
         }))}
       />}
       {selectedFileCode && selectedFile && <div>
-        {<BystroScan
+        {!selectedFile.readonly && <BystroScan
           fileId={`file_${dossierKey}_${dossierPackage}_${dossierCode}_${selectedFileCode}`}
           accept={getFileAccept(selectedFile)}
           uploadFile={({ fileId, fileInput, error } = {}) => {
