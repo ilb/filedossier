@@ -8,7 +8,7 @@ import DossierTable from './DossierTable';
 export const getFileLink = ({ dossierKey, dossierPackage, dossierCode, file, inline }) => (
   `https://devel.net.ilb.ru/workflow-web/web/v2/` +
     `dossiers/${dossierKey}/${dossierPackage}/${dossierCode}/dossierfiles/${file.code}` +
-    `?nocache=${file.lastModified.replace(/\D/g, '')}` +
+    `?nocache=${(file.lastModified || '').replace(/\D/g, '')}` +
     `${inline ? `&mode=inline` : ''}`
 );
 
