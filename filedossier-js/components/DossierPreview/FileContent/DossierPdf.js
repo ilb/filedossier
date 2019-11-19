@@ -41,15 +41,18 @@ class DossierPdf extends React.Component {
   initPdf = (pdfPath) => {
     this.setState({ pdfLoading: true, currentPage: 1, pageText: 1 });
     const loadingTask = PDFJS.getDocument(pdfPath);
-    loadingTask.promise.then(pdf => {
-      this.setState({ pdf }, async () => {
-        this.setState({ pdfLoading: false });
-        await this.drawPages({ pdf }); // initial draw
-      });
-      this.initManipulations();
-    }).then(null, (error) => {
-      this.setState({ error });
-    });
+    loadingTask.promise.then(
+      pdf => {
+        this.setState({ pdf }, () => {
+          this.setState({ pdfLoading: false });
+          this.drawPages({ pdf }); // initial draw
+        });
+        this.initManipulations();
+      },
+      error => {
+        this.setState({ error, pdfLoading: false });
+      }
+    );
 
     this.resetContainerScroll();
   };
