@@ -90,7 +90,9 @@ public class DossierFileResourceImpl implements DossierFileResource {
                 : mode.value();
 
         try {
-            return Response.ok(representation.getContents())
+            byte[] contents = representation.getContents();
+            return Response.ok(contents)
+                    .header("Content-Size", contents.length)
                     .header("Content-Type", representation.getMediaType())
                     .header("Content-Disposition", contentDisposition)
                     .build();
