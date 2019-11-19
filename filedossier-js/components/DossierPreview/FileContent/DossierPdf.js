@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Message } from 'semantic-ui-react';
-import ControlsMenu, { getZoomOutScale, getZoomInScale, dragToScroll } from './ControlsMenu';
+import { Message, Loader } from 'semantic-ui-react';
+import ControlsMenu, { getZoomOutScale, getZoomInScale, calcScaleNum, dragToScroll } from './ControlsMenu';
 import { getFileLink } from '../../Dossier';
 import PDFJS from 'pdfjs-dist';
 PDFJS.workerSrc = '//cdnjs.cloudflare.com/ajax/libs/pdf.js/2.2.228/pdf.worker.js'; // TODO setup static worker from pdfjs-dist/build
@@ -10,33 +10,42 @@ PDFJS.GlobalWorkerOptions.workerSrc = PDFJS.workerSrc;
 class DossierPdf extends React.Component {
   state = {
     pdf: null,
-    pageNum: undefined,
+    currentPage: undefined,
     pageText: undefined,
-    scale: undefined,
+    scaleValue: 'pageWidthOption', /* for selection */
+    scaleNum: null,
     rotate: 0,
     error: null,
+    pdfLoading: false,
   };
 
   componentDidMount () {
     const { query, dossierFile } = this.props;
     const pdfPath = getFileLink({ ...query, file: dossierFile });
-    // const pdfPath = 'http://localhost:3000/static/book.pdf';
+    // const pdfPath = 'http://localhost:3000/static/test0.pdf';
     this.initPdf(pdfPath);
+
+    const canvasContainer = this.props.contentRef.current;
+    canvasContainer.addEventListener('scroll', this.scrollUpdated, true);
   }
 
   UNSAFE_componentWillReceiveProps (nextProps) { // eslint-disable-line camelcase
     const oldFile = this.props.dossierFile;
     const newFile = nextProps.dossierFile;
-    if (oldFile.lastModified !== newFile.lastModified) { // new file uploaded file
+    if (oldFile.lastModified !== newFile.lastModified) { // new file uploaded
       const pdfPath = getFileLink({ ...nextProps.query, file: newFile });
-      // const pdfPath = 'http://localhost:3000/static/test.pdf';
       this.initPdf(pdfPath);
     }
   }
 
   initPdf = (pdfPath) => {
-    PDFJS.getDocument(pdfPath).promise.then(pdf => {
-      this.drawPage({ pdf }); // initial draw
+    this.setState({ pdfLoading: true, currentPage: 1, pageText: 1 });
+    const loadingTask = PDFJS.getDocument(pdfPath);
+    loadingTask.promise.then(pdf => {
+      this.setState({ pdf }, async () => {
+        this.setState({ pdfLoading: false });
+        await this.drawPages({ pdf }); // initial draw
+      });
       this.initManipulations();
     }).then(null, (error) => {
       this.setState({ error });
@@ -45,55 +54,77 @@ class DossierPdf extends React.Component {
     this.resetContainerScroll();
   };
 
-  drawPage = ({ pdf, pageNum, scale, rotate = 0 }) => {
-    if (this.renderTask) { this.renderTask.cancel(); }
-    const canvas = this.props.contentRef.current;
-    if (!canvas) { return; }
-    const canvasContainer = canvas.parentNode;
+  getPage = (pdf, pageNum) => {
+    return new Promise(resolve => {
+      pdf.getPage(pageNum).then(resolve);
+    });
+  }
+
+  drawPages = async ({ pdf, scale, rotate = 0, callback }) => {
+    const canvasContainer = this.props.contentRef.current;
     const { width, height } = window.getComputedStyle(canvasContainer);
-    const containerSize = { width: parseFloat(width), height: parseFloat(height) };
-    if (!pageNum || !Number(pageNum) || pageNum < 1) { pageNum = 1; }
-    if (pageNum > pdf.numPages) { pageNum = pdf.numPages; }
-    pageNum = Number(pageNum);
-    pdf.getPage(pageNum).then((page) => {
-      let currentScale = scale || 'pageWidthOption'; // default on width
-      if (currentScale === 'pageActualOption') { currentScale = 1.0; } else
-      if (currentScale === 'pageWidthOption' || currentScale === 'pageFitOption') { // calc container size
-        let { width: pdfWidth, height: pdfHeight } = page.getViewport({ scale: 1.0 });
-        if (rotate % 180 !== 0) {
-          [pdfWidth, pdfHeight] = [pdfHeight, pdfWidth]; // swap
-        }
-        currentScale = containerSize.width / pdfWidth; // scale by width
-        if (currentScale * pdfHeight > containerSize.height) {
-          if (scale === 'pageFitOption') {
-            currentScale = containerSize.height / pdfHeight; // scale by height
-          } else {
-            currentScale = (containerSize.width - 15) / pdfWidth; // vertical scroll size
-          }
-        }
-      }
+    const containerSizes = { width: parseFloat(width), height: parseFloat(height) };
 
-      if (!Number(currentScale)) { throw new Error(`Invalid scale value = ${currentScale}`); }
+    const pages = [];
+    const elementSizes = { width: 0, height: 0 };
+    // find max width and height of pdf pages
+    for (let i = 1; i <= pdf.numPages; i++) {
+      const page = await this.getPage(pdf, i);
+      const { width, height } = page.getViewport({ scale: 1.0 });
+      if (width > elementSizes.width) { elementSizes.width = width; }
+      if (height > elementSizes.height) { elementSizes.height = height; }
+      pages.push(page);
+    }
 
-      const rotation = page.rotate + rotate;
-      const viewport = page.getViewport({ scale: currentScale, rotation });
-      const canvasContext = canvas.getContext('2d');
-      canvas.style.width = `${viewport.width}px`;
-      canvas.style.height = `${viewport.height}px`;
-      canvas.height = viewport.height;
-      canvas.width = viewport.width;
-      this.renderTask = page.render({
-        canvasContext,
-        viewport,
+    const scaleNum = calcScaleNum({ scale, rotate, containerSizes, elementSizes });
+    // set all canvas sizes
+    for (let i = 0; i < pages.length; i++) {
+      const canvas = canvasContainer.querySelector(`canvas#pdfPage${i + 1}`);
+      const rotation = pages[i].rotate + rotate;
+      const viewport = pages[i].getViewport({ scale: scaleNum, rotation });
+      this.setElementSize(canvas, viewport);
+    }
+    this.setState({ pdf, scaleValue: scale, scaleNum, rotate });
+
+    if (callback) { callback(); } // callback on all sizes setted
+
+    // fill render pool with pages ond start render loop
+    this.renderPagesPool = [...Array(pdf.numPages + 1).keys()].slice(1);
+    while (this.renderPagesPool && this.renderPagesPool.length > 0) {
+      const canvas = canvasContainer.querySelector(`canvas#pdfPage${this.renderPagesPool[0]}`);
+      await this.drawPage({ pdf, pageNum: this.renderPagesPool[0], scale: scaleNum, rotate, canvas });
+      this.renderPagesPool.shift();
+    }
+  };
+
+  drawPage = ({ pdf, pageNum, scale, rotate = 0, canvas }) => {
+    return new Promise((resolve, reject) => {
+      if (this.renderTask) { this.renderTask.cancel(); this.renderTask = null; }
+
+      pdf.getPage(pageNum).then((page) => {
+        const rotation = page.rotate + rotate;
+        const viewport = page.getViewport({ scale, rotation });
+        const canvasContext = canvas.getContext('2d');
+        this.setElementSize(canvas, viewport);
+        this.renderTask = page.render({ canvasContext, viewport });
+        this.renderTask.promise.then(
+          () => { this.renderTask = null; resolve(); },
+          (error) => { this.renderTask = null; reject(error); },
+        );
       });
-      this.setState({ pdf, pageNum, pageText: pageNum, scale: currentScale, rotate });
     });
   };
 
+  setElementSize = (element, sizes) => {
+    element.style.width = `${sizes.width}px`;
+    element.style.height = `${sizes.height}px`;
+    element.height = sizes.height;
+    element.width = sizes.width;
+  };
+
   initManipulations = () => {
-    const canvas = this.props.contentRef.current;
-    if (canvas) {
-      const canvasContainer = canvas.parentNode;
+    const canvasContainer = this.props.contentRef.current;
+    if (canvasContainer) {
       // scroll
       canvasContainer.removeEventListener('DOMMouseScroll', this.onMouseScrollHandler, false);
       canvasContainer.onmousewheel = this.onMouseScrollHandler;
@@ -108,38 +139,67 @@ class DossierPdf extends React.Component {
     if (e.ctrlKey) {
       e.preventDefault();
       e.stopPropagation();
-      const { scale } = this.state;
-      if (scale) {
-        const newScale = (e.deltaY || e.detail) > 0 ? getZoomOutScale(scale) : getZoomInScale(scale);
-        this.setScale(newScale);
+      const { scaleNum } = this.state;
+      if (scaleNum) {
+        const newScaleNum = (e.deltaY || e.detail) > 0 ? getZoomOutScale(scaleNum) : getZoomInScale(scaleNum);
+        this.setScale(newScaleNum);
       }
     }
   }
 
-  setScale = (scale) => {
-    const { pdf, pageNum, rotate } = this.state;
-    this.drawPage({ pdf, pageNum, scale, rotate });
+  setScale = async (scale) => {
+    if (this.state.scaleNum === scale) { return; }
+    const isAllowed = await this.waitForPreviousRender();
+    if (!isAllowed) { return; }
+
+    const { pdf, rotate, currentPage } = this.state;
+    await this.drawPages({
+      pdf, scale, rotate,
+      callback: () => { this.setPage(null, { value: currentPage }); },
+    });
   }
 
-  setPage = (event, { value: pageNum }) => {
-    this.resetContainerScroll();
-    const { pdf, /* scale, */ rotate } = this.state;
-    this.drawPage({ pdf, pageNum, /* scale, */ rotate }); // Note: reset scale on page selection
+  waitForPreviousRender = async () => {
+    if (this.waiter) { return false; }
+    while (this.renderTask) { // while some other page renders
+      this.renderPagesPool = []; // clear render pool (cancel all other renderings)
+      // this.renderTask.cancel(); // TODO didn't work as expected
+      this.waiter = true;
+      await new Promise(resolve => setTimeout(resolve, 10)); // and wait
+    }
+    this.waiter = false;
+    return true;
+  };
+
+  setPage = (event, { value }) => {
+    const pageNum = Number(value);
+    const { pdf } = this.state;
+    if (!pdf || pageNum > pdf.numPages) {
+      if (document.activeElement) { document.activeElement.blur(); }
+    } else {
+      const canvasContainer = this.props.contentRef.current;
+      const canvas = canvasContainer.querySelector(`canvas#pdfPage${pageNum}`);
+      canvas.scrollIntoView({ block: 'start' });
+      this.setState({ currentPage: pageNum, pageText: pageNum });
+    }
   }
 
-  rotateFile = (angle) => {
-    this.resetContainerScroll();
-    const { pdf, pageNum, rotate } = this.state;
+  rotateFile = async (angle) => {
+    const isAllowed = await this.waitForPreviousRender();
+    if (!isAllowed) { return; }
+    const { pdf, scaleValue, rotate, currentPage } = this.state;
     let newRotate = rotate + angle;
     if (newRotate < 0) { newRotate = 270; }
     if (newRotate > 270) { newRotate = 0; }
-    this.drawPage({ pdf, pageNum, rotate: newRotate }); // Note: reset scale on rotate
+    await this.drawPages({
+      pdf, scale: scaleValue, rotate: newRotate, // NOTE: use scaleValue on rotate
+      callback: () => { this.setPage(null, { value: currentPage }); },
+    });
   };
 
   resetContainerScroll = () => {
-    const canvas = this.props.contentRef.current;
-    if (canvas) {
-      const canvasContainer = canvas.parentNode;
+    const canvasContainer = this.props.contentRef.current;
+    if (canvasContainer) {
       canvasContainer.scrollTop = canvasContainer.scrollLeft = 0;
     }
   };
@@ -148,22 +208,113 @@ class DossierPdf extends React.Component {
     this.setState({ pageText });
   };
 
+  /* watchScroll = (viewArea, callback) => {
+    let rAF = null;
+    const debounceScroll = () => {
+      if (rAF) { console.log('here'); return; }
+      rAF = window.requestAnimationFrame(() => {
+        rAF = null;
+        callback(viewArea);
+      });
+    };
+    viewArea.addEventListener('scroll', debounceScroll, true);
+  } */
+
+  scrollUpdated = (event) => {
+    const canvasContainer = event.currentTarget;
+    const { currentPage } = this.state;
+    const viewTop = canvasContainer.scrollTop;
+    const viewBottom = viewTop + canvasContainer.clientHeight;
+
+    // find visible pages (canvases)
+    const canvases = canvasContainer.querySelectorAll('canvas');
+    const visiblePages = [];
+    let lastEdge = -1;
+    for (let i = 0; i < canvases.length; i++) {
+      const canvas = canvases[i];
+      const canvasTop = canvas.offsetTop + canvas.clientTop; // currentHeight
+      const canvasHeight = canvas.clientHeight; // viewHeight
+      const canvasBottom = canvasTop + canvasHeight; // viewBottom
+
+      if (lastEdge === -1) {
+        if (canvasBottom >= viewBottom) {
+          lastEdge = canvasBottom;
+        }
+      } else if (canvasTop > lastEdge) {
+        break;
+      }
+
+      if (canvasBottom <= viewTop || canvasTop >= viewBottom) {
+        continue;
+      }
+
+      const hiddenHeight = Math.max(0, viewTop - canvasTop) + Math.max(0, canvasBottom - viewBottom);
+      const percent = (canvasHeight - hiddenHeight) * 100 / canvasHeight | 0;
+
+      visiblePages.push({
+        pageNum: i + 1,
+        percent,
+      });
+    }
+
+    if (!visiblePages.length) { return; }
+    // calc current page num
+    let newPageNum = visiblePages[0].pageNum;
+    if (visiblePages[1] && visiblePages[1].percent > visiblePages[0].percent) {
+      newPageNum++;
+    }
+    if (newPageNum !== currentPage) {
+      this.setState({ currentPage: newPageNum, pageText: newPageNum });
+    }
+
+    /*
+    // TEST: change render priorities
+    if (this.renderPagesPool && this.renderPagesPool.length) {
+      let newRenderPool = Array.from(this.renderPagesPool); // copy
+      const pageNums = visiblePages.map(page => page.pageNum).filter(pageNum => newRenderPool.indexOf(pageNum !== -1));
+      if (this.isArraysEqual(pageNums, this.pageNumsCache)) { return; }
+      this.pageNumsCache = pageNums;
+      console.log('pageNums', pageNums);
+      if (pageNums.length) {
+        newRenderPool = newRenderPool.filter(pageNum => pageNums.indexOf(pageNum) === -1); // remove
+        newRenderPool.splice(1, 0, ...pageNums); // insert to start
+        this.renderPagesPool = newRenderPool;
+      }
+    }
+    */
+  };
+
+  isArraysEqual (a, b) {
+    if (a === b) return true;
+    if (!a || !b) return false;
+    if (a.length !== b.length) return false;
+    for (let i = 0; i < a.length; i++) {
+      if (a[i] !== b[i]) return false;
+    }
+    return true;
+  }
+
   render () {
     const { query, dossierFile, contentRef } = this.props;
-    const { pdf, pageNum, pageText, scale, error } = this.state;
+    const { pdf, currentPage, pageText, scaleValue, scaleNum, error, pdfLoading } = this.state;
 
     return (
       <div className="dossier-pdf">
         <ControlsMenu
-          query={query} dossierFile={dossierFile}
-          pdf={pdf} pageNum={pageNum} pageText={pageText} scale={scale}
-          setPage={this.setPage} setPageText={this.setPageText}
-          setScale={this.setScale} rotateFile={this.rotateFile}
+          query={query} dossierFile={dossierFile} pdf={pdf}
+          currentPage={currentPage} pageText={pageText} setPage={this.setPage} setPageText={this.setPageText}
+          scaleValue={scaleValue} scaleNum={scaleNum} setScale={this.setScale}
+          rotateFile={this.rotateFile}
         />
         {error && <Message error visible header="Ошибка при открытии pdf файла" content={error.message} style={{ margin: 0 }}/>}
-        {!error && <div className="dossier-pdf-container">
-          <canvas ref={contentRef}/>
-        </div>}
+        <div className="dossier-pdf-container" ref={contentRef}>
+          {pdf && pdf.numPages && !error && <React.Fragment>
+            {Array(pdf.numPages).fill('').map((el, index) => (
+              <canvas key={index} id={`pdfPage${index + 1}`}/>
+            ))}
+          </React.Fragment>}
+          <Loader active={pdfLoading} size="small"/>
+        </div>
       </div>
     );
   }
