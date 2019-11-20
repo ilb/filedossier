@@ -1,6 +1,6 @@
 {
   "name": "@ilb/filedossier-js",
-  "version": "1.0.28",
+  "version": "1.0.29",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -18,7 +18,7 @@
   ],
   "dependencies": {
     "@bb/semantic-ui-css": "^2.2.12",
-    "@ilb/filedossier-api": "^1.0.9",
+    "@ilb/filedossier-api": "1.0.11",
     "@ilb/js-auto-proxy": "^1.0.6",
     "@ilb/node_context": "^1.0.1",
     "@zeit/next-css": "^1.0.1",
