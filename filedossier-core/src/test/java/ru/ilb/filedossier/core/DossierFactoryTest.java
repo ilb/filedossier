@@ -91,9 +91,10 @@ public class DossierFactoryTest {
         String dossierKey = "teststorekey";
         String dossierPackage = "testmodel";
         String dossierCode = "TEST";
+        String dossierMode = "mode1";
 
         String expResult = "Тест имя";
-        Dossier result = dossierFactory.getDossier(dossierKey, dossierPackage, dossierCode);
+        Dossier result = dossierFactory.getDossier(dossierKey, dossierPackage, dossierCode, dossierMode);
         assertEquals(expResult, result.getDossierFile("fairpricecalc").getName());
     }
 

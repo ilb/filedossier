@@ -59,7 +59,7 @@ public class DossierFactory {
         this.contextService = contextService;
     }
 
-    public Dossier getDossier(String dossierKey, String dossierPackage, String dossierCode) {
+    public Dossier getDossier(String dossierKey, String dossierPackage, String dossierCode, String dossierMode) {
 
         contextRoot = String.format("%s/%s", dossierKey, dossierCode);
 

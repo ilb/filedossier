@@ -51,7 +51,7 @@ public class DossierFileImplTest {
 
     public DossierFileImplTest() throws NamingException {
         dossierFactory = getDossierFactory();
-        dossier = dossierFactory.getDossier("teststorekey", "testmodel", "TEST");
+        dossier = dossierFactory.getDossier("teststorekey", "testmodel", "TEST", "mode1");
         dossierFile1 = dossier.getDossierFile("fairpricecalc");
     }
 

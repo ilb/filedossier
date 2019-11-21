@@ -53,8 +53,8 @@ public class DossiersResourceImpl implements DossiersResource {
     private ResourceContext resourceContext;
 
     @Override
-    public DossierResource getDossierResource(String dossierKey, String dossierPackage, String dossierCode) {
-        final Dossier dossier = dossierFactory.getDossier(dossierKey, dossierPackage, dossierCode);
+    public DossierResource getDossierResource(String dossierKey, String dossierPackage, String dossierCode, String dossierMode) {
+        final Dossier dossier = dossierFactory.getDossier(dossierKey, dossierPackage, dossierCode, dossierMode);
         final DossierResourceImpl resource = new DossierResourceImpl();
         resource.setDossier(dossier);
         applicationContext.getAutowireCapableBeanFactory().autowireBean(resource);
