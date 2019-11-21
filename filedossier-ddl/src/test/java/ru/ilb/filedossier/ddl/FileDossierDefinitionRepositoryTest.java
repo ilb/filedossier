@@ -41,10 +41,11 @@ public class FileDossierDefinitionRepositoryTest {
     public void testGetDossierDefinition() throws URISyntaxException {
         String dossierPackage = "testmodel";
         String dossierCode = "TEST";
+        String dossierMode = "mode1";
         URI modelsUri = getClass().getClassLoader().getResource("models").toURI();
 
         DossierDefinitionRepository instance = new FileDossierDefinitionRepository(modelsUri);
-        DossierDefinition result = instance.getDossierDefinition(dossierPackage, dossierCode);
+        DossierDefinition result = instance.getDossierDefinition(dossierPackage, dossierCode, dossierMode);
         assertEquals("TEST", result.getCode());
         assertEquals("Тестовое досье", result.getName());
         assertEquals(2, result.getDossierFiles().size());

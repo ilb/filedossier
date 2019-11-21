@@ -64,7 +64,7 @@ public class DossierFactory {
         contextRoot = String.format("%s/%s", dossierKey, dossierCode);
 
         final DossierDefinition dossierModel = dossierDefinitionRepository
-                .getDossierDefinition(dossierPackage, dossierCode);
+                .getDossierDefinition(dossierPackage, dossierCode, dossierMode);
 
         final URI baseDefinitionUri = dossierDefinitionRepository
                 .getDossierDefinitionUri(dossierPackage);

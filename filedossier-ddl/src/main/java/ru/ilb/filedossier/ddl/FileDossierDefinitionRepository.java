@@ -74,7 +74,7 @@ public class FileDossierDefinitionRepository implements DossierDefinitionReposit
     }
 
     @Override
-    public DossierDefinition getDossierDefinition(String dossierPackage, String dossierCode) {
+    public DossierDefinition getDossierDefinition(String dossierPackage, String dossierCode, String dossierMode) {
         try {
             Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
             unmarshaller.setSchema(schema);

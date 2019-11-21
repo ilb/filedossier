@@ -27,6 +27,6 @@ public interface DossierDefinitionRepository {
 
     public URI getDossierDefinitionUri(String dossierPackage);
 
-    public DossierDefinition getDossierDefinition(String dossierPackage, String dossierCode);
+    public DossierDefinition getDossierDefinition(String dossierPackage, String dossierCode, String dossierMode);
 
 }
