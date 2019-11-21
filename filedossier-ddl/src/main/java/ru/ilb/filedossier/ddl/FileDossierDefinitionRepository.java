@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.nio.file.FileSystemNotFoundException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.spi.FileSystemProvider;
@@ -32,7 +33,12 @@ import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import org.xml.sax.SAXException;
 import ru.ilb.filedossier.ddl.DossierDefinition;
+import ru.ilb.filedossier.ddl.DossierDefinition;
+import ru.ilb.filedossier.ddl.DossierDefinitionRepository;
+import ru.ilb.filedossier.ddl.DossierNotFoundException;
 import ru.ilb.filedossier.ddl.PackageDefinition;
+import ru.ilb.filedossier.ddl.PackageDefinition;
+import ru.ilb.filedossier.ddl.reader.XmlDossierReader;
 import ru.ilb.filedossier.utils.FSUtils;
 
 /**
@@ -43,29 +49,20 @@ import ru.ilb.filedossier.utils.FSUtils;
  */
 public class FileDossierDefinitionRepository implements DossierDefinitionRepository {
 
-    private static final String URI_2001_SCHEMA_XSD = "http://www.w3.org/2001/XMLSchema";
-    private static final String MODEL_SCHEMA_XSD_PATH = "schemas/filedossier/ddl.xsd";
-    private final SchemaFactory schemaFactory = SchemaFactory.newInstance(URI_2001_SCHEMA_XSD);
-    private final Schema schema;
+    private final URI dossierModelsBaseUri;
 
-    final JAXBContext jaxbContext;
+    private final XmlDossierReader xmlDossierReader = new XmlDossierReader();
 
-    private final URI dossierModelsPath;
-
-    private String modelFileExtension = ".xml";
-
-    public FileDossierDefinitionRepository(URI dossierModelsPath) {
-        this.dossierModelsPath = FSUtils.loadFileSystemProvider(dossierModelsPath);
-        try {
-            jaxbContext = JAXBContext.newInstance("ru.ilb.filedossier.ddl");
-            schema = schemaFactory.newSchema(getClass().getClassLoader().getResource(MODEL_SCHEMA_XSD_PATH));
-        } catch (JAXBException | SAXException ex) {
-            throw new RuntimeException(ex);
-        }
+    /**
+     *
+     * @param dossierModelsBaseUri path to dossier models store. all models resolved against this path
+     */
+    public FileDossierDefinitionRepository(URI dossierModelsBaseUri) {
+        this.dossierModelsBaseUri = FSUtils.loadFileSystemProvider(dossierModelsBaseUri);
     }
 
     private Path getDossierDefinitionPath(String dossierPackage) {
-        return Paths.get(dossierModelsPath).resolve(dossierPackage).resolve(dossierPackage + modelFileExtension);
+        return Paths.get(dossierModelsBaseUri).resolve(dossierPackage).resolve(dossierPackage + XmlDossierReader.MODEL_FILE_EXTENSION);
     }
 
     @Override
@@ -75,13 +72,13 @@ public class FileDossierDefinitionRepository implements DossierDefinitionReposit
 
     @Override
     public DossierDefinition getDossierDefinition(String dossierPackage, String dossierCode, String dossierMode) {
+
         try {
-            Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-            unmarshaller.setSchema(schema);
-            PackageDefinition dossierPackageDefinition = (PackageDefinition) unmarshaller.unmarshal(getDossierDefinitionUri(dossierPackage).toURL());
+            String contents = new String(Files.readAllBytes(getDossierDefinitionPath(dossierPackage)));
+            PackageDefinition dossierPackageDefinition = xmlDossierReader.read(contents);
             return dossierPackageDefinition.getDossiers().stream()
                     .filter(d -> d.getCode().equals(dossierCode)).findFirst().orElseThrow(() -> new DossierNotFoundException(dossierCode));
-        } catch (JAXBException | MalformedURLException ex) {
+        } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
     }

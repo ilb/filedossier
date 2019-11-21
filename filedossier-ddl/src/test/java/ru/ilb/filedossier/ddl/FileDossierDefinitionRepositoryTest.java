@@ -15,7 +15,6 @@
  */
 package ru.ilb.filedossier.ddl;
 
-import ru.ilb.filedossier.ddl.FileDossierDefinitionRepository;
 import java.net.URI;
 import java.net.URISyntaxException;
 import org.junit.Test;
