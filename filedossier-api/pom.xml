@@ -11,8 +11,8 @@
     <packaging>jar</packaging>
     <properties>
         <eclipselink.version>2.7.4</eclipselink.version>
-        <swagger-version>2.0.8</swagger-version>
-        <generated-api-version>1.0.8</generated-api-version>
+        <swagger-version>2.1.0</swagger-version>
+        <generated-api-version>1.0.11</generated-api-version>
     </properties>
     <name>filedossier-api</name>
     <description>API shared module</description>
@@ -220,7 +220,7 @@
                     <plugin>
                         <groupId>org.openapitools</groupId>
                         <artifactId>openapi-generator-maven-plugin</artifactId>
-                        <version>4.0.0</version>
+                        <version>4.2.1</version>
                         <executions>
                             <execution>
                                 <id>generate_javascript</id>
