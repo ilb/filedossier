@@ -20,8 +20,8 @@ class DossierPdf extends React.Component {
   };
 
   componentDidMount () {
-    const { query, dossierFile } = this.props;
-    const pdfPath = getFileLink({ ...query, file: dossierFile });
+    const { dossierParams, dossierFile } = this.props;
+    const pdfPath = getFileLink({ ...dossierParams, file: dossierFile });
     // const pdfPath = 'http://localhost:3000/static/test0.pdf';
     this.initPdf(pdfPath);
 
@@ -33,7 +33,7 @@ class DossierPdf extends React.Component {
     const oldFile = this.props.dossierFile;
     const newFile = nextProps.dossierFile;
     if (oldFile.lastModified !== newFile.lastModified) { // new file uploaded
-      const pdfPath = getFileLink({ ...nextProps.query, file: newFile });
+      const pdfPath = getFileLink({ ...nextProps.dossierParams, file: newFile });
       this.initPdf(pdfPath);
     }
   }
@@ -298,13 +298,13 @@ class DossierPdf extends React.Component {
   }
 
   render () {
-    const { query, dossierFile, contentRef } = this.props;
+    const { dossierParams, dossierFile, contentRef } = this.props;
     const { pdf, currentPage, pageText, scaleValue, scaleNum, error, pdfLoading } = this.state;
 
     return (
       <div className="dossier-pdf">
         <ControlsMenu
-          query={query} dossierFile={dossierFile} pdf={pdf}
+          dossierParams={dossierParams} dossierFile={dossierFile} pdf={pdf}
           currentPage={currentPage} pageText={pageText} setPage={this.setPage} setPageText={this.setPageText}
           scaleValue={scaleValue} scaleNum={scaleNum} setScale={this.setScale}
           rotateFile={this.rotateFile}
@@ -326,7 +326,7 @@ class DossierPdf extends React.Component {
 DossierPdf.propTypes = {
   dossierFile: PropTypes.object.isRequired,
   dossierActions: PropTypes.object.isRequired,
-  query: PropTypes.object.isRequired,
+  dossierParams: PropTypes.object.isRequired,
   contentRef: PropTypes.object.isRequired,
 };
 

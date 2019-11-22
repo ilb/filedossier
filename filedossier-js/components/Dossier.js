@@ -5,9 +5,9 @@ import FileDossier from '../classes/FileDossier';
 import DossierPreview from './DossierPreview';
 import DossierTable from './DossierTable';
 
-export const getFileLink = ({ dossierKey, dossierPackage, dossierCode, file, inline }) => (
+export const getFileLink = ({ dossierKey, dossierPackage, dossierCode, dossierMode, file, inline }) => (
   `https://devel.net.ilb.ru/workflow-web/web/v2/` +
-    `dossiers/${dossierKey}/${dossierPackage}/${dossierCode}/dossierfiles/${file.code}` +
+    `dossiers/${dossierKey}/${dossierPackage}/${dossierCode}/${dossierMode}/dossierfiles/${file.code}` +
     `?nocache=${(file.lastModified || '').replace(/\D/g, '')}` +
     `${inline ? `&mode=inline` : ''}`
 );
@@ -18,10 +18,15 @@ export const getFileAccept = (file) => {
   }
 };
 
+// creates uniq string based on dossierFile and dossierParams
+export const getFileId = ({ dossierKey, dossierPackage, dossierCode, file }) => (
+  `file_${dossierKey}_${dossierPackage}_${dossierCode}_${file.code}`
+);
+
 function Dossier (props) {
-  const dossierInst = new FileDossier(props.dossierData.query); // create instance { dossierKey, dossierPackage, dossierCode }
+  const dossierInst = new FileDossier(props.dossierData.dossierParams);
   const [{ dossierData, loading, error }, dossierActions] = dossierInst.useDossier(props.dossierData); // init hook
-  const { query, response: dossier, error: dossierError } = dossierData || {};
+  const { dossierParams, response: dossier, error: dossierError } = dossierData || {};
   let DossierComponent;
   switch (props.mode) {
     case 'preview': DossierComponent = DossierPreview; break;
@@ -29,7 +34,7 @@ function Dossier (props) {
     default: DossierComponent = DossierTable; // default as table
   }
 
-  const childrenProps = { dossier, dossierParams: query, dossierActions };
+  const childrenProps = { dossier, dossierError, dossierParams, dossierActions };
 
   return (
     <div className="dossier-wrap">
@@ -37,13 +42,13 @@ function Dossier (props) {
         {props.header && dossier && <Header dividing content={dossier.name}/>}
         {!!dossierError && <Message error visible header="Ошибка при загрузке досье" content={dossierError}/>}
         {!!error && <Message error visible header="Ошибка при выполнении действия с досье" content={error}/>}
-        {(!query || (!dossier && !dossierError)) && <Message error visible header="В компонент не переданы данные по досье"/>}
+        {(!dossierParams || (!dossier && !dossierError)) && <Message error visible header="В компонент не переданы данные по досье"/>}
         {(dossier && (!dossier.dossierFile || !dossier.dossierFile.length)) && <Message error visible header="Отсутствуют файлы в досье"/>}
         {dossier && dossier.dossierFile && dossier.dossierFile.length > 0 &&
           <DossierComponent
             dossier={dossier}
             dossierActions={dossierActions}
-            query={query}
+            dossierParams={dossierParams}
           />
         }
       </Segment>
@@ -57,7 +62,7 @@ function Dossier (props) {
 
 Dossier.propTypes = {
   dossierData: PropTypes.shape({
-    query: PropTypes.object.isRequired,
+    dossierParams: PropTypes.object.isRequired,
     response: PropTypes.object,
     error: PropTypes.string,
   }).isRequired,

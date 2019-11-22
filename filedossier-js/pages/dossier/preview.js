@@ -18,7 +18,7 @@ function DossierApp ({ dossierData }) {
 
 DossierApp.propTypes = {
   dossierData: PropTypes.shape({
-    query: PropTypes.object.isRequired,
+    dossierParams: PropTypes.object.isRequired,
     response: PropTypes.object,
     error: PropTypes.string,
   }).isRequired,

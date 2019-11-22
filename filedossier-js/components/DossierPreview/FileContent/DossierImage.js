@@ -13,15 +13,15 @@ class DossierImage extends React.Component {
   };
 
   componentDidMount () {
-    const { query, dossierFile } = this.props;
-    const src = getFileLink({ ...query, file: dossierFile, inline: true });
+    const { dossierParams, dossierFile } = this.props;
+    const src = getFileLink({ ...dossierParams, file: dossierFile, inline: true });
     this.setState({ src, fileDate: dossierFile.lastModified });
   }
 
   static getDerivedStateFromProps (props, state) {
-    const { query, dossierFile } = props;
+    const { dossierParams, dossierFile } = props;
     if (state.fileDate && state.fileDate !== dossierFile.lastModified) {
-      const src = getFileLink({ ...query, file: dossierFile, inline: true });
+      const src = getFileLink({ ...dossierParams, file: dossierFile, inline: true });
       return { src, fileDate: dossierFile.lastModified };
     }
     return null;
@@ -114,12 +114,12 @@ class DossierImage extends React.Component {
   }
 
   render () {
-    const { query, dossierFile, contentRef } = this.props;
+    const { dossierParams, dossierFile, contentRef } = this.props;
     const { src, scaleValue, scaleNum, rotate } = this.state;
     return (
       <div className="dossier-img">
         <ControlsMenu
-          query={query}
+          dossierParams={dossierParams}
           dossierFile={dossierFile}
           scaleValue={scaleValue} scaleNum={scaleNum} setScale={this.setScale}
           rotateFile={this.rotateFile}
@@ -139,7 +139,7 @@ class DossierImage extends React.Component {
 DossierImage.propTypes = {
   dossierFile: PropTypes.object.isRequired,
   dossierActions: PropTypes.object.isRequired,
-  query: PropTypes.object.isRequired,
+  dossierParams: PropTypes.object.isRequired,
   contentRef: PropTypes.object.isRequired,
 };
 

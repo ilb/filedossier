@@ -3,13 +3,12 @@ import PropTypes from 'prop-types';
 import { Menu } from 'semantic-ui-react';
 import BystroScan from '../BystroScan';
 import FileContent from './FileContent';
-import { getFileAccept } from '../Dossier';
+import { getFileId, getFileAccept } from '../Dossier';
 
-function DossierPreview ({ query, dossier, dossierActions }) {
+function DossierPreview ({ dossierParams, dossier, dossierActions }) {
   const dossierFiles = dossier.dossierFile;
   const [selectedFileCode, selectFile] = useState(dossierFiles[0] ? dossierFiles[0].code : null);
   const selectedFile = selectedFileCode && dossierFiles.find(file => file.code === selectedFileCode);
-  const { dossierKey, dossierPackage, dossierCode } = query;
 
   return (
     <div>
@@ -19,13 +18,13 @@ function DossierPreview ({ query, dossier, dossierActions }) {
           key: dossierFile.code, name: dossierFile.code, content: dossierFile.name, active: selectedFileCode === dossierFile.code,
         }))}
       />}
-      {selectedFileCode && selectedFile && <div>
+      {selectedFile && <div>
         {!selectedFile.readonly && <BystroScan
-          fileId={`file_${dossierKey}_${dossierPackage}_${dossierCode}_${selectedFileCode}`}
+          fileId={getFileId({ ...dossierParams, file: selectedFile })}
           accept={getFileAccept(selectedFile)}
           uploadFile={({ fileId, fileInput, error } = {}) => {
             if (fileId && fileInput && !error) {
-              dossierActions.publish({ fileCode: selectedFileCode, file: fileInput.files[0] });
+              dossierActions.publish({ fileCode: selectedFile.code, file: fileInput.files[0] });
             }
           }}
         />}
@@ -36,7 +35,7 @@ function DossierPreview ({ query, dossier, dossierActions }) {
           <FileContent
             dossierFile={selectedFile}
             dossierActions={dossierActions}
-            query={query}
+            dossierParams={dossierParams}
           />
         </div>}
       </div>}
@@ -45,7 +44,7 @@ function DossierPreview ({ query, dossier, dossierActions }) {
 }
 
 DossierPreview.propTypes = {
-  query: PropTypes.object.isRequired,
+  dossierParams: PropTypes.object.isRequired,
   dossier: PropTypes.object.isRequired,
   dossierActions: PropTypes.object.isRequired,
 };

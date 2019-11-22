@@ -3,12 +3,12 @@ import { Table } from 'semantic-ui-react';
 import DossierActions from './DossierActions';
 import { getFileLink } from '../Dossier';
 
-function DossierFile ({ dossierFile, dossierActions, query }) {
+function DossierFile ({ dossierFile, dossierActions, dossierParams }) {
   return (
     <Table.Row key={dossierFile.code}>
       <Table.Cell>
         {dossierFile.exists
-          ? <a href={getFileLink({ ...query, file: dossierFile })} target="_blank" rel='noreferrer noopener'>{dossierFile.name}</a>
+          ? <a href={getFileLink({ ...dossierParams, file: dossierFile })} target="_blank" rel='noreferrer noopener'>{dossierFile.name}</a>
           : dossierFile.name
         }
       </Table.Cell>
@@ -16,7 +16,7 @@ function DossierFile ({ dossierFile, dossierActions, query }) {
         <DossierActions
           dossierFile={dossierFile}
           dossierActions={dossierActions}
-          query={query}
+          dossierParams={dossierParams}
         />
       </Table.Cell>
     </Table.Row>
@@ -26,7 +26,7 @@ function DossierFile ({ dossierFile, dossierActions, query }) {
 DossierFile.propTypes = {
   dossierFile: PropTypes.object.isRequired,
   dossierActions: PropTypes.object.isRequired,
-  query: PropTypes.object.isRequired,
+  dossierParams: PropTypes.object.isRequired,
 };
 
 export default DossierFile;

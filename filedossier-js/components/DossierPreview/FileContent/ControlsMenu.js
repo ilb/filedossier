@@ -70,7 +70,7 @@ export const dragToScroll = (e) => {
 };
 
 function ControlsMenu ({
-  query, dossierFile,
+  dossierParams, dossierFile,
   pdf, currentPage, setPage, pageText, setPageText,
   scaleValue, scaleNum, setScale,
   rotateFile,
@@ -132,7 +132,7 @@ function ControlsMenu ({
 
         <Dropdown item icon="content" className="dossier-info">
           <Dropdown.Menu>
-            <DossierInfo query={query} dossierFile={dossierFile}/>
+            <DossierInfo dossierParams={dossierParams} dossierFile={dossierFile}/>
           </Dropdown.Menu>
         </Dropdown>
       </Menu.Menu>
@@ -141,7 +141,7 @@ function ControlsMenu ({
 }
 
 ControlsMenu.propTypes = {
-  query: PropTypes.object.isRequired,
+  dossierParams: PropTypes.object.isRequired,
   dossierFile: PropTypes.object.isRequired,
   pdf: PropTypes.object,
   currentPage: PropTypes.number,

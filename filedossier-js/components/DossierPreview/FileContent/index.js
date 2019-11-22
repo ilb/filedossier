@@ -35,7 +35,7 @@ function FileContent (props) {
 FileContent.propTypes = {
   dossierFile: PropTypes.object.isRequired,
   dossierActions: PropTypes.object.isRequired,
-  query: PropTypes.object.isRequired,
+  dossierParams: PropTypes.object.isRequired,
 };
 
 export default FileContent;

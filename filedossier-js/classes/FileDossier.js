@@ -3,48 +3,40 @@ import { createDossierApi } from '../conf/config';
 import { createJsProxy } from '@ilb/js-auto-proxy';
 
 export default class FileDossier {
-  constructor ({ dossierKey, dossierPackage, dossierCode, req } = {}) {
-    this.dossierKey = dossierKey;
-    this.dossierPackage = dossierPackage;
-    this.dossierCode = dossierCode;
+  constructor ({ dossierKey, dossierPackage, dossierCode, dossierMode, req } = {}) {
+    this.dossierParams = { dossierKey, dossierPackage, dossierCode, dossierMode };
 
     const apiDossier = createDossierApi((req && req.headers) ? req.headers['x-remote-user'] : null);
     this.api = createJsProxy(apiDossier, 'dossier');
   }
 
+  /* return array of dossier params */
+  getDossierParams = () => {
+    const keysOrder = ['dossierKey', 'dossierPackage', 'dossierCode', 'dossierMode'];
+    const dossierParamsArray = keysOrder.map(key => this.dossierParams[key]);
+    return dossierParamsArray;
+  };
+
   getDossier = async () => {
-    const query = { dossierKey: this.dossierKey, dossierPackage: this.dossierPackage, dossierCode: this.dossierCode };
-    const { response, error } = await this.api.getDossier(this.dossierKey, this.dossierPackage, this.dossierCode);
-    return { query, response, error };
-  }
-
-  /* lock file - set readonly = true */
-  lockFile = async ({ fileCode }) => {
-    const response = await this.api.lock(fileCode, this.dossierKey, this.dossierPackage, this.dossierCode);
-    return response;
-  }
-
-  /* hide file - set hidden = true */
-  hideFile = async ({ fileCode }) => {
-    const response = await this.api.hide(fileCode, this.dossierKey, this.dossierPackage, this.dossierCode);
-    return response;
+    const { response, error } = await this.api.getDossier(...this.getDossierParams());
+    return { dossierParams: this.dossierParams, response, error };
   }
 
   // download file
   download = async ({ fileCode, version, mode }) => {
-    const response = await this.api.download(fileCode, this.dossierKey, this.dossierPackage, this.dossierCode, { version, mode });
+    const response = await this.api.download(fileCode, ...this.getDossierParams(), { version, mode });
     return response;
   }
 
   /* создает новую версию файла (перезаписывает текущий файл) */
   publish = async ({ fileCode, file }) => {
-    const response = await this.api.publish(file, [fileCode, this.dossierKey, this.dossierPackage, this.dossierCode]);
+    const response = await this.api.publish(file, [fileCode, ...this.getDossierParams()]);
     return response;
   }
 
   /* сохраняет файл в текущую версию (добавляет файл?) */
   update = async ({ fileCode, file }) => {
-    const response = await this.api.update(file, [fileCode, this.dossierKey, this.dossierPackage, this.dossierCode]);
+    const response = await this.api.update(file, [fileCode, ...this.getDossierParams()]);
     return response;
   }
 
@@ -82,8 +74,6 @@ export default class FileDossier {
       updateDossier: this._createRequestAction({ state, setState, withUpdate: true }),
       publish: this._createRequestAction({ state, setState, action: this.publish.bind(this), withUpdate: true }),
       update: this._createRequestAction({ state, setState, action: this.update.bind(this), withUpdate: true }),
-      lockFile: this._createRequestAction({ state, setState, action: this.lockFile.bind(this), withUpdate: true }),
-      hideFile: this._createRequestAction({ state, setState, action: this.hideFile.bind(this), withUpdate: true }),
       resetHook: () => { setState({ ...state, loading: false, error: null }); },
     };
     return [state, dossierActions];
