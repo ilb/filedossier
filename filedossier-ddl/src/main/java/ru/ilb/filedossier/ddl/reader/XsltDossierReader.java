@@ -39,20 +39,21 @@ public class XsltDossierReader implements DossierReader{
     private final XmlDossierReader xmlDossierReader = new XmlDossierReader();
 
     @Override
-    public PackageDefinition read(String source) {
-        Source aStyleSheetInputSource = new StreamSource(new StringReader(source));
+    public PackageDefinition read(String source, String dossierMode) {
+        Source stylesheetInputSource = new StreamSource(new StringReader(source));
 
         Source inputSource = new StreamSource(new StringReader("<context/>"));
         StringWriter sw = new StringWriter();
         Result outputResult = new StreamResult(sw);
 
         try {
-            Transformer transformer = TRANSFORMER_FACTORY.newTransformer(aStyleSheetInputSource);
+            Transformer transformer = TRANSFORMER_FACTORY.newTransformer(stylesheetInputSource);
+            transformer.setParameter("dossierMode", dossierMode);
             transformer.transform(inputSource, outputResult);
         } catch (TransformerException ex) {
             throw new RuntimeException(ex);
         }
-        return xmlDossierReader.read(sw.toString());
+        return xmlDossierReader.read(sw.toString(),dossierMode);
     }
     @Override
     public String modelFileExtension() {

@@ -48,7 +48,7 @@ public class XmlDossierReader implements DossierReader {
     }
 
     @Override
-    public PackageDefinition read(String source) {
+    public PackageDefinition read(String source, String dossierMode) {
         try {
             Unmarshaller unmarshaller = JAXB_CONTEXT.createUnmarshaller();
             unmarshaller.setSchema(SCHEMA);

@@ -56,18 +56,18 @@ class DossierFileFactory {
 
         return new DossierFileImpl(
                 dossierFileStore, model.getCode(), model.getName(),
-
+                // FIXME replace model.getRequired().toString() and Boolean.parseBoolean
                 Boolean.parseBoolean((String) Optional.ofNullable(
                         context.getProperty("required"))
-                        .orElse(model.getRequired())),
+                        .orElse(model.getRequired().toString())),
 
                 Boolean.parseBoolean((String) Optional.ofNullable(
                         context.getProperty("readonly"))
-                        .orElse(model.getReadonly())),
+                        .orElse(model.getReadonly().toString())),
 
                 Boolean.parseBoolean((String) Optional.ofNullable(
                         context.getProperty("hidden"))
-                        .orElse(model.getHidden())),
+                        .orElse(model.getHidden().toString())),
 
                 versions, variations);
     }

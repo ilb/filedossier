@@ -13,23 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ru.ilb.filedossier.ddl.reader;
-
-import ru.ilb.filedossier.ddl.PackageDefinition;
+package ru.ilb.filedossier.ddl;
 
 /**
  *
- * Reader of dossier contents in specific format
  * @author slavb
  */
-public interface DossierReader {
+public class DossierFileNotFoundException extends IllegalArgumentException {
 
-    String modelFileExtension();
-    /**
-     * read and parse contents to PackageDefinition
-     * @param source source (for example, xml or any other format)
-     * @param dossierMode context parameter used by reader
-     * @return
-     */
-    PackageDefinition read(String source, String dossierMode);
+    public DossierFileNotFoundException(String fileCode) {
+        super("Dossier file not found: " + fileCode);
+    }
+
 }

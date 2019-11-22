@@ -68,8 +68,8 @@ public class FileDossierDefinitionRepository implements DossierDefinitionReposit
         try {
             DossierReader dossierReader = getDossierReader(dossierPackage);
             Path dossierPath = getDossierDefinitionPath(dossierPackage, dossierReader.modelFileExtension());
-            String contents = new String(Files.readAllBytes(dossierPath));
-            PackageDefinition dossierPackageDefinition = dossierReader.read(contents);
+            String source = new String(Files.readAllBytes(dossierPath));
+            PackageDefinition dossierPackageDefinition = dossierReader.read(source, dossierMode);
             dossierPackageDefinition.setBaseUri(dossierPath.toUri());
             return dossierPackageDefinition;
         } catch (IOException ex) {
