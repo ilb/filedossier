@@ -49,7 +49,7 @@
         <ilb-common.version>1.32-SNAPSHOT</ilb-common.version>
         <javax-xml-bind-jaxb-api.version>2.3.1</javax-xml-bind-jaxb-api.version>
         <spring.boot.version>2.1.9.RELEASE</spring.boot.version>
-        <maven.test.skip>false</maven.test.skip>
+        <maven.test.skip>true</maven.test.skip>
     </properties>
     <build>
         <pluginManagement>
