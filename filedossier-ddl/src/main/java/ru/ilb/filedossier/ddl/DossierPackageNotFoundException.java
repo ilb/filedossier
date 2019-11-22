@@ -15,14 +15,14 @@
  */
 package ru.ilb.filedossier.ddl;
 
-
 /**
- * Репозиторий моделей досье
  *
  * @author slavb
  */
-public interface DossierDefinitionRepository {
+public class DossierPackageNotFoundException extends IllegalArgumentException {
 
-    public PackageDefinition getDossierPackage(String dossierPackage, String dossierMode);
+    public DossierPackageNotFoundException(String dossierPackage) {
+        super("Dossier package not found: " + dossierPackage);
+    }
 
 }

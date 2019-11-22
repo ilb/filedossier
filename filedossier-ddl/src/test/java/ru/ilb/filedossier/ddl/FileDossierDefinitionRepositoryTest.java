@@ -15,13 +15,10 @@
  */
 package ru.ilb.filedossier.ddl;
 
-import ru.ilb.filedossier.ddl.FileDossierDefinitionRepository;
 import java.net.URI;
 import java.net.URISyntaxException;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import ru.ilb.filedossier.ddl.DossierDefinition;
-import ru.ilb.filedossier.ddl.DossierDefinitionRepository;
 
 /**
  *
@@ -33,21 +30,79 @@ public class FileDossierDefinitionRepositoryTest {
     }
 
     /**
-     * Test of getDossierDefinition method, of class FileDossierDefinitionRepository.
+     * Test of getDossierPackage method, of class FileDossierDefinitionRepository.
      *
      * @throws java.net.URISyntaxException
      */
     @Test
-    public void testGetDossierDefinition() throws URISyntaxException {
+    public void testGetDossierDefinitionXml() throws URISyntaxException {
         String dossierPackage = "testmodel";
         String dossierCode = "TEST";
+        String dossierMode = "mode1";
         URI modelsUri = getClass().getClassLoader().getResource("models").toURI();
 
         DossierDefinitionRepository instance = new FileDossierDefinitionRepository(modelsUri);
-        DossierDefinition result = instance.getDossierDefinition(dossierPackage, dossierCode);
+
+        PackageDefinition dossierPackageDefinition = instance.getDossierPackage(dossierPackage, dossierMode);
+
+        DossierDefinition result = dossierPackageDefinition.getDossiers().stream()
+                .filter(d -> d.getCode().equals(dossierCode)).findFirst().orElseThrow(() -> new DossierNotFoundException(dossierCode));
+
         assertEquals("TEST", result.getCode());
         assertEquals("Тестовое досье", result.getName());
         assertEquals(2, result.getDossierFiles().size());
+    }
+
+    @Test
+    public void testGetDossierDefinitionXsl() throws URISyntaxException {
+        String dossierPackage = "testmodelxsl";
+        String dossierCode = "TEST";
+        String dossierMode = "mode1";
+        URI modelsUri = getClass().getClassLoader().getResource("models").toURI();
+
+        DossierDefinitionRepository instance = new FileDossierDefinitionRepository(modelsUri);
+
+        PackageDefinition dossierPackageDefinition = instance.getDossierPackage(dossierPackage, dossierMode);
+
+        DossierDefinition dossierDefinition = dossierPackageDefinition.getDossiers().stream()
+                .filter(d -> d.getCode().equals(dossierCode)).findFirst().orElseThrow(() -> new DossierNotFoundException(dossierCode));
+
+        assertEquals("TEST", dossierDefinition.getCode());
+        assertEquals("Тестовое досье", dossierDefinition.getName());
+        assertEquals(2, dossierDefinition.getDossierFiles().size());
+
+        String fileCode="fairpricecalc";
+
+        DossierFileDefinition dossierFileDefinition = dossierDefinition.getDossierFiles().stream()
+                .filter(d -> d.getCode().equals(fileCode)).findFirst().orElseThrow(() -> new DossierNotFoundException(dossierCode));
+
+        assertEquals(true,dossierFileDefinition.getRequired());
+    }
+
+    @Test
+    public void testGetDossierDefinitionXsl2() throws URISyntaxException {
+        String dossierPackage = "testmodelxsl";
+        String dossierCode = "TEST";
+        String dossierMode = "mode2";
+        URI modelsUri = getClass().getClassLoader().getResource("models").toURI();
+
+        DossierDefinitionRepository instance = new FileDossierDefinitionRepository(modelsUri);
+
+        PackageDefinition dossierPackageDefinition = instance.getDossierPackage(dossierPackage, dossierMode);
+
+        DossierDefinition dossierDefinition = dossierPackageDefinition.getDossiers().stream()
+                .filter(d -> d.getCode().equals(dossierCode)).findFirst().orElseThrow(() -> new DossierNotFoundException(dossierCode));
+
+        assertEquals("TEST", dossierDefinition.getCode());
+        assertEquals("Тестовое досье", dossierDefinition.getName());
+        assertEquals(2, dossierDefinition.getDossierFiles().size());
+
+        String fileCode="fairpricecalc";
+
+        DossierFileDefinition dossierFileDefinition = dossierDefinition.getDossierFiles().stream()
+                .filter(d -> d.getCode().equals(fileCode)).findFirst().orElseThrow(() -> new DossierNotFoundException(dossierCode));
+
+        assertEquals(false,dossierFileDefinition.getRequired());
     }
 
 }

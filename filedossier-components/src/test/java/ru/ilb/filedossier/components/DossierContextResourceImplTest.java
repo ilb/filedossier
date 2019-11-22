@@ -58,7 +58,7 @@ public class DossierContextResourceImplTest {
     }
 
     private DossierContextResource getDossierContextResource(String name) {
-        return getDossiersResource().getDossierResource("teststorekey", "testmodel", "TEST")
+        return getDossiersResource().getDossierResource("teststorekey", "testmodel", "TEST","mode1")
                 .getDossierFileResource(name).getDossierContextResource();
     }
 

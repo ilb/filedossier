@@ -16,23 +16,15 @@
 package ru.ilb.filedossier.ddl;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URI;
-import java.nio.file.FileSystemNotFoundException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.spi.FileSystemProvider;
-import java.util.Collections;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
-import javax.xml.validation.Schema;
-import javax.xml.validation.SchemaFactory;
-import org.xml.sax.SAXException;
-import ru.ilb.filedossier.ddl.DossierDefinition;
-import ru.ilb.filedossier.ddl.PackageDefinition;
+import java.util.Arrays;
+import java.util.List;
+import ru.ilb.filedossier.ddl.reader.DossierReader;
+import ru.ilb.filedossier.ddl.reader.XmlDossierReader;
+import ru.ilb.filedossier.ddl.reader.XsltDossierReader;
 import ru.ilb.filedossier.utils.FSUtils;
 
 /**
@@ -43,45 +35,44 @@ import ru.ilb.filedossier.utils.FSUtils;
  */
 public class FileDossierDefinitionRepository implements DossierDefinitionRepository {
 
-    private static final String URI_2001_SCHEMA_XSD = "http://www.w3.org/2001/XMLSchema";
-    private static final String MODEL_SCHEMA_XSD_PATH = "schemas/filedossier/ddl.xsd";
-    private final SchemaFactory schemaFactory = SchemaFactory.newInstance(URI_2001_SCHEMA_XSD);
-    private final Schema schema;
+    private final URI dossierModelsBaseUri;
 
-    final JAXBContext jaxbContext;
+    private final static List<DossierReader> DOSSIER_READERS = Arrays.asList(new XmlDossierReader(), new XsltDossierReader());
 
-    private final URI dossierModelsPath;
-
-    private String modelFileExtension = ".xml";
-
-    public FileDossierDefinitionRepository(URI dossierModelsPath) {
-        this.dossierModelsPath = FSUtils.loadFileSystemProvider(dossierModelsPath);
-        try {
-            jaxbContext = JAXBContext.newInstance("ru.ilb.filedossier.ddl");
-            schema = schemaFactory.newSchema(getClass().getClassLoader().getResource(MODEL_SCHEMA_XSD_PATH));
-        } catch (JAXBException | SAXException ex) {
-            throw new RuntimeException(ex);
-        }
+    /**
+     *
+     * @param dossierModelsBaseUri path to dossier models store. all models resolved against this path
+     */
+    public FileDossierDefinitionRepository(URI dossierModelsBaseUri) {
+        this.dossierModelsBaseUri = FSUtils.loadFileSystemProvider(dossierModelsBaseUri);
     }
 
-    private Path getDossierDefinitionPath(String dossierPackage) {
-        return Paths.get(dossierModelsPath).resolve(dossierPackage).resolve(dossierPackage + modelFileExtension);
+    private Path getDossierPackageBase(String dossierPackage) {
+        return Paths.get(dossierModelsBaseUri).resolve(dossierPackage);
     }
 
-    @Override
-    public URI getDossierDefinitionUri(String dossierPackage) {
-        return getDossierDefinitionPath(dossierPackage).toUri();
+    private Path getDossierDefinitionPath(String dossierPackage, String extension) {
+        return getDossierPackageBase(dossierPackage).resolve(dossierPackage + extension);
+    }
+
+    private DossierReader getDossierReader(String dossierPackage) {
+        return DOSSIER_READERS.stream()
+                .filter(dr -> Files.exists(getDossierDefinitionPath(dossierPackage, dr.modelFileExtension())))
+                .findFirst()
+                .orElseThrow(() -> new DossierPackageNotFoundException(dossierPackage));
     }
 
     @Override
-    public DossierDefinition getDossierDefinition(String dossierPackage, String dossierCode) {
+    public PackageDefinition getDossierPackage(String dossierPackage, String dossierMode) {
+
         try {
-            Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-            unmarshaller.setSchema(schema);
-            PackageDefinition dossierPackageDefinition = (PackageDefinition) unmarshaller.unmarshal(getDossierDefinitionUri(dossierPackage).toURL());
-            return dossierPackageDefinition.getDossiers().stream()
-                    .filter(d -> d.getCode().equals(dossierCode)).findFirst().orElseThrow(() -> new DossierNotFoundException(dossierCode));
-        } catch (JAXBException | MalformedURLException ex) {
+            DossierReader dossierReader = getDossierReader(dossierPackage);
+            Path dossierPath = getDossierDefinitionPath(dossierPackage, dossierReader.modelFileExtension());
+            String source = new String(Files.readAllBytes(dossierPath));
+            PackageDefinition dossierPackageDefinition = dossierReader.read(source, dossierMode);
+            dossierPackageDefinition.setBaseUri(dossierPath.toUri());
+            return dossierPackageDefinition;
+        } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
     }

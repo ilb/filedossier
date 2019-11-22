@@ -48,7 +48,7 @@ public class DossierImplTest {
 
     public DossierImplTest() throws NamingException {
         dossierFactory = getDossierFactory();
-        dossier = dossierFactory.getDossier("teststorekey", "testmodel", "TEST");
+        dossier = dossierFactory.getDossier("teststorekey", "testmodel", "TEST", "mode1");
     }
 
     /**

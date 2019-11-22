@@ -125,7 +125,7 @@
 
     <resources>
         <resource path="dossiers">
-            <resource path="{dossierKey}/{dossierPackage}/{dossierCode}" id="dossierResource" type="#dossierResource">
+            <resource path="{dossierKey}/{dossierPackage}/{dossierCode}/{dossierMode}" id="dossierResource" type="#dossierResource">
                 <param name="dossierKey" style="template" type="xsd:string">
                     <doc>dossier key</doc>
                 </param>
@@ -134,6 +134,9 @@
                 </param>
                 <param name="dossierCode" style="template" type="xsd:string">
                     <doc>dossier code</doc>
+                </param>
+                <param name="dossierMode" style="template" type="xsd:string">
+                    <doc>dossier can have specific states, determined by activities where it have been used</doc>
                 </param>
             </resource>
         </resource>

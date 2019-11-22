@@ -74,8 +74,9 @@ public class DossiersResourceImplTest {
         String dossierKey = "teststorekey";
         String dossierPackage = "testmodel";
         String dossierCode = "TEST";
+        String dossierMode = "mode1";
         DossierResource dossierResource = getDossiersResource().getDossierResource(dossierKey, dossierPackage,
-                dossierCode);
+                dossierCode,dossierMode);
         DossierView dossier = dossierResource.getDossier();
         assertNotNull(dossier);
         DossierFileResource dossierFileResource = dossierResource.getDossierFileResource("fairpricecalc");
