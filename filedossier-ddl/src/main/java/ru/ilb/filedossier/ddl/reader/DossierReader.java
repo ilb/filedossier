@@ -24,6 +24,7 @@ import ru.ilb.filedossier.ddl.PackageDefinition;
  */
 public interface DossierReader {
 
+    String modelFileExtension();
     /**
      * read and parse contents to PackageDefinition
      * @param source

@@ -32,7 +32,7 @@ import ru.ilb.filedossier.ddl.PackageDefinition;
  */
 public class XsltDossierReader implements DossierReader{
 
-    private static TransformerFactory TRANSFORMER_FACTORY = TransformerFactory.newInstance();
+    private static final TransformerFactory TRANSFORMER_FACTORY = TransformerFactory.newInstance();
 
     public static final String MODEL_FILE_EXTENSION = ".dossier.xsl";
 
@@ -53,6 +53,10 @@ public class XsltDossierReader implements DossierReader{
             throw new RuntimeException(ex);
         }
         return xmlDossierReader.read(sw.toString());
+    }
+    @Override
+    public String modelFileExtension() {
+        return MODEL_FILE_EXTENSION;
     }
 
 }

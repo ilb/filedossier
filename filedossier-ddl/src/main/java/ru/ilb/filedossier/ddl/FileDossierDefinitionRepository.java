@@ -20,7 +20,11 @@ import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.List;
+import ru.ilb.filedossier.ddl.reader.DossierReader;
 import ru.ilb.filedossier.ddl.reader.XmlDossierReader;
+import ru.ilb.filedossier.ddl.reader.XsltDossierReader;
 import ru.ilb.filedossier.utils.FSUtils;
 
 /**
@@ -33,7 +37,7 @@ public class FileDossierDefinitionRepository implements DossierDefinitionReposit
 
     private final URI dossierModelsBaseUri;
 
-    private final XmlDossierReader xmlDossierReader = new XmlDossierReader();
+    private final static List<DossierReader> DOSSIER_READERS = Arrays.asList(new XmlDossierReader(), new XsltDossierReader());
 
     /**
      *
@@ -43,17 +47,29 @@ public class FileDossierDefinitionRepository implements DossierDefinitionReposit
         this.dossierModelsBaseUri = FSUtils.loadFileSystemProvider(dossierModelsBaseUri);
     }
 
-    private Path getDossierDefinitionPath(String dossierPackage) {
-        return Paths.get(dossierModelsBaseUri).resolve(dossierPackage).resolve(dossierPackage + XmlDossierReader.MODEL_FILE_EXTENSION);
+    private Path getDossierPackageBase(String dossierPackage) {
+        return Paths.get(dossierModelsBaseUri).resolve(dossierPackage);
+    }
+
+    private Path getDossierDefinitionPath(String dossierPackage, String extension) {
+        return getDossierPackageBase(dossierPackage).resolve(dossierPackage + extension);
+    }
+
+    private DossierReader getDossierReader(String dossierPackage) {
+        return DOSSIER_READERS.stream()
+                .filter(dr -> Files.exists(getDossierDefinitionPath(dossierPackage, dr.modelFileExtension())))
+                .findFirst()
+                .orElseThrow(() -> new DossierPackageNotFoundException(dossierPackage));
     }
 
     @Override
     public PackageDefinition getDossierPackage(String dossierPackage, String dossierMode) {
 
         try {
-            Path dossierPath = getDossierDefinitionPath(dossierPackage);
-            String contents = new String(Files.readAllBytes(getDossierDefinitionPath(dossierPackage)));
-            PackageDefinition dossierPackageDefinition = xmlDossierReader.read(contents);
+            DossierReader dossierReader = getDossierReader(dossierPackage);
+            Path dossierPath = getDossierDefinitionPath(dossierPackage, dossierReader.modelFileExtension());
+            String contents = new String(Files.readAllBytes(dossierPath));
+            PackageDefinition dossierPackageDefinition = dossierReader.read(contents);
             dossierPackageDefinition.setBaseUri(dossierPath.toUri());
             return dossierPackageDefinition;
         } catch (IOException ex) {

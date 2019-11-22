@@ -19,8 +19,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import ru.ilb.filedossier.ddl.DossierDefinition;
-import ru.ilb.filedossier.ddl.DossierDefinitionRepository;
 
 /**
  *
@@ -44,10 +42,14 @@ public class FileDossierDefinitionRepositoryTest {
         URI modelsUri = getClass().getClassLoader().getResource("models").toURI();
 
         DossierDefinitionRepository instance = new FileDossierDefinitionRepository(modelsUri);
-        DossierDefinition result = instance.getDossierPackage(dossierPackage, dossierCode, dossierMode);
+
+        PackageDefinition dossierPackageDefinition = instance.getDossierPackage(dossierPackage, dossierMode);
+
+        DossierDefinition result = dossierPackageDefinition.getDossiers().stream()
+                .filter(d -> d.getCode().equals(dossierCode)).findFirst().orElseThrow(() -> new DossierNotFoundException(dossierCode));
+
         assertEquals("TEST", result.getCode());
         assertEquals("Тестовое досье", result.getName());
         assertEquals(2, result.getDossierFiles().size());
     }
-
 }

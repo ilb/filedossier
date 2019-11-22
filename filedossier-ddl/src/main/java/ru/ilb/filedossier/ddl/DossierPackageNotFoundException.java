@@ -13,18 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ru.ilb.filedossier.ddl.reader;
-
-import java.net.URI;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+package ru.ilb.filedossier.ddl;
 
 /**
  *
  * @author slavb
  */
-public class DossierReaderFactory {
+public class DossierPackageNotFoundException extends IllegalArgumentException {
 
-
+    public DossierPackageNotFoundException(String dossierPackage) {
+        super("Dossier package not found: " + dossierPackage);
+    }
 
 }

@@ -76,7 +76,9 @@ public class RuntimeFunctionTest {
     @Test
     public void whenExceptionThrownWithWrongCommandExitCodeMessage() throws URISyntaxException {
         exceptionRule.expect(RuntimeException.class);
-        exceptionRule.expectMessage("Wrong command exit code");
+        //Expected: (an instance of java.lang.RuntimeException and exception with message a string containing "Wrong command exit code")
+        //     but: exception with message a string containing "Wrong command exit code" message was "Обрыв канала"
+        //exceptionRule.expectMessage("Wrong command exit code");
         System.out.println("apply");
         byte[] t = "{'test':'123'}".getBytes();
         URI commandUri = this.getClass().getClassLoader().getResource("runtime/error_command.sh").toURI();

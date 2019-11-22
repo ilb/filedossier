@@ -59,4 +59,9 @@ public class XmlDossierReader implements DossierReader {
         }
     }
 
+    @Override
+    public String modelFileExtension() {
+        return MODEL_FILE_EXTENSION;
+    }
+
 }
