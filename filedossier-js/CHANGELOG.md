@@ -4,4 +4,6 @@
 
 ## 2.0.22 (12.08.2019)
 использовать ссылку http://localhost:3000/dossier...
-убрал лишнее
+
+## 2.0.30 (21.10.2019)
+switch to transpiled version
