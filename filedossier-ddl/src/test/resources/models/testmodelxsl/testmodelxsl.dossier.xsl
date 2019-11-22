@@ -18,8 +18,7 @@
     <xsl:param name="dossierMode" />
 
     <xsl:template match="/">
-        <package xmlns="urn:ru:ilb:filedossier:ddl"
-        >
+        <package xmlns="urn:ru:ilb:filedossier:ddl">
             <code>testmodel</code>
             <name>Тестовый пакет досье</name>
             <dossier>
