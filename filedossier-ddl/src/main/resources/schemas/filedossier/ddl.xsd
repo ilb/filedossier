@@ -22,6 +22,11 @@
                     <xsd:documentation>Наименование пакета</xsd:documentation>
                 </xsd:annotation>
             </xsd:element>
+            <xsd:element name="baseUri" type="xsd:anyURI" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>базовый путь для относительных ссылок. если не задан, определяется автоматически по пути файла в системе</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
             <xsd:element ref="dossier" minOccurs="0" maxOccurs="unbounded">
                 <xsd:annotation>
                     <xsd:documentation>Досье</xsd:documentation>

@@ -30,6 +30,8 @@ import java.io.IOException;
 import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
+import ru.ilb.filedossier.ddl.DossierNotFoundException;
+import ru.ilb.filedossier.ddl.PackageDefinition;
 
 /**
  *
@@ -63,17 +65,17 @@ public class DossierFactory {
 
         contextRoot = String.format("%s/%s", dossierKey, dossierCode);
 
-        final DossierDefinition dossierModel = dossierDefinitionRepository
-                .getDossierDefinition(dossierPackage, dossierCode, dossierMode);
+        final PackageDefinition dossierPackageDefinition = dossierDefinitionRepository
+                .getDossierPackage(dossierPackage, dossierMode);
 
-        final URI baseDefinitionUri = dossierDefinitionRepository
-                .getDossierDefinitionUri(dossierPackage);
+        DossierDefinition dossierModel = dossierPackageDefinition.getDossiers().stream()
+                .filter(d -> d.getCode().equals(dossierCode)).findFirst().orElseThrow(() -> new DossierNotFoundException(dossierCode));
 
         final Store store = storeFactory.getStore(dossierKey);
 
         if (representationFactory == null) {
             representationFactory = new RepresentationFactory(
-                    baseDefinitionUri /* , templateEvaluator */);
+                    dossierPackageDefinition.getBaseUri() /* , templateEvaluator */);
         }
         return createDossier(dossierModel, store, dossierKey, dossierPackage);
     }

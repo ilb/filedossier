@@ -13,16 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ru.ilb.filedossier.ddl;
+package ru.ilb.filedossier.ddl.reader;
 
+import java.net.URI;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 /**
- * Репозиторий моделей досье
  *
  * @author slavb
  */
-public interface DossierDefinitionRepository {
+public class DossierReaderFactory {
 
-    public PackageDefinition getDossierPackage(String dossierPackage, String dossierMode);
+
 
 }

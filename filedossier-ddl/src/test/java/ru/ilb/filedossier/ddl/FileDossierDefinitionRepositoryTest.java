@@ -32,7 +32,7 @@ public class FileDossierDefinitionRepositoryTest {
     }
 
     /**
-     * Test of getDossierDefinition method, of class FileDossierDefinitionRepository.
+     * Test of getDossierPackage method, of class FileDossierDefinitionRepository.
      *
      * @throws java.net.URISyntaxException
      */
@@ -44,7 +44,7 @@ public class FileDossierDefinitionRepositoryTest {
         URI modelsUri = getClass().getClassLoader().getResource("models").toURI();
 
         DossierDefinitionRepository instance = new FileDossierDefinitionRepository(modelsUri);
-        DossierDefinition result = instance.getDossierDefinition(dossierPackage, dossierCode, dossierMode);
+        DossierDefinition result = instance.getDossierPackage(dossierPackage, dossierCode, dossierMode);
         assertEquals("TEST", result.getCode());
         assertEquals("Тестовое досье", result.getName());
         assertEquals(2, result.getDossierFiles().size());

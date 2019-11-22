@@ -16,28 +16,10 @@
 package ru.ilb.filedossier.ddl;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URI;
-import java.nio.file.FileSystemNotFoundException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.spi.FileSystemProvider;
-import java.util.Collections;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
-import javax.xml.validation.Schema;
-import javax.xml.validation.SchemaFactory;
-import org.xml.sax.SAXException;
-import ru.ilb.filedossier.ddl.DossierDefinition;
-import ru.ilb.filedossier.ddl.DossierDefinition;
-import ru.ilb.filedossier.ddl.DossierDefinitionRepository;
-import ru.ilb.filedossier.ddl.DossierNotFoundException;
-import ru.ilb.filedossier.ddl.PackageDefinition;
-import ru.ilb.filedossier.ddl.PackageDefinition;
 import ru.ilb.filedossier.ddl.reader.XmlDossierReader;
 import ru.ilb.filedossier.utils.FSUtils;
 
@@ -66,18 +48,14 @@ public class FileDossierDefinitionRepository implements DossierDefinitionReposit
     }
 
     @Override
-    public URI getDossierDefinitionUri(String dossierPackage) {
-        return getDossierDefinitionPath(dossierPackage).toUri();
-    }
-
-    @Override
-    public DossierDefinition getDossierDefinition(String dossierPackage, String dossierCode, String dossierMode) {
+    public PackageDefinition getDossierPackage(String dossierPackage, String dossierMode) {
 
         try {
+            Path dossierPath = getDossierDefinitionPath(dossierPackage);
             String contents = new String(Files.readAllBytes(getDossierDefinitionPath(dossierPackage)));
             PackageDefinition dossierPackageDefinition = xmlDossierReader.read(contents);
-            return dossierPackageDefinition.getDossiers().stream()
-                    .filter(d -> d.getCode().equals(dossierCode)).findFirst().orElseThrow(() -> new DossierNotFoundException(dossierCode));
+            dossierPackageDefinition.setBaseUri(dossierPath.toUri());
+            return dossierPackageDefinition;
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }

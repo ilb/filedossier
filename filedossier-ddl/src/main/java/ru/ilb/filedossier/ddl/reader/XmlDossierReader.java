@@ -28,40 +28,35 @@ import ru.ilb.filedossier.ddl.PackageDefinition;
  *
  * @author slavb
  */
-public class XmlDossierReader implements DossierReader{
+public class XmlDossierReader implements DossierReader {
 
-    public static String MODEL_FILE_EXTENSION = ".xml";
+    public static final String MODEL_FILE_EXTENSION = ".xml";
 
     private static final String URI_2001_SCHEMA_XSD = "http://www.w3.org/2001/XMLSchema";
     private static final String MODEL_SCHEMA_XSD_PATH = "schemas/filedossier/ddl.xsd";
-    private static final SchemaFactory schemaFactory = SchemaFactory.newInstance(URI_2001_SCHEMA_XSD);
-    private static final Schema schema;
-
-    private final static JAXBContext jaxbContext;
-
+    private static final SchemaFactory SCHEMA_FACTORY = SchemaFactory.newInstance(URI_2001_SCHEMA_XSD);
+    private static final Schema SCHEMA;
+    private static final JAXBContext JAXB_CONTEXT;
 
     static {
         try {
-            jaxbContext = JAXBContext.newInstance("ru.ilb.filedossier.ddl");
-            schema = schemaFactory.newSchema(DossierReader.class.getClassLoader().getResource(MODEL_SCHEMA_XSD_PATH));
+            JAXB_CONTEXT = JAXBContext.newInstance("ru.ilb.filedossier.ddl");
+            SCHEMA = SCHEMA_FACTORY.newSchema(DossierReader.class.getClassLoader().getResource(MODEL_SCHEMA_XSD_PATH));
         } catch (JAXBException | SAXException ex) {
             throw new RuntimeException(ex);
         }
-
     }
-
 
     @Override
     public PackageDefinition read(String source) {
         try {
-            Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-            unmarshaller.setSchema(schema);
+            Unmarshaller unmarshaller = JAXB_CONTEXT.createUnmarshaller();
+            unmarshaller.setSchema(SCHEMA);
             PackageDefinition dossierPackageDefinition = (PackageDefinition) unmarshaller.unmarshal(new StringReader(source));
             return dossierPackageDefinition;
         } catch (JAXBException ex) {
             throw new RuntimeException(ex);
         }
-
     }
 
 }
