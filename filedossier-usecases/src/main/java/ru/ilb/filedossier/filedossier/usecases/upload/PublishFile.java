@@ -15,15 +15,16 @@
  */
 package ru.ilb.filedossier.filedossier.usecases.upload;
 
-import ru.ilb.filedossier.context.DossierContextService;
+import ru.ilb.filedossier.document.merger.DocumentMergerFactory;
+import ru.ilb.filedossier.document.merger.functions.DocumentMerger;
 import ru.ilb.filedossier.entities.DossierFile;
 import ru.ilb.filedossier.entities.DossierFileVersion;
 import ru.ilb.filedossier.mimetype.MimeTypeUtil;
 
-import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 
 /**
  *
@@ -40,9 +41,23 @@ public class PublishFile {
         }
 
         try {
-            version.setContents(file);
+            byte[] mergedFile = mergeFiles(version, file);
+            version.setMediaType(MimeTypeUtil.guessMimeTypeFromByteArray(mergedFile));
+            version.setContents(mergedFile);
         } catch (IOException e) {
-            throw new RuntimeException("error while saving");
+            throw new RuntimeException("Error while saving: " + e);
         }
+    }
+
+    private byte[] mergeFiles(DossierFileVersion dossierFile, File file) throws IOException {
+        DocumentMergerFactory factory = DocumentMergerFactory.getInstance();
+
+        String dossierFileMediaType = dossierFile.getMediaType();
+        String newFileMediaType = MimeTypeUtil.guessMimeTypeFromFile(file);
+
+        DocumentMerger merger = factory.getDocumentMerger(dossierFileMediaType, newFileMediaType);
+        return merger.apply(
+                dossierFile.getContents(),
+                Files.readAllBytes(file.toPath()));
     }
 }

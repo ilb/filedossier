@@ -84,6 +84,15 @@ public class ConcreteDossierFileVersion implements DossierFileVersion {
     }
 
     @Override
+    public void setMediaType(String mediaType) {
+        if (parent.getAllowedMediaTypes().contains(mediaType)) {
+            this.mediaType = mediaType;
+        } else {
+            throw new RuntimeException("Setting media type is not allowed: " + mediaType);
+        }
+    }
+
+    @Override
     public String getCode() {
         return parent.getCode();
     }
