@@ -48,6 +48,8 @@ public class RepresentationFactory {
                 }
             case "application/xml":
                 return new JsonXmlRepresentation();
+            case "application/xhtml+xml":
+                return new XsltHtmlRepresentation(definitionUri.resolve(model.getStylesheet()));
             default:
                 throw new IllegalArgumentException(
                         "unsupported media type: " + model.getMediaType());

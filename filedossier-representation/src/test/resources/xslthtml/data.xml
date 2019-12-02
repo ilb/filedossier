@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<root>
+  <requestTime>24.09.2019 02:23</requestTime>
+  <RequestResult>
+    <records>
+      <w_rec>1</w_rec>
+      <w_reg_inic>Московская область</w_reg_inic>
+      <w_user />
+      <w_kuzov>XXXCT41DBFR390000</w_kuzov>
+      <w_model>ХЕНДЭСОЛЯРИС</w_model>
+      <w_data_pu>01.01.2018</w_data_pu>
+      <w_vin>XXXXT41DBFR390000</w_vin>
+      <w_god_vyp>2015</w_god_vyp>
+      <w_vid_uch>Т</w_vid_uch>
+      <w_un_gic>007010</w_un_gic>
+    </records>
+    <count>1</count>
+    <error>0</error>
+  </RequestResult>
+  <hostname>check.gibdd.ru</hostname>
+  <vin>XXXXT41DBFR390000</vin>
+  <status>200</status>
+</root>
