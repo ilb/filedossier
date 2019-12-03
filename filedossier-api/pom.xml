@@ -233,8 +233,7 @@
                                     <output>${project.build.directory}/generated-sources/openapi-javascript</output>
                                     <skipValidateSpec>true</skipValidateSpec>
                                     <generatorName>javascript</generatorName>
-                                    <!-- Map File object as Buffer to use api on server side -->
-                                    <typeMappings>File=Blob</typeMappings>
+                                    <typeMappings>File=Buffer</typeMappings>
                                     <configOptions>
                                         <usePromises>true</usePromises>
                                         <projectName>@ilb/${project.name}</projectName>
