@@ -12,7 +12,7 @@
     <properties>
         <eclipselink.version>2.7.4</eclipselink.version>
         <swagger-version>2.1.0</swagger-version>
-        <generated-api-version>1.0.12</generated-api-version>
+        <generated-api-version>1.0.13</generated-api-version>
     </properties>
     <name>filedossier-api</name>
     <description>API shared module</description>

@@ -28,8 +28,6 @@ import ru.ilb.filedossier.core.ContentDispositionMode;
 import ru.ilb.filedossier.entities.DossierFile;
 import ru.ilb.filedossier.entities.DossierFileVersion;
 import ru.ilb.filedossier.entities.Representation;
-import ru.ilb.filedossier.filedossier.usecases.actions.HideDossierFile;
-import ru.ilb.filedossier.filedossier.usecases.actions.LockDossierFile;
 import ru.ilb.filedossier.filedossier.usecases.upload.PublishFile;
 import ru.ilb.filedossier.filedossier.usecases.upload.PublishFileNewVersion;
 
@@ -46,12 +44,6 @@ public class DossierFileResourceImpl implements DossierFileResource {
      */
     @Inject
     private PublishFileNewVersion publishFileNewVersion;
-
-    @Inject
-    private LockDossierFile lockDossierFile;
-
-    @Inject
-    private HideDossierFile hideDossierFile;
 
     /**
      * Spring application context.
@@ -109,16 +101,6 @@ public class DossierFileResourceImpl implements DossierFileResource {
     @Override
     public void publish(File file) {
         publishFileNewVersion.publish(file, dossierFile);
-    }
-
-    @Override
-    public void lock() {
-        lockDossierFile.lock(dossierFile);
-    }
-
-    @Override
-    public void hide() {
-        hideDossierFile.hide(dossierFile);
     }
 
     @Override
