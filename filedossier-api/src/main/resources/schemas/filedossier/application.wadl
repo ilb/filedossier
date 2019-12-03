@@ -106,20 +106,6 @@
             </method>
         </resource>
 
-        <resource path="lock">
-            <method name="PUT" id="lock">
-                <doc>set dossier file read-only</doc>
-                <response status="204"/>
-            </method>
-        </resource>
-
-        <resource path="hide">
-           <method name="PUT" id="hide">
-               <doc>set dossier file hidden</doc>
-               <response status="204"/>
-           </method>
-        </resource>
-
         <resource path="context" id="dossierContextResource" type="#dossierContextResource"/>
     </resource_type>
 
