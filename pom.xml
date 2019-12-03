@@ -46,7 +46,7 @@
         <doclint>none</doclint>
         <apache-cxf.version>3.3.3</apache-cxf.version>
         <eclipselink.version>2.7.4</eclipselink.version>
-        <ilb-common.version>1.33-SNAPSHOT</ilb-common.version>
+        <ilb-common.version>1.32</ilb-common.version>
         <javax-xml-bind-jaxb-api.version>2.3.1</javax-xml-bind-jaxb-api.version>
         <spring.boot.version>2.1.9.RELEASE</spring.boot.version>
         <maven.test.skip>true</maven.test.skip>
