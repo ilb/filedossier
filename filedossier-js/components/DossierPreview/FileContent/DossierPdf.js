@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Message, Loader } from 'semantic-ui-react';
 import ControlsMenu, { getZoomOutScale, getZoomInScale, calcScaleNum, dragToScroll } from './ControlsMenu';
-import { getFileLink } from '../../Dossier';
 import PDFJS from 'pdfjs-dist';
 PDFJS.workerSrc = '//cdnjs.cloudflare.com/ajax/libs/pdf.js/2.2.228/pdf.worker.js'; // TODO setup static worker from pdfjs-dist/build
 PDFJS.GlobalWorkerOptions.workerSrc = PDFJS.workerSrc;
@@ -20,8 +19,8 @@ class DossierPdf extends React.Component {
   };
 
   componentDidMount () {
-    const { dossierParams, dossierFile } = this.props;
-    const pdfPath = getFileLink({ ...dossierParams, file: dossierFile });
+    const { dossierFile } = this.props;
+    const pdfPath = dossierFile.path;
     // const pdfPath = 'http://localhost:3000/static/test0.pdf';
     this.initPdf(pdfPath);
 
@@ -32,8 +31,8 @@ class DossierPdf extends React.Component {
   UNSAFE_componentWillReceiveProps (nextProps) { // eslint-disable-line camelcase
     const oldFile = this.props.dossierFile;
     const newFile = nextProps.dossierFile;
-    if (oldFile.lastModified !== newFile.lastModified) { // new file uploaded
-      const pdfPath = getFileLink({ ...nextProps.dossierParams, file: newFile });
+    if (oldFile.path !== newFile.path) { // new file uploaded
+      const pdfPath = newFile.path;
       this.initPdf(pdfPath);
     }
   }
@@ -298,18 +297,17 @@ class DossierPdf extends React.Component {
   }
 
   render () {
-    const { dossierParams, dossierFile, contentRef } = this.props;
+    const { dossierFile, contentRef } = this.props;
     const { pdf, currentPage, pageText, scaleValue, scaleNum, error, pdfLoading } = this.state;
 
     return (
       <div className="dossier-pdf">
         <ControlsMenu
-          dossierParams={dossierParams} dossierFile={dossierFile} pdf={pdf}
+          dossierFile={dossierFile} pdf={pdf}
           currentPage={currentPage} pageText={pageText} setPage={this.setPage} setPageText={this.setPageText}
           scaleValue={scaleValue} scaleNum={scaleNum} setScale={this.setScale}
           rotateFile={this.rotateFile}
         />
-        {error && <Message error visible header="Ошибка при открытии pdf файла" content={error.message} style={{ margin: 0 }}/>}
         <div className="dossier-pdf-container" ref={contentRef}>
           {pdf && pdf.numPages && !error && <React.Fragment>
             {Array(pdf.numPages).fill('').map((el, index) => (
@@ -317,6 +315,7 @@ class DossierPdf extends React.Component {
             ))}
           </React.Fragment>}
           <Loader active={pdfLoading} size="small"/>
+          {error && <Message error visible header="Ошибка при открытии pdf файла" content={error.message} style={{ margin: 0 }}/>}
         </div>
       </div>
     );
@@ -325,8 +324,6 @@ class DossierPdf extends React.Component {
 
 DossierPdf.propTypes = {
   dossierFile: PropTypes.object.isRequired,
-  dossierActions: PropTypes.object.isRequired,
-  dossierParams: PropTypes.object.isRequired,
   contentRef: PropTypes.object.isRequired,
 };
 

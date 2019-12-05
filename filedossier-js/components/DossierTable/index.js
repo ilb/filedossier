@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { Table } from 'semantic-ui-react';
 import DossierFile from './DossierFile';
 
-function DossierTable ({ dossierParams, dossier, dossierActions }) {
+function DossierTable ({ dossier, dossierActions }) {
   const dossierFiles = dossier.dossierFile;
 
   return (
@@ -18,7 +18,6 @@ function DossierTable ({ dossierParams, dossier, dossierActions }) {
           <DossierFile key={dossierFile.code}
             dossierFile={dossierFile}
             dossierActions={dossierActions}
-            dossierParams={dossierParams}
           />
         ))}
       </Table.Body>
@@ -27,7 +26,6 @@ function DossierTable ({ dossierParams, dossier, dossierActions }) {
 }
 
 DossierTable.propTypes = {
-  dossierParams: PropTypes.object.isRequired,
   dossier: PropTypes.object.isRequired,
   dossierActions: PropTypes.object.isRequired,
 };

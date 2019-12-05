@@ -1,27 +1,32 @@
 .bystro-scan {
   position: relative;
+  display: inline-block;
 }
 
-.bystro-scan > .bystro-scan-params,
-.bystro-scan > :global(.button) {
+.bystro-scan .bystro-scan-params,
+.bystro-scan > .button {
   display: inline-block !important;
   vertical-align: middle !important;
+}
+
+.bystro-scan > .button:not(.attached) {
+  margin: 0 0 0 0.5rem !important;
 }
 
 .bystro-scan-params {
   padding: 0.5rem !important;
 }
 
-.bystro-scan-params :global(.radio) {
+.bystro-scan-params .radio {
   margin-right: 0.5rem;
 }
 
-.bystro-scan-params :global(.input) {
+.bystro-scan-params .input {
   width: 2.5rem !important;
   margin: 0 0.5rem !important;
 }
 
-.bystro-scan-params :global(.input) input {
+.bystro-scan-params .input input {
   padding: 0.2rem 0.5rem !important;
   text-align: center;
 }
@@ -30,10 +35,10 @@
   position: relative;
   overflow: hidden;
   width: 11rem !important;
-  margin: 0 0.5rem !important;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
+
 .bystro-scan-file-button input[type=file] {
   position: absolute;
   top: 0;

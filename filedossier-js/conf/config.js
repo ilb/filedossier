@@ -1,4 +1,5 @@
-import { DossiersApi, ApiClient } from '@ilb/filedossier-api';
+import { DossiersApi, ApiClient as DossierApiClient } from '@ilb/filedossier-api';
+import { ApiClient } from '@ilb/js-auto-proxy';
 require('@ilb/node_context').config({ debug: true });
 
 const config = {};
@@ -10,19 +11,39 @@ if (!process.browser) {
   config.ca = process.env.NODE_EXTRA_CA_CERTS ? fs.readFileSync(process.env.NODE_EXTRA_CA_CERTS) : null;
 }
 
-export function createDossierApi (xRemoteUser) {
-  const apiClient = new ApiClient();
-  apiClient.basePath = 'https://devel.net.ilb.ru/workflow-web/web/v2';
+/**
+* Applies authentication headers to the request.
+* @param {Object} request The request object created by a <code>superagent()</code> call.
+* @param req {Object} nextjs req object.
+*/
+const applyAuthToRequest = ({ request, xRemoteUser }) => {
   if (!process.browser) {
-    apiClient.applyAuthToRequest = (request/* , authNames */) => {
-      request.ca(config.ca).key(config.cert).cert(config.cert);
-      request._passphrase = config.passphrase;
-      request.set('x-remote-user', xRemoteUser || process.env.USER);
-    };
+    request
+      .ca(config.ca)
+      .key(config.cert)
+      .cert(config.cert)
+      .pfx({ passphrase: config.passphrase })
+      .set('x-remote-user', xRemoteUser || process.env.USER);
   }
+};
+
+export function createDossierApi (xRemoteUser) {
+  const apiClient = new DossierApiClient();
+  apiClient.basePath = 'https://devel.net.ilb.ru/workflow-web/web/v2';
+  apiClient.applyAuthToRequest = (request) => {
+    applyAuthToRequest({ request, xRemoteUser });
+  };
 
   const apiDossier = new DossiersApi(apiClient);
   return apiDossier;
+}
+
+export function getProxyApiClient (xRemoteUser) {
+  const apiClient = new ApiClient();
+  apiClient.applyAuthToRequest = (request) => {
+    applyAuthToRequest({ request, xRemoteUser });
+  };
+  return apiClient;
 }
 
 export default config;

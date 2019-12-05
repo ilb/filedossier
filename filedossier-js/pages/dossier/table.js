@@ -19,13 +19,16 @@ function DossierApp ({ dossierData }) {
 DossierApp.propTypes = {
   dossierData: PropTypes.shape({
     dossierParams: PropTypes.object.isRequired,
-    response: PropTypes.object,
+    dossier: PropTypes.object,
+    external: PropTypes.array,
     error: PropTypes.string,
   }).isRequired,
 };
 
-DossierApp.getInitialProps = async function ({ query }) {
-  const dossier = new FileDossier(query); // { dossierKey, dossierPackage, dossierCode }
+DossierApp.getInitialProps = async function (req) {
+  const dossierParams = req.query; // { dossierKey, dossierPackage, dossierCode }
+  const xRemoteUser = req && req.headers && req.headers['x-remote-user'];
+  const dossier = new FileDossier({ dossierParams, xRemoteUser });
   const dossierData = await dossier.getDossier();
   return { dossierData };
 };

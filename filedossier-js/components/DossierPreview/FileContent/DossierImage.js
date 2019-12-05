@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ControlsMenu, { getZoomOutScale, getZoomInScale, calcScaleNum, dragToScroll } from './ControlsMenu';
-import { getFileLink } from '../../Dossier';
 
 class DossierImage extends React.Component {
   state = {
@@ -9,20 +8,17 @@ class DossierImage extends React.Component {
     scaleValue: 'pageWidthOption', /* for selection */
     scaleNum: 1,
     rotate: 0,
-    fileDate: null,
   };
 
   componentDidMount () {
-    const { dossierParams, dossierFile } = this.props;
-    const src = getFileLink({ ...dossierParams, file: dossierFile, inline: true });
-    this.setState({ src, fileDate: dossierFile.lastModified });
+    const { dossierFile } = this.props;
+    this.setState({ src: dossierFile.inlinePath });
   }
 
   static getDerivedStateFromProps (props, state) {
-    const { dossierParams, dossierFile } = props;
-    if (state.fileDate && state.fileDate !== dossierFile.lastModified) {
-      const src = getFileLink({ ...dossierParams, file: dossierFile, inline: true });
-      return { src, fileDate: dossierFile.lastModified };
+    const { dossierFile } = props;
+    if (state.src && state.src !== dossierFile.inlinePath) {
+      return { src: dossierFile.inlinePath };
     }
     return null;
   }
@@ -114,12 +110,11 @@ class DossierImage extends React.Component {
   }
 
   render () {
-    const { dossierParams, dossierFile, contentRef } = this.props;
+    const { dossierFile, contentRef } = this.props;
     const { src, scaleValue, scaleNum, rotate } = this.state;
     return (
       <div className="dossier-img">
         <ControlsMenu
-          dossierParams={dossierParams}
           dossierFile={dossierFile}
           scaleValue={scaleValue} scaleNum={scaleNum} setScale={this.setScale}
           rotateFile={this.rotateFile}
@@ -128,7 +123,7 @@ class DossierImage extends React.Component {
           <img ref={contentRef} src={src}
             className={`ui fluid image dossier-img-rotate${rotate}`}
             onLoad={this.imageOnLoadHandler}
-            alt="Не удалось отобразить preview файла"
+            // alt="Не удалось отобразить preview файла"
           />
         </div>
       </div>
@@ -138,8 +133,6 @@ class DossierImage extends React.Component {
 
 DossierImage.propTypes = {
   dossierFile: PropTypes.object.isRequired,
-  dossierActions: PropTypes.object.isRequired,
-  dossierParams: PropTypes.object.isRequired,
   contentRef: PropTypes.object.isRequired,
 };
 

@@ -1,0 +1,19 @@
+.external-dossier {
+  display: inline-block;
+}
+
+.external-dossier > .button {
+  display: inline-block !important;
+  vertical-align: middle !important;
+  margin: 0 0 0 0.5rem !important;
+}
+
+.external-dossier-files-list > .active.item{
+  box-shadow: 0 0 0 100rem rgba(20, 100, 200, 0.15) inset !important;
+}
+
+.thumbail-file-name {
+  word-wrap: break-word;
+  word-break: break-all;
+  color: rgba(0, 0, 0, 0.8);
+}

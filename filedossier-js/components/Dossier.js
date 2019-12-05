@@ -5,28 +5,10 @@ import FileDossier from '../classes/FileDossier';
 import DossierPreview from './DossierPreview';
 import DossierTable from './DossierTable';
 
-export const getFileLink = ({ dossierKey, dossierPackage, dossierCode, dossierMode, file, inline }) => (
-  `https://devel.net.ilb.ru/workflow-web/web/v2/` +
-    `dossiers/${dossierKey}/${dossierPackage}/${dossierCode}/${dossierMode}/dossierfiles/${file.code}` +
-    `?nocache=${(file.lastModified || '').replace(/\D/g, '')}` +
-    `${inline ? `&mode=inline` : ''}`
-);
-
-export const getFileAccept = (file) => {
-  if (file && file.allowedMediaTypes && file.allowedMediaTypes.allowedMediaType) {
-    return file.allowedMediaTypes.allowedMediaType.join(',');
-  }
-};
-
-// creates uniq string based on dossierFile and dossierParams
-export const getFileId = ({ dossierKey, dossierPackage, dossierCode, file }) => (
-  `file_${dossierKey}_${dossierPackage}_${dossierCode}_${file.code}`
-);
-
 function Dossier (props) {
-  const dossierInst = new FileDossier(props.dossierData.dossierParams);
+  const dossierInst = new FileDossier({ dossierParams: props.dossierData.dossierParams });
   const [{ dossierData, loading, error }, dossierActions] = dossierInst.useDossier(props.dossierData); // init hook
-  const { dossierParams, response: dossier, error: dossierError } = dossierData || {};
+  const { dossierParams, dossier, external, error: dossierError } = dossierData || {};
   let DossierComponent;
   switch (props.mode) {
     case 'preview': DossierComponent = DossierPreview; break;
@@ -35,6 +17,7 @@ function Dossier (props) {
   }
 
   const childrenProps = { dossier, dossierError, dossierParams, dossierActions };
+  const previewOffset = props.previewOffset || 140; // preview height will be calc(100vh - 140px)
 
   return (
     <div className="dossier-wrap">
@@ -46,9 +29,13 @@ function Dossier (props) {
         {(dossier && (!dossier.dossierFile || !dossier.dossierFile.length)) && <Message error visible header="Отсутствуют файлы в досье"/>}
         {dossier && dossier.dossierFile && dossier.dossierFile.length > 0 &&
           <DossierComponent
-            dossier={dossier}
-            dossierActions={dossierActions}
             dossierParams={dossierParams}
+            dossier={dossier}
+            external={external}
+            dossierActions={dossierActions}
+            loading={loading}
+            error={error}
+            previewOffset={previewOffset}
           />
         }
       </Segment>
@@ -63,12 +50,14 @@ function Dossier (props) {
 Dossier.propTypes = {
   dossierData: PropTypes.shape({
     dossierParams: PropTypes.object.isRequired,
-    response: PropTypes.object,
+    dossier: PropTypes.object,
+    external: PropTypes.array,
     error: PropTypes.string,
   }).isRequired,
   mode: PropTypes.string,
   header: PropTypes.bool,
   children: PropTypes.oneOfType([PropTypes.element, PropTypes.func]),
+  previewOffset: PropTypes.number,
 };
 
 export default Dossier;

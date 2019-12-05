@@ -2,9 +2,8 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Segment, Button, Icon } from 'semantic-ui-react';
 import BystroScan from '../BystroScan';
-import { getFileId, getFileAccept } from '../Dossier';
 
-function DossierActions ({ dossierFile, dossierActions, dossierParams }) {
+function DossierActions ({ dossierFile, dossierActions }) {
   if (dossierFile.readonly) { return <div/>; }
   const [uploadOpened, setUploadOpen] = useState(null);
 
@@ -39,8 +38,8 @@ function DossierActions ({ dossierFile, dossierActions, dossierParams }) {
       <Segment style={{ position: 'absolute', top: -20, zIndex: 1000, display: uploadOpened ? '' : 'none' }}>
         {uploadOpened && <div>
           <BystroScan
-            fileId={getFileId({ ...dossierParams, file: dossierFile })}
-            accept={getFileAccept(dossierFile)}
+            fileId={dossierFile.uniqId}
+            accept={dossierFile.accept}
             uploadFile={({ fileId, fileInput, error } = {}) => {
               if (fileId && fileInput && !error) {
                 dossierActions.publish({ fileCode: dossierFile.code, file: fileInput.files[0] });
@@ -58,7 +57,6 @@ function DossierActions ({ dossierFile, dossierActions, dossierParams }) {
 DossierActions.propTypes = {
   dossierFile: PropTypes.object.isRequired,
   dossierActions: PropTypes.object.isRequired,
-  dossierParams: PropTypes.object.isRequired,
 };
 
 export default DossierActions;
