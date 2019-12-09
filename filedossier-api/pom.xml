@@ -203,7 +203,7 @@
                             <dependency>
                                 <groupId>ru.ilb.openapiutils</groupId>
                                 <artifactId>openapiutils</artifactId>
-                                <version>1.2-SNAPSHOT</version>
+                                <version>1.2</version>
                             </dependency>
                         </dependencies>
                     </plugin>
