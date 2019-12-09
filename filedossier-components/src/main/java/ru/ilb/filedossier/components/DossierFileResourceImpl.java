@@ -75,6 +75,9 @@ public class DossierFileResourceImpl implements DossierFileResource {
         } else {
             dossierFileVersion = dossierFile.getVersion(version);
         }
+        if (dossierFileVersion == null) {
+            return null;
+        }
 
         Representation representation = dossierFileVersion.getRepresentation();
         final String contentDisposition = ContentDispositionMode.ATTACHMENT.equals(mode)
