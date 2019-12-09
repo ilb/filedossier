@@ -110,6 +110,12 @@ export default class FileDossier {
     return response;
   }
 
+  /* создает новую версию файла (для использования на серверной стороне, без изменения порядка аргyментов) */
+  publish1 = async ({ fileCode, file }) => {
+    const response = await this.apiDossier.publish(fileCode, ...this.getDossierParams(), { file });
+    return response;
+  }
+
   /* сохраняет файл в текущую версию */
   update = async ({ fileCode, file }) => {
     const response = await this.apiDossier.update(file, [fileCode, ...this.getDossierParams()]);
@@ -125,7 +131,8 @@ export default class FileDossier {
     }
 
     const file = new Buffer(fileResult.response, 'base64');
-    const importResult = await this.publish({ fileCode, file });
+    const uploadMethod = process.browser ? 'publish' : 'publish1';
+    const importResult = await this[uploadMethod]({ fileCode, file });
     return importResult;
   }
 
