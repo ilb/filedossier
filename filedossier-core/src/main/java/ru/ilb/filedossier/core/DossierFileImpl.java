@@ -123,11 +123,11 @@ public class DossierFileImpl implements DossierFile {
     public DossierFileVersion createNewVersion(String mediaType) {
 
         if (getReadonly()){
-            throw new RuntimeException("Dossier file is readonly: " + getCode());
+            throw new IllegalArgumentException("Dossier file is readonly: " + getCode());
         }
 
         if (!variations.containsKey(mediaType)) {
-           throw new RuntimeException("Specified media type is not allowed");
+           throw new IllegalArgumentException("Specified media type '" + mediaType +"' is not allowed");
         }
 
         DossierFileVariation variation = variations.get(mediaType);

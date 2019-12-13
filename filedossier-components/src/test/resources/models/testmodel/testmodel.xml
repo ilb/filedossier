@@ -19,6 +19,16 @@
             </variation>
         </dossierFile>
         <dossierFile>
+            <code>image1</code>
+            <name>Изобрпжение 1</name>
+            <readonly>false</readonly>
+            <required>true</required>
+            <hidden>false</hidden>
+            <variation>
+                <mediaType>image/jpeg</mediaType>
+            </variation>
+        </dossierFile>
+        <dossierFile>
             <code>fairpricecalc</code>
             <name>Тест имя</name>
             <readonly>false</readonly>

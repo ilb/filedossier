@@ -73,7 +73,7 @@ public class DossierFileResourceImplTest {
     @org.junit.Test
     public void testAUploadContents() throws URISyntaxException {
 
-        DossierFileResource fileResource = getDossierFileResource("jurnals");
+        DossierFileResource fileResource = getDossierFileResource("image1");
         fileResource.publish(Paths.get(getClass()
                 .getClassLoader()
                 .getResource("page1.jpg")
