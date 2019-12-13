@@ -113,10 +113,8 @@ public class DossierFileImplTest {
 
     /**
      * Test of getExists method, of class DossierFileImpl.
-     * TODO test revision required
      */
     @Test
-    @Ignore
     public void ztestGetExists() {
         System.out.println("getExists");
         boolean expResult = true;
