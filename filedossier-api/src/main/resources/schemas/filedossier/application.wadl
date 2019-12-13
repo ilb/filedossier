@@ -81,8 +81,8 @@
             </response>
         </method>
 
-        <resource path="publish">
-            <method name="PUT" id="update">
+        <resource path="update">
+            <method name="POST" id="update">
                 <doc>add file to current dossier file version</doc>
                 <request>
                     <representation mediaType="multipart/form-data">
