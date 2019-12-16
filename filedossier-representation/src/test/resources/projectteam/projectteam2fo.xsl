@@ -39,6 +39,23 @@
                     <fo:region-after region-name="xsl-region-after"/>
                 </fo:simple-page-master>
             </fo:layout-master-set>
+            <fo:declarations>
+                <x:xmpmeta xmlns:x="adobe:ns:meta/">
+                    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<!--                        <rdf:Description rdf:about=""
+                                         xmlns:dc="http://purl.org/dc/elements/1.1/">
+                            <dc:title>Document title</dc:title>
+                            <dc:creator>Document author</dc:creator>
+                            <dc:description>Document subject</dc:description>
+                        </rdf:Description>-->
+                        <rdf:Description rdf:about=""
+                                         xmlns:xmp="http://ns.adobe.com/xap/1.0/">
+                            <!-- XMP properties go here -->
+                            <xmp:docId><xsl:value-of select="/pt:projectteam/pt:docId"/></xmp:docId>
+                        </rdf:Description>
+                    </rdf:RDF>
+                </x:xmpmeta>
+            </fo:declarations>
             <fo:page-sequence master-reference="simpleA4">
                 <fo:static-content flow-name="xsl-region-after" display-align="after">
                     <fo:block>
@@ -67,7 +84,7 @@
                                         <fo:block>
                                                         &#160;
                                             <fo:instream-foreign-object>
-                                                <barcode:barcode message="12345-#page-number#-6789" xmlns:barcode="http://barcode4j.krysalis.org/ns">
+                                                <barcode:barcode message="{/pt:projectteam/pt:docId}-#page-number#" xmlns:barcode="http://barcode4j.krysalis.org/ns">
                                                     <barcode:datamatrix>
                                                         <barcode:module-width>0.75mm</barcode:module-width>
                                                         <barcode:shape>force-rectangle</barcode:shape>
@@ -79,7 +96,7 @@
                                     <fo:table-cell border-left-style="solid" border-left-width="thin" border-top-style="solid" display-align="before">
                                         <fo:block start-indent="3em">
                                             page <fo:page-number/>
-<!--                                             of
+                                            <!--                                             of
                                             <fo:page-number-citation-last/>-->
                                         </fo:block>
                                     </fo:table-cell>

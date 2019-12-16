@@ -21,6 +21,7 @@
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="urn:fop:examples:embedding:xml:xml:projectteam ../schemas/projectteam.xsd">
     <projectname>The Killer Application</projectname>
+    <docId>be41d0bf-92ed-4399-b852-0e166f142a09</docId>
     <member>
         <name>John Doe</name>
         <function>lead</function>
