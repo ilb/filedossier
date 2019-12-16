@@ -36,9 +36,59 @@
             <fo:layout-master-set>
                 <fo:simple-page-master master-name="simpleA4" page-height="29.7cm" page-width="21cm" margin-top="2cm" margin-bottom="2cm" margin-left="2cm" margin-right="2cm">
                     <fo:region-body/>
+                    <fo:region-after region-name="xsl-region-after"/>
                 </fo:simple-page-master>
             </fo:layout-master-set>
             <fo:page-sequence master-reference="simpleA4">
+                <fo:static-content flow-name="xsl-region-after" display-align="after">
+                    <fo:block>
+                        <fo:table table-layout="fixed" width="180mm">
+                            <fo:table-column column-width="27mm"/>
+                            <fo:table-column column-width="33mm"/>
+                            <fo:table-column column-width="80mm"/>
+                            <fo:table-column column-width="40mm"/>
+                            <fo:table-body>
+                                <fo:table-row>
+                                    <fo:table-cell text-align="center"
+                                                   border-right-style="solid"
+                                                   border-right-width="thin"
+                                                   border-top-style="solid"
+                                                   display-align="before">
+                                        <fo:block>
+                                            Company Logo
+                                        </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell text-align="center" border-top-style="solid" height="6mm" display-align="before">
+                                        <fo:block>
+                                            123-00-456
+                                        </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell border-top-style="solid" display-align="before">
+                                        <fo:block>
+                                                        &#160;
+                                            <fo:instream-foreign-object>
+                                                <barcode:barcode message="12345-#page-number#-6789" xmlns:barcode="http://barcode4j.krysalis.org/ns">
+                                                    <barcode:datamatrix>
+                                                        <barcode:module-width>0.75mm</barcode:module-width>
+                                                        <barcode:shape>force-rectangle</barcode:shape>
+                                                    </barcode:datamatrix>
+                                                </barcode:barcode>
+                                            </fo:instream-foreign-object>
+                                        </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell border-left-style="solid" border-left-width="thin" border-top-style="solid" display-align="before">
+                                        <fo:block start-indent="3em">
+                                            page <fo:page-number/>
+<!--                                             of
+                                            <fo:page-number-citation-last/>-->
+                                        </fo:block>
+                                    </fo:table-cell>
+                                </fo:table-row>
+                            </fo:table-body>
+                        </fo:table>
+
+                    </fo:block>
+                </fo:static-content>
                 <fo:flow flow-name="xsl-region-body">
                     <fo:block font-size="16pt" font-weight="bold" space-after="5mm">Project: <xsl:value-of select="pt:projectname"/>
                     </fo:block>
