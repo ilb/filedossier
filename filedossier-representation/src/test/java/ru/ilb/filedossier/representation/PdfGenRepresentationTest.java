@@ -53,7 +53,7 @@ public class PdfGenRepresentationTest {
         PdfGenRepresentation instance = new PdfGenRepresentation("application/pdf", URI.create(xsl),
                 URI.create(xsd), URI.create(meta));
 
-        URI dataUri = getClass().getClassLoader().getResource("jurnals/avto.xml").toURI();
+        URI dataUri = getClass().getClassLoader().getResource("jurnals/example.xml").toURI();
         byte[] source = Files.readAllBytes(Paths.get(dataUri));
         DossierContentsHolder contents = new DossierContentsHolder(source, "application/pdf",
                 "jurnals", "Jurnals", "pdf");
