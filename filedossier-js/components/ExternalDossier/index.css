@@ -17,3 +17,13 @@
   word-break: break-all;
   color: rgba(0, 0, 0, 0.8);
 }
+
+.upload-mode-selection {
+  border-radius: 0 .28571429rem .28571429rem 0 !important;
+  margin: 0 !important;
+}
+
+.upload-mode-selection > .menu {
+  right: 0 !important;
+  left: auto !important;
+}

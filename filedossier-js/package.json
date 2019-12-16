@@ -1,6 +1,6 @@
 {
   "name": "@ilb/filedossier-js",
-  "version": "1.0.39",
+  "version": "1.0.40",
   "description": "",
   "main": "lib/components/Dossier.js",
   "scripts": {
@@ -18,7 +18,6 @@
   ],
   "dependencies": {
     "@babel/runtime": "^7.7.2",
-    "@bb/semantic-ui-css": "^2.2.12",
     "@ilb/filedossier-api": "^1.0.18",
     "@ilb/js-auto-proxy": "^1.0.10",
     "@ilb/node_context": "^1.0.1",
@@ -28,6 +27,7 @@
     "react": "^16.8.6",
     "react-addons-shallow-compare": "^15.6.2",
     "react-dom": "^16.8.6",
+    "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^0.87.3",
     "xmldom": "^0.1.27",
     "xpath": "0.0.27"

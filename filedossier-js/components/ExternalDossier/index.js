@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Button, Modal, Grid, List, Message } from 'semantic-ui-react';
+import { Button, Modal, Grid, List, Message, Dropdown } from 'semantic-ui-react';
 import FileContent from '../DossierPreview/FileContent';
 import Thumbail from '../DossierPreview/Thumbail';
 import './index.css';
@@ -8,6 +8,7 @@ import './index.css';
 function ExternalDossier ({ external, dossierFile, dossierActions, loading, error }) {
   if (!external || !external.length) { return null; }
   const [selectedFile, selectFile] = useState(external[0]);
+  const [uploadMode, setUploadMode] = useState('new');
 
   const closeModal = () => {
     const closeIcon = document.querySelector('#externalDossierModal > i.close.icon');
@@ -16,8 +17,12 @@ function ExternalDossier ({ external, dossierFile, dossierActions, loading, erro
 
   const importFile = async () => {
     if (selectedFile && selectedFile.path) {
-      const importResult = await dossierActions.importFile({ fileCode: dossierFile.code, url: selectedFile.path });
-      if (!importResult.error) {
+      const importResult = await dossierActions.importFile({
+        fileCode: dossierFile.code,
+        url: selectedFile.path,
+        update: uploadMode === 'merge',
+      });
+      if (!importResult.error && uploadMode !== 'merge') {
         closeModal();
       }
     }
@@ -36,10 +41,10 @@ function ExternalDossier ({ external, dossierFile, dossierActions, loading, erro
         closeIcon
         closeOnDimmerClick={false}
         trigger={<Button content="Выбрать"/>}
-        className="scrolling"
+        style={{ position: 'static' }}
       >
         <Modal.Header>
-          Выбрать файл: {dossierFile.name}
+          Выбор файла: {dossierFile.name}
         </Modal.Header>
         <Modal.Content>
           <Grid>
@@ -74,7 +79,17 @@ function ExternalDossier ({ external, dossierFile, dossierActions, loading, erro
         </Modal.Content>
         <Modal.Actions>
           {!!error && <Message error compact content={error} style={{ margin: 0, padding: '0.6rem 1rem' }}/>}
-          <Button color="green" content="Выбрать" onClick={importFile} loading={loading} disabled={loading}/>
+          <Button type="button" color="green" attached="left" content="Загрузить" onClick={importFile} loading={loading} disabled={loading}/>
+          <Dropdown text=" "
+            className="right attached button green icon upload-mode-selection"
+            icon={`${uploadMode === 'merge' ? 'copy' : 'file'} outline`}
+            onChange={(e, { value }) => { setUploadMode(value); }}
+            value={uploadMode}
+            options={[
+              { key: 'new', text: 'Загрузить новый файл', value: 'new', icon: 'file outline' },
+              { key: 'merge', text: 'Объединить файлы', value: 'merge', icon: 'copy outline' },
+            ]}
+          />
         </Modal.Actions>
       </Modal>
     </div>

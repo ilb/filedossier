@@ -29,6 +29,7 @@ class BystroScan extends Component {
       fileName: null,
       scanColor: props.scanColor || 'color',
       scanDpi: (props.scanDpi || 150).toString(),
+      uploadMode: 'new',
     };
   }
 
@@ -72,8 +73,8 @@ class BystroScan extends Component {
 
   uploadFile = () => {
     const { fileId } = this.props;
-    const { fileName } = this.state;
-    const data = { fileName, fileId };
+    const { fileName, uploadMode } = this.state;
+    const data = { fileName, fileId, uploadMode };
     if (!fileName) {
       data.error = 'Выберите файл';
     } else {
@@ -87,7 +88,7 @@ class BystroScan extends Component {
 
   render () {
     const { fileId, loading, accept } = this.props;
-    const { fileName, scanColor, scanDpi } = this.state;
+    const { fileName, scanColor, scanDpi, uploadMode } = this.state;
 
     return (
       <div className="bystro-scan">
@@ -121,7 +122,17 @@ class BystroScan extends Component {
           <input type="file" id={fileId} accept={accept} onChange={this.selectFile} disabled={loading}/>
         </Button>
 
-        <Button type="button" color="green" content="Загрузить" onClick={this.uploadFile} loading={loading} disabled={loading}/>
+        <Button type="button" color="green" attached="left" content="Загрузить" onClick={this.uploadFile} loading={loading} disabled={loading}/>
+        <Dropdown text=" "
+          className="right attached button green icon"
+          icon={`${uploadMode === 'merge' ? 'copy' : 'file'} outline`}
+          onChange={(e, { value }) => { this.setState({ uploadMode: value }); }}
+          value={uploadMode}
+          options={[
+            { key: 'new', text: 'Загрузить новый файл', value: 'new', icon: 'file outline' },
+            { key: 'merge', text: 'Объединить файлы', value: 'merge', icon: 'copy outline' },
+          ]}
+        />
       </div>
     );
   }

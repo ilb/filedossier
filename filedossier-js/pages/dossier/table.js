@@ -1,4 +1,4 @@
-import '@bb/semantic-ui-css/semantic.min.css';
+import 'semantic-ui-css/semantic.min.css';
 import PropTypes from 'prop-types';
 import FileDossier from '../../classes/FileDossier';
 import Dossier from '../../components/Dossier';

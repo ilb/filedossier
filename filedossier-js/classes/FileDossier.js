@@ -104,6 +104,22 @@ export default class FileDossier {
     return response;
   }
 
+  getUploadMethod = (update) => {
+    let uploadMethod = update ? 'update' : 'publish';
+    if (!process.browser) { uploadMethod += '1'; }
+    return uploadMethod;
+  };
+
+  /** Загрyзка файла
+   * @param {string} fileCode - dossier file code
+   * @param {File} file - a file to upload
+   * @param {bolean} update - if true file will be merged with existed
+   */
+  uploadFile = async ({ fileCode, file, update }) => {
+    const response = await this[this.getUploadMethod(update)]({ fileCode, file });
+    return response;
+  }
+
   /* создает новую версию файла */
   publish = async ({ fileCode, file }) => {
     const response = await this.apiDossier.publish(file, [fileCode, ...this.getDossierParams()]);
@@ -122,8 +138,14 @@ export default class FileDossier {
     return response;
   }
 
+  /* сохраняет файл в текущую версию */
+  update1 = async ({ fileCode, file }) => {
+    const response = await this.apiDossier.update(fileCode, ...this.getDossierParams(), { file });
+    return response;
+  }
+
   /* import file from url */
-  importFile = async ({ fileCode, url }) => {
+  importFile = async ({ fileCode, url, update }) => {
     /* Here we gonna convert file to base64 (on download) and back to buffer (before publish) */
     const fileResult = await this.proxyApiClient.get(encodeURI(url), { accept: '*/*', returnType: 'Base64' });
     if (fileResult.error || !fileResult.response) {
@@ -131,8 +153,7 @@ export default class FileDossier {
     }
 
     const file = new Buffer(fileResult.response, 'base64');
-    const uploadMethod = process.browser ? 'publish' : 'publish1';
-    const importResult = await this[uploadMethod]({ fileCode, file });
+    const importResult = await this[this.getUploadMethod(update)]({ fileCode, file });
     return importResult;
   }
 
@@ -168,8 +189,7 @@ export default class FileDossier {
     const [state, setState] = useState({ dossierData, loading: false, error: null }); // init state
     const dossierActions = {
       updateDossier: this._createRequestAction({ state, setState, withUpdate: true }),
-      publish: this._createRequestAction({ state, setState, action: this.publish.bind(this), withUpdate: true }),
-      update: this._createRequestAction({ state, setState, action: this.update.bind(this), withUpdate: true }),
+      uploadFile: this._createRequestAction({ state, setState, action: this.uploadFile.bind(this), withUpdate: true }),
       importFile: this._createRequestAction({ state, setState, action: this.importFile.bind(this), withUpdate: true }),
       resetHook: () => { setState({ ...state, loading: false, error: null }); },
     };

@@ -23,9 +23,13 @@ function DossierPreview ({ dossier, external, dossierActions, loading, error, pr
           <BystroScan
             fileId={selectedFile.uniqId}
             accept={selectedFile.accept}
-            uploadFile={({ fileId, fileInput, error } = {}) => {
+            uploadFile={({ fileId, fileInput, uploadMode, error } = {}) => {
               if (fileId && fileInput && !error) {
-                dossierActions.publish({ fileCode: selectedFile.code, file: fileInput.files[0] });
+                dossierActions.uploadFile({
+                  fileCode: selectedFile.code,
+                  file: fileInput.files[0],
+                  update: uploadMode === 'merge',
+                });
               }
             }}
           />

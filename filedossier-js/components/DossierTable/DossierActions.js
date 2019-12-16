@@ -40,9 +40,13 @@ function DossierActions ({ dossierFile, dossierActions }) {
           <BystroScan
             fileId={dossierFile.uniqId}
             accept={dossierFile.accept}
-            uploadFile={({ fileId, fileInput, error } = {}) => {
+            uploadFile={({ fileId, fileInput, uploadMode, error } = {}) => {
               if (fileId && fileInput && !error) {
-                dossierActions.publish({ fileCode: dossierFile.code, file: fileInput.files[0] });
+                dossierActions.uploadFile({
+                  fileCode: dossierFile.code,
+                  file: fileInput.files[0],
+                  update: uploadMode === 'merge',
+                });
                 closeUploadModal();
               }
             }}

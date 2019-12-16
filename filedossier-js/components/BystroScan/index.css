@@ -9,10 +9,6 @@
   vertical-align: middle !important;
 }
 
-.bystro-scan > .button:not(.attached) {
-  margin: 0 0 0 0.5rem !important;
-}
-
 .bystro-scan-params {
   padding: 0.5rem !important;
 }
@@ -37,6 +33,7 @@
   width: 11rem !important;
   white-space: nowrap;
   text-overflow: ellipsis;
+  margin: 0 0.5rem !important;
 }
 
 .bystro-scan-file-button input[type=file] {
