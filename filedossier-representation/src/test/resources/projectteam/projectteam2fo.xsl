@@ -42,7 +42,7 @@
             <fo:declarations>
                 <x:xmpmeta xmlns:x="adobe:ns:meta/">
                     <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<!--                        <rdf:Description rdf:about=""
+                        <!--                        <rdf:Description rdf:about=""
                                          xmlns:dc="http://purl.org/dc/elements/1.1/">
                             <dc:title>Document title</dc:title>
                             <dc:creator>Document author</dc:creator>
@@ -51,7 +51,9 @@
                         <rdf:Description rdf:about=""
                                          xmlns:xmp="http://ns.adobe.com/xap/1.0/">
                             <!-- XMP properties go here -->
-                            <xmp:docId><xsl:value-of select="/pt:projectteam/pt:docId"/></xmp:docId>
+                            <xmp:docId>
+                                <xsl:value-of select="/pt:projectteam/pt:docId"/>
+                            </xmp:docId>
                         </rdf:Description>
                     </rdf:RDF>
                 </x:xmpmeta>
@@ -123,6 +125,9 @@
                     </fo:block>
                     <xsl:call-template name="fopconf.xml"/>
                     <xsl:call-template name="big.jpg"/>
+                    <fo:block page-break-before="always">
+                        Nullam quis risus eget urna mollis ornare vel eu leo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nullam id dolor id nibh ultricies vehicula.
+                    </fo:block>
                 </fo:flow>
             </fo:page-sequence>
         </fo:root>
