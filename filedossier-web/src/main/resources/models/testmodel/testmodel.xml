@@ -10,42 +10,33 @@
         <name>Тестовое досье</name>
         <dossierFile>
             <code>fairpricecalc</code>
-            <name>fairpricecalc (.ods test)</name>
+            <name>Тест имя</name>
             <readonly>false</readonly>
             <required>true</required>
             <hidden>false</hidden>
             <variation>
-                <mediaType>application/json</mediaType>
+                <mediaType>application/xml</mediaType>
                 <representation>
                     <mediaType>application/vnd.oasis.opendocument.spreadsheet</mediaType>
                     <stylesheet>representations/fairpriceorder/content.xsl</stylesheet>
                     <template>representations/fairpriceorder/template.ods</template>
-            </representation>
+                    <schema></schema>
+                </representation>
             </variation>
         </dossierFile>
         <dossierFile>
-            <code>pts</code>
-            <name>Скан ПТС</name>
+            <code>jurnals</code>
+            <name>Test name 1</name>
             <readonly>false</readonly>
             <required>true</required>
             <hidden>false</hidden>
             <variation>
-                <mediaType>image/jpeg</mediaType>
-            </variation>
-            <variation>
-                <mediaType>application/pdf</mediaType>
-            </variation>
-        </dossierFile>
-        <dossierFile>
-            <code>bailregistry</code>
-            <name>reestr zalogov</name>
-            <readonly>false</readonly>
-            <required>true</required>
-            <hidden>false</hidden>
-            <variation>
-                <mediaType>application/json</mediaType>
+                <mediaType>application/xml</mediaType>
                 <representation>
-                    <mediaType>application/xml</mediaType>
+                    <mediaType>application/pdf</mediaType>
+                    <stylesheet>https://devel.net.ilb.ru/meta/stylesheets/doctemplates/primary/loantreaty/credits/auto/V20140707.xsl</stylesheet>
+                    <schema>https://devel.net.ilb.ru/meta/schemas/doctemplates/primary/loantreaty/credits/auto/V20140707.xsd</schema>
+                    <meta>https://devel.net.ilb.ru/meta/&amp;uid=doctree:11f462ebdb14a5673ff41a5c75c5176552fad343:</meta>
                 </representation>
             </variation>
         </dossierFile>
