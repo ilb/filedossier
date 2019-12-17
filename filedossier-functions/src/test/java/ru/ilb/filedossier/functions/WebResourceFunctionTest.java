@@ -43,7 +43,7 @@ public class WebResourceFunctionTest {
 
     @Before
     public void setup() throws IOException {
-        httpServer = HttpServer.create(new InetSocketAddress(8000), 0);
+        httpServer = HttpServer.create(new InetSocketAddress(62478), 0);
         httpServer.createContext("/api/endpoint", new HttpHandler() {
             public void handle(HttpExchange exchange) throws IOException {
                 byte[] response = "test response data".getBytes();
@@ -68,7 +68,7 @@ public class WebResourceFunctionTest {
     public void testApply() throws MalformedURLException {
         System.out.println("apply");
         byte[] template = "test request data".getBytes();
-        URL resourceUri = new URL("http://localhost:8000/api/endpoint");
+        URL resourceUri = new URL("http://localhost:62478/api/endpoint");
         WebResourceFunction instance = new WebResourceFunction(resourceUri);
         byte[] result = instance.apply(template);
         Logger.getGlobal().log(Level.INFO, "server response: " + new String(result));
