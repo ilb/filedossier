@@ -23,13 +23,13 @@
         </developer>
     </developers>
     <scm>
-        <connection>scm:svn:https://svn.ilb.ru/repos/${project.name}/trunk</connection>
-        <url>https://svn.ilb.ru/viewvc/${project.name}</url>
+        <connection>scm:svn:https://svn.ilb.ru/repos/filedossier/trunk</connection>
+        <url>https://svn.ilb.ru/viewvc/filedossier</url>
     </scm>
     <distributionManagement>
         <site>
             <id>site</id>
-            <url>scm:svn:https://svn.ilb.ru/repos/${project.name}/trunk/docs</url>
+            <url>scm:svn:https://svn.ilb.ru/repos/filedossier/trunk/docs/generated/site</url>
         </site>
     </distributionManagement>
     <properties>
@@ -89,22 +89,6 @@
                 </plugin>
             </plugins>
         </pluginManagement>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-scm-publish-plugin</artifactId>
-                <version>3.0.0</version>
-                <executions>
-                    <execution>
-                        <id>scm-publish</id>
-                        <phase>site-deploy</phase>
-                        <goals>
-                            <goal>publish-scm</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
     </build>
     <profiles>
         <profile>
