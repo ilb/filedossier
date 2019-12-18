@@ -26,5 +26,5 @@ Dossier
 Core:
 -----
 <p align="center">
-<img alt="Entities" src="include/entities.svg" width="750">
+<img alt="Entities" src="docs/entities.svg" width="750">
 </p>
