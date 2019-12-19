@@ -15,6 +15,7 @@
  */
 package ru.ilb.filedossier.components;
 
+import java.io.File;
 import org.apache.cxf.jaxrs.client.JAXRSClientFactory;
 import org.apache.cxf.jaxrs.provider.json.JsonMapObjectProvider;
 import org.junit.Assert;
@@ -32,6 +33,10 @@ import javax.ws.rs.core.Response;
 import java.net.URISyntaxException;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
+import org.apache.cxf.jaxrs.ext.multipart.Attachment;
+import org.apache.cxf.jaxrs.ext.multipart.MultipartBody;
 
 /**
  *
@@ -63,7 +68,7 @@ public class DossierFileResourceImplTest {
     }
 
     private DossierFileResource getDossierFileResource(String name) {
-        return getDossiersResource().getDossierResource("teststorekey", "testmodel", "TEST","mode1")
+        return getDossiersResource().getDossierResource("teststorekey", "testmodel", "TEST", "mode1")
                 .getDossierFileResource(name);
     }
 
@@ -74,23 +79,24 @@ public class DossierFileResourceImplTest {
     public void testAUploadContents() throws URISyntaxException {
 
         DossierFileResource fileResource = getDossierFileResource("image1");
-        fileResource.publish(Paths.get(getClass()
-                .getClassLoader()
-                .getResource("page1.jpg")
-                .toURI())
-                .toFile());
+        File file = Paths.get(getClass().getClassLoader().getResource("page1.jpg").toURI()).toFile();
+
+        //fileResource.publish();
+        List<Attachment> atts = new LinkedList<Attachment>();
+        atts.add(new Attachment("root", "image/jpeg", file));
+        MultipartBody body = new MultipartBody(atts, true);
+        fileResource.publish(body);
     }
 
-    @org.junit.Test
-    public void testAUploadContentsMulti() throws URISyntaxException {
-
-        DossierFileResource fileResource = getDossierFileResource("image1");
-        fileResource.publishMulti(Arrays.asList(
-                Paths.get(getClass().getClassLoader().getResource("page1.jpg").toURI()).toFile(),
-                Paths.get(getClass().getClassLoader().getResource("page2.jpg").toURI()).toFile()
-        ));
-    }
-
+//    @org.junit.Test
+//    public void testAUploadContentsMulti() throws URISyntaxException {
+//
+//        DossierFileResource fileResource = getDossierFileResource("image1");
+//        fileResource.publishMulti(Arrays.asList(
+//                Paths.get(getClass().getClassLoader().getResource("page1.jpg").toURI()).toFile(),
+//                Paths.get(getClass().getClassLoader().getResource("page2.jpg").toURI()).toFile()
+//        ));
+//    }
     @org.junit.Test
     public void testBGetContents() {
 

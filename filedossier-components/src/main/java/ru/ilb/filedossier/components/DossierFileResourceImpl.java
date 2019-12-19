@@ -17,11 +17,12 @@ package ru.ilb.filedossier.components;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 import javax.inject.Inject;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.container.ResourceContext;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
+import org.apache.cxf.jaxrs.ext.multipart.MultipartBody;
 import org.springframework.context.ApplicationContext;
 import ru.ilb.filedossier.api.DossierContextResource;
 import ru.ilb.filedossier.api.DossierFileResource;
@@ -98,12 +99,16 @@ public class DossierFileResourceImpl implements DossierFileResource {
     }
 
     @Override
-    public void update(File file) {
+    public void update(MultipartBody body) {
+        File file = body.getAllAttachments().stream()
+                .findFirst().map(att -> att.getObject(File.class)).orElseThrow(() -> new WebApplicationException("Upload empty"));
         publishFile.publish(file, dossierFile);
     }
 
     @Override
-    public void publish(File file) {
+    public void publish(MultipartBody body) {
+        File file = body.getAllAttachments().stream()
+                .findFirst().map(att -> att.getObject(File.class)).orElseThrow(() -> new WebApplicationException("Upload empty"));
         publishFileNewVersion.publish(file, dossierFile);
     }
 
@@ -115,8 +120,4 @@ public class DossierFileResourceImpl implements DossierFileResource {
         return resourceContext.initResource(resource);
     }
 
-    @Override
-    public void publishMulti(List<File> file) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }

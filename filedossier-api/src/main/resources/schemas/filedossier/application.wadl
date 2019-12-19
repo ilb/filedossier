@@ -86,8 +86,8 @@
                 <doc>add file to current dossier file version</doc>
                 <request>
                     <representation mediaType="multipart/form-data">
-                        <doc>file data</doc>
-                        <param style="query" name="file" type="java.io.File" />
+<!--                        <doc>file data</doc>
+                        <param style="query" name="file" type="java.io.File" />-->
                     </representation>
                 </request>
                 <response status="204"/>
@@ -99,19 +99,8 @@
                 <doc>create new dossier file version</doc>
                 <request>
                     <representation mediaType="multipart/form-data">
-                        <doc>file data</doc>
-                        <param style="query" name="file" type="java.io.File"/>
-                    </representation>
-                </request>
-            </method>
-        </resource>
-        <resource path="publishMulti">
-            <method name="POST" id="publishMulti">
-                <doc>create new dossier file version from multiple files</doc>
-                <request>
-                    <representation mediaType="multipart/form-data">
-                        <doc>file data</doc>
-                        <param style="query" name="file" type="java.io.File" repeating="true"/>
+<!--                        <doc>file data</doc>
+                        <param style="query" name="file" type="java.io.File"/>-->
                     </representation>
                 </request>
             </method>
