@@ -17,6 +17,7 @@ package ru.ilb.filedossier.components;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import javax.inject.Inject;
 import javax.ws.rs.container.ResourceContext;
 import javax.ws.rs.core.Context;
@@ -112,5 +113,10 @@ public class DossierFileResourceImpl implements DossierFileResource {
         resource.setContextKey(dossierFile.getContextKey());
         applicationContext.getAutowireCapableBeanFactory().autowireBean(resource);
         return resourceContext.initResource(resource);
+    }
+
+    @Override
+    public void publishMulti(List<File> file) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

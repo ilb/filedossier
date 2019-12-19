@@ -37,9 +37,9 @@ public class StoreFactory {
 
     /**
      * Returns store with basic path - storageRoot/storeKey/
+     * @param storeKey
      */
     public Store getStore(String storeKey) {
-        System.out.println("storeKey: " + storeKey);
         return new FileStore(storeRoot, storeKey);
     }
 

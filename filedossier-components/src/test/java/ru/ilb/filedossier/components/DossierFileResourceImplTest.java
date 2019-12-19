@@ -82,6 +82,16 @@ public class DossierFileResourceImplTest {
     }
 
     @org.junit.Test
+    public void testAUploadContentsMulti() throws URISyntaxException {
+
+        DossierFileResource fileResource = getDossierFileResource("image1");
+        fileResource.publishMulti(Arrays.asList(
+                Paths.get(getClass().getClassLoader().getResource("page1.jpg").toURI()).toFile(),
+                Paths.get(getClass().getClassLoader().getResource("page2.jpg").toURI()).toFile()
+        ));
+    }
+
+    @org.junit.Test
     public void testBGetContents() {
 
         DossierFileResource fileResource = getDossierFileResource("fairpricecalc");

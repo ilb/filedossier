@@ -2,12 +2,32 @@
 <package
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns="urn:ru:ilb:filedossier:ddl"
-    xsi:schemaLocation="urn:ru:ilb:filedossier:ddl ../../../../../filedossier-ddl/src/main/resources/schemas/filedossier/ddl.xsd">
+    xsi:schemaLocation="urn:ru:ilb:filedossier:ddl ../../../../../../filedossier-ddl/src/main/resources/schemas/filedossier/ddl.xsd">
     <code>testmodel</code>
     <name>Тестовый пакет досье</name>
     <dossier>
         <code>TEST</code>
         <name>Тестовое досье</name>
+        <dossierFile>
+            <code>file1</code>
+            <name>Файл 1</name>
+            <readonly>false</readonly>
+            <required>true</required>
+            <hidden>false</hidden>
+            <variation>
+                <mediaType>application/xml</mediaType>
+            </variation>
+        </dossierFile>
+        <dossierFile>
+            <code>image1</code>
+            <name>Изображение 1</name>
+            <readonly>false</readonly>
+            <required>true</required>
+            <hidden>false</hidden>
+            <variation>
+                <mediaType>image/jpeg</mediaType>
+            </variation>
+        </dossierFile>
         <dossierFile>
             <code>fairpricecalc</code>
             <name>Тест имя</name>
@@ -34,8 +54,8 @@
                 <mediaType>application/xml</mediaType>
                 <representation>
                     <mediaType>application/pdf</mediaType>
-                    <stylesheet>https://devel.net.ilb.ru/meta/stylesheets/doctemplates/primary/loantreaty/credits/auto/V20140707.xsl</stylesheet>
-                    <schema>https://devel.net.ilb.ru/meta/schemas/doctemplates/primary/loantreaty/credits/auto/V20140707.xsd</schema>
+                    <stylesheet>https://devel.net.ilb.ru/meta/schemas/doctemplates/jurnals/percentsheet.xsd</stylesheet>
+                    <schema>https://devel.net.ilb.ru/meta/stylesheets/doctemplates/jurnals/percentsheet.xsl</schema>
                     <meta>https://devel.net.ilb.ru/meta/&amp;uid=doctree:11f462ebdb14a5673ff41a5c75c5176552fad343:</meta>
                 </representation>
             </variation>

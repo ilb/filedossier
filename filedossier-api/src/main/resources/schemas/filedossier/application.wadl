@@ -105,7 +105,17 @@
                 </request>
             </method>
         </resource>
-
+        <resource path="publishMulti">
+            <method name="POST" id="publishMulti">
+                <doc>create new dossier file version from multiple files</doc>
+                <request>
+                    <representation mediaType="multipart/form-data">
+                        <doc>file data</doc>
+                        <param style="query" name="file" type="java.io.File" repeating="true"/>
+                    </representation>
+                </request>
+            </method>
+        </resource>
         <resource path="context" id="dossierContextResource" type="#dossierContextResource"/>
     </resource_type>
 

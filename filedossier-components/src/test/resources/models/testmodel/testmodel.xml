@@ -20,7 +20,7 @@
         </dossierFile>
         <dossierFile>
             <code>image1</code>
-            <name>Изобрпжение 1</name>
+            <name>Изображение 1</name>
             <readonly>false</readonly>
             <required>true</required>
             <hidden>false</hidden>

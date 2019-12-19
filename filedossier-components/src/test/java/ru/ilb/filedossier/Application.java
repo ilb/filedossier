@@ -16,6 +16,7 @@
 package ru.ilb.filedossier;
 
 import java.net.URISyntaxException;
+import org.apache.cxf.ext.logging.LoggingFeature;
 import org.apache.cxf.jaxrs.provider.json.JsonMapObjectProvider;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -27,10 +28,6 @@ import org.springframework.data.relational.core.mapping.NamingStrategy;
 import ru.ilb.filedossier.context.persistence.DossierContextNamingStrategy;
 import ru.ilb.filedossier.ddl.FileDossierDefinitionRepository;
 import ru.ilb.filedossier.store.StoreFactory;
-
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 
 /**
  *
@@ -103,5 +100,11 @@ public class Application { // extends JpaBaseConfiguration
     @Bean
     public JsonMapObjectProvider jsonMapObjectProvider() {
         return new JsonMapObjectProvider();
+    }
+    @Bean
+    public LoggingFeature loggingFeature() {
+        LoggingFeature lf = new LoggingFeature();
+        lf.addBinaryContentMediaTypes("application/vnd.oasis.opendocument.spreadsheet");
+        return lf;
     }
 }
