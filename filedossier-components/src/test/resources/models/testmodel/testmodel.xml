@@ -27,6 +27,9 @@
             <variation>
                 <mediaType>image/jpeg</mediaType>
             </variation>
+            <variation>
+                <mediaType>application/pdf</mediaType>
+            </variation>
         </dossierFile>
         <dossierFile>
             <code>fairpricecalc</code>

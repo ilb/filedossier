@@ -17,6 +17,7 @@ package ru.ilb.filedossier.components;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.stream.Collectors;
 import javax.inject.Inject;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.container.ResourceContext;
@@ -41,6 +42,7 @@ public class DossierFileResourceImpl implements DossierFileResource {
     @Inject
     private PublishFile publishFile;
 
+    // TODO: add flag NEW_VERSION to PublishFile and remove PublishFileNewVersion
     /**
      * Publish new version of file use case.
      */
@@ -100,16 +102,30 @@ public class DossierFileResourceImpl implements DossierFileResource {
 
     @Override
     public void update(MultipartBody body) {
-        File file = body.getAllAttachments().stream()
-                .findFirst().map(att -> att.getObject(File.class)).orElseThrow(() -> new WebApplicationException("Upload empty"));
-        publishFile.publish(file, dossierFile);
+       if (body.getAllAttachments().isEmpty()) throw new WebApplicationException("Upload empty");
+
+        if (body.getAllAttachments().size() < 1) {
+            publishFile.publish(body.getRootAttachment().getObject(File.class), dossierFile);
+        } else {
+            publishFile.mergeAndPublish(body.getAllAttachments().stream()
+                            .map(att -> att.getObject(File.class))
+                            .collect(Collectors.toList()),
+                    dossierFile);
+        }
     }
 
     @Override
     public void publish(MultipartBody body) {
-        File file = body.getAllAttachments().stream()
-                .findFirst().map(att -> att.getObject(File.class)).orElseThrow(() -> new WebApplicationException("Upload empty"));
-        publishFileNewVersion.publish(file, dossierFile);
+        if (body.getAllAttachments().isEmpty()) throw new WebApplicationException("Upload empty");
+
+        if (body.getAllAttachments().size() < 1) {
+            publishFileNewVersion.publish(body.getRootAttachment().getObject(File.class), dossierFile);
+        } else {
+            publishFileNewVersion.mergeAndPublish(body.getAllAttachments().stream()
+                            .map(att -> att.getObject(File.class))
+                            .collect(Collectors.toList()),
+                    dossierFile);
+        }
     }
 
     @Override

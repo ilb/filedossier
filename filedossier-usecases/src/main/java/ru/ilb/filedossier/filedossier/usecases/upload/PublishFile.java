@@ -15,16 +15,17 @@
  */
 package ru.ilb.filedossier.filedossier.usecases.upload;
 
-import ru.ilb.filedossier.document.merger.DocumentMergerFactory;
-import ru.ilb.filedossier.document.merger.functions.DocumentMerger;
+import ru.ilb.filedossier.document.merger.DocumentMergerExecutor;
 import ru.ilb.filedossier.entities.DossierFile;
 import ru.ilb.filedossier.entities.DossierFileVersion;
 import ru.ilb.filedossier.mimetype.MimeTypeUtil;
 
+import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.file.Files;
+import java.util.List;
 
 /**
  *
@@ -33,31 +34,53 @@ import java.nio.file.Files;
 @Named
 public class PublishFile {
 
+    private PublishFileNewVersion publishNewVersion;
+    private DocumentMergerExecutor executor;
+
+    @Inject
+    public PublishFile(PublishFileNewVersion publishNewVersion) {
+        this.publishNewVersion = publishNewVersion;
+    }
+
+
     public void publish(File file, DossierFile dossierFile) {
+        executor = DocumentMergerExecutor.getInstance();
         DossierFileVersion version = dossierFile.getLatestVersion();
 
+        // if dossier file isn't created create new
         if (version == null) {
-            throw new RuntimeException("dossier file isn't created");
+            publishNewVersion.publish(file, dossierFile);
+            return;
         }
 
         try {
-            byte[] mergedFile = mergeFiles(version, file);
-            version.setMediaType(MimeTypeUtil.guessMimeTypeFromByteArray(mergedFile));
-            version.setContents(mergedFile);
+            executor.addDocumentToMerge(file);
+            executor.addDocumentToMerge(version.getContents());
+            byte[] mergedDocument = executor.executeMerge();
+            version.setMediaType(MimeTypeUtil.guessMimeTypeFromByteArray(mergedDocument));
+            version.setContents(mergedDocument);
         } catch (IOException e) {
-            throw new RuntimeException("Error while saving: " + e);
+            throw new RuntimeException("Error while merging current dossier file with new file: " + e);
         }
     }
 
-    private byte[] mergeFiles(DossierFileVersion dossierFile, File file) throws IOException {
-        DocumentMergerFactory factory = DocumentMergerFactory.getInstance();
+    public void mergeAndPublish(List<File> files, DossierFile dossierFile) {
+        executor = DocumentMergerExecutor.fromList(files);
+        DossierFileVersion version = dossierFile.getLatestVersion();
 
-        String dossierFileMediaType = dossierFile.getMediaType();
-        String newFileMediaType = MimeTypeUtil.guessMimeTypeFromFile(file);
+        // if dossier file isn't created create new
+        if (version == null) {
+            publishNewVersion.mergeAndPublish(files, dossierFile);
+            return;
+        }
 
-        DocumentMerger merger = factory.getDocumentMerger(dossierFileMediaType, newFileMediaType);
-        return merger.apply(
-                dossierFile.getContents(),
-                Files.readAllBytes(file.toPath()));
+        try {
+            executor.addDocumentToMerge(version.getContents());
+            byte[] mergedDocument = executor.executeMerge();
+            version.setMediaType(MimeTypeUtil.guessMimeTypeFromByteArray(mergedDocument));
+            version.setContents(mergedDocument);
+        } catch (IOException e) {
+            throw new RuntimeException("Error while merging current dossier with new files: " + e);
+        }
     }
 }

@@ -88,17 +88,22 @@ public class DossierFileResourceImplTest {
         fileResource.publish(body);
     }
 
-//    @org.junit.Test
-//    public void testAUploadContentsMulti() throws URISyntaxException {
-//
-//        DossierFileResource fileResource = getDossierFileResource("image1");
-//        fileResource.publishMulti(Arrays.asList(
-//                Paths.get(getClass().getClassLoader().getResource("page1.jpg").toURI()).toFile(),
-//                Paths.get(getClass().getClassLoader().getResource("page2.jpg").toURI()).toFile()
-//        ));
-//    }
     @org.junit.Test
-    public void testBGetContents() {
+    public void testBUploadContentsMulti() throws URISyntaxException {
+
+        DossierFileResource fileResource = getDossierFileResource("image1");
+        File file = Paths.get(getClass().getClassLoader().getResource("page1.jpg").toURI()).toFile();
+
+        List<Attachment> atts = new LinkedList<Attachment>();
+        atts.add(new Attachment("root", "image/jpeg", file));
+        atts.add(new Attachment("secondFile", "image/jpeg", file));
+        atts.add(new Attachment("thirdFile", "image/jpeg", file));
+        MultipartBody body = new MultipartBody(atts, true);
+        fileResource.publish(body);
+    }
+
+    @org.junit.Test
+    public void testCGetContents() {
 
         DossierFileResource fileResource = getDossierFileResource("fairpricecalc");
         Response response = fileResource.download(null, null);

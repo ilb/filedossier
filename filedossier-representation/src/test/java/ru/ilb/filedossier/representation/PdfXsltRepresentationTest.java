@@ -50,7 +50,6 @@ public class PdfXsltRepresentationTest {
         instance.setParent(contents);
 
         byte[] result = instance.getContents();
-        Files.write(Paths.get(System.getProperty("java.io.tmpdir") + "/projectteam.pdf"), result);
         assertNotNull(result);
         assertEquals("projectteam.pdf", instance.getFileName());
         assertEquals("application/pdf", instance.getMediaType());

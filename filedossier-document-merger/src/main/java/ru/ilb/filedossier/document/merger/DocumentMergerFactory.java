@@ -4,6 +4,7 @@ import ru.ilb.filedossier.document.merger.functions.DocumentMerger;
 import ru.ilb.filedossier.document.merger.functions.image.ImagesMerger;
 import ru.ilb.filedossier.document.merger.functions.pdf.PDFImageMerger;
 import ru.ilb.filedossier.document.merger.functions.pdf.PDFMerger;
+import ru.ilb.filedossier.mimetype.MimeTypeUtil;
 
 import java.util.Optional;
 
@@ -14,6 +15,12 @@ public class DocumentMergerFactory {
 
     public static DocumentMergerFactory getInstance() {
         return new DocumentMergerFactory();
+    }
+
+    public DocumentMerger getDocumentMerger(byte[] document1, byte[] document2) {
+        String mt1 = MimeTypeUtil.guessMimeTypeFromByteArray(document1);
+        String mt2 = MimeTypeUtil.guessMimeTypeFromByteArray(document2);
+        return getDocumentMerger(mt1, mt2);
     }
 
     public DocumentMerger getDocumentMerger(String mt1, String mt2) {

@@ -1,6 +1,5 @@
 package ru.ilb.filedossier.document.merger;
 
-import ru.ilb.filedossier.document.merger.DocumentMergerFactory;
 import ru.ilb.filedossier.document.merger.functions.DocumentMerger;
 import ru.ilb.filedossier.document.merger.functions.pdf.PDFImageMerger;
 import org.junit.Test;
