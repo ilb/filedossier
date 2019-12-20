@@ -46,6 +46,11 @@ public interface DossierFile extends DossierPath {
     boolean getExists();
 
     /**
+     * @return true if allowed to store multiple files to dossier file
+     */
+    boolean getAllowedMultiple();
+
+    /**
      * @return dossier file context key
      */
     String getContextKey();

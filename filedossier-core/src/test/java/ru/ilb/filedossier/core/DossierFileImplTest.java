@@ -154,4 +154,8 @@ public class DossierFileImplTest {
         //assertEquals(expResult, result);
     }
 
+    @Test
+    public void testGetAllowedMultiple() {
+        assertTrue(dossierFile1.getAllowedMultiple());
+    }
 }

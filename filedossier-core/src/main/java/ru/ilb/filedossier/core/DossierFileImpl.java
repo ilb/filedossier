@@ -45,13 +45,16 @@ public class DossierFileImpl implements DossierFile {
 
     private final boolean hidden;
 
+    private final boolean allowedMultiple;
+
     private List<DossierFileVersion> versions;
 
     private Map<String, DossierFileVariation> variations;
 
     DossierFileImpl(Store store, String code, String name,
                     boolean required, boolean readonly,
-                    boolean hidden, List<DossierFileVersion> versions,
+                    boolean hidden, boolean allowedMultiple,
+                    List<DossierFileVersion> versions,
                     Map<String, DossierFileVariation> variations) {
         this.store = store;
         this.code = code;
@@ -59,6 +62,7 @@ public class DossierFileImpl implements DossierFile {
         this.required = required;
         this.readonly = readonly;
         this.hidden = hidden;
+        this.allowedMultiple = allowedMultiple;
         this.variations = variations;
         this.versions = versions.stream()
                 .peek(version -> version.setParent(this))
@@ -88,6 +92,11 @@ public class DossierFileImpl implements DossierFile {
     @Override
     public boolean getHidden() {
         return hidden;
+    }
+
+    @Override
+    public boolean getAllowedMultiple() {
+        return allowedMultiple;
     }
 
     @Override

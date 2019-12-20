@@ -35,6 +35,7 @@
                         </xsl:choose>
                     </required>
                     <hidden>false</hidden>
+                    <allowedMultiple>true</allowedMultiple>
                     <variation>
                         <mediaType>application/xml</mediaType>
                         <representation>
@@ -51,6 +52,7 @@
                     <readonly>false</readonly>
                     <required>true</required>
                     <hidden>false</hidden>
+                    <allowedMultiple>true</allowedMultiple>
                     <attribute>
                         <code>number</code>
                         <name>Номер документа</name>

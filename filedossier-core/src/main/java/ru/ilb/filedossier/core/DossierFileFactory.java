@@ -68,7 +68,7 @@ class DossierFileFactory {
                 Boolean.parseBoolean((String) Optional.ofNullable(
                         context.getProperty("hidden"))
                         .orElse(model.getHidden().toString())),
-
+                model.isAllowedMultiple(),
                 versions, variations);
     }
 }

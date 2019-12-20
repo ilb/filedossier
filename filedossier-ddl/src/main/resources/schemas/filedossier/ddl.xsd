@@ -90,7 +90,12 @@
                     <xsd:documentation>Скрытый файл</xsd:documentation>
                 </xsd:annotation>
             </xsd:element>
-            <xsd:element name="attribute" type="attribute"  minOccurs="0" maxOccurs="unbounded">
+            <xsd:element name="allowedMultiple" type="xsd:boolean">
+                <xsd:annotation>
+                    <xsd:documentation>Разрешена ли загрузка множественных файлов</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="attribute" type="attribute" minOccurs="0" maxOccurs="unbounded">
                 <xsd:annotation>
                     <xsd:documentation>Аттрибуты документа</xsd:documentation>
                 </xsd:annotation>

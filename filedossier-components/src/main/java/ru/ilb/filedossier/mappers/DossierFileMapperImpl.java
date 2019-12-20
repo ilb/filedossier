@@ -33,6 +33,7 @@ public class DossierFileMapperImpl implements DossierFileMapper {
         df.setReadonly(model.getReadonly());
         df.setRequired(model.getRequired());
         df.setHidden(model.getHidden());
+        df.setAllowedMultiple(model.getAllowedMultiple());
         df.setAllowedMediaTypes(new AllowedMediaTypes().withAllowedMediaTypes(model.getAllowedMediaTypes()));
         if (model.getExists()) {
             DossierFileVersion latestVersion = model.getLatestVersion();
