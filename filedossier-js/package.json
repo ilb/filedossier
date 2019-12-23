@@ -1,6 +1,6 @@
 {
   "name": "@ilb/filedossier-js",
-  "version": "1.0.41",
+  "version": "1.0.42",
   "description": "",
   "main": "lib/components/Dossier.js",
   "scripts": {
@@ -9,6 +9,8 @@
     "build": "npm run clean && babel classes -d lib/classes && babel components -d lib/components --copy-files && babel conf/config.js -o lib/conf/config.js",
     "build-next": "next build",
     "start": "next start",
+    "nbignore": "mkdir -p node_modules && touch node_modules/.nbignore && mkdir -p .next && touch .next/.nbignore",
+    "versionpatch": "npm version patch",
     "lint": "eslint ./pages ./components ./classes ./conf ./next.config.js --ext .js --ext .jsx || true"
   },
   "author": "",
@@ -20,7 +22,7 @@
     "@babel/runtime": "^7.7.2",
     "@ilb/filedossier-api": "^1.0.18",
     "@ilb/js-auto-proxy": "^1.0.10",
-    "@ilb/node_context": "^1.0.1",
+    "@ilb/node_context": "^1.0.3",
     "@zeit/next-css": "^1.0.1",
     "next": "^9.0.2",
     "pdfjs-dist": "^2.2.228",
