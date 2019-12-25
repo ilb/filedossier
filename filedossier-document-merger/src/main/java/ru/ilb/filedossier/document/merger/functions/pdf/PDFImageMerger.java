@@ -29,8 +29,30 @@ public class PDFImageMerger implements DocumentMerger {
         this.direction = direction;
     }
 
+    /**
+     * @param source1 - image, if we need to add pdf to image
+     * @param source2 - image, if we need to add image to pdf
+     * @return merged source
+     */
     @Override
-    public byte[] apply(byte[] pdf, byte[] image) {
+    public byte[] apply(byte[] source1, byte[] source2) {
+
+        byte[] pdf;
+        byte[] image;
+
+        switch (direction) {
+            case TO_START:
+                pdf = source2;
+                image = source1;
+                break;
+            case TO_END:
+                pdf = source1;
+                image = source2;
+                break;
+            default:
+                throw new RuntimeException("Unable to recognize merge direction");
+        }
+
         try (ByteArrayOutputStream os = new ByteArrayOutputStream();
             InputStream is = new ByteArrayInputStream(pdf)) {
 
