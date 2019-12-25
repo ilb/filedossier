@@ -5,7 +5,7 @@ import PDFJS from 'pdfjs-dist';
 PDFJS.workerSrc = '//cdnjs.cloudflare.com/ajax/libs/pdf.js/2.2.228/pdf.worker.js'; // TODO setup static worker from pdfjs-dist/build
 PDFJS.GlobalWorkerOptions.workerSrc = PDFJS.workerSrc;
 
-class ThumbailPdf extends React.Component {
+class ThumbnailPdf extends React.Component {
   state = {
     pdf: null,
     error: null,
@@ -80,7 +80,7 @@ class ThumbailPdf extends React.Component {
     const { error, loading } = this.state;
 
     return (
-      <div className="thumbail-pdf" ref={contentRef} style={{ position: 'relative', display: 'inline-block', minHeight: '46px' }}>
+      <div className="thumbnail-pdf" ref={contentRef} style={{ position: 'relative', display: 'inline-block', minHeight: '46px' }}>
         <canvas width={sizes.width} height="0"/>
         {loading && <Loader active size="small"/>}
         {error && <Message error compact header="Ошибка" style={{ margin: 0, position: 'absolute', top: 0, left: 0, right: 0 }} title={error}/>}
@@ -89,7 +89,7 @@ class ThumbailPdf extends React.Component {
   }
 }
 
-ThumbailPdf.propTypes = {
+ThumbnailPdf.propTypes = {
   dossierFile: PropTypes.object.isRequired,
   contentRef: PropTypes.object.isRequired,
   sizes: PropTypes.shape({
@@ -98,4 +98,4 @@ ThumbailPdf.propTypes = {
   }).isRequired,
 };
 
-export default ThumbailPdf;
+export default ThumbnailPdf;

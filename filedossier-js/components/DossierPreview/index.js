@@ -5,7 +5,7 @@ import BystroScan from '../BystroScan';
 import FileContent from './FileContent';
 import ExternalDossier from '../ExternalDossier';
 
-function DossierPreview ({ dossier, external, dossierActions, loading, error, previewOffset }) {
+function DossierPreview ({ dossier, external, dossierActions, previewOffset }) {
   const dossierFiles = dossier.dossierFile.filter(file => !file.hidden); // don't show hidden files
   const [selectedFileCode, selectFile] = useState(dossierFiles[0] ? dossierFiles[0].code : null);
   const selectedFile = selectedFileCode && dossierFiles.find(file => file.code === selectedFileCode);
@@ -20,26 +20,32 @@ function DossierPreview ({ dossier, external, dossierActions, loading, error, pr
       />}
       {selectedFile && <div>
         {!selectedFile.readonly && <div style={{ marginBottom: '1rem' }}>
-          <BystroScan
+
+          {external ? <ExternalDossier
+            external={external}
+            dossierFile={selectedFile}
+            importFile={async ({ files, uploadMode }) => {
+              const urls = files.map(file => file.path);
+              const importResult = await dossierActions.importFile({
+                fileCode: selectedFile.code,
+                urls,
+                update: uploadMode === 'merge',
+              });
+              return importResult;
+            }}
+          /> : <BystroScan
             fileId={selectedFile.uniqId}
             accept={selectedFile.accept}
-            uploadFile={({ fileId, fileInput, uploadMode, error } = {}) => {
+            multiple={selectedFile.allowedMultiple}
+            uploadFile={async ({ fileId, fileInput, uploadMode, error } = {}) => {
               if (fileId && fileInput && !error) {
-                dossierActions.uploadFile({
+                await dossierActions.uploadFile({
                   fileCode: selectedFile.code,
-                  file: fileInput.files[0],
+                  files: fileInput.files,
                   update: uploadMode === 'merge',
                 });
               }
             }}
-          />
-
-          {external && <ExternalDossier
-            external={external}
-            dossierFile={selectedFile}
-            dossierActions={dossierActions}
-            loading={loading}
-            error={error}
           />}
         </div>}
 
@@ -56,8 +62,6 @@ DossierPreview.propTypes = {
   dossier: PropTypes.object.isRequired,
   external: PropTypes.array,
   dossierActions: PropTypes.object.isRequired,
-  loading: PropTypes.bool,
-  error: PropTypes.string,
   previewOffset: PropTypes.number.isRequired,
 };
 

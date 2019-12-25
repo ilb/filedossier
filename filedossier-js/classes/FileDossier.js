@@ -33,10 +33,11 @@ export default class FileDossier {
   getFileLink = ({ file, inline }) => {
     const { dossierKey, dossierPackage, dossierCode, dossierMode } = this.dossierParams;
     if (file.exists) {
-      return `https://devel.net.ilb.ru/workflow-web/web/v2/` +
+      // return `${config.workflowWS}/v2/` +
+      return `https://devel.net.ilb.ru/workflow-web/web/v2/` + // TODO убрать весь метод, когда доработают досье
       `dossiers/${dossierKey}/${dossierPackage}/${dossierCode}/${dossierMode}/dossierfiles/${file.code}` +
       `?nocache=${(file.lastModified || '').replace(/\D/g, '')}` +
-      `${inline ? `&mode=inline` : 'attachment'}`;
+      `&mode=${inline ? `inline` : 'attachment'}`;
     }
   };
 
@@ -84,6 +85,7 @@ export default class FileDossier {
     inlinePath: file.path + '&mode=inline',
   });
 
+  /* Получение данных досье */
   getDossier = async () => {
     var { response: dossier, error } = await this.apiDossier.getDossier(...this.getDossierParams());
     if (dossier) { dossier = this.prepareDossier(dossier); }
@@ -92,7 +94,7 @@ export default class FileDossier {
     if (!error && this.dossierParams.externalDossier) {
       var { response: external, error: externalError } = await this.proxyApiClient.get(this.dossierParams.externalDossier);
       if (external && external.length) { external = external.map(this.parseExternalFile); }
-      result = { ...result, external, error: externalError };
+      result = { ...result, external, externalError };
     }
 
     return result;
@@ -104,8 +106,8 @@ export default class FileDossier {
     return response;
   }
 
-  getUploadMethod = (update) => {
-    let uploadMethod = update ? 'update' : 'publish';
+  getUploadMethod = (merge) => {
+    let uploadMethod = merge ? 'update' : 'publish';
     if (!process.browser) { uploadMethod += '1'; }
     return uploadMethod;
   };
@@ -113,10 +115,20 @@ export default class FileDossier {
   /** Загрyзка файла
    * @param {string} fileCode - dossier file code
    * @param {File} file - a file to upload
+   * @param {File} file - a file to upload
    * @param {bolean} update - if true file will be merged with existed
    */
-  uploadFile = async ({ fileCode, file, update }) => {
-    const response = await this[this.getUploadMethod(update)]({ fileCode, file });
+  uploadFile = async ({ fileCode, file, files, update }) => {
+    const filesToUpload = files || [file];
+    if (!filesToUpload || !filesToUpload.length) {
+      return { error: 'Не переданы файлы для загрузки' };
+    }
+    let response;
+    for (let i = 0; i < filesToUpload.length; i++) {
+      const merge = update || i !== 0;
+      response = await this[this.getUploadMethod(merge)]({ fileCode, file: filesToUpload[i] });
+      if (response && response.error) { return response; }
+    }
     return response;
   }
 
@@ -145,15 +157,25 @@ export default class FileDossier {
   }
 
   /* import file from url */
-  importFile = async ({ fileCode, url, update }) => {
-    /* Here we gonna convert file to base64 (on download) and back to buffer (before publish) */
-    const fileResult = await this.proxyApiClient.get(encodeURI(url), { accept: '*/*', returnType: 'Base64' });
-    if (fileResult.error || !fileResult.response) {
-      return fileResult;
+  importFile = async ({ fileCode, url, urls, update }) => {
+    const fileUrls = urls || [url];
+    if (!fileUrls || !fileUrls.length) {
+      return { error: 'Не переданы файлы для загрузки' };
     }
 
-    const file = new Buffer(fileResult.response, 'base64');
-    const importResult = await this[this.getUploadMethod(update)]({ fileCode, file });
+    let importResult;
+    for (let i = 0; i < urls.length; i++) {
+      /* Here we gonna convert file to base64 (on download) and back to buffer (before publish) */
+      const fileResult = await this.proxyApiClient.get(encodeURI(urls[i]), { accept: '*/*', returnType: 'Base64' });
+      if (fileResult.error || !fileResult.response) {
+        return fileResult;
+      }
+
+      const file = new Buffer(fileResult.response, 'base64');
+      const merge = update || i !== 0;
+      importResult = await this[this.getUploadMethod(merge)]({ fileCode, file });
+      if (importResult && importResult.error) { return importResult; }
+    }
     return importResult;
   }
 
@@ -176,7 +198,8 @@ export default class FileDossier {
       }
     }
 
-    if (withUpdate) { // update dossier
+    const noUpdateDossier = params[0] && params[0].noUpdateDossier;
+    if (withUpdate && !noUpdateDossier) { // update dossier
       const dossierData = await this.getDossier();
       setState({ ...state, dossierData, loading: false, error: null });
     } else {

@@ -5,14 +5,25 @@
 .external-dossier > .button {
   display: inline-block !important;
   vertical-align: middle !important;
-  margin: 0 0 0 0.5rem !important;
+  margin: 0 !important;
+  width: 13rem !important;
 }
 
-.external-dossier-files-list > .active.item{
+.external-dossier-files-list > .item {
+  position: relative;
+}
+
+.external-dossier-files-list > .item > .label {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
+
+.external-dossier-files-list > .active.item {
   box-shadow: 0 0 0 100rem rgba(20, 100, 200, 0.15) inset !important;
 }
 
-.thumbail-file-name {
+.thumbnail-file-name {
   word-wrap: break-word;
   word-break: break-all;
   color: rgba(0, 0, 0, 0.8);
@@ -26,4 +37,14 @@
 .upload-mode-selection > .menu {
   right: 0 !important;
   left: auto !important;
+}
+
+.thumbnail-file-name {
+  margin-top: 0.2rem;
+  font-size: 0.8rem;
+}
+
+.thumbnail-file-name > .checkbox {
+  vertical-align: top;
+  margin-right: 0.2rem;
 }

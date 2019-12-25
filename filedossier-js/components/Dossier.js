@@ -8,7 +8,7 @@ import DossierTable from './DossierTable';
 function Dossier (props) {
   const dossierInst = new FileDossier({ dossierParams: props.dossierData.dossierParams });
   const [{ dossierData, loading, error }, dossierActions] = dossierInst.useDossier(props.dossierData); // init hook
-  const { dossierParams, dossier, external, error: dossierError } = dossierData || {};
+  const { dossierParams, dossier, error: dossierError, external, externalError } = dossierData || {};
   let DossierComponent;
   switch (props.mode) {
     case 'preview': DossierComponent = DossierPreview; break;
@@ -24,6 +24,7 @@ function Dossier (props) {
       <Segment basic loading={loading} style={{ padding: 0 }}>
         {props.header && dossier && <Header dividing content={dossier.name}/>}
         {!!dossierError && <Message error visible header="Ошибка при загрузке досье" content={dossierError}/>}
+        {!!externalError && <Message error visible header="Ошибка при загрузке внешнего досье" content={externalError}/>}
         {!!error && <Message error visible header="Ошибка при выполнении действия с досье" content={error}/>}
         {(!dossierParams || (!dossier && !dossierError)) && <Message error visible header="В компонент не переданы данные по досье"/>}
         {(dossier && (!dossier.dossierFile || !dossier.dossierFile.length)) && <Message error visible header="Отсутствуют файлы в досье"/>}
@@ -33,8 +34,6 @@ function Dossier (props) {
             dossier={dossier}
             external={external}
             dossierActions={dossierActions}
-            loading={loading}
-            error={error}
             previewOffset={previewOffset}
           />
         }

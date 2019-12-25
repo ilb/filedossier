@@ -2,6 +2,7 @@ import 'semantic-ui-css/semantic.min.css';
 import PropTypes from 'prop-types';
 import FileDossier from '../../classes/FileDossier';
 import Dossier from '../../components/Dossier';
+import config from '../../conf/config';
 
 function DossierApp ({ dossierData }) {
   /*
@@ -26,6 +27,7 @@ DossierApp.propTypes = {
 };
 
 DossierApp.getInitialProps = async function (req) {
+  await config.init();
   const dossierParams = req.query; // { dossierKey, dossierPackage, dossierCode }
   const xRemoteUser = req && req.headers && req.headers['x-remote-user'];
   const dossier = new FileDossier({ dossierParams, xRemoteUser });

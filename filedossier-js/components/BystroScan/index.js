@@ -20,6 +20,7 @@ class BystroScan extends Component {
     scanColor: PropTypes.string,
     scanDpi: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     accept: PropTypes.string,
+    multiple: PropTypes.bool,
   };
 
   constructor (props) {
@@ -27,6 +28,7 @@ class BystroScan extends Component {
 
     this.state = {
       fileName: null,
+      fileTitle: null,
       scanColor: props.scanColor || 'color',
       scanDpi: (props.scanDpi || 150).toString(),
       uploadMode: 'new',
@@ -38,8 +40,13 @@ class BystroScan extends Component {
   }
 
   selectFile = (event) => {
-    const fileName = propOr(null, 'target.files[0].name')(event);
-    this.changeField(null, { name: 'fileName', value: fileName });
+    const files = propOr(null, 'target.files')(event);
+    let fileName, fileTitle;
+    if (files && files.length) {
+      fileName = files.length === 1 ? files[0].name : `Выбрано файлов: ${files.length}`;
+      fileTitle = Array.from(files).map(file => file.name).join(' \n');
+    }
+    this.setState({ fileName, fileTitle });
   };
 
   scanStart = (e) => {
@@ -68,7 +75,7 @@ class BystroScan extends Component {
   scanFinish = (data) => {
     const fileName = data.value || null;
     window.console.log('scanFinish fileName=', fileName);
-    this.changeField(null, { name: 'fileName', value: fileName });
+    this.setState({ fileName, fileTitle: fileName });
   };
 
   uploadFile = () => {
@@ -87,8 +94,8 @@ class BystroScan extends Component {
   };
 
   render () {
-    const { fileId, loading, accept } = this.props;
-    const { fileName, scanColor, scanDpi, uploadMode } = this.state;
+    const { fileId, loading, accept, multiple } = this.props;
+    const { fileName, fileTitle, scanColor, scanDpi, uploadMode } = this.state;
 
     return (
       <div className="bystro-scan">
@@ -117,9 +124,9 @@ class BystroScan extends Component {
           </Dropdown.Menu>
         </Dropdown>
 
-        <Button as="div" basic className="bystro-scan-file-button" disabled={loading} title={fileName}>
+        <Button as="div" basic className="bystro-scan-file-button" disabled={loading} title={fileTitle}>
           <span>{fileName || 'Выбрать файл'}</span>
-          <input type="file" id={fileId} accept={accept} onChange={this.selectFile} disabled={loading}/>
+          <input type="file" id={fileId} accept={accept} multiple={multiple} onChange={this.selectFile} disabled={loading}/>
         </Button>
 
         <Button type="button" color="green" attached="left" content="Загрузить" onClick={this.uploadFile} loading={loading} disabled={loading}/>

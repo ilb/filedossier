@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import DossierImage from './DossierImage';
 import DossierPdf from './DossierPdf';
 
-function Thumbail ({ dossierFile, sizes }) {
+function Thumbnail ({ dossierFile, sizes }) {
   const contentRef = useRef(null);
 
   let ContentComponent;
@@ -14,7 +14,7 @@ function Thumbail ({ dossierFile, sizes }) {
   }
 
   return (
-    <div className="thumbail" style={{ lineHeight: 0 }}>
+    <div className="thumbnail" style={{ lineHeight: 0 }}>
       <ContentComponent
         dossierFile={dossierFile}
         contentRef={contentRef}
@@ -24,7 +24,7 @@ function Thumbail ({ dossierFile, sizes }) {
   );
 }
 
-Thumbail.propTypes = {
+Thumbnail.propTypes = {
   dossierFile: PropTypes.object.isRequired,
   sizes: PropTypes.shape({
     width: PropTypes.number.isRequired,
@@ -32,4 +32,4 @@ Thumbail.propTypes = {
   }).isRequired,
 };
 
-export default Thumbail;
+export default Thumbnail;

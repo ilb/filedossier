@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function ThumbailImage ({ dossierFile, sizes: { width, height } }) {
+function ThumbnailImage ({ dossierFile, sizes: { width, height } }) {
   return (
-    <div className="thumbail-img">
+    <div className="thumbnail-img">
       <img src={dossierFile.inlinePath} className="ui fluid image"
         style={{ maxWidth: `${width}px`, maxHeight: `${height}px` }}
       />
@@ -11,7 +11,7 @@ function ThumbailImage ({ dossierFile, sizes: { width, height } }) {
   );
 }
 
-ThumbailImage.propTypes = {
+ThumbnailImage.propTypes = {
   dossierFile: PropTypes.object.isRequired,
   sizes: PropTypes.shape({
     width: PropTypes.number.isRequired,
@@ -19,4 +19,4 @@ ThumbailImage.propTypes = {
   }).isRequired,
 };
 
-export default ThumbailImage;
+export default ThumbnailImage;

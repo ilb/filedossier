@@ -1,10 +1,10 @@
 {
   "name": "@ilb/filedossier-js",
-  "version": "1.0.42",
+  "version": "1.0.44",
   "description": "",
   "main": "lib/components/Dossier.js",
   "scripts": {
-    "dev": "next",
+    "dev": "export LDAP_URL=ldaps://devel.net.ilb.ru/c=ru && next",
     "clean": "rimraf lib",
     "build": "npm run clean && babel classes -d lib/classes && babel components -d lib/components --copy-files && babel conf/config.js -o lib/conf/config.js",
     "build-next": "next build",
@@ -20,9 +20,9 @@
   ],
   "dependencies": {
     "@babel/runtime": "^7.7.2",
-    "@ilb/filedossier-api": "^1.0.18",
+    "@ilb/filedossier-api": "^1.0.19",
     "@ilb/js-auto-proxy": "^1.0.10",
-    "@ilb/node_context": "^1.0.3",
+    "@ilb/node_context": "^1.0.9",
     "@zeit/next-css": "^1.0.1",
     "next": "^9.0.2",
     "pdfjs-dist": "^2.2.228",

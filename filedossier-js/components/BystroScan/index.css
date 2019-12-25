@@ -30,7 +30,7 @@
 .bystro-scan-file-button {
   position: relative;
   overflow: hidden;
-  width: 11rem !important;
+  width: 13rem !important;
   white-space: nowrap;
   text-overflow: ellipsis;
   margin: 0 0.5rem !important;

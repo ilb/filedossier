@@ -33,12 +33,14 @@ class DossierPdf extends React.Component {
     const newFile = nextProps.dossierFile;
     if (oldFile.path !== newFile.path) { // new file uploaded
       const pdfPath = newFile.path;
+      // const pdfPath = 'http://localhost:3000/static/test.pdf';
       this.initPdf(pdfPath);
     }
   }
 
   initPdf = (pdfPath) => {
-    this.setState({ pdfLoading: true, currentPage: 1, pageText: 1 });
+    this.setState({ pdf: null, pdfLoading: true, currentPage: 1, pageText: 1 });
+    this.clearCanvases();
     const loadingTask = PDFJS.getDocument(pdfPath);
     loadingTask.promise.then(
       pdf => {
@@ -61,7 +63,18 @@ class DossierPdf extends React.Component {
     });
   }
 
+  clearCanvases = () => {
+    const canvasContainer = this.props.contentRef.current;
+    const canvases = canvasContainer && canvasContainer.querySelectorAll('canvas');
+    if (canvasContainer && canvases.length > 0) {
+      for (let i = 0; i < canvases.length; i++) {
+        canvasContainer.removeChild(canvases[i]);
+      }
+    }
+  };
+
   drawPages = async ({ pdf, scale, rotate = 0, callback }) => {
+    this.clearCanvases();
     const canvasContainer = this.props.contentRef.current;
     const { width, height } = window.getComputedStyle(canvasContainer);
     const containerSizes = { width: parseFloat(width), height: parseFloat(height) };
@@ -80,10 +93,12 @@ class DossierPdf extends React.Component {
     const scaleNum = calcScaleNum({ scale, rotate, containerSizes, elementSizes });
     // set all canvas sizes
     for (let i = 0; i < pages.length; i++) {
-      const canvas = canvasContainer.querySelector(`canvas#pdfPage${i + 1}`);
+      const canvas = document.createElement('canvas');
+      canvas.id = `pdfPage${i + 1}`;
       const rotation = pages[i].rotate + rotate;
       const viewport = pages[i].getViewport({ scale: scaleNum, rotation });
       this.setElementSize(canvas, viewport);
+      canvasContainer.appendChild(canvas);
     }
     this.setState({ pdf, scaleValue: scale, scaleNum, rotate });
 
@@ -308,12 +323,7 @@ class DossierPdf extends React.Component {
           rotateFile={this.rotateFile}
         />
         <div className="dossier-pdf-container" ref={contentRef}>
-          {pdf && pdf.numPages && !error && <React.Fragment>
-            {Array(pdf.numPages).fill('').map((el, index) => (
-              <canvas key={index} id={`pdfPage${index + 1}`}/>
-            ))}
-          </React.Fragment>}
-          <Loader active={pdfLoading} size="small"/>
+          {pdfLoading && <Loader active size="small" style={{ zIndex: 5 }}/>}
           {error && <Message error visible header="Ошибка при открытии pdf файла" content={error.message} style={{ margin: 0 }}/>}
         </div>
       </div>

@@ -1,36 +1,61 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Button, Modal, Grid, List, Message, Dropdown } from 'semantic-ui-react';
+import { Button, Modal, Grid, List, Message, Dropdown, Label, Checkbox } from 'semantic-ui-react';
 import FileContent from '../DossierPreview/FileContent';
-import Thumbail from '../DossierPreview/Thumbail';
+import Thumbnail from '../DossierPreview/Thumbnail';
 import './index.css';
 
-function ExternalDossier ({ external, dossierFile, dossierActions, loading, error }) {
+function ExternalDossier ({ external, dossierFile, importFile }) {
   if (!external || !external.length) { return null; }
-  const [selectedFile, selectFile] = useState(external[0]);
-  const [uploadMode, setUploadMode] = useState('new');
+  const initialState = { selectedFile: external[0], selectedFiles: [], uploadMode: 'new', loading: false, error: null };
+  const [state, _setState] = useState(initialState);
+  const { selectedFile, selectedFiles, uploadMode, loading, error } = state;
+  const setState = (newState) => { _setState({ ...state, ...newState }); };
 
   const closeModal = () => {
     const closeIcon = document.querySelector('#externalDossierModal > i.close.icon');
     closeIcon.click();
   };
 
-  const importFile = async () => {
-    if (selectedFile && selectedFile.path) {
-      const importResult = await dossierActions.importFile({
-        fileCode: dossierFile.code,
-        url: selectedFile.path,
-        update: uploadMode === 'merge',
-      });
-      if (!importResult.error && uploadMode !== 'merge') {
+  const importSelectedFiles = async () => {
+    if (selectedFiles && selectedFiles.length) {
+      setState({ loading: true, error: null });
+      const importResult = await importFile({ files: selectedFiles, uploadMode });
+      setState({ loading: false, error: importResult.error });
+      if (!importResult.error/* && uploadMode !== 'merge' */) {
         closeModal();
       }
     }
   };
 
-  const thumbailSizes = {
+  const thumbnailSizes = {
     width: 120,
     height: 170,
+  };
+
+  const selectFile = (e, { checked }) => {
+    e.stopPropagation();
+    const file = external[e.currentTarget.dataset.index];
+    const newSelectedFiles = checked ? [...selectedFiles, file] : selectedFiles.filter(f => f.path !== file.path);
+    setState({ selectedFile: file, selectedFiles: newSelectedFiles });
+  };
+
+  const renderFileThumbnail = (file, fileIndex) => {
+    const selectedIndex = selectedFiles.findIndex(f => f.path === file.path) + 1;
+
+    return (
+      <List.Item key={file.path} style={{ display: 'inline-block' }}
+        active={file.path === selectedFile.path}
+        onClick={() => { setState({ selectedFile: file }); }}
+      >
+        <Thumbnail dossierFile={file} sizes={thumbnailSizes}/>
+        <div className="thumbnail-file-name" style={{ width: `${thumbnailSizes.width}px` }}>
+          <Checkbox data-index={fileIndex} onChange={selectFile} checked={!!selectedIndex}/>
+          {file.name}
+        </div>
+        {!!selectedIndex && <Label color="blue" circular content={selectedIndex}/>}
+      </List.Item>
+    );
   };
 
   return (
@@ -40,7 +65,8 @@ function ExternalDossier ({ external, dossierFile, dossierActions, loading, erro
         size="fullscreen"
         closeIcon
         closeOnDimmerClick={false}
-        trigger={<Button content="Выбрать"/>}
+        trigger={<Button basic content="Выбрать файл"/>}
+        onOpen={() => { setState(initialState); }}
         style={{ position: 'static' }}
       >
         <Modal.Header>
@@ -54,17 +80,7 @@ function ExternalDossier ({ external, dossierFile, dossierActions, loading, erro
                 style={{ maxHeight: 'calc(100vh - 270px)', overflow: 'auto' }}
               /> */}
               <List selection style={{ maxHeight: 'calc(100vh - 270px)', overflow: 'auto' }} className="external-dossier-files-list">
-                {external.map(file => (
-                  <List.Item key={file.path} style={{ display: 'inline-block' }}
-                    active={file.path === selectedFile.path}
-                    onClick={selectFile.bind(null, file)}
-                  >
-                    <Thumbail dossierFile={file} sizes={thumbailSizes}/>
-                    <div className="thumbail-file-name" style={{ width: `${thumbailSizes.width}px` }}>
-                      {file.name}
-                    </div>
-                  </List.Item>
-                ))}
+                {external.map(renderFileThumbnail)}
               </List>
             </Grid.Column>
             <Grid.Column style={{ width: 'calc(100% - 450px)' }}>
@@ -79,11 +95,16 @@ function ExternalDossier ({ external, dossierFile, dossierActions, loading, erro
         </Modal.Content>
         <Modal.Actions>
           {!!error && <Message error compact content={error} style={{ margin: 0, padding: '0.6rem 1rem' }}/>}
-          <Button type="button" color="green" attached="left" content="Загрузить" onClick={importFile} loading={loading} disabled={loading}/>
+          <Button type="button" color="green" attached="left"
+            content={`${uploadMode === 'merge' ? 'Догрузить' : 'Загрузить'} файлы: ${selectedFiles.length}`}
+            onClick={importSelectedFiles}
+            loading={loading}
+            disabled={loading || !selectedFiles.length}
+          />
           <Dropdown text=" "
             className="right attached button green icon upload-mode-selection"
             icon={`${uploadMode === 'merge' ? 'copy' : 'file'} outline`}
-            onChange={(e, { value }) => { setUploadMode(value); }}
+            onChange={(e, { value }) => { setState({ uploadMode: value }); }}
             value={uploadMode}
             options={[
               { key: 'new', text: 'Загрузить новый файл', value: 'new', icon: 'file outline' },
@@ -99,9 +120,7 @@ function ExternalDossier ({ external, dossierFile, dossierActions, loading, erro
 ExternalDossier.propTypes = {
   external: PropTypes.array.isRequired,
   dossierFile: PropTypes.object.isRequired,
-  dossierActions: PropTypes.object.isRequired,
-  loading: PropTypes.bool,
-  error: PropTypes.string,
+  importFile: PropTypes.func.isRequired,
 };
 
 export default ExternalDossier;

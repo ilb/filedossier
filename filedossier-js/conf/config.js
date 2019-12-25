@@ -1,26 +1,41 @@
 import { DossiersApi, ApiClient as DossierApiClient } from '@ilb/filedossier-api';
 import { ApiClient } from '@ilb/js-auto-proxy';
+import ContextFactory from '@ilb/node_context';
 
 const config = {};
-function fillparams() {
-  if(!config.paramsloaded) {
+
+config.fillParams = () => {
+  if (!process.browser && !config.initialized) {
+    // auth params
     config.certfile = process.env['ru.bystrobank.apps.workflow.certfile'];
     config.passphrase = process.env['ru.bystrobank.apps.workflow.cert_PASSWORD'];
     const fs = require('fs');
     config.cert = config.certfile !== null ? fs.readFileSync(config.certfile) : null;
     config.ca = process.env.NODE_EXTRA_CA_CERTS ? fs.readFileSync(process.env.NODE_EXTRA_CA_CERTS) : null;
-    config.paramsloaded = true;
+
+    // web services
+    config.workflowWS = process.env['ru.bystrobank.apps.workflow.ws'];
+
+    config.initialized = true;
   }
-}
+};
+
+config.init = async () => {
+  if (!process.browser && !config.initialized) {
+    const context = new ContextFactory();
+    await context.build();
+    config.fillParams();
+  }
+};
 
 /**
 * Applies authentication headers to the request.
 * @param {Object} request The request object created by a <code>superagent()</code> call.
 * @param req {Object} nextjs req object.
 */
-const applyAuthToRequest = ({ request, xRemoteUser }) => {
+export const applyAuthToRequest = ({ request, xRemoteUser }) => {
   if (!process.browser) {
-    fillparams();
+    config.fillParams();
     request
       .ca(config.ca)
       .key(config.cert)
@@ -31,8 +46,9 @@ const applyAuthToRequest = ({ request, xRemoteUser }) => {
 };
 
 export function createDossierApi (xRemoteUser) {
+  config.fillParams();
   const apiClient = new DossierApiClient();
-  apiClient.basePath = 'https://devel.net.ilb.ru/workflow-web/web/v2';
+  apiClient.basePath = `${config.workflowWS}/v2`; // IMPORTANT: server side only (or via createJsProxy)
   apiClient.applyAuthToRequest = (request) => {
     applyAuthToRequest({ request, xRemoteUser });
   };
@@ -42,6 +58,7 @@ export function createDossierApi (xRemoteUser) {
 }
 
 export function getProxyApiClient (xRemoteUser) {
+  config.fillParams();
   const apiClient = new ApiClient();
   apiClient.applyAuthToRequest = (request) => {
     applyAuthToRequest({ request, xRemoteUser });
