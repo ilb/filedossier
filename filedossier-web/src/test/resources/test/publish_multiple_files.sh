@@ -1,0 +1,1 @@
+curl -F "file=@page1.jpg;type=image/jpeg" -F "file=@page1.jpg;type=image/jpeg" -F "file=@page1.jpg;type=image/jpeg" -v -u "ide:123" http://localhost:8080/filedossier-web/web/dossiers/teststorekey/testmodel/TEST/mode1/dossierfiles/image1/publish
