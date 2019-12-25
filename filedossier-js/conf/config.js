@@ -5,7 +5,7 @@ import ContextFactory from '@ilb/node_context';
 const config = {};
 
 config.fillParams = () => {
-  if (!process.browser && !config.initialized) {
+  if (!process.browser && !config.paramsLoaded) {
     // auth params
     config.certfile = process.env['ru.bystrobank.apps.workflow.certfile'];
     config.passphrase = process.env['ru.bystrobank.apps.workflow.cert_PASSWORD'];
@@ -16,7 +16,7 @@ config.fillParams = () => {
     // web services
     config.workflowWS = process.env['ru.bystrobank.apps.workflow.ws'];
 
-    config.initialized = true;
+    config.paramsLoaded = true;
   }
 };
 
@@ -25,6 +25,7 @@ config.init = async () => {
     const context = new ContextFactory();
     await context.build();
     config.fillParams();
+    config.initialized = true;
   }
 };
 

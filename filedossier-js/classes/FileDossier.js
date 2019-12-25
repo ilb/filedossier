@@ -114,7 +114,7 @@ export default class FileDossier {
 
   /** Загрyзка файла
    * @param {string} fileCode - dossier file code
-   * @param {File} file - a file to upload
+   * @param {array{File}} file - a file to upload
    * @param {File} files - array of files to upload and merge
    * @param {bolean} update - if true file will be merged with existed
    */
