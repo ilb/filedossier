@@ -115,7 +115,7 @@ export default class FileDossier {
   /** Загрyзка файла
    * @param {string} fileCode - dossier file code
    * @param {File} file - a file to upload
-   * @param {File} file - a file to upload
+   * @param {File} files - array of files to upload and merge
    * @param {bolean} update - if true file will be merged with existed
    */
   uploadFile = async ({ fileCode, file, files, update }) => {
@@ -156,7 +156,7 @@ export default class FileDossier {
     return response;
   }
 
-  /* import file from url */
+  /* import file/files from url/urls */
   importFile = async ({ fileCode, url, urls, update }) => {
     const fileUrls = urls || [url];
     if (!fileUrls || !fileUrls.length) {
@@ -198,8 +198,7 @@ export default class FileDossier {
       }
     }
 
-    const noUpdateDossier = params[0] && params[0].noUpdateDossier;
-    if (withUpdate && !noUpdateDossier) { // update dossier
+    if (withUpdate) { // update dossier
       const dossierData = await this.getDossier();
       setState({ ...state, dossierData, loading: false, error: null });
     } else {
