@@ -54,8 +54,8 @@ public class PublishFile {
         }
 
         try {
-            executor.addDocumentToMerge(file);
-            executor.addDocumentToMerge(version.getContents());
+            executor.addDocumentToMerge(version.getContents(), false);
+            executor.addDocumentToMerge(file, false);
             byte[] mergedDocument = executor.executeMerge();
             version.setMediaType(MimeTypeUtil.guessMimeTypeFromByteArray(mergedDocument));
             version.setContents(mergedDocument);
@@ -75,7 +75,7 @@ public class PublishFile {
         }
 
         try {
-            executor.addDocumentToMerge(version.getContents());
+            executor.addDocumentToMerge(version.getContents(), true);
             byte[] mergedDocument = executor.executeMerge();
             version.setMediaType(MimeTypeUtil.guessMimeTypeFromByteArray(mergedDocument));
             version.setContents(mergedDocument);

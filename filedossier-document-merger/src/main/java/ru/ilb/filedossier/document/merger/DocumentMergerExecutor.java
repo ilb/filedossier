@@ -45,11 +45,19 @@ public class DocumentMergerExecutor {
       return new DocumentMergerExecutor(rawDocuments);
    }
 
-   public void addDocumentToMerge(byte[] document) {
-      documents.add(document);
+   /**
+    * @param document new document to merge
+    * @param toStart add document to start or to the end
+    */
+   public void addDocumentToMerge(byte[] document, boolean toStart) {
+       if (toStart) documents.add(0, document); else documents.add(document);
    }
 
-   public void addDocumentToMerge(File document) {
+   /**
+    * @param document new document to merge
+    * @param toStart add document to start or to the end
+    */
+   public void addDocumentToMerge(File document, boolean toStart) {
       try {
          documents.add(Files.readAllBytes(document.toPath()));
       } catch (IOException e) {
