@@ -164,9 +164,9 @@ export default class FileDossier {
     }
 
     let importResult;
-    for (let i = 0; i < urls.length; i++) {
+    for (let i = 0; i < fileUrls.length; i++) {
       /* Here we gonna convert file to base64 (on download) and back to buffer (before publish) */
-      const fileResult = await this.proxyApiClient.get(encodeURI(urls[i]), { accept: '*/*', returnType: 'Base64' });
+      const fileResult = await this.proxyApiClient.get(encodeURI(fileUrls[i]), { accept: '*/*', returnType: 'Base64' });
       if (fileResult.error || !fileResult.response) {
         return fileResult;
       }
