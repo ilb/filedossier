@@ -73,10 +73,9 @@ public class DossierFactory {
 
         final Store store = storeFactory.getStore(dossierKey);
 
-        if (representationFactory == null) {
-            representationFactory = new RepresentationFactory(
+        representationFactory = new RepresentationFactory(
                     dossierPackageDefinition.getBaseUri() /* , templateEvaluator */);
-        }
+
         return createDossier(dossierModel, store, dossierKey, dossierPackage);
     }
 
