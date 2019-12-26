@@ -124,7 +124,6 @@ class FileStore implements Store {
     @Override
     public String getFileMimeType(String code) throws IOException {
         Path path = getFilePath(code);
-        System.out.println(path);
         if (Files.isDirectory(path)){
             File dir = new File(path.toString());
             byte[] firstFileContents = Files.readAllBytes(dir.listFiles()[0].toPath());

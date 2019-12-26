@@ -35,7 +35,6 @@ public class PdfUtils {
 
         try {
             PDDocument pdfDocument = PDDocument.load(document);
-            System.out.println(pdfDocument.getDocumentInformation().getMetadataKeys());
             PDDocumentInformation info = pdfDocument.getDocumentInformation();
 
             pdfDocument.close();

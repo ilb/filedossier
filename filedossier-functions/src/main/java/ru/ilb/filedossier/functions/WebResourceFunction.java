@@ -26,7 +26,6 @@ public class WebResourceFunction implements ByteFunction {
     private final URL resourceUrl;
 
     public WebResourceFunction(URL resourceUrl) {
-        System.out.println(resourceUrl);
         this.resourceUrl = resourceUrl;
     }
 
