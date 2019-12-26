@@ -29,6 +29,18 @@
         <res-sharing-scope>Shareable</res-sharing-scope>
     </resource-ref>
     <env-entry>
+        <description>Путь к xpdl репозиторию</description>
+        <env-entry-name>xpdlRepository</env-entry-name>
+        <env-entry-type>java.lang.String</env-entry-type>
+        <env-entry-value>/home/xpdlrepository</env-entry-value>
+    </env-entry>
+    <env-entry>
+        <description>Корневая директория для всех досье</description>
+        <env-entry-name>ru.bystrobank.apps.filedossier.storeroot</env-entry-name>
+        <env-entry-type>java.lang.String</env-entry-type>
+        <env-entry-value>file:///tmp/workflow/storeroot</env-entry-value>
+    </env-entry>
+    <env-entry>
         <description>uri of signature detector script</description>
         <env-entry-name>ru.bystrobank.apps.documentsignaturedetector.uri</env-entry-name>
         <env-entry-type>java.lang.String</env-entry-type>
