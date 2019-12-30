@@ -19,6 +19,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import org.junit.rules.ExternalResource;
+import ru.ilb.jndicontext.core.JNDIInitialContextFactory;
 
 /**
  *

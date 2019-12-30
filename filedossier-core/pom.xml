@@ -79,6 +79,12 @@
             <artifactId>filedossier-utils</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>ru.ilb.jndicontext</groupId>
+            <artifactId>jndicontext</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
     <name>filedossier-core</name>
 </project>

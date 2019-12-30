@@ -23,7 +23,6 @@ import ru.ilb.filedossier.ddl.FileDossierDefinitionRepository;
 import ru.ilb.filedossier.entities.Dossier;
 import ru.ilb.filedossier.entities.DossierContext;
 import ru.ilb.filedossier.jndi.JndiRule;
-import ru.ilb.filedossier.jndi.SimpleInitialContext;
 import ru.ilb.filedossier.store.StoreFactory;
 
 import javax.naming.Context;
@@ -31,6 +30,7 @@ import javax.naming.NamingException;
 import java.net.URISyntaxException;
 
 import static org.junit.Assert.assertEquals;
+import ru.ilb.jndicontext.core.SimpleInitialContext;
 
 /**
  *
