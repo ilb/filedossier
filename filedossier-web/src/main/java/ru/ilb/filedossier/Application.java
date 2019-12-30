@@ -44,8 +44,8 @@ public class Application {
     @Value("${ru.bystrobank.apps.filedossier.storeroot}")
     String storeRoot;
 
-    @Value("${xpdlrepository}")
-    String xpdlRepository;
+    @Value("${dossierrepository}")
+    String dossierRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
@@ -70,7 +70,7 @@ public class Application {
 
     @Bean
     public DossierDefinitionRepository dossierDefinitionRepository() {
-        return new FileDossierDefinitionRepository(Paths.get(xpdlRepository).resolve("packages").toUri());
+        return new FileDossierDefinitionRepository(Paths.get(dossierRepository).resolve("packages").toUri());
     }
 
     //@Bean
