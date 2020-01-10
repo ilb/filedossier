@@ -18,6 +18,8 @@ package ru.ilb.filedossier.components;
 import javax.inject.Inject;
 import javax.ws.rs.container.ResourceContext;
 import javax.ws.rs.core.Context;
+import javax.ws.rs.core.UriInfo;
+
 import org.springframework.context.ApplicationContext;
 import ru.ilb.filedossier.api.DossierFileResource;
 import ru.ilb.filedossier.api.DossierResource;
@@ -49,6 +51,9 @@ public class DossierResourceImpl implements DossierResource {
     @Context
     private ResourceContext resourceContext;
 
+    @Context
+    private UriInfo uriInfo;
+
     /**
      * Dossier model.
      */
@@ -60,7 +65,10 @@ public class DossierResourceImpl implements DossierResource {
 
     @Override
     public DossierView getDossier() {
-        return dossierMapper.fromModel(dossier);
+        return dossierMapper
+                .withModel(dossier)
+                .withResourceUri(uriInfo.getRequestUri())
+                .map();
     }
 
     @Override

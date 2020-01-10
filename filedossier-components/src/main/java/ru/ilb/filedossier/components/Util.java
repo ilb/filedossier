@@ -3,6 +3,7 @@ package ru.ilb.filedossier.components;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
 
 // Convert InputStream to byte array in Java
 class Util {
@@ -22,5 +23,4 @@ class Util {
 
         return os.toByteArray();
     }
-
 }

@@ -17,9 +17,10 @@
         <xjc:javaType name="java.time.LocalDateTime" xmlType="xsd:dateTime" adapter="com.migesok.jaxb.adapter.javatime.LocalDateTimeXmlAdapter" />
         <xjc:javaType name="java.time.LocalTime" xmlType="xsd:time" adapter="com.migesok.jaxb.adapter.javatime.LocalTimeXmlAdapter" />
         <xjc:javaType name="java.util.UUID" xmlType="global:uuid" adapter="ru.ilb.common.jaxb.adapters.UUIDXmlAdapter" />
-        
     </jaxb:globalBindings>
-    
 
+    <jaxb:bindings node="//xsd:complexType[@name='link']">
+        <jaxb:class ref="javax.ws.rs.core.Link.JaxbLink" />
+    </jaxb:bindings>
 </jaxb:bindings>
 

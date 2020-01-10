@@ -16,6 +16,5 @@
             <jaxb:elementName suffix="View"/>
         </jaxb:nameXmlTransform>
     </jaxb:schemaBindings>
-    
 </jaxb:bindings>
 

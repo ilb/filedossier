@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema
         xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        xmlns:global="urn:ru:ilb:global"
         xmlns="urn:ru:ilb:filedossier:view" xmlns:xs="http://www.w3.org/2001/XMLSchema"
         attributeFormDefault="unqualified"
         elementFormDefault="qualified"
@@ -41,8 +42,16 @@
         <xsd:annotation>
             <xsd:documentation>Файл досье</xsd:documentation>
         </xsd:annotation>
-
         <xsd:sequence>
+
+            <xsd:element name="links">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="link" type="global:link" maxOccurs="unbounded"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+
             <xsd:element name="code" type="xsd:string">
                 <xsd:annotation>
                     <xsd:documentation>Код файла</xsd:documentation>
@@ -88,9 +97,11 @@
             </xsd:element>
         </xsd:sequence>
     </xsd:complexType>
+
     <xsd:complexType name="allowedMediaTypes">
         <xsd:sequence>
             <xsd:element name="allowedMediaType" type="xsd:string" maxOccurs="unbounded"/>
         </xsd:sequence>
     </xsd:complexType>
+
 </xsd:schema>

@@ -25,6 +25,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jdbc.repository.config.EnableJdbcRepositories;
 import org.springframework.data.relational.core.mapping.NamingStrategy;
 import ru.ilb.common.jaxrs.jaxb.JaxbContextResolver;
@@ -39,12 +40,13 @@ import ru.ilb.filedossier.store.StoreFactory;
  */
 @SpringBootApplication
 @EnableJdbcRepositories(basePackages = "ru.ilb.filedossier.context.persistence.repositories")
+@ComponentScan
 public class Application {
 
     @Value("${ru.bystrobank.apps.filedossier.storeroot}")
     String storeRoot;
 
-    @Value("${dossierrepository}")
+    @Value("${dossierRepository}")
     String dossierRepository;
 
     public static void main(String[] args) {

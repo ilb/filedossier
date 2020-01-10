@@ -15,12 +15,22 @@
  */
 package ru.ilb.filedossier.mappers;
 
+import ru.ilb.filedossier.entities.Dossier;
+import ru.ilb.filedossier.entities.DossierFile;
+import ru.ilb.filedossier.view.DossierView;
+
+import java.net.URI;
+import java.util.List;
+
 /**
  *
  * @author slavb
  */
 public interface DossierMapper {
 
-    public ru.ilb.filedossier.view.DossierView fromModel(ru.ilb.filedossier.entities.Dossier model);
+    DossierMapper withModel(Dossier model);
 
+    DossierMapper withResourceUri(URI dossierResourceUri);
+
+    ru.ilb.filedossier.view.DossierView map();
 }
