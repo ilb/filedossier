@@ -7,10 +7,10 @@ export default class FileDossier {
     this.dossierParams = dossierParams; // { dossierKey, dossierPackage, dossierCode, dossierMode };
 
     const apiDossier = createDossierApi(xRemoteUser);
-    this.apiDossier = createJsProxy(apiDossier, 'dossier');
+    this.apiDossier = createJsProxy(apiDossier, 'proxies/dossier');
 
     const proxyApiClient = getProxyApiClient(xRemoteUser);
-    this.proxyApiClient = createJsProxy(proxyApiClient, 'proxy');
+    this.proxyApiClient = createJsProxy(proxyApiClient, 'proxies/proxy');
   }
 
   /* return array of dossier params */

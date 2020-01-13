@@ -40,11 +40,7 @@
 }
 
 .thumbnail-file-name {
-  margin-top: 0.2rem;
-  font-size: 0.8rem;
-}
-
-.thumbnail-file-name > .checkbox {
-  vertical-align: top;
-  margin-right: 0.2rem;
+  vertical-align: top !important;
+  margin-top: 0.3rem !important;
+  font-size: 0.8rem !important;
 }

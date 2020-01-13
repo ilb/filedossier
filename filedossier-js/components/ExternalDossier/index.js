@@ -49,10 +49,9 @@ function ExternalDossier ({ external, dossierFile, importFile }) {
         onClick={() => { setState({ selectedFile: file }); }}
       >
         <Thumbnail dossierFile={file} sizes={thumbnailSizes}/>
-        <div className="thumbnail-file-name" style={{ width: `${thumbnailSizes.width}px` }}>
-          <Checkbox data-index={fileIndex} onChange={selectFile} checked={!!selectedIndex}/>
-          {file.name}
-        </div>
+        <Checkbox className="thumbnail-file-name" style={{ width: `${thumbnailSizes.width}px` }}
+          data-index={fileIndex} onChange={selectFile} checked={!!selectedIndex} label={file.name}
+        />
         {!!selectedIndex && <Label color="blue" circular content={selectedIndex}/>}
       </List.Item>
     );

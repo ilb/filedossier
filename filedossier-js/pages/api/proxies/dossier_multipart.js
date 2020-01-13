@@ -1,5 +1,5 @@
 import { executeFileApi } from '@ilb/js-auto-proxy';
-import _config, { createDossierApi } from '../../../../conf/config';
+import _config, { createDossierApi } from '../../../conf/config';
 
 export default async (req, res) => {
   await _config.init();
