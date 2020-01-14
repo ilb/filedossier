@@ -15,8 +15,8 @@
     </xsd:simpleType>
 
     <xsd:complexType name="link">
-        <xsd:attribute name="rel" type="xsd:string"/>
-        <xsd:attribute name="href" type="xsd:string" />
+        <xsd:attribute name="href" type="xsd:string"/>
+        <xsd:anyAttribute/>
     </xsd:complexType>
 
 </xsd:schema>
