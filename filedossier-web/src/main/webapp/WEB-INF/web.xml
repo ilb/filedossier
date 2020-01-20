@@ -32,7 +32,7 @@
         <description>Путь к репозиторию досье (описания, репрезентации)</description>
         <env-entry-name>dossierRepository</env-entry-name>
         <env-entry-type>java.lang.String</env-entry-type>
-        <env-entry-value>/tmp/dossierrepository</env-entry-value>
+        <env-entry-value>/home/dossierrepository</env-entry-value>
     </env-entry>
     <env-entry>
         <description>Корневая директория для всех досье</description>
