@@ -72,8 +72,9 @@ public class DossierMapperImpl implements DossierMapper {
     }
 
     private URI getDossierFileResourceUri(URI baseUri, String code) {
-        return baseUri.resolve(UriBuilder.fromMethod(DossierResource.class, "getDossierFileResource")
-                        .resolveTemplate("fileCode", code)
-                        .build());
+        return UriBuilder.fromUri(baseUri)
+                .path(DossierResource.class, "getDossierFileResource")
+                .resolveTemplate("fileCode", code)
+                .build();
     }
 }

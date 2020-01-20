@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jaxb:bindings elementFormDefault="qualified"
-               xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+<jaxb:bindings xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
                xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
                xmlns:annox="http://annox.dev.java.net"
@@ -8,13 +7,26 @@
                xmlns:core="urn:ru:ilb:filedossier:core"
                jaxb:version="2.1"
                jaxb:extensionBindingPrefixes="xjc annox inheritance"
-               schemaLocation="view.xsd" node="/xsd:schema"
->
+               schemaLocation="view.xsd" node="/xsd:schema">
     <!-- https://docs.oracle.com/cd/E17802_01/webservices/webservices/docs/1.5/tutorial/doc/JAXBUsing4.html#wp148550 -->
     <jaxb:schemaBindings>
         <jaxb:nameXmlTransform>
             <jaxb:elementName suffix="View"/>
         </jaxb:nameXmlTransform>
     </jaxb:schemaBindings>
-</jaxb:bindings>
 
+    <jaxb:bindings node="//xsd:element[@name='link']">
+        <jaxb:property>
+            <jaxb:baseType name="javax.ws.rs.core.Link"/>
+        </jaxb:property>
+        <annox:annotate target="field">
+            @javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter(ru.ilb.filedossier.api.LinkAdapter.class)
+        </annox:annotate>
+        <annox:annotate target="field">
+            @javax.xml.bind.annotation.XmlElement(required=true, type=ru.ilb.filedossier.api.JaxbLink.class)</annox:annotate>
+        <annox:annotate target="package">
+            @javax.xml.bind.annotation.XmlSchema(xmlns=@javax.xml.bind.annotation.XmlNs(prefix = "", namespaceURI = "urn:ru:ilb:filedossier:view"))
+        </annox:annotate>
+    </jaxb:bindings>
+
+</jaxb:bindings>

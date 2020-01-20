@@ -16,7 +16,6 @@
 package ru.ilb.filedossier;
 
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.nio.file.Paths;
 
 import org.apache.cxf.ext.logging.LoggingFeature;

@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema
-        xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-        xmlns:global="urn:ru:ilb:global"
-        xmlns="urn:ru:ilb:filedossier:view" xmlns:xs="http://www.w3.org/2001/XMLSchema"
-        attributeFormDefault="unqualified"
         elementFormDefault="qualified"
+        xmlns="urn:ru:ilb:filedossier:view"
         targetNamespace="urn:ru:ilb:filedossier:view"
->
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 
+    <!-- Root view element, include dossier data and files -->
     <xsd:element name="dossier" type="dossier"/>
+
     <xsd:complexType name="dossier">
         <xsd:annotation>
             <xsd:documentation>Досье</xsd:documentation>
@@ -16,22 +15,22 @@
         <xsd:sequence>
             <xsd:element name="code" type="xsd:string">
                 <xsd:annotation>
-                    <xsd:documentation>код досье</xsd:documentation>
+                    <xsd:documentation>Код</xsd:documentation>
                 </xsd:annotation>
             </xsd:element>
-            <xsd:element name="name" type="xsd:string" >
+            <xsd:element name="name" type="xsd:string">
                 <xsd:annotation>
-                    <xsd:documentation>Наименование досье</xsd:documentation>
+                    <xsd:documentation>Наименование</xsd:documentation>
                 </xsd:annotation>
             </xsd:element>
-            <xsd:element name="valid" type="xsd:string" >
+            <xsd:element name="valid" type="xsd:string">
                 <xsd:annotation>
-                    <xsd:documentation>Валидность досье</xsd:documentation>
+                    <xsd:documentation>Валидность</xsd:documentation>
                 </xsd:annotation>
             </xsd:element>
             <xsd:element ref="dossierFile" minOccurs="0" maxOccurs="unbounded">
                 <xsd:annotation>
-                    <xsd:documentation>Файлы досье</xsd:documentation>
+                    <xsd:documentation>Файлы</xsd:documentation>
                 </xsd:annotation>
             </xsd:element>
         </xsd:sequence>
@@ -44,52 +43,68 @@
         </xsd:annotation>
         <xsd:sequence>
 
-            <xsd:element name="links">
-                <xsd:complexType>
-                    <xsd:sequence>
-                        <xsd:element name="link" type="global:link" maxOccurs="unbounded"/>
-                    </xsd:sequence>
-                </xsd:complexType>
-            </xsd:element>
+            <xsd:element name="link" maxOccurs="unbounded"/>
 
             <xsd:element name="code" type="xsd:string">
                 <xsd:annotation>
                     <xsd:documentation>Код файла</xsd:documentation>
                 </xsd:annotation>
             </xsd:element>
+
             <xsd:element name="name" type="xsd:string">
                 <xsd:annotation>
                     <xsd:documentation>Наименование</xsd:documentation>
                 </xsd:annotation>
             </xsd:element>
+
             <xsd:element name="exists" type="xsd:boolean">
                 <xsd:annotation>
-                    <xsd:documentation>Наличие файла</xsd:documentation>
+                    <xsd:documentation>Наличие</xsd:documentation>
                 </xsd:annotation>
             </xsd:element>
+
             <xsd:element name="readonly" type="xsd:boolean">
                 <xsd:annotation>
                     <xsd:documentation>Только для чтения</xsd:documentation>
                 </xsd:annotation>
             </xsd:element>
+
             <xsd:element name="required" type="xsd:boolean">
                 <xsd:annotation>
                     <xsd:documentation>Обязательный</xsd:documentation>
                 </xsd:annotation>
             </xsd:element>
+
             <xsd:element name="hidden" type="xsd:boolean">
-               <xsd:annotation>
-                   <xsd:documentation>Скрытый</xsd:documentation>
-               </xsd:annotation>
+                <xsd:annotation>
+                    <xsd:documentation>Скрытый</xsd:documentation>
+                </xsd:annotation>
             </xsd:element>
+
             <xsd:element name="mediaType" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:documentation>Тип файла</xsd:documentation>
+                </xsd:annotation>
             </xsd:element>
+
             <xsd:element name="allowedMultiple" type="xsd:boolean">
+                <xsd:annotation>
+                    <xsd:documentation>Разрешена одновременная загрузка нескольких файлов</xsd:documentation>
+                </xsd:annotation>
             </xsd:element>
+
             <xsd:element name="allowedMediaTypes" type="allowedMediaTypes">
+                <xsd:annotation>
+                    <xsd:documentation>Разршенные для загрузки типы файлов</xsd:documentation>
+                </xsd:annotation>
             </xsd:element>
+
             <xsd:element name="version" type="xsd:string" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>Версия файла</xsd:documentation>
+                </xsd:annotation>
             </xsd:element>
+
             <xsd:element name="lastModified" type="xsd:string">
                 <xsd:annotation>
                     <xsd:documentation>Время последней модификации</xsd:documentation>

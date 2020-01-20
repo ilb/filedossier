@@ -27,7 +27,6 @@ import javax.ws.rs.core.UriBuilder;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Named
@@ -38,6 +37,7 @@ public class DossierFileMapperImpl implements DossierFileMapper {
 
     @Override
     public DossierFileView map() {
+
         DossierFileView df = new DossierFileView();
         df.setCode(model.getCode());
         df.setName(model.getName());
@@ -47,7 +47,7 @@ public class DossierFileMapperImpl implements DossierFileMapper {
         df.setHidden(model.getHidden());
         df.setAllowedMultiple(model.getAllowedMultiple());
         df.setAllowedMediaTypes(new AllowedMediaTypes().withAllowedMediaTypes(model.getAllowedMediaTypes()));
-        df.setLinks(new DossierFileView.Links().withLinks(buildDossierFileLinks()));
+        df.setLinks(buildDossierFileLinks());
 
         if (model.getExists()) {
             DossierFileVersion latestVersion = model.getLatestVersion();
@@ -55,6 +55,7 @@ public class DossierFileMapperImpl implements DossierFileMapper {
             df.setMediaType(latestVersion.getMediaType());
             df.setLastModified(model.lastModified());
         }
+
         return df;
     }
 
@@ -75,7 +76,7 @@ public class DossierFileMapperImpl implements DossierFileMapper {
      * @return list of marshalled links
      * @see javax.ws.rs.core.Link
      */
-    private List<Link.JaxbLink> buildDossierFileLinks() {
+    private List<Link> buildDossierFileLinks() {
         List<Link> links = new ArrayList<>();
         Stream.of(ContentDispositionMode.values())
                 .forEach(mode -> {
@@ -85,17 +86,10 @@ public class DossierFileMapperImpl implements DossierFileMapper {
                             .build();
                     links.add(link);
                 });
-        return marshalLinks(links);
+        return links;
     }
 
     private URI addParamToUri(URI uri, String name, Object... params) {
         return UriBuilder.fromUri(uri).queryParam(name, params).build();
-    }
-
-    private List<Link.JaxbLink> marshalLinks(List<Link> links) {
-        Link.JaxbAdapter adapter = new Link.JaxbAdapter();
-        return links.stream()
-                .map(adapter::marshal)
-                .collect(Collectors.toList());
     }
 }
