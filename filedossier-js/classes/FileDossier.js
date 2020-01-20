@@ -31,13 +31,9 @@ export default class FileDossier {
   };
 
   getFileLink = ({ file, inline }) => {
-    const { dossierKey, dossierPackage, dossierCode, dossierMode } = this.dossierParams;
-    if (file.exists) {
-      // return `${config.workflowWS}/v2/` +
-      return `https://devel.net.ilb.ru/workflow-web/web/v2/` + // TODO убрать весь метод, когда доработают досье
-      `dossiers/${dossierKey}/${dossierPackage}/${dossierCode}/${dossierMode}/dossierfiles/${file.code}` +
-      `?nocache=${(file.lastModified || '').replace(/\D/g, '')}` +
-      `&mode=${inline ? `inline` : 'attachment'}`;
+    if (file.exists && file.link) {
+      const link = file.link.find(l => l.rel === inline ? 'inline' : 'attachment');
+      return link && link.href;
     }
   };
 
