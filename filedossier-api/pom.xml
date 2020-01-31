@@ -20,7 +20,7 @@
         <dependency>
             <groupId>ru.ilb.common</groupId>
             <artifactId>common-jaxb</artifactId>
-            <version>1.33-SNAPSHOT</version>
+            <version>${ilb-common.version}</version>
         </dependency>
         <dependency>
             <groupId>com.migesok</groupId>
@@ -215,7 +215,7 @@
                             <dependency>
                                 <groupId>ru.ilb.openapiutils</groupId>
                                 <artifactId>openapiutils</artifactId>
-                                <version>1.3-SNAPSHOT</version>
+                                <version>1.3</version>
                             </dependency>
                         </dependencies>
                     </plugin>
