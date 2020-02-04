@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>ru.ilb.filedossier</groupId>
     <artifactId>filedossier</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
     <packaging>pom</packaging>
     <name>filedossier</name>
     <description>filedossier components</description>
@@ -23,8 +23,8 @@
         </developer>
     </developers>
     <scm>
-        <connection>scm:svn:https://svn.ilb.ru/repos/filedossier/trunk</connection>
-        <url>https://svn.ilb.ru/viewvc/filedossier</url>
+        <connection>scm:svn:https://svn.ilb.ru/repos/filedossier/tags/filedossier-1.0</connection>
+        <url>https://svn.ilb.ru/viewvc/filedossier/tags/filedossier-1.0</url>
     </scm>
     <distributionManagement>
         <site>
