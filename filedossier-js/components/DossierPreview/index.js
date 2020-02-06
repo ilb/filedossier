@@ -19,7 +19,7 @@ function DossierPreview ({ dossier, external, dossierActions, previewOffset }) {
         }))}
       />}
       {selectedFile && <div>
-        {!selectedFile.readonly && <div>
+        {!selectedFile.readonly && <div style={{ marginBottom: '1rem' }}>
           {external ? <ExternalDossier
             external={external}
             dossierFile={selectedFile}
@@ -49,12 +49,10 @@ function DossierPreview ({ dossier, external, dossierActions, previewOffset }) {
         </div>}
 
         {selectedFile.exists &&
-          <div style={{ marginTop: '1rem' }}>
-            <FileContent
-              dossierFile={selectedFile}
-              previewOffset={previewOffset}
-            />
-          </div>
+          <FileContent
+            dossierFile={selectedFile}
+            previewOffset={previewOffset}
+          />
         }
       </div>}
     </div>

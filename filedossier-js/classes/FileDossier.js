@@ -1,6 +1,6 @@
-import {useState} from 'react';
-import {createJsProxy} from '@ilb/js-auto-proxy';
-import {createDossierApi, getProxyApiClient} from '../conf/config';
+import { useState } from 'react';
+import { createJsProxy } from '@ilb/js-auto-proxy';
+import { createDossierApi, getProxyApiClient } from '../conf/config';
 
 export default class FileDossier {
   constructor ({ dossierParams, xRemoteUser } = {}) {
@@ -80,9 +80,9 @@ export default class FileDossier {
   parseExternalFile = (file) => ({
     ...file,
     type: this.getFileTypeByExt(file.ext),
-    path: file.path + '&mode=attachment',
+    path: file.path + '&contentDisposition=attachment',
     lastModified: file.date_create,
-    inlinePath: file.path + '&mode=inline',
+    inlinePath: file.path + '&contentDisposition=inline',
   });
 
   /* Получение данных досье */
