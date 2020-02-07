@@ -18,7 +18,6 @@ package ru.ilb.filedossier.mappers;
 import ru.ilb.filedossier.core.ContentDispositionMode;
 import ru.ilb.filedossier.entities.DossierFile;
 import ru.ilb.filedossier.entities.DossierFileVersion;
-import ru.ilb.filedossier.view.AllowedMediaTypes;
 import ru.ilb.filedossier.view.DossierFileView;
 
 import javax.inject.Named;
@@ -46,7 +45,7 @@ public class DossierFileMapperImpl implements DossierFileMapper {
         df.setRequired(model.getRequired());
         df.setHidden(model.getHidden());
         df.setAllowedMultiple(model.getAllowedMultiple());
-        df.setAllowedMediaTypes(new AllowedMediaTypes().withAllowedMediaTypes(model.getAllowedMediaTypes()));
+        df.setAllowedMediaTypes(model.getAllowedMediaTypes());
         df.setLinks(buildDossierFileLinks());
 
         if (model.getExists()) {
