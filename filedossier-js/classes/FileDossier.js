@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import { createJsProxy } from '@ilb/js-auto-proxy';
-import { createDossierApi, getProxyApiClient } from '../conf/config';
+import {useState} from 'react';
+import {createJsProxy} from '@ilb/js-auto-proxy';
+import {createDossierApi, getProxyApiClient} from '../conf/config';
 
 export default class FileDossier {
   constructor ({ dossierParams, xRemoteUser } = {}) {
@@ -39,11 +39,7 @@ export default class FileDossier {
 
   getFileAccept = (file) => {
     if (file && file.allowedMediaTypes) {
-      if (file.allowedMediaTypes.allowedMediaType) {
-        return file.allowedMediaTypes.allowedMediaType.join(',');
-      } else {
         return file.allowedMediaTypes.join(',');
-      }
     }
   };
 

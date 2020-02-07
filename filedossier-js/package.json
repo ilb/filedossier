@@ -1,6 +1,6 @@
 {
   "name": "@ilb/filedossier-js",
-  "version": "1.0.58",
+  "version": "1.0.59",
   "description": "",
   "main": "lib/components/Dossier.js",
   "scripts": {
@@ -20,7 +20,7 @@
   ],
   "dependencies": {
     "@babel/runtime": "^7.7.2",
-    "@ilb/filedossier-api": "^1.0.27",
+    "@ilb/filedossier-api": "^1.0.28",
     "@ilb/js-auto-proxy": "^2.0.0",
     "@ilb/node_context": "^1.0.9",
     "@zeit/next-css": "^1.0.1",

@@ -1,16 +1,13 @@
 package ru.ilb.filedossier.api;
 
+import javax.xml.bind.annotation.XmlAttribute;
 import java.net.URI;
-import java.util.HashMap;
-import java.util.Map;
-import javax.xml.bind.annotation.*;
-import javax.xml.namespace.QName;
 
 
 public class JaxbLink {
 
     private URI uri;
-    private Map<QName, Object> params;
+    private String rel;
 
     /**
      * Default constructor needed during unmarshalling.
@@ -31,11 +28,11 @@ public class JaxbLink {
      * Construct an instance from a URI and some parameters.
      *
      * @param uri    underlying URI.
-     * @param params parameters of this link.
+     * @param rel    link relation.
      */
-    public JaxbLink(URI uri, Map<QName, Object> params) {
+    public JaxbLink(URI uri, String rel) {
         this.uri = uri;
-        this.params = params;
+        this.rel = rel;
     }
 
     /**
@@ -53,12 +50,9 @@ public class JaxbLink {
      *
      * @return parameter map.
      */
-    @XmlAnyAttribute
-    public Map<QName, Object> getParams() {
-        if (params == null) {
-            params = new HashMap<>();
-        }
-        return params;
+    @XmlAttribute(name = "rel")
+    public String getRel() {
+        return rel;
     }
 
     /**
@@ -75,7 +69,7 @@ public class JaxbLink {
      *
      * This setter is needed for JAXB unmarshalling.
      */
-    void setParams(Map<QName, Object> params) {
-        this.params = params;
+    void setRel(String rel) {
+        this.rel = rel;
     }
 }
