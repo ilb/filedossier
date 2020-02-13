@@ -73,7 +73,7 @@ function ControlsMenu ({
   dossierFile,
   pdf, currentPage, setPage, pageText, setPageText,
   scaleValue, scaleNum, setScale,
-  rotateFile,
+  rotateFile, rotateLoading,
 }) {
   return (
     <Menu inverted className="file-controls">
@@ -127,8 +127,8 @@ function ControlsMenu ({
       </Menu.Menu>}
 
       <Menu.Menu position="right">
-        {scaleNum && <Menu.Item link icon="undo" onClick={rotateFile.bind(this, -90)}/>}
-        {scaleNum && <Menu.Item link icon="undo" onClick={rotateFile.bind(this, 90)} className="mirror-horizontal"/>}
+        {scaleNum && <Menu.Item link icon="undo" onClick={rotateFile.bind(this, -90)} disabled={!!rotateLoading}/>}
+        {scaleNum && <Menu.Item link icon="undo" onClick={rotateFile.bind(this, 90)} disabled={!!rotateLoading} className="mirror-horizontal"/>}
 
         <Dropdown item icon="content" className="dossier-info">
           <Dropdown.Menu>
@@ -151,6 +151,7 @@ ControlsMenu.propTypes = {
   scaleNum: PropTypes.number,
   setScale: PropTypes.func.isRequired,
   rotateFile: PropTypes.func.isRequired,
+  rotateLoading: PropTypes.string,
 };
 
 export default ControlsMenu;

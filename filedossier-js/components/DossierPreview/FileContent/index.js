@@ -5,7 +5,7 @@ import DossierPdf from './DossierPdf';
 import DossierInfo from './DossierInfo';
 import './index.css';
 
-function FileContent ({ dossierFile, previewOffset }) {
+function FileContent ({ dossierFile, dossierActions, previewOffset }) {
   const contentRef = useRef(null);
 
   let ContentComponent;
@@ -17,13 +17,18 @@ function FileContent ({ dossierFile, previewOffset }) {
 
   return (
     <div className="file-content" style={{ height: `calc(100vh - ${previewOffset}px)` }}>
-      <ContentComponent dossierFile={dossierFile} contentRef={contentRef}/>
+      <ContentComponent
+        dossierFile={dossierFile}
+        dossierActions={dossierActions}
+        contentRef={contentRef}
+      />
     </div>
   );
 }
 
 FileContent.propTypes = {
   dossierFile: PropTypes.object.isRequired,
+  dossierActions: PropTypes.object.isRequired,
   previewOffset: PropTypes.number.isRequired,
 };
 

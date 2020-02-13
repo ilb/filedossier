@@ -52,6 +52,7 @@ function DossierPreview ({ dossier, external, dossierActions, previewOffset }) {
           <FileContent
             dossierFile={selectedFile}
             previewOffset={previewOffset}
+            dossierActions={dossierActions}
           />
         }
       </div>}

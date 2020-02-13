@@ -8,27 +8,32 @@ class DossierImage extends React.Component {
     scaleValue: 'pageWidthOption', /* for selection */
     scaleNum: 1,
     rotate: 0,
+    rotateLoading: null,
   };
 
   componentDidMount () {
     const { dossierFile } = this.props;
-    this.setState({ src: dossierFile.inlinePath });
+    this.setState({ src: dossierFile.inlinePath, rotate: dossierFile.rotate || 0 });
   }
 
   static getDerivedStateFromProps (props, state) {
     const { dossierFile } = props;
     if (state.src && state.src !== dossierFile.inlinePath) {
-      return { src: dossierFile.inlinePath };
+      return { src: dossierFile.inlinePath, rotate: dossierFile.rotate || 0 };
     }
     return null;
   }
 
-  rotateFile = (angle) => {
+  rotateFile = async (angle) => {
     this.resetContainerScroll();
     let rotate = this.state.rotate + angle;
     if (rotate < 0) { rotate = 270; }
     if (rotate > 270) { rotate = 0; }
     this.setupRotatedImageSize(rotate);
+    this.setState({ rotateLoading: angle < 0 ? 'CCW' : 'CW' }); // counterclockwise / clockwise
+    const { dossierFile, dossierActions } = this.props;
+    await dossierActions.saveFileRotation({ file: dossierFile, angle });
+    this.setState({ rotateLoading: null });
   };
 
   resetContainerScroll = () => {
@@ -40,7 +45,8 @@ class DossierImage extends React.Component {
   };
 
   imageOnLoadHandler = async () => {
-    this.setupRotatedImageSize(0); // reset rotation
+    const { dossierFile } = this.props;
+    this.setupRotatedImageSize(dossierFile.rotate || 0); // reset rotation
     await new Promise(resolve => { setTimeout(resolve, 10); });
     this.initManipulations();
     this.resetContainerScroll();
@@ -111,13 +117,13 @@ class DossierImage extends React.Component {
 
   render () {
     const { dossierFile, contentRef } = this.props;
-    const { src, scaleValue, scaleNum, rotate } = this.state;
+    const { src, scaleValue, scaleNum, rotate, rotateLoading } = this.state;
     return (
       <div className="dossier-img">
         <ControlsMenu
           dossierFile={dossierFile}
           scaleValue={scaleValue} scaleNum={scaleNum} setScale={this.setScale}
-          rotateFile={this.rotateFile}
+          rotateFile={this.rotateFile} rotateLoading={rotateLoading}
         />
         <div className="dossier-img-container">
           <img ref={contentRef} src={src}
@@ -133,6 +139,7 @@ class DossierImage extends React.Component {
 
 DossierImage.propTypes = {
   dossierFile: PropTypes.object.isRequired,
+  dossierActions: PropTypes.object.isRequired,
   contentRef: PropTypes.object.isRequired,
 };
 

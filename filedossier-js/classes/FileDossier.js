@@ -64,6 +64,7 @@ export default class FileDossier {
         inlinePath: this.getFileLink({ file, inline: true }),
         accept: this.getFileAccept(file),
         uniqId: this.getFileUniqId(file),
+        canSaveRotation: true,
       }));
     }
     return dossier;
@@ -101,6 +102,15 @@ export default class FileDossier {
 
     return result;
   }
+
+  /* Сохранение угла поворота файла */
+  saveFileRotation = async ({ file, angle }) => {
+    if (file.canSaveRotation) {
+      await new Promise(resolve => setTimeout(resolve, 1000, angle)); // TODO это заглушка, убрать
+      // const result = await this.apiDossier.saveFileRotation(...this.getDossierParams(), file.code, angle);
+      // return result;
+    }
+  };
 
   // download file
   download = async ({ fileCode, version, mode }) => {
@@ -215,6 +225,7 @@ export default class FileDossier {
       updateDossier: this._createRequestAction({ state, setState, withUpdate: true }),
       uploadFile: this._createRequestAction({ state, setState, action: this.uploadFile.bind(this), withUpdate: true }),
       importFile: this._createRequestAction({ state, setState, action: this.importFile.bind(this), withUpdate: true }),
+      saveFileRotation: this.saveFileRotation.bind(this),
       resetHook: () => { setState({ ...state, loading: false, error: null }); },
     };
     return [state, dossierActions];

@@ -40,8 +40,9 @@
   padding: 0.1rem 0.5rem !important;
 }
 
-.file-controls a.item.disabled {
-  color: rgba(225, 225, 225, 0.3) !important;
+.file-controls .menu > a.item.disabled,
+.file-controls .menu > a.item.disabled:hover {
+  color: rgba(225, 225, 225, 0.7) !important;
 }
 
 .file-controls .page-count-label {

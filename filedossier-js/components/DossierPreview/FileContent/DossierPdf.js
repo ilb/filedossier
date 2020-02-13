@@ -14,15 +14,14 @@ class DossierPdf extends React.Component {
     scaleValue: 'pageWidthOption', /* for selection */
     scaleNum: null,
     rotate: 0,
+    rotateLoading: null,
     error: null,
     pdfLoading: false,
   };
 
   componentDidMount () {
     const { dossierFile } = this.props;
-    const pdfPath = dossierFile.path;
-    // const pdfPath = 'http://localhost:3000/static/test0.pdf';
-    this.initPdf(pdfPath);
+    this.initPdf(dossierFile);
 
     const canvasContainer = this.props.contentRef.current;
     canvasContainer.addEventListener('scroll', this.scrollUpdated, true);
@@ -32,20 +31,19 @@ class DossierPdf extends React.Component {
     const oldFile = this.props.dossierFile;
     const newFile = nextProps.dossierFile;
     if (oldFile.path !== newFile.path) { // new file uploaded
-      const pdfPath = newFile.path;
-      // const pdfPath = 'http://localhost:3000/static/test.pdf';
-      this.initPdf(pdfPath);
+      this.initPdf(newFile);
     }
   }
 
-  initPdf = (pdfPath) => {
+  initPdf = ({ path, rotate }) => {
+    // path = 'http://localhost:3000/static/test0.pdf';
     this.setState({ pdf: null, pdfLoading: true, currentPage: 1, pageText: 1 });
     this.clearCanvases();
-    const loadingTask = PDFJS.getDocument(pdfPath);
+    const loadingTask = PDFJS.getDocument(path);
     loadingTask.promise.then(
       pdf => {
         this.setState({ pdf, pdfLoading: false }, () => {
-          this.drawPages({ pdf }); // initial draw
+          this.drawPages({ pdf, rotate }); // initial draw
         });
         this.initManipulations();
       },
@@ -203,14 +201,20 @@ class DossierPdf extends React.Component {
   rotateFile = async (angle) => {
     const isAllowed = await this.waitForPreviousRender();
     if (!isAllowed) { return; }
+    const { dossierFile, dossierActions } = this.props;
     const { pdf, scaleValue, rotate, currentPage } = this.state;
     let newRotate = rotate + angle;
     if (newRotate < 0) { newRotate = 270; }
     if (newRotate > 270) { newRotate = 0; }
-    await this.drawPages({
-      pdf, scale: scaleValue, rotate: newRotate, // NOTE: use scaleValue on rotate
-      callback: () => { this.setPage(null, { value: currentPage }); },
-    });
+    this.setState({ rotateLoading: angle < 0 ? 'CCW' : 'CW' }); // counterclockwise / clockwise
+    await Promise.all([
+      dossierActions.saveFileRotation({ file: dossierFile, angle }),
+      this.drawPages({
+        pdf, scale: scaleValue, rotate: newRotate, // NOTE: use scaleValue on rotate
+        callback: () => { this.setPage(null, { value: currentPage }); },
+      }),
+    ]);
+    this.setState({ rotateLoading: null });
   };
 
   resetContainerScroll = () => {
@@ -312,7 +316,7 @@ class DossierPdf extends React.Component {
 
   render () {
     const { dossierFile, contentRef } = this.props;
-    const { pdf, currentPage, pageText, scaleValue, scaleNum, error, pdfLoading } = this.state;
+    const { pdf, currentPage, pageText, scaleValue, scaleNum, error, pdfLoading, rotateLoading } = this.state;
 
     return (
       <div className="dossier-pdf">
@@ -320,7 +324,7 @@ class DossierPdf extends React.Component {
           dossierFile={dossierFile} pdf={pdf}
           currentPage={currentPage} pageText={pageText} setPage={this.setPage} setPageText={this.setPageText}
           scaleValue={scaleValue} scaleNum={scaleNum} setScale={this.setScale}
-          rotateFile={this.rotateFile}
+          rotateFile={this.rotateFile} rotateLoading={rotateLoading}
         />
         <div className="dossier-pdf-container" ref={contentRef}>
           {pdfLoading && <Loader active size="small" style={{ zIndex: 5 }}/>}
@@ -333,6 +337,7 @@ class DossierPdf extends React.Component {
 
 DossierPdf.propTypes = {
   dossierFile: PropTypes.object.isRequired,
+  dossierActions: PropTypes.object.isRequired,
   contentRef: PropTypes.object.isRequired,
 };
 
