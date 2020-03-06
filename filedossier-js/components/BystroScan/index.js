@@ -99,7 +99,7 @@ class BystroScan extends Component {
 
     return (
       <div className="bystro-scan">
-        <Button type="button" basic attached="left" content="БыстроСкан" onClick={this.scanStart} disabled={loading}/>
+        <Button type="button" basic attached="left" content="БыстроСкан" onClick={this.scanStart} disabled={loading} id="fdBystroScan"/>
         <Dropdown simple basic icon="setting" open={false} className="right attached button icon">
           <Dropdown.Menu className="bystro-scan-params">
             <div>
@@ -124,12 +124,12 @@ class BystroScan extends Component {
           </Dropdown.Menu>
         </Dropdown>
 
-        <Button as="div" basic className="bystro-scan-file-button" disabled={loading} title={fileTitle}>
+        <Button as="div" basic className="bystro-scan-file-button" disabled={loading} title={fileTitle} id="fdChooseFile">
           <span>{fileName || 'Выбрать файл'}</span>
           <input type="file" id={fileId} accept={accept} multiple={multiple} onChange={this.selectFile} disabled={loading}/>
         </Button>
 
-        <Button type="button" color="green" attached="left" content="Загрузить" onClick={this.uploadFile} loading={loading} disabled={loading}/>
+        <Button type="button" color="green" attached="left" content="Загрузить" onClick={this.uploadFile} loading={loading} disabled={loading} id="fdUpload"/>
         <Dropdown text=" "
           className="right attached button green icon"
           icon={`${uploadMode === 'merge' ? 'copy' : 'file'} outline`}

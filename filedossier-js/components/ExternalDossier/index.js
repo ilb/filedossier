@@ -64,7 +64,7 @@ function ExternalDossier ({ external, dossierFile, importFile }) {
         size="fullscreen"
         closeIcon
         closeOnDimmerClick={false}
-        trigger={<Button basic content="Выбрать файл"/>}
+        trigger={<Button basic content="Выбрать файл" id="fdChooseExternalFile"/>}
         onOpen={() => { setState(initialState); }}
         style={{ position: 'static' }}
       >

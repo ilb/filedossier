@@ -30,12 +30,13 @@ function DossierActions ({ dossierFile, dossierActions }) {
         content="Загрузить"
         disabled={uploadOpened}
         onClick={openUploadModal}
+        id={`fdUploudModalBtn_${dossierFile.code}`}
       />
       <Button negative size="small"
         content="Удалить"
         // onClick={remove}
       />
-      <Segment style={{ position: 'absolute', top: -20, zIndex: 1000, display: uploadOpened ? '' : 'none' }}>
+      <Segment style={{ position: 'absolute', top: -20, right: '-8px', whiteSpace: 'nowrap', zIndex: 1000, display: uploadOpened ? '' : 'none' }}>
         {uploadOpened && <div>
           <BystroScan
             fileId={dossierFile.uniqId}
