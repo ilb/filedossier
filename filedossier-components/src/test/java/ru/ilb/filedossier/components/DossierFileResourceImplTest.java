@@ -35,8 +35,11 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import org.apache.cxf.jaxrs.client.Client;
+import org.apache.cxf.jaxrs.client.WebClient;
 import org.apache.cxf.jaxrs.ext.multipart.Attachment;
 import org.apache.cxf.jaxrs.ext.multipart.MultipartBody;
+import org.apache.cxf.transport.http.HTTPConduit;
 
 /**
  *
@@ -62,8 +65,24 @@ public class DossierFileResourceImplTest {
             System.out.println("resourceUri=" + resourceUri);
             resource = JAXRSClientFactory.create(resourceUri, DossiersResource.class,
                     Arrays.asList(jsonMapObjectProvider));
+
+            configureTimeout(resource, 1000 * 300);
         }
         return resource;
+
+    }
+
+    /**
+     * Настройка таймаута чтобы посидеть в отладчике
+     * @param resource
+     * @param receiveTimeout
+     */
+    private void configureTimeout(Object resource, int receiveTimeout) {
+        WebClient webClient = WebClient.fromClient(WebClient.client(resource));
+
+        HTTPConduit conduit = WebClient.getConfig(webClient).getHttpConduit();
+        //conduit.getClient().setConnectionTimeout(1000 * 3);
+        conduit.getClient().setReceiveTimeout(receiveTimeout);
 
     }
 
@@ -106,12 +125,12 @@ public class DossierFileResourceImplTest {
     public void testCGetContents() {
 
         DossierFileResource fileResource = getDossierFileResource("fairpricecalc");
-        Response response = fileResource.download(null, null);
+        Response response = fileResource.download(null, null,"application/json");
         Assert.assertEquals("application/vnd.oasis.opendocument.spreadsheet",
                 response.getMediaType().toString());
 
         fileResource = getDossierFileResource("jurnals");
-        response = fileResource.download(null, null);
+        response = fileResource.download(null, null,null);
         Assert.assertEquals("application/pdf", response.getMediaType().toString());
     }
 }

@@ -25,7 +25,7 @@
                 <representation mediaType="application/json">
                     <doc>dossier data</doc>
                 </representation>
-<!--                <representation mediaType="application/xhtml+xml">
+                <!--                <representation mediaType="application/xhtml+xml">
                     <doc>dossier data</doc>
                 </representation>-->
             </response>
@@ -48,7 +48,7 @@
                 <representation mediaType="application/json" element="global:map">
                     <doc>processInstances data</doc>
                 </representation>
-<!--                <representation mediaType="application/json">
+                <!--                <representation mediaType="application/json">
                     <doc>processInstances data</doc>
                 </representation>-->
             </response>
@@ -60,7 +60,7 @@
                 <representation mediaType="application/json" element="global:map">
                     <doc>processInstances data</doc>
                 </representation>
-<!--                <representation mediaType="application/json">
+                <!--                <representation mediaType="application/json">
                     <doc>processInstances data</doc>
                 </representation>-->
             </request>
@@ -74,10 +74,11 @@
             <request>
                 <param name="version" style="query" type="xsd:int" />
                 <param name="mode" style="query" type="core:contentDispositionMode" default="attachment"/>
+                <param name="accept" style="header" type="xsd:string" />
             </request>
             <response status="200">
                 <param name="Content-Disposition" style="header" type="xsd:string"/>
-                 <representation mediaType="application/octet-stream"/>
+                <representation mediaType="*/*"/>
             </response>
         </method>
 
@@ -86,7 +87,7 @@
                 <doc>add file to current dossier file version</doc>
                 <request>
                     <representation mediaType="multipart/form-data">
-<!--                        <doc>file data</doc>
+                        <!--                        <doc>file data</doc>
                         <param style="query" name="file" type="java.io.File" />-->
                     </representation>
                 </request>
@@ -99,7 +100,7 @@
                 <doc>create new dossier file version</doc>
                 <request>
                     <representation mediaType="multipart/form-data">
-<!--                        <doc>file data</doc>
+                        <!--                        <doc>file data</doc>
                         <param style="query" name="file" type="java.io.File"/>-->
                     </representation>
                 </request>

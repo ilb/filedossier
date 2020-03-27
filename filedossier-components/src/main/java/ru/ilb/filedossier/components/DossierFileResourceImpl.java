@@ -17,15 +17,20 @@ package ru.ilb.filedossier.components;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.stream.Collectors;
 import javax.inject.Inject;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.container.ResourceContext;
 import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
+import org.apache.cxf.jaxrs.ext.MessageContext;
 
 import org.apache.cxf.jaxrs.ext.multipart.MultipartBody;
+import org.apache.cxf.message.Message;
+import org.apache.cxf.phase.PhaseInterceptorChain;
 import org.springframework.context.ApplicationContext;
 import ru.ilb.filedossier.api.DossierContextResource;
 import ru.ilb.filedossier.api.DossierFileResource;
@@ -63,6 +68,13 @@ public class DossierFileResourceImpl implements DossierFileResource {
     @Context
     private ResourceContext resourceContext;
 
+
+    /**
+     * CXF MessageContext
+     */
+    @Context
+    protected MessageContext messageContext;
+
     /**
      * Dossier file model.
      */
@@ -73,7 +85,7 @@ public class DossierFileResourceImpl implements DossierFileResource {
     }
 
     @Override
-    public Response download(Integer version, ContentDispositionMode mode) {
+    public Response download(Integer version, ContentDispositionMode mode, String accept) {
 
         DossierFileVersion dossierFileVersion;
         if (version == null) {
@@ -84,6 +96,8 @@ public class DossierFileResourceImpl implements DossierFileResource {
         if (dossierFileVersion == null) {
             return null;
         }
+        //final Message message = PhaseInterceptorChain.getCurrentMessage();
+        //List<MediaType> acceptableMediaTypes = messageContext.getHttpHeaders().getAcceptableMediaTypes();
 
         Representation representation = dossierFileVersion.getRepresentation();
         final String contentDisposition = ContentDispositionMode.ATTACHMENT.equals(mode)

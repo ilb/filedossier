@@ -80,7 +80,7 @@ public class DossiersResourceImplTest {
         DossierView dossier = dossierResource.getDossier();
         assertNotNull(dossier);
         DossierFileResource dossierFileResource = dossierResource.getDossierFileResource("fairpricecalc");
-        String res = dossierFileResource.download(null, null).readEntity(String.class);
+        String res = dossierFileResource.download(null, null,null).readEntity(String.class);
 
         DossierContextResource dossierContextResource = dossierFileResource.getDossierContextResource();
 
