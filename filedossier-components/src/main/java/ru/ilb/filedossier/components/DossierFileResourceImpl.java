@@ -98,7 +98,7 @@ public class DossierFileResourceImpl implements DossierFileResource {
         }
         //final Message message = PhaseInterceptorChain.getCurrentMessage();
         //List<MediaType> acceptableMediaTypes = messageContext.getHttpHeaders().getAcceptableMediaTypes();
-
+        // text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
         Representation representation = dossierFileVersion.getRepresentation();
         final String contentDisposition = ContentDispositionMode.ATTACHMENT.equals(mode)
                 ? mode.value() + "; filename=" + representation.getFileName()

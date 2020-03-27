@@ -32,13 +32,13 @@
         <description>Путь к репозиторию досье (описания, репрезентации)</description>
         <env-entry-name>dossierRepository</env-entry-name>
         <env-entry-type>java.lang.String</env-entry-type>
-        <env-entry-value>/home/dossierrepository</env-entry-value>
+        <env-entry-value>/home/filedossier</env-entry-value>
     </env-entry>
     <env-entry>
         <description>Корневая директория для всех досье</description>
         <env-entry-name>ru.bystrobank.apps.filedossier.storeroot</env-entry-name>
         <env-entry-type>java.lang.String</env-entry-type>
-        <env-entry-value>file:///tmp/workflow/storeroot</env-entry-value>
+        <env-entry-value>file:///var/apps/filedossier/files</env-entry-value>
     </env-entry>
     <env-entry>
         <description>uri of signature detector script</description>
