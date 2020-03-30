@@ -16,6 +16,8 @@
 package ru.ilb.filedossier.representation;
 
 import java.io.File;
+import java.util.Arrays;
+import java.util.List;
 import ru.ilb.filedossier.entities.DossierContents;
 import ru.ilb.filedossier.entities.DossierPath;
 
@@ -93,6 +95,11 @@ public class DossierContentsHolder implements DossierContents {
     @Override
     public void setParent(DossierPath parent) {
 
+    }
+
+    @Override
+    public List<String> getAllowedMediaTypes() {
+        return Arrays.asList(mediaType);
     }
 
 }

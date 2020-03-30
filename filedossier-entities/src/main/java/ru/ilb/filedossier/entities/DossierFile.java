@@ -22,7 +22,7 @@ import java.util.List;
  *
  * @author SPoket
  */
-public interface DossierFile extends DossierPath {
+public interface DossierFile extends DossierContents {
 
     /**
      * @return is file required to be present.
@@ -66,10 +66,7 @@ public interface DossierFile extends DossierPath {
      */
     Integer getVersionsCount();
 
-    /**
-     * @return list with media types, allowed to store in current dossier file.
-     */
-    List<String> getAllowedMediaTypes();
+
 
     /**
      * Creates new dossier file version

@@ -17,6 +17,7 @@ package ru.ilb.filedossier.entities;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * <p>
@@ -40,10 +41,15 @@ public interface DossierContents extends DossierPath {
     void setContents(byte[] contents) throws IOException;
 
     /**
-     * @return file's media type using default representation.
+     * @return items's media type using default representation.
      */
     String getMediaType();
 
+    /**
+     * @return list with media types, allowed to store in current item. first one is default
+     */
+    public List<String> getAllowedMediaTypes();
+    
     /**
      * @return file extension using default representation
      */

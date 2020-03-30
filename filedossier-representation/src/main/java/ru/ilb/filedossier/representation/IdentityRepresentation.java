@@ -20,6 +20,8 @@ import ru.ilb.filedossier.entities.*;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Represents raw file contents
@@ -71,6 +73,11 @@ public class IdentityRepresentation implements Representation {
     }
 
     @Override
+    public List<String> getAllowedMediaTypes() {
+        return Arrays.asList(mediaType);
+    }
+
+    @Override
     public void setContents(byte[] contents) throws IOException {
         parent.setContents(contents);
     }
@@ -79,4 +86,6 @@ public class IdentityRepresentation implements Representation {
     public String getExtension() {
         return parent.getExtension();
     }
+
+
 }

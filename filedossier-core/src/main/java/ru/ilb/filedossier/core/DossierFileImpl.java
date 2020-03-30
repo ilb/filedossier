@@ -15,6 +15,7 @@
  */
 package ru.ilb.filedossier.core;
 
+import java.io.IOException;
 import ru.ilb.filedossier.entities.*;
 import ru.ilb.filedossier.entities.DossierFileVersion;
 
@@ -52,10 +53,10 @@ public class DossierFileImpl implements DossierFile {
     private Map<String, DossierFileVariation> variations;
 
     DossierFileImpl(Store store, String code, String name,
-                    boolean required, boolean readonly,
-                    boolean hidden, boolean allowedMultiple,
-                    List<DossierFileVersion> versions,
-                    Map<String, DossierFileVariation> variations) {
+            boolean required, boolean readonly,
+            boolean hidden, boolean allowedMultiple,
+            List<DossierFileVersion> versions,
+            Map<String, DossierFileVariation> variations) {
         this.store = store;
         this.code = code;
         this.name = name;
@@ -111,7 +112,7 @@ public class DossierFileImpl implements DossierFile {
 
     @Override
     public String lastModified() {
-        Long millis =  store.lastModified(String.valueOf(versions.size() - 1));
+        Long millis = store.lastModified(String.valueOf(versions.size() - 1));
         Date date = new Date(millis);
         return new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(date);
     }
@@ -131,12 +132,12 @@ public class DossierFileImpl implements DossierFile {
     @Override
     public DossierFileVersion createNewVersion(String mediaType) {
 
-        if (getReadonly()){
+        if (getReadonly()) {
             throw new IllegalArgumentException("Dossier file is readonly: " + getCode());
         }
 
         if (!variations.containsKey(mediaType)) {
-           throw new IllegalArgumentException("Specified media type '" + mediaType +"' is not allowed");
+            throw new IllegalArgumentException("Specified media type '" + mediaType + "' is not allowed");
         }
 
         DossierFileVariation variation = variations.get(mediaType);
@@ -175,5 +176,27 @@ public class DossierFileImpl implements DossierFile {
                 .isAssignableFrom(parent.getClass()) : "Dossier instance should be passed as argument instead of "
                 + parent.getClass().getCanonicalName();
         this.parent = (Dossier) parent;
+    }
+
+    @Override
+    public byte[] getContents() throws IOException {
+        return getLatestVersion().getContents();
+    }
+
+    @Override
+    public void setContents(byte[] contents) throws IOException {
+        //FIXME - создание новой версии
+        //getLatestVersion().setContents(contents);
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public String getMediaType() {
+        return getLatestVersion().getMediaType();
+    }
+
+    @Override
+    public String getExtension() {
+        return getLatestVersion().getExtension();
     }
 }

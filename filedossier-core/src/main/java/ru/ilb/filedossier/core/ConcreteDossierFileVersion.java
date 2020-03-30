@@ -1,6 +1,7 @@
 package ru.ilb.filedossier.core;
 
 import java.io.IOException;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -24,15 +25,15 @@ public class ConcreteDossierFileVersion implements DossierFileVersion {
         this.mediaType = mediaType;
         this.representations = representations.stream()
                 .peek(r -> r.setParent(this))
-                .collect(Collectors.toMap(r -> r.getMediaType(), r -> r));
-        Representation identityRepresentation = new IdentityRepresentation(mediaType);
+                .collect(Collectors.toMap(r -> r.getMediaType(), r -> r, (x, y) -> y, LinkedHashMap::new));
+        // add identity representation if not specified
         if (!this.representations.containsKey(mediaType)) {
+            Representation identityRepresentation = new IdentityRepresentation(mediaType);
+            identityRepresentation.setParent(this);
             this.representations.put(mediaType, identityRepresentation);
         }
-        this.defaultRepresentation = representations.isEmpty()
-                ? identityRepresentation
-                : representations.iterator().next();
-        this.defaultRepresentation.setParent(this);
+        // first representation is default
+        this.defaultRepresentation = this.representations.entrySet().iterator().next().getValue();
     }
 
 //    ConcreteDossierFileVersion(DossierFileVariation variation) {
@@ -61,12 +62,13 @@ public class ConcreteDossierFileVersion implements DossierFileVersion {
         return mediaType;
     }
 
+
     @Override
     public String getExtension() {
+        // FIXME не эффективно
         return MimeTypeUtil.getExtension(mediaType);
     }
 
-    // FIXME: create api for picking representations.
     @Override
     public Representation getRepresentation() {
         return defaultRepresentation;
@@ -113,5 +115,9 @@ public class ConcreteDossierFileVersion implements DossierFileVersion {
                 + parent.getClass().getCanonicalName();
 
         this.parent = (DossierFile) parent;
+    }
+
+    public List<String> getAllowedMediaTypes() {
+        return representations.values().stream().map(r -> r.getMediaType()).collect(Collectors.toList());
     }
 }

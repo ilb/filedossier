@@ -22,7 +22,6 @@ import javax.naming.NamingException;
 import static org.junit.Assert.*;
 import org.junit.ClassRule;
 import org.junit.FixMethodOrder;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import static ru.ilb.filedossier.core.DossierFactoryTest.getDossierFactory;
