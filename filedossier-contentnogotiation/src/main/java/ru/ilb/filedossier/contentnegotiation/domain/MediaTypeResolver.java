@@ -22,12 +22,13 @@ import javax.ws.rs.core.MediaType;
 
 /**
  *
+ * Allows to choose media type based on acceptance criteria
  * @author slavb
  */
 public class MediaTypeResolver {
 
     /**
-     * acceptable media types
+     * acceptable media types interface
      */
     private final MediaTypeAcceptor mediaTypeAcceptor;
 

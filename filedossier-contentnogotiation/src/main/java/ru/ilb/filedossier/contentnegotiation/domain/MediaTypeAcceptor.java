@@ -22,7 +22,7 @@ import java.util.stream.Stream;
 import javax.ws.rs.core.MediaType;
 
 /**
- *
+ * Allows to get most compatible media type out of list of acceptable types
  * @author slavb
  */
 public class MediaTypeAcceptor {
