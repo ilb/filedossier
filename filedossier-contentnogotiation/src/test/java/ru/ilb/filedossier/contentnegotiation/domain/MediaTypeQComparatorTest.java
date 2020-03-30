@@ -13,9 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ru.ilb.filedossier.contentnegotiation.impl;
+package ru.ilb.filedossier.contentnegotiation.domain;
 
-import ru.ilb.filedossier.contentnegotiation.impl.MediaTypeQComparator;
 import javax.ws.rs.core.MediaType;
 import org.junit.After;
 import org.junit.AfterClass;

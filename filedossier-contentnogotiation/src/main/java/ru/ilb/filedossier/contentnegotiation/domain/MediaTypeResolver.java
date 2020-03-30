@@ -13,13 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ru.ilb.filedossier.contentnegotiation.impl;
+package ru.ilb.filedossier.contentnegotiation.domain;
 
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-import java.util.function.Predicate;
+import java.util.Optional;
+import java.util.stream.Stream;
 import javax.ws.rs.core.MediaType;
 
 /**
@@ -33,7 +31,6 @@ public class MediaTypeResolver {
      */
     private final MediaTypeAcceptor mediaTypeAcceptor;
 
-
     public MediaTypeResolver(MediaTypeAcceptor mediaTypeAcceptor) {
         this.mediaTypeAcceptor = mediaTypeAcceptor;
     }
@@ -44,13 +41,25 @@ public class MediaTypeResolver {
      * @param allowedMediaTypes
      * @return
      */
-    public MediaType getAcceptableMediaType(List<MediaType> allowedMediaTypes) {
+    public Optional<MediaType> getAcceptableMediaType(List<MediaType> allowedMediaTypes) {
         if (mediaTypeAcceptor.isAcceptDefaultRepresentation()) {
-            return allowedMediaTypes.get(0);
+            return Optional.ofNullable(allowedMediaTypes.get(0));
         }
 
-        //allowedMediaTypes.stream().map(arg0)
-        return null;
+        return allowedMediaTypes.stream().flatMap(mt -> streamopt(mediaTypeAcceptor.getCompatibleMediaType(mt)))
+                .sorted(MediaTypeQComparator.INSTANCE.reversed())
+                .findFirst();
     }
 
+    /**
+     * convert Optional to Stream
+     *
+     * @see https://stackoverflow.com/questions/22725537/using-java-8s-optional-with-streamflatmap
+     * @param <T>
+     * @param opt
+     * @return
+     */
+    private static <T> Stream<T> streamopt(Optional<T> opt) {
+        return opt.map(Stream::of).orElse(Stream.empty());
+    }
 }

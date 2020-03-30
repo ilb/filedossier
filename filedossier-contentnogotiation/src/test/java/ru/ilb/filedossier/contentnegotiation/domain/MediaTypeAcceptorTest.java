@@ -13,9 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ru.ilb.filedossier.contentnegotiation.impl;
+package ru.ilb.filedossier.contentnegotiation.domain;
 
-import ru.ilb.filedossier.contentnegotiation.impl.MediaTypeAcceptor;
 import java.util.Optional;
 import javax.ws.rs.core.MediaType;
 import org.junit.After;
@@ -57,8 +56,8 @@ public class MediaTypeAcceptorTest {
     public void testGetCompatibleMediaType() {
         System.out.println("getCompatibleMediaType");
         MediaType other = MediaType.valueOf("text/html");
-        String accept = "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8";
-        MediaTypeAcceptor instance = new MediaTypeAcceptor(accept);
+        String acceptableMediaTypes = "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8";
+        MediaTypeAcceptor instance = new MediaTypeAcceptor(acceptableMediaTypes);
         Optional<MediaType> expResult = Optional.ofNullable(MediaType.valueOf("text/html"));
         Optional<MediaType> result = instance.getCompatibleMediaType(other);
         assertEquals(expResult, result);
@@ -68,8 +67,8 @@ public class MediaTypeAcceptorTest {
     public void testGetCompatibleMediaType2() {
         System.out.println("getCompatibleMediaType2");
         MediaType other = MediaType.valueOf("application/xml");
-        String accept = "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8";
-        MediaTypeAcceptor instance = new MediaTypeAcceptor(accept);
+        String acceptableMediaTypes = "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8";
+        MediaTypeAcceptor instance = new MediaTypeAcceptor(acceptableMediaTypes);
         Optional<MediaType> expResult = Optional.ofNullable(MediaType.valueOf("application/xml;q=0.9"));
         Optional<MediaType> result = instance.getCompatibleMediaType(other);
         assertEquals(expResult, result);
@@ -79,8 +78,8 @@ public class MediaTypeAcceptorTest {
     public void testGetCompatibleMediaType3() {
         System.out.println("getCompatibleMediaType3");
         MediaType other = MediaType.valueOf("application/pdf");
-        String accept = "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8";
-        MediaTypeAcceptor instance = new MediaTypeAcceptor(accept);
+        String acceptableMediaTypes = "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8";
+        MediaTypeAcceptor instance = new MediaTypeAcceptor(acceptableMediaTypes);
         Optional<MediaType> expResult = Optional.ofNullable(MediaType.valueOf("*/*;q=0.8"));
         Optional<MediaType> result = instance.getCompatibleMediaType(other);
         assertEquals(expResult, result);
@@ -90,8 +89,8 @@ public class MediaTypeAcceptorTest {
     public void testGetCompatibleMediaType4() {
         System.out.println("getCompatibleMediaType3");
         MediaType other = MediaType.valueOf("application/pdf");
-        String accept = "text/html,application/xhtml+xml";
-        MediaTypeAcceptor instance = new MediaTypeAcceptor(accept);
+        String acceptableMediaTypes = "text/html,application/xhtml+xml";
+        MediaTypeAcceptor instance = new MediaTypeAcceptor(acceptableMediaTypes);
         Optional<MediaType> expResult = Optional.ofNullable(null);
         Optional<MediaType> result = instance.getCompatibleMediaType(other);
         assertEquals(expResult, result);
@@ -103,8 +102,8 @@ public class MediaTypeAcceptorTest {
     @Test
     public void testIsAcceptDefaultRepresentation() {
         System.out.println("isAcceptDefaultRepresentation");
-        String accept = "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8";
-        MediaTypeAcceptor instance = new MediaTypeAcceptor(accept);
+        String acceptableMediaTypes = "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8";
+        MediaTypeAcceptor instance = new MediaTypeAcceptor(acceptableMediaTypes);
         boolean expResult = true;
         boolean result = instance.isAcceptDefaultRepresentation();
         assertEquals(expResult, result);
@@ -113,8 +112,8 @@ public class MediaTypeAcceptorTest {
     @Test
     public void testIsAcceptDefaultRepresentation2() {
         System.out.println("isAcceptDefaultRepresentation2");
-        String accept = "application/xhtml+xml,text/html,application/xml;q=0.9,*/*;q=0.8";
-        MediaTypeAcceptor instance = new MediaTypeAcceptor(accept);
+        String acceptableMediaTypes = "application/xhtml+xml,text/html,application/xml;q=0.9,*/*;q=0.8";
+        MediaTypeAcceptor instance = new MediaTypeAcceptor(acceptableMediaTypes);
         boolean expResult = true;
         boolean result = instance.isAcceptDefaultRepresentation();
         assertEquals(expResult, result);
@@ -123,8 +122,8 @@ public class MediaTypeAcceptorTest {
   @Test
     public void testIsAcceptDefaultRepresentation3() {
         System.out.println("isAcceptDefaultRepresentation3");
-        String accept = "application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8";
-        MediaTypeAcceptor instance = new MediaTypeAcceptor(accept);
+        String acceptableMediaTypes = "application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8";
+        MediaTypeAcceptor instance = new MediaTypeAcceptor(acceptableMediaTypes);
         boolean expResult = false;
         boolean result = instance.isAcceptDefaultRepresentation();
         assertEquals(expResult, result);

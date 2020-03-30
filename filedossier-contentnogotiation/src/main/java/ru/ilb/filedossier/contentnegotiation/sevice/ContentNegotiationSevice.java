@@ -13,27 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ru.ilb.filedossier.contentnegotiation.impl;
+package ru.ilb.filedossier.contentnegotiation.sevice;
 
-import java.util.Comparator;
+import java.util.List;
 import java.util.Optional;
-import javax.ws.rs.core.MediaType;
 
 /**
  *
  * @author slavb
  */
-public class MediaTypeQComparator implements Comparator<MediaType> {
+public interface ContentNegotiationSevice {
 
-    public static final Comparator<MediaType> INSTANCE = new MediaTypeQComparator();
-
-    private static Double getQ(MediaType mt) {
-        return Optional.ofNullable(mt.getParameters().get("q")).map(s -> Double.parseDouble(s)).orElse(1.0);
-    }
-
-    @Override
-    public int compare(MediaType arg0, MediaType arg1) {
-        return Double.compare(getQ(arg0), getQ(arg1));
-    }
+    /**
+     * get acceptable media type based on accept header
+     * @param acceptableMediaTypes
+     * @param allowedMediaTypes
+     * @return
+     */
+    public Optional<String> getAcceptableMediaType(String acceptableMediaTypes, List<String> allowedMediaTypes);
 
 }

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ru.ilb.filedossier.contentnegotiation.impl;
+package ru.ilb.filedossier.contentnegotiation.domain;
 
 import java.util.List;
 import java.util.Optional;
@@ -40,10 +40,10 @@ public class MediaTypeAcceptor {
     /**
      * construct from "accept" header
      *
-     * @param accept
+     * @param acceptableMediaTypes
      */
-    public MediaTypeAcceptor(String accept) {
-        this(Stream.of(accept.split(","))
+    public MediaTypeAcceptor(String acceptableMediaTypes) {
+        this(Stream.of(acceptableMediaTypes.split(","))
                 .map(mt -> MediaType.valueOf(mt))
                 .collect(Collectors.toList()));
     }
