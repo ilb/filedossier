@@ -37,6 +37,12 @@ public interface Store {
      */
     int getObjectsCount();
 
+    /**
+     * Last modification date
+     * FIXME лучше использовать LocalDateTime
+     * @param code
+     * @return
+     */
     Long lastModified(String code);
 
     String getFileMimeType(String code) throws IOException;

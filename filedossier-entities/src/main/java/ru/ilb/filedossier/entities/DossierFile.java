@@ -15,7 +15,6 @@
  */
 package ru.ilb.filedossier.entities;
 
-import java.io.File;
 import java.util.List;
 
 /**
@@ -57,6 +56,7 @@ public interface DossierFile extends DossierPath {
 
     /**
      * Returns last modified date of latest version
+     * FIXME лучше использовать LocalDateTime
      * @return millis
      */
     String lastModified();
@@ -73,10 +73,13 @@ public interface DossierFile extends DossierPath {
 
     /**
      * Creates new dossier file version
+     * @param mediaType
+     * @return
      */
     DossierFileVersion createNewVersion(String mediaType);
 
     /**
+     * @param version
      * @return specified dossier file version
      */
     DossierFileVersion getVersion(int version);

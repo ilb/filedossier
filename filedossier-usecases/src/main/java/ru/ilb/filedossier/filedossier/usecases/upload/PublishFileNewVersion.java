@@ -8,6 +8,7 @@ import ru.ilb.filedossier.mimetype.MimeTypeUtil;
 import javax.inject.Named;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.List;
 
 @Named
@@ -19,7 +20,7 @@ public class PublishFileNewVersion {
         String mediaType = MimeTypeUtil.guessMimeTypeFromFile(file);
         DossierFileVersion version = dossierFile.createNewVersion(mediaType);
         try {
-            version.setContents(file);
+            version.setContents(Files.readAllBytes(file.toPath()));
         } catch (IOException e) {
             throw new RuntimeException("Error while saving new dossier file version");
         }

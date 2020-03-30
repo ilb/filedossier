@@ -40,12 +40,6 @@ public interface DossierContents extends DossierPath {
     void setContents(byte[] contents) throws IOException;
 
     /**
-     * Stores given contents to a default dir from given file
-     * @param file file, which needs to be saved to a dossier file
-     */
-    void setContents(File file) throws IOException;
-
-    /**
      * @return file's media type using default representation.
      */
     String getMediaType();

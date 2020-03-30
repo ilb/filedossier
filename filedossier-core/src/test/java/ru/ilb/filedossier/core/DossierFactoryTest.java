@@ -49,7 +49,7 @@ public class DossierFactoryTest {
 
     };
 
-    public static DossierFactory getDossierFactory() throws NamingException {
+    public static DossierFactory getDossierFactory() {
         FileDossierDefinitionRepository dossierModelRepository;
         StoreFactory storeFactory;
         try {
@@ -62,7 +62,11 @@ public class DossierFactoryTest {
         }
 
         Context context = new SimpleInitialContext();
-        context.bind("ru.bystrobank.apps.meta.url", "https://devel.net.ilb.ru/meta");
+        try {
+            context.bind("ru.bystrobank.apps.meta.url", "https://devel.net.ilb.ru/meta");
+        } catch (NamingException ex) {
+            throw new RuntimeException(ex);
+        }
         //TemplateEvaluator templateEvaluator = new SubstitutorTemplateEvaluator(context);
         return new DossierFactory(dossierModelRepository, storeFactory, new DossierContextService() {
             @Override

@@ -47,12 +47,6 @@ public class ConcreteDossierFileVersion implements DossierFileVersion {
     }
 
     @Override
-    public void setContents(File file) throws IOException {
-       byte[] byteContents = Files.readAllBytes(file.toPath());
-       setContents(byteContents);
-    }
-
-    @Override
     public void setContents(byte[] contents) throws IOException {
         store.setContents(getFileName(), contents);
     }

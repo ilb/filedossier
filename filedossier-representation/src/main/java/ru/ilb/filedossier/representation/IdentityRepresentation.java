@@ -76,11 +76,6 @@ public class IdentityRepresentation implements Representation {
     }
 
     @Override
-    public void setContents(File file) throws IOException {
-        parent.setContents(file);
-    }
-
-    @Override
     public String getExtension() {
         return parent.getExtension();
     }

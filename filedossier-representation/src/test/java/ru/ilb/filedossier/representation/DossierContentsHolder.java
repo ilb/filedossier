@@ -95,7 +95,4 @@ public class DossierContentsHolder implements DossierContents {
 
     }
 
-    @Override
-    public void setContents(File file) {
-    }
 }

@@ -15,6 +15,8 @@
  */
 package ru.ilb.filedossier.core;
 
+import java.util.Arrays;
+import java.util.List;
 import javax.naming.Context;
 import javax.naming.NamingException;
 import static org.junit.Assert.*;
@@ -147,11 +149,11 @@ public class DossierFileImplTest {
      * Test of getMediaType method, of class DossierFileImpl.
      */
     @Test
-    public void testGetMediaType() {
+    public void testGetAllowedMediaTypes() {
         System.out.println("getMediaType");
-        String expResult = "application/xml";
-        //String result = dossierFile1.getMediaType();
-        //assertEquals(expResult, result);
+        List<String> expResult = Arrays.asList("application/xml");
+        List<String> result = dossierFile1.getAllowedMediaTypes();
+        assertEquals(expResult, result);
     }
 
     @Test

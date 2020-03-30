@@ -6,9 +6,6 @@ import java.io.IOException;
 public interface DossierFileVersion extends DossierContents {
 
     @Override
-    void setContents(File file) throws IOException;
-
-    @Override
     byte[] getContents() throws IOException;
 
     @Override
