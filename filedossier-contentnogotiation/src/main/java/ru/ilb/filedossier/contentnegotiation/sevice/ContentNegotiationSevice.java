@@ -19,15 +19,15 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- *
+ * Service to negotiate content based on accept header
  * @author slavb
  */
 public interface ContentNegotiationSevice {
 
     /**
      * get acceptable media type based on accept header
-     * @param acceptableMediaTypes
-     * @param allowedMediaTypes
+     * @param acceptableMediaTypes client's accept header value, e.g. text/html,application/xhtml+xml,application/xml;q=0.9
+     * @param allowedMediaTypes list of allowed media types to serve
      * @return
      */
     public Optional<String> getAcceptableMediaType(String acceptableMediaTypes, List<String> allowedMediaTypes);
