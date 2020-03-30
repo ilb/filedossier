@@ -57,6 +57,7 @@ public class PublishFile {
             executor.addDocumentToMerge(version.getContents(), false);
             executor.addDocumentToMerge(file, false);
             byte[] mergedDocument = executor.executeMerge();
+            //FIXME не должна изменяться существующая версия
             version.setMediaType(MimeTypeUtil.guessMimeTypeFromByteArray(mergedDocument));
             version.setContents(mergedDocument);
         } catch (IOException e) {

@@ -22,7 +22,17 @@ public interface DossierFileVersion extends DossierContents {
         return getCode();
     }
 
+    /**
+     * get default representation
+     * @return
+     */
     Representation getRepresentation();
+
+    /**
+     * get representation by mime type
+     * @return
+     */
+    Representation getRepresentation(String mimeType);
 
     void setStore(Store store);
 

@@ -16,6 +16,7 @@
 package ru.ilb.filedossier.core;
 
 import java.io.File;
+import org.apache.pdfbox.io.IOUtils;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -64,27 +65,6 @@ public class ConcreteDossierFileVersionTest {
     }
 
     /**
-     * Test of setContents method, of class ConcreteDossierFileVersion.
-     */
-    @Test
-    public void testZSetContents() throws Exception {
-        System.out.println("setContents");
-//        byte[] contents = "<root/>".getBytes();
-//        instance.setContents(contents);
-    }
-
-    /**
-     * Test of getContents method, of class ConcreteDossierFileVersion.
-     */
-    @Test
-    public void testZZGetContents() throws Exception {
-        System.out.println("getContents");
-        byte[] expResult = "<root/>".getBytes();
-//        byte[] result = instance.getContents();
-//        assertArrayEquals(expResult, result);
-    }
-
-    /**
      * Test of getMediaType method, of class ConcreteDossierFileVersion.
      */
     @Test
@@ -104,17 +84,6 @@ public class ConcreteDossierFileVersionTest {
         String expResult = "xml";
         String result = instance.getExtension();
         assertEquals(expResult, result);
-    }
-
-    /**
-     * Test of getRepresentation method, of class ConcreteDossierFileVersion.
-     */
-    @Test
-    public void testGetRepresentation() {
-        System.out.println("getRepresentation");
-        //Representation expResult = null;
-        Representation result = instance.getRepresentation();
-        assertEquals("application/vnd.oasis.opendocument.spreadsheet", result.getMediaType());
     }
 
     /**
@@ -184,6 +153,53 @@ public class ConcreteDossierFileVersionTest {
 //        instance.setParent(parent);
 //        // TODO review the generated test code and remove the default call to fail.
 //        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of setContents method, of class ConcreteDossierFileVersion.
+     */
+    @Test
+    public void testSetContents() throws Exception {
+        System.out.println("setContents");
+        byte[] contents = null;
+//        ConcreteDossierFileVersion instance = null;
+//        instance.setContents(contents);
+//        // TODO review the generated test code and remove the default call to fail.
+//        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getContents method, of class ConcreteDossierFileVersion.
+     */
+    @Test
+    public void testGetContents() throws Exception {
+        System.out.println("getContents");
+        byte[] expResult = IOUtils.toByteArray(this.getClass().getClassLoader().getResourceAsStream("teststoreroot/teststorekey/fairpricecalc/0/fairpricecalc"));
+        byte[] result = instance.getContents();
+        assertArrayEquals(expResult, result);
+    }
+
+    /**
+     * Test of getRepresentation method, of class ConcreteDossierFileVersion.
+     */
+    @Test
+    public void testGetRepresentation_0args() {
+        System.out.println("getRepresentation");
+        //Representation expResult = null;
+        Representation result = instance.getRepresentation();
+        assertEquals("application/vnd.oasis.opendocument.spreadsheet", result.getMediaType());
+    }
+
+    /**
+     * Test of getRepresentation method, of class ConcreteDossierFileVersion.
+     */
+    @Test
+    public void testGetRepresentation_String() {
+        System.out.println("getRepresentation");
+        String mediaType = "application/xml";
+        //Representation expResult = null;
+        Representation result = instance.getRepresentation(mediaType);
+        assertEquals(mediaType, result.getMediaType());
     }
 
 }

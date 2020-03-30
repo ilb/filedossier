@@ -2,6 +2,7 @@ package ru.ilb.filedossier.core;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import ru.ilb.filedossier.entities.*;
 import ru.ilb.filedossier.mimetype.MimeTypeUtil;
@@ -15,7 +16,7 @@ public class ConcreteDossierFileVersion implements DossierFileVersion {
 
     private String mediaType;
 
-    private List<Representation> representations;
+    private Map<String, Representation> representations;
 
     private Representation defaultRepresentation;
 
@@ -23,26 +24,28 @@ public class ConcreteDossierFileVersion implements DossierFileVersion {
         this.mediaType = mediaType;
         this.representations = representations.stream()
                 .peek(r -> r.setParent(this))
-                .collect(Collectors.toList());
-
+                .collect(Collectors.toMap(r -> r.getMediaType(), r -> r));
+        Representation identityRepresentation = new IdentityRepresentation(mediaType);
+        if (!this.representations.containsKey(mediaType)) {
+            this.representations.put(mediaType, identityRepresentation);
+        }
         this.defaultRepresentation = representations.isEmpty()
-                ? new IdentityRepresentation(mediaType)
+                ? identityRepresentation
                 : representations.iterator().next();
         this.defaultRepresentation.setParent(this);
     }
 
-    ConcreteDossierFileVersion(DossierFileVariation variation) {
-        this.mediaType = variation.getMediaType();
-        this.representations = variation.getRepresentations().stream()
-                .peek(r -> r.setParent(this))
-                .collect(Collectors.toList());
-
-        this.defaultRepresentation = representations.isEmpty()
-                ? new IdentityRepresentation(mediaType)
-                : representations.iterator().next();
-        this.defaultRepresentation.setParent(this);
-    }
-
+//    ConcreteDossierFileVersion(DossierFileVariation variation) {
+//        this.mediaType = variation.getMediaType();
+//        this.representations = variation.getRepresentations().stream()
+//                .peek(r -> r.setParent(this))
+//                .collect(Collectors.toMap(r -> r.getMediaType(), r -> r));
+//
+//        this.defaultRepresentation = representations.isEmpty()
+//                ? new IdentityRepresentation(mediaType)
+//                : representations.iterator().next();
+//        this.defaultRepresentation.setParent(this);
+//    }
     @Override
     public void setContents(byte[] contents) throws IOException {
         store.setContents(getFileName(), contents);
@@ -67,6 +70,11 @@ public class ConcreteDossierFileVersion implements DossierFileVersion {
     @Override
     public Representation getRepresentation() {
         return defaultRepresentation;
+    }
+
+    @Override
+    public Representation getRepresentation(String mediaType) {
+        return representations.get(mediaType);
     }
 
     @Override
@@ -103,6 +111,7 @@ public class ConcreteDossierFileVersion implements DossierFileVersion {
         assert DossierFile.class
                 .isAssignableFrom(parent.getClass()) : "Dossier instance should be passed as argument instead of "
                 + parent.getClass().getCanonicalName();
+
         this.parent = (DossierFile) parent;
     }
 }
