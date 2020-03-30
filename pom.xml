@@ -39,6 +39,8 @@
         <doclint>none</doclint>
         <apache-cxf.version>3.3.3</apache-cxf.version>
         <eclipselink.version>2.7.4</eclipselink.version>
+        <javax-persistence.version>2.2.1</javax-persistence.version>
+        <javax.ws.rs-api.version>2.1.1</javax.ws.rs-api.version>
         <ilb-common.version>1.32</ilb-common.version>
         <javax-xml-bind-jaxb-api.version>2.3.1</javax-xml-bind-jaxb-api.version>
         <spring.boot.version>2.1.9.RELEASE</spring.boot.version>
@@ -140,5 +142,6 @@
         <module>filedossier-barcode</module>
         <module>filedossier-metadata</module>
         <module>filedossier-document-merger</module>
+        <module>filedossier-contentnogotiation</module>
     </modules>
 </project>
