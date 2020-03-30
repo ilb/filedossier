@@ -21,6 +21,7 @@ import javax.ws.rs.core.MediaType;
 
 /**
  *
+ * Compares two MediaTypes based on "q" parameter. Default value q=1.0 if omitted
  * @author slavb
  */
 public class MediaTypeQComparator implements Comparator<MediaType> {
