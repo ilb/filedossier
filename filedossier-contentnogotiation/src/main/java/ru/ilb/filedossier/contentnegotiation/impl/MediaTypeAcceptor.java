@@ -55,7 +55,9 @@ public class MediaTypeAcceptor {
      */
     public MediaTypeAcceptor(List<MediaType> acceptableMediaTypes) {
         this.acceptableMediaTypes = acceptableMediaTypes;
-        this.acceptDefaultRepresentation = acceptableMediaTypes.stream().anyMatch(mt -> mt.getType().equals(MediaType.TEXT_HTML));
+        this.acceptDefaultRepresentation = acceptableMediaTypes
+                .stream()
+                .anyMatch(mt -> mt.toString().equals(MediaType.TEXT_HTML));
     }
 
     public Optional<MediaType> getCompatibleMediaType(MediaType other) {

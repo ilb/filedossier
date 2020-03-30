@@ -14,6 +14,12 @@
             <artifactId>javax.ws.rs-api</artifactId>
             <version>${javax.ws.rs-api.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-frontend-jaxrs</artifactId>
+            <version>${apache-cxf.version}</version>
+            <scope>test</scope>
+        </dependency>
          <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
