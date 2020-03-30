@@ -1,14 +1,11 @@
 package ru.ilb.filedossier.core;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
 import ru.ilb.filedossier.entities.*;
 import ru.ilb.filedossier.mimetype.MimeTypeUtil;
 import ru.ilb.filedossier.representation.IdentityRepresentation;
-
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class ConcreteDossierFileVersion implements DossierFileVersion {
 
