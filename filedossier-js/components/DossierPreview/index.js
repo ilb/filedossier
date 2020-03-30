@@ -5,8 +5,8 @@ import BystroScan from '../BystroScan';
 import FileContent from './FileContent';
 import ExternalDossier from '../ExternalDossier';
 
-function DossierPreview ({ dossier, external, dossierActions, previewOffset }) {
-  const dossierFiles = dossier.dossierFile.filter(file => !file.hidden); // don't show hidden files
+function DossierPreview ({ dossier, external, dossierActions, previewOffset, fileCode, readOnly }) {
+  const dossierFiles = dossier.dossierFile.filter(file => fileCode ? file.code === fileCode : !file.hidden); // don't show hidden files
   const [selectedFileCode, selectFile] = useState(dossierFiles[0] ? dossierFiles[0].code : null);
   const selectedFile = selectedFileCode && dossierFiles.find(file => file.code === selectedFileCode);
 
@@ -19,7 +19,7 @@ function DossierPreview ({ dossier, external, dossierActions, previewOffset }) {
         }))}
       />}
       {selectedFile && <div>
-        {!selectedFile.readonly && <div style={{ marginBottom: '1rem' }}>
+        {!(selectedFile.readonly || readOnly) && <div style={{ marginBottom: '1rem' }}>
           {external ? <ExternalDossier
             external={external}
             dossierFile={selectedFile}
@@ -65,6 +65,8 @@ DossierPreview.propTypes = {
   external: PropTypes.array,
   dossierActions: PropTypes.object.isRequired,
   previewOffset: PropTypes.number.isRequired,
+  fileCode: PropTypes.string,
+  readOnly: PropTypes.bool,
 };
 
 export default DossierPreview;

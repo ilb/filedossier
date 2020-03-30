@@ -35,6 +35,8 @@ function Dossier (props) {
             external={external}
             dossierActions={dossierActions}
             previewOffset={previewOffset}
+            fileCode={props.fileCode}
+            readOnly={props.readOnly}
           />
         }
       </Segment>
@@ -57,6 +59,8 @@ Dossier.propTypes = {
   header: PropTypes.bool,
   children: PropTypes.oneOfType([PropTypes.element, PropTypes.func]),
   previewOffset: PropTypes.number,
+  fileCode: PropTypes.string, /* specify exactly one file, ignore hidden flag */
+  readOnly: PropTypes.bool, /* manualy hide upload block */
 };
 
 export default Dossier;
