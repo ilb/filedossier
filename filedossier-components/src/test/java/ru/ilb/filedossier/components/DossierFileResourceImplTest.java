@@ -50,6 +50,8 @@ import org.apache.cxf.transport.http.HTTPConduit;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class DossierFileResourceImplTest {
 
+    private static final String BROWSER_ACCEPT = "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8";
+
     private DossiersResource resource;
 
     @LocalServerPort
@@ -74,6 +76,7 @@ public class DossierFileResourceImplTest {
 
     /**
      * Настройка таймаута чтобы посидеть в отладчике
+     *
      * @param resource
      * @param receiveTimeout
      */
@@ -125,12 +128,16 @@ public class DossierFileResourceImplTest {
     public void testCGetContents() {
 
         DossierFileResource fileResource = getDossierFileResource("fairpricecalc");
-        Response response = fileResource.download(null, null,"application/json");
+        Response response = fileResource.download(null, null, BROWSER_ACCEPT);
         Assert.assertEquals("application/vnd.oasis.opendocument.spreadsheet",
                 response.getMediaType().toString());
 
+        response = fileResource.download(null, null, "application/xml");
+        Assert.assertEquals("application/xml",
+                response.getMediaType().toString());
+
         fileResource = getDossierFileResource("jurnals");
-        response = fileResource.download(null, null,null);
+        response = fileResource.download(null, null, BROWSER_ACCEPT);
         Assert.assertEquals("application/pdf", response.getMediaType().toString());
     }
 }
