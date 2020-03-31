@@ -23,6 +23,7 @@ import javax.ws.rs.core.MediaType;
 /**
  *
  * Allows to choose media type based on acceptance criteria
+ *
  * @author slavb
  */
 public class MediaTypeResolver {
@@ -47,9 +48,22 @@ public class MediaTypeResolver {
             return Optional.ofNullable(allowedMediaTypes.get(0));
         }
 
-        return allowedMediaTypes.stream().flatMap(mt -> streamopt(mediaTypeAcceptor.getCompatibleMediaType(mt)))
+        // find accetable type with highest q
+        return allowedMediaTypes.stream()
+                .flatMap(allowed -> streamopt(mediaTypeAcceptor.getCompatibleMediaType(allowed).map(acceptable -> combineMediaType(allowed, acceptable))))
                 .sorted(MediaTypeQComparator.INSTANCE.reversed())
                 .findFirst();
+    }
+
+    /**
+     * combine allowed media type with parameters of acceptable media type (q)
+     *
+     * @param allowed
+     * @param acceptable
+     * @return
+     */
+    private static MediaType combineMediaType(MediaType allowed, MediaType acceptable) {
+        return new MediaType(allowed.getType(), allowed.getSubtype(), acceptable.getParameters());
     }
 
     /**

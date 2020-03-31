@@ -87,7 +87,7 @@ public class MediaTypeAcceptorTest {
 
     @Test
     public void testGetCompatibleMediaType4() {
-        System.out.println("getCompatibleMediaType3");
+        System.out.println("getCompatibleMediaType4");
         MediaType other = MediaType.valueOf("application/pdf");
         String acceptableMediaTypes = "text/html,application/xhtml+xml";
         MediaTypeAcceptor instance = new MediaTypeAcceptor(acceptableMediaTypes);
