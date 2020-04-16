@@ -15,14 +15,15 @@
  */
 package ru.ilb.filedossier.representation;
 
-import java.io.File;
-import java.util.Arrays;
-import java.util.List;
 import ru.ilb.filedossier.entities.DossierContents;
 import ru.ilb.filedossier.entities.DossierPath;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class DossierContentsHolder implements DossierContents {
 
+    private DossierPath parent;
     private byte[] contents;
 
     private String mediaType;
@@ -89,12 +90,12 @@ public class DossierContentsHolder implements DossierContents {
 
     @Override
     public DossierPath getParent() {
-        return null;
+        return parent;
     }
 
     @Override
     public void setParent(DossierPath parent) {
-
+        this.parent = parent;
     }
 
     @Override
