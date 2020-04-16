@@ -131,7 +131,7 @@ public class PdfFileSystemProvider extends FileSystemProvider {
     @Override
     public void checkAccess(Path path, AccessMode... modes) throws IOException {
         PdfFileSystem pfs = (PdfFileSystem) path.getFileSystem();
-        Path contentsPath = pfs.getContents().resolve(path.toString().substring(1));
+        Path contentsPath = pfs.getContentsPath().resolve(path.toString().substring(1));
         contentsPath.getFileSystem().provider().checkAccess(contentsPath, modes);
 
     }
@@ -164,7 +164,7 @@ public class PdfFileSystemProvider extends FileSystemProvider {
     public SeekableByteChannel newByteChannel(Path path, Set<? extends OpenOption> options, FileAttribute<?>... attrs)
             throws IOException {
         PdfFileSystem pfs = (PdfFileSystem) path.getFileSystem();
-        Path contentsPath = pfs.getContents().resolve(path.toString().substring(1));
+        Path contentsPath = pfs.getContentsPath().resolve(path.toString().substring(1));
         return Files.newByteChannel(contentsPath, StandardOpenOption.READ);
     }
 
@@ -189,7 +189,7 @@ public class PdfFileSystemProvider extends FileSystemProvider {
     @Override
     public <A extends BasicFileAttributes> A readAttributes(Path path, Class<A> type, LinkOption... options) throws IOException {
         PdfFileSystem pfs = (PdfFileSystem) path.getFileSystem();
-        Path contentsPath = pfs.getContents().resolve(path.toString().substring(1));
+        Path contentsPath = pfs.getContentsPath().resolve(path.toString().substring(1));
         return contentsPath.getFileSystem().provider().readAttributes(contentsPath, type, options);
     }
 
