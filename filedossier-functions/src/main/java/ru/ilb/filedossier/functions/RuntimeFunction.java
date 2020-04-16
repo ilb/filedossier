@@ -22,6 +22,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URI;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  *
@@ -29,10 +32,21 @@ import java.nio.file.Paths;
  */
 public class RuntimeFunction implements ByteFunction {
 
-    private final URI commandUri;
+    private final String[] command;
 
-    public RuntimeFunction(URI commandUri) {
-        this.commandUri = commandUri;
+    public RuntimeFunction(URI command) {
+        File commandFile = Paths.get(command.getPath()).toFile();
+        if (!commandFile.exists()) {
+            throw new IllegalArgumentException(commandFile.toString() + " does not exists");
+        }
+        if (!commandFile.canExecute()) {
+            throw new IllegalArgumentException(commandFile.toString() + " not executable");
+        }
+        this.command = new String[]{commandFile.toString()};
+    }
+
+    public RuntimeFunction(String... command) {
+        this.command = command;
     }
 
     private Process p;
@@ -40,15 +54,7 @@ public class RuntimeFunction implements ByteFunction {
     @Override
     public byte[] apply(byte[] t) {
 
-        File commandFile = Paths.get(commandUri.getPath()).toFile();
-        if (!commandFile.exists()) {
-            throw new IllegalArgumentException(commandFile.toString() + " does not exists");
-        }
-        if (!commandFile.canExecute()) {
-            throw new IllegalArgumentException(commandFile.toString() + " not executable");
-        }
-
-        ProcessBuilder pb = new ProcessBuilder(commandFile.toString());
+        ProcessBuilder pb = new ProcessBuilder(command);
         byte[] output = null;
         try {
             p = pb.start();
@@ -75,7 +81,7 @@ public class RuntimeFunction implements ByteFunction {
             int exitCode = p.waitFor();
             switch (exitCode) {
                 case 127:
-                    throw new IllegalArgumentException(commandFile.toString() + " does not exist");
+                    throw new IllegalArgumentException(command[0] + " does not exist");
                 case 0:
                     break;
                 default:
