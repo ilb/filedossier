@@ -143,5 +143,6 @@
         <module>filedossier-metadata</module>
         <module>filedossier-document-merger</module>
         <module>filedossier-contentnogotiation</module>
+        <module>filedossier-filesystems</module>
     </modules>
 </project>
