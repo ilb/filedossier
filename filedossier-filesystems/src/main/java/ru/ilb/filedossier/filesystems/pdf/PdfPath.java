@@ -282,4 +282,10 @@ public class PdfPath implements Path {
         }
 */
     }
+
+    @Override
+    public String toString() {
+        return path;
+    }
+
 }

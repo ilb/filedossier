@@ -20,9 +20,11 @@ import java.net.URI;
 import java.net.ProxySelector;
 import java.nio.file.FileStore;
 import java.nio.file.FileSystem;
+import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.PathMatcher;
+import java.nio.file.Paths;
 import java.nio.file.WatchService;
 import java.nio.file.attribute.UserPrincipalLookupService;
 import java.nio.file.spi.FileSystemProvider;
@@ -36,7 +38,7 @@ public class PdfFileSystem extends FileSystem {
 
     private final FileSystemProvider provider;
     private final URI uri;
-    private FileSystem delagete;
+    private Path contents;
 
     /**
      *
@@ -201,13 +203,24 @@ public class PdfFileSystem extends FileSystem {
         return uri;
     }
 
-    public FileSystem getDelagete() throws IOException {
-        if (this.delagete == null) {
-            Path tmpFolder = Files.createTempDirectory("pdffilesystem");
-            tmpFolder.toFile().deleteOnExit();
-            
+    public Path getContents() throws IOException {
+        if (this.contents == null) {
+            this.contents = Files.createTempDirectory("pdffilesystem");
+            this.contents .toFile().deleteOnExit();
+
+            PdfExtractor pdfExtractor = PdfExtractor.INSTANCE;
+            URI pdfUri = URI.create(uri.toString().substring(6));
+            pdfExtractor.extract(pdfUri, contents, "page");
+
+            //URI folderUri = URI.create("file:" + tmpFolder.toUri());
+            //  URI folderUri = tmpFolder.toUri();
+            //URI folderUri = Paths.get("/").toUri();
+            //this.delagete = FileSystems.getFileSystem(folderUri);
+
+            //this.delagete = FileSystems.newFileSystem(folderUri, null);
+            //this.contents = FileSystems.newFileSystem(tmpFolder, null);
         }
-        return delagete;
+        return contents;
     }
 
 }

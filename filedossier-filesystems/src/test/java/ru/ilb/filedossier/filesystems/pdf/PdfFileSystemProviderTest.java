@@ -44,7 +44,7 @@ public class PdfFileSystemProviderTest {
         try (FileSystem zipFileSys = FileSystems.newFileSystem(fsUri, attributes);) {
             Path path = zipFileSys.getPath("page-000.jpg");
             byte[] content = Files.readAllBytes(path);
-            assertEquals(content.length, 132);
+            assertEquals(55505,content.length);
         }
 
     }
