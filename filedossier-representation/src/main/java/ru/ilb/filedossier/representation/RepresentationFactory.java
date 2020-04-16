@@ -15,11 +15,11 @@
  */
 package ru.ilb.filedossier.representation;
 
-import java.net.MalformedURLException;
-import java.net.URI;
-
 import ru.ilb.filedossier.ddl.RepresentationDefinition;
 import ru.ilb.filedossier.entities.Representation;
+
+import java.net.MalformedURLException;
+import java.net.URI;
 
 /**
  *
@@ -50,6 +50,8 @@ public class RepresentationFactory {
                 return new JsonXmlRepresentation();
             case "application/xhtml+xml":
                 return new XsltHtmlRepresentation(definitionUri.resolve(model.getStylesheet()));
+            case "image/jpeg":
+                return new PdfJpegRepresentation();
             default:
                 throw new IllegalArgumentException(
                         "unsupported media type: " + model.getMediaType());
@@ -76,6 +78,5 @@ public class RepresentationFactory {
         URI schema = definitionUri.resolve(model.getSchema());
         URI meta = definitionUri.resolve(model.getMeta());
         return new PdfGenRepresentation(model.getMediaType(), stylesheetUri, schema, meta);
-
     }
 }
