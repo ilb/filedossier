@@ -15,6 +15,7 @@
  */
 package ru.ilb.filedossier.filesystems.pdf;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.ProxySelector;
@@ -28,6 +29,7 @@ import java.nio.file.Paths;
 import java.nio.file.WatchService;
 import java.nio.file.attribute.UserPrincipalLookupService;
 import java.nio.file.spi.FileSystemProvider;
+import java.util.Comparator;
 import java.util.Objects;
 import java.util.Set;
 
@@ -53,13 +55,6 @@ public class PdfFileSystem extends FileSystem {
     @Override
     public FileSystemProvider provider() {
         return provider;
-    }
-
-    /**
-     * Not implemented
-     */
-    @Override
-    public void close() throws IOException {
     }
 
     /**
@@ -206,21 +201,44 @@ public class PdfFileSystem extends FileSystem {
     public Path getContents() throws IOException {
         if (this.contents == null) {
             this.contents = Files.createTempDirectory("pdffilesystem");
-            this.contents .toFile().deleteOnExit();
+            //this.contents.toFile().deleteOnExit();
 
             PdfExtractor pdfExtractor = PdfExtractor.INSTANCE;
             URI pdfUri = URI.create(uri.toString().substring(6));
             pdfExtractor.extract(pdfUri, contents, "page");
 
+            //deleteOnExit(contents);
             //URI folderUri = URI.create("file:" + tmpFolder.toUri());
             //  URI folderUri = tmpFolder.toUri();
             //URI folderUri = Paths.get("/").toUri();
             //this.delagete = FileSystems.getFileSystem(folderUri);
-
             //this.delagete = FileSystems.newFileSystem(folderUri, null);
             //this.contents = FileSystems.newFileSystem(tmpFolder, null);
         }
         return contents;
+    }
+
+    /**
+     * cleanup
+     * @throws java.io.IOException
+     */
+    @Override
+    public void close() throws IOException {
+        if (contents != null) {
+            delete(contents);
+        }
+    }
+
+    /**
+     * delete directory including files and sub-folders
+     * @param path
+     * @throws IOException
+     */
+    private static void delete(Path path) throws IOException {
+        Files.walk(path).sorted(Comparator.reverseOrder())
+                //.peek(System.out::println)
+                .map(Path::toFile)
+                .forEach(File::delete);
     }
 
 }
