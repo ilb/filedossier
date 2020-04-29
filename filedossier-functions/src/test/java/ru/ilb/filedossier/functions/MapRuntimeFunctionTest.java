@@ -65,9 +65,8 @@ public class MapRuntimeFunctionTest {
         testObject.setProperty("test", "123");
         t.put("test", testObject.asMap());
         URI commandUri = this.getClass().getClassLoader().getResource("runtime/command.sh").toURI();
+        Paths.get(commandUri.getPath()).toFile().setExecutable(true);
         MapRuntimeFunction instance = new MapRuntimeFunction(commandUri);
-        File commandFile = Paths.get(commandUri.getPath()).toFile();
-        commandFile.setExecutable(true);
         Map<String, Object> expResult = t;
         Map<String, Object> result = instance.apply(t);
         System.out.println(result);

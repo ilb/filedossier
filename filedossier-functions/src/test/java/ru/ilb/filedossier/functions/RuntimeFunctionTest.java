@@ -25,6 +25,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.rules.ExpectedException;
 
@@ -61,9 +62,8 @@ public class RuntimeFunctionTest {
         System.out.println("apply");
         byte[] t = "{'test':'123'}".getBytes();
         URI commandUri = this.getClass().getClassLoader().getResource("runtime/command.sh").toURI();
+        Paths.get(commandUri.getPath()).toFile().setExecutable(true);
         RuntimeFunction instance = new RuntimeFunction(commandUri);
-        File commandFile = Paths.get(commandUri.getPath()).toFile();
-        commandFile.setExecutable(true);
         byte[] expResult = t;
         byte[] result = instance.apply(t);
         assertArrayEquals(expResult, result);
@@ -82,9 +82,8 @@ public class RuntimeFunctionTest {
         System.out.println("apply");
         byte[] t = "{'test':'123'}".getBytes();
         URI commandUri = this.getClass().getClassLoader().getResource("runtime/error_command.sh").toURI();
+        Paths.get(commandUri.getPath()).toFile().setExecutable(true);
         RuntimeFunction instance = new RuntimeFunction(commandUri);
-        File commandFile = Paths.get(commandUri.getPath()).toFile();
-        commandFile.setExecutable(true);
         instance.apply(t);
     }
 
