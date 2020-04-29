@@ -4,7 +4,7 @@
     <parent>
         <groupId>ru.ilb.filedossier</groupId>
         <artifactId>filedossier</artifactId>
-        <version>1.2</version>
+        <version>1.3-SNAPSHOT</version>
     </parent>
     <artifactId>filedossier-web</artifactId>
     <packaging>war</packaging>
@@ -45,7 +45,7 @@
         <dependency>
             <groupId>ru.ilb.filedossier</groupId>
             <artifactId>filedossier-api</artifactId>
-            <version>1.2</version>
+            <version>1.3-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.apache.cxf</groupId>
@@ -150,7 +150,7 @@
         <dependency>
             <groupId>ru.ilb.filedossier</groupId>
             <artifactId>filedossier-context-persistence</artifactId>
-            <version>1.2</version>
+            <version>1.3-SNAPSHOT</version>
             <type>jar</type>
         </dependency>
         <dependency>
