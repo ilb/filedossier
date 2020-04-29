@@ -4,7 +4,7 @@
     <parent>
         <groupId>ru.ilb.filedossier</groupId>
         <artifactId>filedossier</artifactId>
-        <version>1.5-SNAPSHOT</version>
+        <version>1.5</version>
     </parent>
     <artifactId>filedossier-store</artifactId>
     <packaging>jar</packaging>
@@ -46,7 +46,7 @@
         <dependency>
             <groupId>ru.ilb.filedossier</groupId>
             <artifactId>filedossier-mimetype</artifactId>
-            <version>1.5-SNAPSHOT</version>
+            <version>1.5</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>
