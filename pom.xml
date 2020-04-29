@@ -23,8 +23,8 @@
         </developer>
     </developers>
     <scm>
-        <connection>scm:svn:https://svn.ilb.ru/repos/filedossier/trunk</connection>
-        <url>https://svn.ilb.ru/viewvc/filedossier</url>
+        <connection>scm:git:https://git.ilb.ru/ilb.ru/filedossier.git</connection>
+        <url>https://git.ilb.ru/ilb.ru/filedossier</url>
     </scm>
     <distributionManagement>
         <site>
