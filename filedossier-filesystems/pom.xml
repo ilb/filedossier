@@ -4,7 +4,7 @@
     <parent>
         <groupId>ru.ilb.filedossier</groupId>
         <artifactId>filedossier</artifactId>
-        <version>1.2-SNAPSHOT</version>
+        <version>1.2</version>
     </parent>
     <artifactId>filedossier-filesystems</artifactId>
     <packaging>jar</packaging>
