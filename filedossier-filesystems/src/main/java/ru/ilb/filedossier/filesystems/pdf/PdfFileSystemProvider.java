@@ -39,14 +39,16 @@ import java.nio.file.spi.FileSystemProvider;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import ru.ilb.containeraccessor.ContainerAccessorFactory;
+import ru.ilb.containeraccessor.ContainerExtractorFactory;
 
 /**
  * The Pdf FileSystemProvider based on Sardine.
  */
 public class PdfFileSystemProvider extends FileSystemProvider {
 
-    private static final int DEFAULT_PORT = 80;
-    private final Map<URI, PdfFileSystem> hosts = new HashMap<>();
+    private final Map<URI, PdfFileSystem> fscache = new HashMap<>();
+    private final ContainerAccessorFactory containerAccessorFactory = new ContainerAccessorFactory(new ContainerExtractorFactory());
 
     @Override
     public void copy(Path fileFrom, Path fileTo, CopyOption... options) throws IOException {
@@ -97,11 +99,12 @@ public class PdfFileSystemProvider extends FileSystemProvider {
 
     private PdfFileSystem getPdfFs(URI uri, boolean create) throws URISyntaxException {
 
-        synchronized (hosts) {
-            PdfFileSystem fs = hosts.get(uri);
+        synchronized (fscache) {
+            PdfFileSystem fs = fscache.get(uri);
             if (fs == null && create) {
-                fs = new PdfFileSystem(this, uri);
-                hosts.put(uri, fs);
+                URI fileUri = URI.create(uri.toString().substring(6));
+                fs = new PdfFileSystem(this, uri,  containerAccessorFactory.getContainerAccessor(fileUri, "application/pdf"));
+                fscache.put(uri, fs);
             }
             return fs;
         }

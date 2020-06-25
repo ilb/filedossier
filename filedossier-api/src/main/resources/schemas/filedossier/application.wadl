@@ -67,7 +67,19 @@
             <response status="204"/>
         </method>
     </resource_type>
-
+    <resource_type id="dossierContainerResource">
+        <method name="GET" id="containerIndex">
+            <doc>get dossier file container contents</doc>
+            <request>
+                <param name="version" style="query" type="xsd:int" />
+                <param name="accept" style="header" type="xsd:string" />
+            </request>
+            <response status="200">
+                <param name="Content-Disposition" style="header" type="xsd:string"/>
+                <representation mediaType="*/*"/>
+            </response>
+        </method>
+    </resource_type>
     <resource_type id="dossierFileResource">
         <method name="GET" id="download">
             <doc>get dossier file contents</doc>

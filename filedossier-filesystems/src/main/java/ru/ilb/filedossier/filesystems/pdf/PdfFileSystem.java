@@ -15,20 +15,18 @@
  */
 package ru.ilb.filedossier.filesystems.pdf;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.nio.file.FileStore;
 import java.nio.file.FileSystem;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.PathMatcher;
 import java.nio.file.WatchService;
 import java.nio.file.attribute.UserPrincipalLookupService;
 import java.nio.file.spi.FileSystemProvider;
-import java.util.Comparator;
 import java.util.Objects;
 import java.util.Set;
+import ru.ilb.containeraccessor.ContainerAccessor;
 
 /**
  * Pdf implementation of a FileSystem.
@@ -37,16 +35,18 @@ public class PdfFileSystem extends FileSystem {
 
     private final FileSystemProvider provider;
     private final URI uri;
-    private Path contentsPath;
+    private final ContainerAccessor containerAccessor;
 
     /**
      *
      * @param provider an instance of a PdfFileSystemProvided. This can be a shared instance.
      * @param uri URI for the Pdf server, the scheme is ignored.
+     * @param containerAccessor
      */
-    public PdfFileSystem(PdfFileSystemProvider provider, URI uri) {
+    public PdfFileSystem(PdfFileSystemProvider provider, URI uri, ContainerAccessor containerAccessor) {
         this.provider = provider;
         this.uri = uri;
+        this.containerAccessor = containerAccessor;
     }
 
     @Override
@@ -196,15 +196,7 @@ public class PdfFileSystem extends FileSystem {
     }
 
     public Path getContentsPath() throws IOException {
-        if (this.contentsPath == null) {
-            this.contentsPath = Files.createTempDirectory("pdffilesystem");
-            //this.contents.toFile().deleteOnExit();
-
-            PdfExtractor pdfExtractor = PdfExtractor.INSTANCE;
-            URI pdfUri = URI.create(uri.toString().substring(6));
-            pdfExtractor.extract(pdfUri, contentsPath, "page");
-        }
-        return contentsPath;
+        return this.containerAccessor.getContentsPath();
     }
 
     /**
@@ -214,22 +206,7 @@ public class PdfFileSystem extends FileSystem {
      */
     @Override
     public void close() throws IOException {
-        if (contentsPath != null) {
-            delete(contentsPath);
-        }
-    }
-
-    /**
-     * delete directory including files and sub-folders
-     *
-     * @param path
-     * @throws IOException
-     */
-    private static void delete(Path path) throws IOException {
-        Files.walk(path).sorted(Comparator.reverseOrder())
-                //.peek(System.out::println)
-                .map(Path::toFile)
-                .forEach(File::delete);
+        this.containerAccessor.close();
     }
 
 }
