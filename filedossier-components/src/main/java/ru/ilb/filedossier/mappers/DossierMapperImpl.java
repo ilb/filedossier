@@ -31,8 +31,6 @@ import ru.ilb.filedossier.view.DossierView;
 @Named
 public class DossierMapperImpl implements DossierMapper {
 
-    private Dossier model;
-    private URI dossierResourceUri;
     private final DossierFileMapper dossierFileMapper;
 
     @Inject
@@ -41,33 +39,19 @@ public class DossierMapperImpl implements DossierMapper {
     }
 
     @Override
-    public DossierView map() {
+    public DossierView map(Dossier model, URI dossierResourceUri) {
         DossierView view = new DossierView();
         view.setCode(model.getCode());
         view.setName(model.getName());
         view.setValid(String.valueOf(model.isValid()));
-        view.setDossierFiles(buildDossierFiles(model.getDossierFiles()));
+        view.setDossierFiles(buildDossierFiles(model.getDossierFiles(), dossierResourceUri));
         return view;
     }
 
-    @Override
-    public DossierMapper withModel(Dossier model) {
-        this.model = model;
-        return this;
-    }
-
-    @Override
-    public DossierMapper withResourceUri(URI dossierResourceUri) {
-        this.dossierResourceUri = dossierResourceUri;
-        return this;
-    }
-
-    private List<DossierFileView> buildDossierFiles(List<DossierFile> dossierFilesModels) {
+    private List<DossierFileView> buildDossierFiles(List<DossierFile> dossierFilesModels, URI dossierResourceUri) {
         return dossierFilesModels.stream()
                 .map(fileModel -> dossierFileMapper
-                        .withModel(fileModel)
-                        .withResourceUri(getDossierFileResourceUri(dossierResourceUri, fileModel.getCode()))
-                        .map())
+                .map(fileModel,getDossierFileResourceUri(dossierResourceUri, fileModel.getCode())))
                 .collect(Collectors.toList());
     }
 

@@ -28,9 +28,5 @@ import java.util.List;
  */
 public interface DossierMapper {
 
-    DossierMapper withModel(Dossier model);
-
-    DossierMapper withResourceUri(URI dossierResourceUri);
-
-    ru.ilb.filedossier.view.DossierView map();
+    ru.ilb.filedossier.view.DossierView map(Dossier model, URI dossierResourceUri);
 }

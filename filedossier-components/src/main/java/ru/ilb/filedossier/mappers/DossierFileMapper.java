@@ -26,10 +26,6 @@ import java.net.URI;
  */
 public interface DossierFileMapper {
 
-    DossierFileMapper withModel(DossierFile model);
-
-    DossierFileMapper withResourceUri(URI dossierFileResourceUri);
-
-    ru.ilb.filedossier.view.DossierFileView map();
+    ru.ilb.filedossier.view.DossierFileView map(DossierFile model, URI dossierFileResourceUri);
 
 }

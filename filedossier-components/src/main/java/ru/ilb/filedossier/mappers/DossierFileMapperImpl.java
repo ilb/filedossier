@@ -31,11 +31,8 @@ import java.util.stream.Stream;
 @Named
 public class DossierFileMapperImpl implements DossierFileMapper {
 
-    private DossierFile model;
-    private URI dossierFileResourceUri;
-
     @Override
-    public DossierFileView map() {
+    public DossierFileView map(DossierFile model, URI dossierFileResourceUri) {
 
         DossierFileView df = new DossierFileView();
         df.setCode(model.getCode());
@@ -46,7 +43,7 @@ public class DossierFileMapperImpl implements DossierFileMapper {
         df.setHidden(model.getHidden());
         df.setAllowedMultiple(model.getAllowedMultiple());
         df.setAllowedMediaTypes(model.getAllowedMediaTypes());
-        df.setLinks(buildDossierFileLinks());
+        df.setLinks(buildDossierFileLinks(dossierFileResourceUri));
 
         if (model.getExists()) {
             DossierFileVersion latestVersion = model.getLatestVersion();
@@ -58,24 +55,12 @@ public class DossierFileMapperImpl implements DossierFileMapper {
         return df;
     }
 
-    @Override
-    public DossierFileMapper withModel(DossierFile model) {
-        this.model = model;
-        return this;
-    }
-
-    @Override
-    public DossierFileMapper withResourceUri(URI dossierFileResourceUri) {
-        this.dossierFileResourceUri = dossierFileResourceUri;
-        return this;
-    }
-
     /**
      * Builds various links for different content disposition modes
      * @return list of marshalled links
      * @see javax.ws.rs.core.Link
      */
-    private List<Link> buildDossierFileLinks() {
+    private List<Link> buildDossierFileLinks(URI dossierFileResourceUri) {
         List<Link> links = new ArrayList<>();
         Stream.of(ContentDispositionMode.values())
                 .forEach(mode -> {
