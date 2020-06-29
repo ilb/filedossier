@@ -23,6 +23,7 @@ import javax.ws.rs.core.UriInfo;
 import org.springframework.context.ApplicationContext;
 import ru.ilb.filedossier.api.DossierFileResource;
 import ru.ilb.filedossier.api.DossierResource;
+import ru.ilb.filedossier.api.DossierStoreResource;
 import ru.ilb.filedossier.entities.Dossier;
 import ru.ilb.filedossier.entities.DossierFile;
 import ru.ilb.filedossier.mappers.DossierMapper;
@@ -66,9 +67,7 @@ public class DossierResourceImpl implements DossierResource {
     @Override
     public DossierView getDossier() {
         return dossierMapper
-                .withModel(dossier)
-                .withResourceUri(uriInfo.getRequestUri())
-                .map();
+                .map(dossier,uriInfo.getRequestUri());
     }
 
     @Override
