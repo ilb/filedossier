@@ -78,4 +78,9 @@ public class DossierResourceImpl implements DossierResource {
         applicationContext.getAutowireCapableBeanFactory().autowireBean(resource);
         return resourceContext.initResource(resource);
     }
+
+    @Override
+    public DossierStoreResource getDossierStoreResource() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

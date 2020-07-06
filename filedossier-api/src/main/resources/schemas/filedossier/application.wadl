@@ -38,6 +38,7 @@
                 </param>
             </resource>
         </resource>
+        <resource path="store" id="dossierStoreResource" type="#dossierStoreResource"/>
     </resource_type>
 
     <resource_type id="dossierContextResource">
@@ -67,18 +68,34 @@
             <response status="204"/>
         </method>
     </resource_type>
-    <resource_type id="dossierContainerResource">
-        <method name="GET" id="containerIndex">
-            <doc>get dossier file container contents</doc>
+    <resource_type id="dossierStoreResource">
+        <method name="GET" id="storeIndex">
+            <doc>get dossier file store contents</doc>
             <request>
                 <param name="version" style="query" type="xsd:int" />
                 <param name="accept" style="header" type="xsd:string" />
             </request>
             <response status="200">
-                <param name="Content-Disposition" style="header" type="xsd:string"/>
-                <representation mediaType="*/*"/>
+                <!--<param name="Content-Disposition" style="header" type="xsd:string"/>-->
+                <representation mediaType="application/json"/>
             </response>
         </method>
+        <resource path="{name:.*}" >
+            <param name="name" style="template" type="xsd:string">
+                <doc>file name</doc>
+            </param>
+            <method name="GET" id="storeDownload">
+                <doc>get dossier file from store</doc>
+                <request>
+                    <param name="version" style="query" type="xsd:int" />
+                    <param name="accept" style="header" type="xsd:string" />
+                </request>
+                <response status="200">
+                    <param name="Content-Disposition" style="header" type="xsd:string"/>
+                    <representation mediaType="*/*"/>
+                </response>
+            </method>
+        </resource>
     </resource_type>
     <resource_type id="dossierFileResource">
         <method name="GET" id="download">
@@ -119,6 +136,7 @@
             </method>
         </resource>
         <resource path="context" id="dossierContextResource" type="#dossierContextResource"/>
+        <!--<resource path="store" id="dossierStoreResource" type="#dossierStoreResource"/>-->
     </resource_type>
 
     <resources>
