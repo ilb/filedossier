@@ -57,6 +57,7 @@ public class DossierFileMapperImpl implements DossierFileMapper {
 
     /**
      * Builds various links for different content disposition modes
+     *
      * @return list of marshalled links
      * @see javax.ws.rs.core.Link
      */
@@ -70,6 +71,17 @@ public class DossierFileMapperImpl implements DossierFileMapper {
                             .build();
                     links.add(link);
                 });
+        Link update = Link
+                .fromUri(UriBuilder.fromUri(dossierFileResourceUri).path("update").build())
+                .rel("update")
+                .build();
+        links.add(update);
+        
+        Link publish = Link
+                .fromUri(UriBuilder.fromUri(dossierFileResourceUri).path("publish").build())
+                .rel("publish")
+                .build();
+        links.add(publish);
         return links;
     }
 
