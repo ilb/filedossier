@@ -76,12 +76,19 @@ public class DossierFileMapperImpl implements DossierFileMapper {
                 .rel("update")
                 .build();
         links.add(update);
-        
+
         Link publish = Link
                 .fromUri(UriBuilder.fromUri(dossierFileResourceUri).path("publish").build())
                 .rel("publish")
                 .build();
         links.add(publish);
+
+
+        Link context = Link
+                .fromUri(UriBuilder.fromUri(dossierFileResourceUri).path("context").build())
+                .rel("context")
+                .build();
+        links.add(context);
         return links;
     }
 
