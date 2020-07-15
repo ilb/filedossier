@@ -48,7 +48,7 @@ import ru.ilb.containeraccessor.ContainerExtractorFactory;
 public class PdfFileSystemProvider extends FileSystemProvider {
 
     private final Map<URI, PdfFileSystem> fscache = new HashMap<>();
-    private final ContainerAccessorFactory containerAccessorFactory = new ContainerAccessorFactory(new ContainerExtractorFactory());
+    private final ContainerAccessorFactory containerAccessorFactory = new ContainerAccessorFactory();
 
     @Override
     public void copy(Path fileFrom, Path fileTo, CopyOption... options) throws IOException {
