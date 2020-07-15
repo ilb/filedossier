@@ -26,7 +26,7 @@ import java.nio.file.attribute.UserPrincipalLookupService;
 import java.nio.file.spi.FileSystemProvider;
 import java.util.Objects;
 import java.util.Set;
-import ru.ilb.containeraccessor.ContainerAccessor;
+import ru.ilb.containeraccessor.core.ContainerAccessor;
 
 /**
  * Pdf implementation of a FileSystem.

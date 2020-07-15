@@ -39,8 +39,7 @@ import java.nio.file.spi.FileSystemProvider;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-import ru.ilb.containeraccessor.ContainerAccessorFactory;
-import ru.ilb.containeraccessor.ContainerExtractorFactory;
+import ru.ilb.containeraccessor.core.ContainerAccessorFactory;
 
 /**
  * The Pdf FileSystemProvider based on Sardine.
@@ -103,7 +102,7 @@ public class PdfFileSystemProvider extends FileSystemProvider {
             PdfFileSystem fs = fscache.get(uri);
             if (fs == null && create) {
                 URI fileUri = URI.create(uri.toString().substring(6));
-                fs = new PdfFileSystem(this, uri,  containerAccessorFactory.getContainerAccessor(fileUri, "application/pdf"));
+                fs = new PdfFileSystem(this, uri,  containerAccessorFactory.getContainerAccessor(fileUri));
                 fscache.put(uri, fs);
             }
             return fs;
