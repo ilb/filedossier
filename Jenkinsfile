@@ -5,6 +5,10 @@ pipeline {
                 description: "Build a release from current commit.",
                 defaultValue: false)
     }
+    options {
+        disableConcurrentBuilds()
+        buildDiscarder(logRotator(numToKeepStr: '3'))
+    }
     stages {
         stage ('Build') {
             when {
