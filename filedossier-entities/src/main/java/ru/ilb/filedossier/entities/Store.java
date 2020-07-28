@@ -6,6 +6,7 @@
 package ru.ilb.filedossier.entities;
 
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.List;
 
 /**
@@ -20,6 +21,8 @@ public interface Store {
     boolean isExist(String code);
 
     void setContents(String code, byte[] contents) throws IOException;
+    
+    Path getFilePath(String key);
 
     /**
      * @param code

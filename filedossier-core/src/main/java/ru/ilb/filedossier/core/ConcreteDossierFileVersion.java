@@ -1,6 +1,7 @@
 package ru.ilb.filedossier.core;
 
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -120,4 +121,10 @@ public class ConcreteDossierFileVersion implements DossierFileVersion {
     public List<String> getAllowedMediaTypes() {
         return representations.values().stream().map(r -> r.getMediaType()).collect(Collectors.toList());
     }
+
+    @Override
+    public Path getFilePath(String key) {
+        return store.getFilePath(key);
+    }
+
 }
