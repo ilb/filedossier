@@ -18,14 +18,12 @@ package ru.ilb.filedossier.components;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import javax.inject.Inject;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.container.ResourceContext;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
-
 import org.apache.cxf.jaxrs.ext.multipart.MultipartBody;
 import org.springframework.context.ApplicationContext;
 import ru.ilb.filedossier.api.DossierContextResource;
@@ -38,6 +36,8 @@ import ru.ilb.filedossier.entities.Representation;
 import ru.ilb.filedossier.exceptions.NotAcceptableMediaType;
 import ru.ilb.filedossier.filedossier.usecases.upload.PublishFile;
 import ru.ilb.filedossier.filedossier.usecases.upload.PublishFileNewVersion;
+import ru.ilb.uriaccessor.URIStorageFactory;
+import java.net.URI;
 
 public class DossierFileResourceImpl implements DossierFileResource {
 
@@ -69,12 +69,13 @@ public class DossierFileResourceImpl implements DossierFileResource {
     @Inject
     private ContentNegotiationSevice contentNegotiationSevice;
 
+    private final URIStorageFactory uriStorageFactory = new URIStorageFactory();
+
     /**
      * CXF MessageContext
      */
 //    @Context
 //    protected MessageContext messageContext;
-
     /**
      * Dossier file model.
      */
@@ -121,28 +122,32 @@ public class DossierFileResourceImpl implements DossierFileResource {
 
     @Override
     public void update(MultipartBody body) {
-       if (body.getAllAttachments().isEmpty()) throw new WebApplicationException("Upload empty");
+        if (body.getAllAttachments().isEmpty()) {
+            throw new WebApplicationException("Upload empty");
+        }
 
         if (body.getAllAttachments().size() < 1) {
             publishFile.publish(body.getRootAttachment().getObject(File.class), dossierFile);
         } else {
             publishFile.mergeAndPublish(body.getAllAttachments().stream()
-                            .map(att -> att.getObject(File.class))
-                            .collect(Collectors.toList()),
+                    .map(att -> att.getObject(File.class))
+                    .collect(Collectors.toList()),
                     dossierFile);
         }
     }
 
     @Override
     public void publish(MultipartBody body) {
-        if (body.getAllAttachments().isEmpty()) throw new WebApplicationException("Upload empty");
+        if (body.getAllAttachments().isEmpty()) {
+            throw new WebApplicationException("Upload empty");
+        }
 
         if (body.getAllAttachments().size() < 1) {
             publishFileNewVersion.publish(body.getRootAttachment().getObject(File.class), dossierFile);
         } else {
             publishFileNewVersion.mergeAndPublish(body.getAllAttachments().stream()
-                            .map(att -> att.getObject(File.class))
-                            .collect(Collectors.toList()),
+                    .map(att -> att.getObject(File.class))
+                    .collect(Collectors.toList()),
                     dossierFile);
         }
     }
@@ -155,4 +160,17 @@ public class DossierFileResourceImpl implements DossierFileResource {
         return resourceContext.initResource(resource);
     }
 
+    @Override
+    public Response container(String path) {
+        StringBuilder redirect = new StringBuilder(100);
+        redirect.append("containers/");
+        redirect.append(uriStorageFactory.getURIStorage().registerUri(URI.create(dossierFile.getLatestVersion().getFilePath().toString())));
+        if (path != null && !path.isEmpty()) {
+            if (!path.startsWith("/")) {
+                redirect.append("/");
+            }
+            redirect.append(path);
+        }
+        return Response.seeOther(URI.create(redirect.toString())).build();
+    }
 }
