@@ -26,5 +26,5 @@ public interface DossierFileVersion extends DossierContents {
 
     void setMediaType(String mediaType);
     
-    Path getFilePath(String key);
+    Path getFilePath();
 }

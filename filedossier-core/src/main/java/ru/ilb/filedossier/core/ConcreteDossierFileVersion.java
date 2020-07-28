@@ -123,8 +123,8 @@ public class ConcreteDossierFileVersion implements DossierFileVersion {
     }
 
     @Override
-    public Path getFilePath(String key) {
-        return store.getFilePath(key);
+    public Path getFilePath() {
+        return store.getFilePath(getFileName());
     }
 
 }
