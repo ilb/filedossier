@@ -28,6 +28,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jdbc.repository.config.EnableJdbcRepositories;
 import org.springframework.data.relational.core.mapping.NamingStrategy;
 import ru.ilb.common.jaxrs.jaxb.JaxbContextResolver;
+import ru.ilb.containeraccessor.components.ContainersResource;
+import ru.ilb.containeraccessor.components.ContainersResourceImpl;
 import ru.ilb.filedossier.context.persistence.DossierContextNamingStrategy;
 import ru.ilb.filedossier.ddl.DossierDefinitionRepository;
 import ru.ilb.filedossier.ddl.FileDossierDefinitionRepository;
@@ -72,6 +74,11 @@ public class Application {
     @Bean
     public DossierDefinitionRepository dossierDefinitionRepository() {
         return new FileDossierDefinitionRepository(Paths.get(dossierRepository).resolve("packages").toUri());
+    }
+    
+    @Bean
+    public ContainersResource containersResource(){
+        return new ContainersResourceImpl();
     }
 
     //@Bean
