@@ -44,6 +44,7 @@ public class MimeTypeRepository {
         }
         mimeTypes = lines.stream()
                 .filter(l -> !l.startsWith("#"))
+                .filter(l->(!l.isEmpty()))
                 .map(l -> l.split("\\s+"))
                 .collect(Collectors.toMap(l -> l[0], l -> Arrays.asList(Arrays.copyOfRange(l, 1, l.length))));
     }
