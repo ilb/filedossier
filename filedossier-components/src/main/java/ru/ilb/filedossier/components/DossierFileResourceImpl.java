@@ -164,7 +164,7 @@ public class DossierFileResourceImpl implements DossierFileResource {
     public Response container(String path) {
         StringBuilder redirect = new StringBuilder(100);
         redirect.append("containers/");
-        redirect.append(uriStorageFactory.getURIStorage().registerUri(dossierFile.getLatestVersion().getFilePath().toUri()));
+        redirect.append(uriStorageFactory.getURIStorage().registerUri(dossierFile.getLatestVersion().getFilePath().toUri(), dossierFile.getLatestVersion().getMediaType()));
         if (path != null && !path.isEmpty()) {
             if (!path.startsWith("/")) {
                 redirect.append("/");
