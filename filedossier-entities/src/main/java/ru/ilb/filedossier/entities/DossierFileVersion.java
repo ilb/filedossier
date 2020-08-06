@@ -1,5 +1,7 @@
 package ru.ilb.filedossier.entities;
 
+import java.nio.file.Path;
+
 
 public interface DossierFileVersion extends DossierContents {
 
@@ -23,4 +25,6 @@ public interface DossierFileVersion extends DossierContents {
     void setStore(Store store);
 
     void setMediaType(String mediaType);
+    
+    Path getFilePath();
 }

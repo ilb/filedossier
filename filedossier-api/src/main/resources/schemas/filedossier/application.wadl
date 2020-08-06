@@ -98,6 +98,19 @@
         </resource>
     </resource_type>
     <resource_type id="dossierFileResource">
+        
+        <resource path="container">
+            <method name="GET" id="container">
+                <doc>test</doc>
+                <request>
+                    <param name="path" style="query" type="xsd:string" />
+                </request>
+                <response status="200">
+                    <param name="Container-Disposition" style="header" type="xsd:string"/>
+                </response>
+            </method>
+        </resource>
+        
         <method name="GET" id="download">
             <doc>get dossier file contents</doc>
             <request>

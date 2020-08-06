@@ -28,7 +28,6 @@ import java.nio.file.Paths;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
@@ -68,7 +67,8 @@ class FileStore implements Store {
 
     }
 
-    private Path getFilePath(String key) {
+    @Override
+    public Path getFilePath(String key) {
         if (!FILENAME_PREDICATE.test(key)) {
             throw new InvalidFileNameException(key);
         }
