@@ -134,6 +134,8 @@ public class DossierFileResourceImpl implements DossierFileResource {
                     .collect(Collectors.toList()),
                     dossierFile);
         }
+        //dossierFile.lastModified() should be updated?
+        
     }
 
     @Override

@@ -16,6 +16,7 @@
 package ru.ilb.filedossier.components;
 
 import java.io.File;
+import java.io.IOException;
 import org.apache.cxf.jaxrs.client.JAXRSClientFactory;
 import org.apache.cxf.jaxrs.provider.json.JsonMapObjectProvider;
 import org.junit.Assert;
@@ -27,7 +28,6 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.junit4.SpringRunner;
 import ru.ilb.filedossier.api.DossierFileResource;
 import ru.ilb.filedossier.api.DossiersResource;
-
 import javax.inject.Inject;
 import javax.ws.rs.core.Response;
 import java.net.URISyntaxException;
@@ -35,7 +35,6 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
-import org.apache.cxf.jaxrs.client.Client;
 import org.apache.cxf.jaxrs.client.WebClient;
 import org.apache.cxf.jaxrs.ext.multipart.Attachment;
 import org.apache.cxf.jaxrs.ext.multipart.MultipartBody;
@@ -102,7 +101,6 @@ public class DossierFileResourceImplTest {
 
         DossierFileResource fileResource = getDossierFileResource("image1");
         File file = Paths.get(getClass().getClassLoader().getResource("page1.jpg").toURI()).toFile();
-
         //fileResource.publish();
         List<Attachment> atts = new LinkedList<Attachment>();
         atts.add(new Attachment("root", "image/jpeg", file));
@@ -122,6 +120,26 @@ public class DossierFileResourceImplTest {
         atts.add(new Attachment("thirdFile", "image/jpeg", file));
         MultipartBody body = new MultipartBody(atts, true);
         fileResource.publish(body);
+    }
+
+    @org.junit.Test
+    public void testBUpdateContentsMulti() throws URISyntaxException, IOException{
+        DossierFileResource fileResource = getDossierFileResource("image1");
+        File file = Paths.get(getClass().getClassLoader().getResource("page1.jpg").toURI()).toFile();
+        List<Attachment> atts = new LinkedList<Attachment>();
+        atts.add(new Attachment("root", "image/jpeg", file));
+        MultipartBody body = new MultipartBody(atts, true);
+        fileResource.publish(body);
+        Response response = fileResource.download(null, null, BROWSER_ACCEPT);
+        File publishedFile = response.readEntity(File.class);
+        long publishTime = publishedFile.lastModified();
+        List<Attachment> updateAtts = new LinkedList<Attachment>();
+        updateAtts.add(new Attachment("secondFile", "image/jpeg", file));
+        fileResource.update(new MultipartBody(updateAtts, true));
+        Response responseAfterUpdate = fileResource.download(null, null, BROWSER_ACCEPT);
+        File fileAfterUpdate = responseAfterUpdate.readEntity(File.class);
+        long updateTime = fileAfterUpdate.lastModified();
+        Assert.assertNotEquals(publishTime, updateTime);
     }
 
     @org.junit.Test
