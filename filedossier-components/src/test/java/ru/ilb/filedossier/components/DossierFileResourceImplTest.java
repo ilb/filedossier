@@ -32,13 +32,20 @@ import javax.inject.Inject;
 import javax.ws.rs.core.Response;
 import java.net.URISyntaxException;
 import java.nio.file.Paths;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.TimeZone;
 import org.apache.cxf.jaxrs.client.WebClient;
 import org.apache.cxf.jaxrs.ext.multipart.Attachment;
 import org.apache.cxf.jaxrs.ext.multipart.MultipartBody;
 import org.apache.cxf.transport.http.HTTPConduit;
+import ru.ilb.filedossier.view.DossierFileView;
+import ru.ilb.filedossier.view.DossierView;
 
 /**
  *
@@ -123,22 +130,19 @@ public class DossierFileResourceImplTest {
     }
 
     @org.junit.Test
-    public void testBUpdateContentsMulti() throws URISyntaxException, IOException{
-        DossierFileResource fileResource = getDossierFileResource("image1");
+    public void testUpdateContents() throws URISyntaxException, IOException, ParseException{
+        DossiersResource dossiersResource = getDossiersResource();
+        DossierView dossierView = dossiersResource.getDossierResource("teststorekey", "testmodel", "TEST", "mode1").getDossier();
+        DossierFileView dfv = dossierView.getDossierFiles().stream().filter(x->x.getCode().equals("image1")).findFirst().orElse(null);
+        SimpleDateFormat parser = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+        parser.setTimeZone(TimeZone.getTimeZone("UTC"));
+        long publishTime = parser.parse(dfv.getLastModified()).getTime() / 1000;
         File file = Paths.get(getClass().getClassLoader().getResource("page1.jpg").toURI()).toFile();
-        List<Attachment> atts = new LinkedList<Attachment>();
-        atts.add(new Attachment("root", "image/jpeg", file));
-        MultipartBody body = new MultipartBody(atts, true);
-        fileResource.publish(body);
-        Response response = fileResource.download(null, null, BROWSER_ACCEPT);
-        File publishedFile = response.readEntity(File.class);
-        long publishTime = publishedFile.lastModified();
         List<Attachment> updateAtts = new LinkedList<Attachment>();
-        updateAtts.add(new Attachment("secondFile", "image/jpeg", file));
-        fileResource.update(new MultipartBody(updateAtts, true));
-        Response responseAfterUpdate = fileResource.download(null, null, BROWSER_ACCEPT);
-        File fileAfterUpdate = responseAfterUpdate.readEntity(File.class);
-        long updateTime = fileAfterUpdate.lastModified();
+        updateAtts.add(new Attachment("updatefile", "image/jpeg", file));
+        DossierFileResource dossierFileResource = dossiersResource.getDossierResource("teststorekey", "testmodel", "TEST", "mode1").getDossierFileResource("image1");
+        dossierFileResource.update(new MultipartBody(updateAtts, true));
+        long updateTime = parser.parse(dfv.getLastModified()).getTime() / 1000;;
         Assert.assertNotEquals(publishTime, updateTime);
     }
 
