@@ -9,6 +9,8 @@ import javax.inject.Named;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.attribute.FileTime;
+import java.util.Date;
 import java.util.List;
 
 @Named
@@ -33,6 +35,7 @@ public class PublishFileNewVersion {
         DossierFileVersion newVersion = dossierFile.createNewVersion(mediaType);
         try {
             newVersion.setContents(publishDocument);
+            Files.setLastModifiedTime(newVersion.getFilePath(), FileTime.fromMillis(new Date().getTime()));
         } catch (IOException e) {
             throw new RuntimeException("Error while saving new dossier file version");
         }
