@@ -80,7 +80,7 @@ class FileStore implements Store {
     public void setContents(String key, byte[] contents) throws IOException {
         createStorePath();
         Files.write(getFilePath(key), contents);
-        Files.setLastModifiedTime(getFilePath(key).getParent(), FileTime.fromMillis(new Date().getTime()));
+        Files.setLastModifiedTime(getStorePath(), FileTime.fromMillis(new Date().getTime()));
     }
 
     @Override

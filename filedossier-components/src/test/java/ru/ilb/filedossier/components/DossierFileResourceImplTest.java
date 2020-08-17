@@ -34,12 +34,9 @@ import java.net.URISyntaxException;
 import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.TimeZone;
 import org.apache.cxf.jaxrs.client.WebClient;
 import org.apache.cxf.jaxrs.ext.multipart.Attachment;
 import org.apache.cxf.jaxrs.ext.multipart.MultipartBody;
@@ -131,7 +128,7 @@ public class DossierFileResourceImplTest {
     }
 
     @org.junit.Test
-    public void testUpdateContents() throws URISyntaxException, IOException, ParseException{
+    public void testUpdateContents() throws URISyntaxException, IOException, ParseException, InterruptedException{
         DossiersResource dossiersResource = getDossiersResource();
         DossierView dossierView = dossiersResource.getDossierResource("teststorekey", "testmodel", "TEST", "mode1").getDossier();
         DossierFileView dfv = dossierView.getDossierFiles().stream().filter(x->x.getCode().equals("image1")).findFirst().orElse(null);
@@ -141,6 +138,7 @@ public class DossierFileResourceImplTest {
         List<Attachment> updateAtts = new LinkedList<Attachment>();
         updateAtts.add(new Attachment("updatefile", "image/jpeg", file));
         DossierFileResource dossierFileResource = dossiersResource.getDossierResource("teststorekey", "testmodel", "TEST", "mode1").getDossierFileResource("image1");
+        Thread.sleep(1000);
         dossierFileResource.update(new MultipartBody(updateAtts, true));
         DossiersResource updatedDossiersResource = getDossiersResource();
         DossierView updatedDossierView = updatedDossiersResource.getDossierResource("teststorekey", "testmodel", "TEST", "mode1").getDossier();
