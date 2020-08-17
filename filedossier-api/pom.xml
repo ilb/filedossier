@@ -172,10 +172,10 @@
         </plugins>
     </build>
     <profiles>
-<!--        <profile>
+    <profile>
             <id>swagger-maven-plugin</id>
             <activation>
-                <activeByDefault>true</activeByDefault>
+                <activeByDefault>false</activeByDefault>
             </activation>
             <properties>
                 <openapi.generated.path>${project.build.directory}/generated-sources/openapi-spec</openapi.generated.path>
@@ -222,7 +222,7 @@
         <profile>
             <id>openapi-generator-maven-plugin</id>
             <activation>
-                <activeByDefault>true</activeByDefault>
+                <activeByDefault>false</activeByDefault>
             </activation>
             <build>
                 <plugins>
@@ -272,6 +272,6 @@
                     </plugin>
                 </plugins>
             </build>
-        </profile>-->
+        </profile>
     </profiles>
 </project>
