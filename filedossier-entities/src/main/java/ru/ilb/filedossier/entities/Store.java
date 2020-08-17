@@ -7,6 +7,7 @@ package ru.ilb.filedossier.entities;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -46,7 +47,7 @@ public interface Store {
      * @param code
      * @return
      */
-    Long lastModified(String code);
+    LocalDateTime lastModified(String code);
 
     String getFileMimeType(String code) throws IOException;
 }

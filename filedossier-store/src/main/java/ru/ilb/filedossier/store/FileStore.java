@@ -26,6 +26,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.nio.file.attribute.FileTime;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -80,7 +82,7 @@ class FileStore implements Store {
     public void setContents(String key, byte[] contents) throws IOException {
         createStorePath();
         Files.write(getFilePath(key), contents);
-        Files.setLastModifiedTime(getFilePath(key).getParent(), FileTime.fromMillis(new Date().getTime()));
+        Files.setLastModifiedTime(getStorePath(), FileTime.fromMillis(new Date().getTime()));
     }
 
     @Override
@@ -113,10 +115,10 @@ class FileStore implements Store {
     }
 
     @Override
-    public Long lastModified(String code) {
+    public LocalDateTime lastModified(String code) {
         try {
             BasicFileAttributes attrs = Files.readAttributes(getFilePath(code), BasicFileAttributes.class);
-            return attrs.lastModifiedTime().toMillis();
+            return LocalDateTime.ofInstant(attrs.lastModifiedTime().toInstant(), ZoneId.systemDefault());
         } catch (IOException e) {
             return null;
         }
