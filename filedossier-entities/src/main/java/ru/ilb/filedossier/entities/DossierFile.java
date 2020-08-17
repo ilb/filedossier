@@ -15,6 +15,7 @@
  */
 package ru.ilb.filedossier.entities;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -59,7 +60,7 @@ public interface DossierFile extends DossierContents {
      * FIXME лучше использовать LocalDateTime
      * @return millis
      */
-    String lastModified();
+    LocalDateTime lastModified();
 
     /**
      * @return count of file versions
