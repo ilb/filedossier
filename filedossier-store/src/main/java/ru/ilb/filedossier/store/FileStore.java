@@ -15,7 +15,6 @@
  */
 package ru.ilb.filedossier.store;
 
-import com.sun.org.apache.xerces.internal.impl.xpath.XPath;
 import ru.ilb.filedossier.entities.Store;
 import ru.ilb.filedossier.mimetype.MimeTypeUtil;
 
@@ -26,7 +25,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.nio.file.attribute.FileTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.regex.Pattern;
@@ -79,6 +80,7 @@ class FileStore implements Store {
     public void setContents(String key, byte[] contents) throws IOException {
         createStorePath();
         Files.write(getFilePath(key), contents);
+        Files.setLastModifiedTime(getFilePath(key).getParent(), FileTime.fromMillis(new Date().getTime()));
     }
 
     @Override

@@ -136,7 +136,7 @@ public class DossierFileResourceImplTest {
         DossierView dossierView = dossiersResource.getDossierResource("teststorekey", "testmodel", "TEST", "mode1").getDossier();
         DossierFileView dfv = dossierView.getDossierFiles().stream().filter(x->x.getCode().equals("image1")).findFirst().orElse(null);
         SimpleDateFormat parser = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-        long publishTime = parser.parse(dfv.getLastModified()).getTime() / 1000;
+        long publishTime = parser.parse(dfv.getLastModified()).getTime();
         File file = Paths.get(getClass().getClassLoader().getResource("page1.jpg").toURI()).toFile();
         List<Attachment> updateAtts = new LinkedList<Attachment>();
         updateAtts.add(new Attachment("updatefile", "image/jpeg", file));
@@ -145,7 +145,7 @@ public class DossierFileResourceImplTest {
         DossiersResource updatedDossiersResource = getDossiersResource();
         DossierView updatedDossierView = updatedDossiersResource.getDossierResource("teststorekey", "testmodel", "TEST", "mode1").getDossier();
         DossierFileView updatedDfv = updatedDossierView.getDossierFiles().stream().filter(x->x.getCode().equals("image1")).findFirst().orElse(null);
-        long updateTime = parser.parse(updatedDfv.getLastModified()).getTime() / 1000;
+        long updateTime = parser.parse(updatedDfv.getLastModified()).getTime();
         Assert.assertNotEquals(publishTime, updateTime);
     }
 

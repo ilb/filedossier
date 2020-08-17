@@ -23,14 +23,8 @@ import ru.ilb.filedossier.mimetype.MimeTypeUtil;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.attribute.FileTime;
-import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -85,7 +79,6 @@ public class PublishFile {
             byte[] mergedDocument = executor.executeMerge();
             version.setMediaType(MimeTypeUtil.guessMimeTypeFromByteArray(mergedDocument));
             version.setContents(mergedDocument);
-            Files.setLastModifiedTime(version.getFilePath(), FileTime.fromMillis(new Date().getTime()));
         } catch (IOException e) {
             throw new RuntimeException("Error while merging current dossier with new files: " + e);
         }
