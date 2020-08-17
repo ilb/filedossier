@@ -18,7 +18,6 @@ package ru.ilb.filedossier.core;
 import java.io.IOException;
 import ru.ilb.filedossier.entities.*;
 import ru.ilb.filedossier.entities.DossierFileVersion;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -145,7 +144,6 @@ public class DossierFileImpl implements DossierFile {
                 variation.getMediaType(),
                 variation.getRepresentations());
         Store newVersionStore = store.getNestedFileStore(String.valueOf(versions.size()));
-
         newVersion.setStore(newVersionStore);
         newVersion.setParent(this);
         return newVersion;

@@ -16,6 +16,7 @@
 package ru.ilb.filedossier.components;
 
 import java.io.File;
+import java.io.IOException;
 import org.apache.cxf.jaxrs.client.JAXRSClientFactory;
 import org.apache.cxf.jaxrs.provider.json.JsonMapObjectProvider;
 import org.junit.Assert;
@@ -27,19 +28,24 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.junit4.SpringRunner;
 import ru.ilb.filedossier.api.DossierFileResource;
 import ru.ilb.filedossier.api.DossiersResource;
-
 import javax.inject.Inject;
 import javax.ws.rs.core.Response;
 import java.net.URISyntaxException;
 import java.nio.file.Paths;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-import org.apache.cxf.jaxrs.client.Client;
+import java.util.TimeZone;
 import org.apache.cxf.jaxrs.client.WebClient;
 import org.apache.cxf.jaxrs.ext.multipart.Attachment;
 import org.apache.cxf.jaxrs.ext.multipart.MultipartBody;
 import org.apache.cxf.transport.http.HTTPConduit;
+import ru.ilb.filedossier.view.DossierFileView;
+import ru.ilb.filedossier.view.DossierView;
 
 /**
  *
@@ -96,13 +102,13 @@ public class DossierFileResourceImplTest {
 
     /**
      * Test of getDossierResource method, of class DossiersResourceImpl.
+     * @throws java.net.URISyntaxException
      */
     @org.junit.Test
     public void testAUploadContents() throws URISyntaxException {
 
         DossierFileResource fileResource = getDossierFileResource("image1");
         File file = Paths.get(getClass().getClassLoader().getResource("page1.jpg").toURI()).toFile();
-
         //fileResource.publish();
         List<Attachment> atts = new LinkedList<Attachment>();
         atts.add(new Attachment("root", "image/jpeg", file));
@@ -122,6 +128,25 @@ public class DossierFileResourceImplTest {
         atts.add(new Attachment("thirdFile", "image/jpeg", file));
         MultipartBody body = new MultipartBody(atts, true);
         fileResource.publish(body);
+    }
+
+    @org.junit.Test
+    public void testUpdateContents() throws URISyntaxException, IOException, ParseException{
+        DossiersResource dossiersResource = getDossiersResource();
+        DossierView dossierView = dossiersResource.getDossierResource("teststorekey", "testmodel", "TEST", "mode1").getDossier();
+        DossierFileView dfv = dossierView.getDossierFiles().stream().filter(x->x.getCode().equals("image1")).findFirst().orElse(null);
+        SimpleDateFormat parser = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+        long publishTime = parser.parse(dfv.getLastModified()).getTime();
+        File file = Paths.get(getClass().getClassLoader().getResource("page1.jpg").toURI()).toFile();
+        List<Attachment> updateAtts = new LinkedList<Attachment>();
+        updateAtts.add(new Attachment("updatefile", "image/jpeg", file));
+        DossierFileResource dossierFileResource = dossiersResource.getDossierResource("teststorekey", "testmodel", "TEST", "mode1").getDossierFileResource("image1");
+        dossierFileResource.update(new MultipartBody(updateAtts, true));
+        DossiersResource updatedDossiersResource = getDossiersResource();
+        DossierView updatedDossierView = updatedDossiersResource.getDossierResource("teststorekey", "testmodel", "TEST", "mode1").getDossier();
+        DossierFileView updatedDfv = updatedDossierView.getDossierFiles().stream().filter(x->x.getCode().equals("image1")).findFirst().orElse(null);
+        long updateTime = parser.parse(updatedDfv.getLastModified()).getTime();
+        Assert.assertNotEquals(publishTime, updateTime);
     }
 
     @org.junit.Test

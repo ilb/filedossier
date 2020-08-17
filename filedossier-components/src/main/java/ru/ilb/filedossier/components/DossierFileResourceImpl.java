@@ -129,11 +129,13 @@ public class DossierFileResourceImpl implements DossierFileResource {
         if (body.getAllAttachments().size() < 1) {
             publishFile.publish(body.getRootAttachment().getObject(File.class), dossierFile);
         } else {
-            publishFile.mergeAndPublish(body.getAllAttachments().stream()
-                    .map(att -> att.getObject(File.class))
-                    .collect(Collectors.toList()),
-                    dossierFile);
+                publishFile.mergeAndPublish(body.getAllAttachments().stream()
+                        .map(att -> att.getObject(File.class))
+                        .collect(Collectors.toList()),
+                        dossierFile);
         }
+        //dossierFile.lastModified() should be updated?
+        
     }
 
     @Override
