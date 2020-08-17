@@ -19,6 +19,7 @@ import java.io.IOException;
 import ru.ilb.filedossier.entities.*;
 import ru.ilb.filedossier.entities.DossierFileVersion;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -110,10 +111,8 @@ public class DossierFileImpl implements DossierFile {
     }
 
     @Override
-    public String lastModified() {
-        Long millis = store.lastModified(String.valueOf(versions.size() - 1));
-        Date date = new Date(millis);
-        return new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(date);
+    public LocalDateTime lastModified() {
+        return store.lastModified(String.valueOf(versions.size() - 1));
     }
 
     @Override
