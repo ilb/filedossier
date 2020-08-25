@@ -43,12 +43,11 @@ public class PdfFileSystemProviderTest {
         Map<String, String> attributes = new HashMap<>();
         Path contentsPath = null;
         try (FileSystem fs = FileSystems.newFileSystem(fsUri, attributes);) {
-            Path path = fs.getPath("page-000.jpg");
+            Path path = fs.getPath("page-1.jpg");
             byte[] content = Files.readAllBytes(path);
-            assertEquals(55505, content.length);
+            assertEquals(227037, content.length);
             contentsPath = ((PdfFileSystem) fs).getContentsPath();
         }
-
         assertFalse("Directory still exists", Files.exists(contentsPath));
 
     }
