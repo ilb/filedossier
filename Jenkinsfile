@@ -18,7 +18,6 @@ pipeline {
             }
             steps {
                 sh 'mvn install deploy'
-                sh 'sudo /opt/bin/tomcatmavendeploy /var/lib/tomcat-8/vaska/webapps/filedossier-web.mavendeploy'
             }
         }
         stage("Release") {
@@ -28,6 +27,9 @@ pipeline {
             steps {
                 sh "mvn -B release:prepare"
                 sh "mvn -B release:perform"
+                dir ("target/checkout") {
+                    sh "mvn -P'!local-repository,sonatype-repository,release-profile' deploy"
+                }
             }
         }
     }
