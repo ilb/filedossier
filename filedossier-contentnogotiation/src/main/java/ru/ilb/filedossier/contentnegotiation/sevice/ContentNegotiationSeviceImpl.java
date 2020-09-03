@@ -18,8 +18,10 @@ package ru.ilb.filedossier.contentnegotiation.sevice;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
 import javax.inject.Named;
 import javax.ws.rs.core.MediaType;
+
 import ru.ilb.filedossier.contentnegotiation.domain.MediaTypeAcceptor;
 import ru.ilb.filedossier.contentnegotiation.domain.MediaTypeResolver;
 
@@ -30,8 +32,9 @@ public class ContentNegotiationSeviceImpl implements ContentNegotiationSevice {
     public Optional<String> getAcceptableMediaType(String acceptableMediaTypes, List<String> allowedMediaTypes) {
         MediaTypeAcceptor mta = new MediaTypeAcceptor(acceptableMediaTypes);
         MediaTypeResolver mtr = new MediaTypeResolver(mta);
-        List<MediaType> amt = allowedMediaTypes.stream().map(mt -> MediaType.valueOf(mt)).collect(Collectors.toList());
-        return mtr.getAcceptableMediaType(amt).map(mt -> mt.toString());
+        List<MediaType> amt = allowedMediaTypes.stream().map(MediaType::valueOf).collect(Collectors.toList());
+        // return media type without any params
+        return mtr.getAcceptableMediaType(amt).map(mediaType -> mediaType.getType() + "/" + mediaType.getSubtype());
     }
 
 }

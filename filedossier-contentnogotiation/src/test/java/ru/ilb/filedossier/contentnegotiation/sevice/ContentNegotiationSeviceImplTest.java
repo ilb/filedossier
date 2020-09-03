@@ -49,21 +49,77 @@ public class ContentNegotiationSeviceImplTest {
     @After
     public void tearDown() {
     }
-
     /**
      * Test of getAcceptableMediaType method, of class ContentNegotiationSeviceImpl.
      */
     @Test
     public void testGetAcceptableMediaType() {
         System.out.println("getAcceptableMediaType");
-        String acceptableMediaTypes = "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8";
+        String acceptableMediaTypes = "application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8";
 
         List<String> allowedMediaTypes = Arrays.asList("application/pdf", "application/xml");
         ContentNegotiationSeviceImpl instance = new ContentNegotiationSeviceImpl();
-        Optional<String> expResult = Optional.of("application/pdf");
+        Optional<String> expResult = Optional.of("application/xml");
         Optional<String> result = instance.getAcceptableMediaType(acceptableMediaTypes, allowedMediaTypes);
         assertEquals(expResult, result);
 
+    }
+
+
+    @Test
+    public void testReturnsDefaultRepresentation() {
+        System.out.println("testReturnsDefaultRepresentation");
+
+        String acceptableMediaTypes = "text/html,application/xhtml+xml";
+        List<String> allowedMediaTypes = Arrays.asList("text/html","application/pdf", "application/xml");
+        Optional<String> expResult = Optional.of("text/html");
+
+        ContentNegotiationSeviceImpl instance = new ContentNegotiationSeviceImpl();
+        Optional<String> result = instance.getAcceptableMediaType(acceptableMediaTypes, allowedMediaTypes);
+
+        assertEquals(expResult, result);
+    }
+
+    @Test
+    public void testDoesntReturnsDefaultRepresentation() {
+        System.out.println("testDoesntReturnsDefaultRepresentation");
+
+        String acceptableMediaTypes = "text/html,application/xhtml+xml";
+        List<String> allowedMediaTypes = Arrays.asList("application/xhtml+xml", "application/xml");
+        Optional<String> expResult = Optional.of("application/xhtml+xml");
+
+        ContentNegotiationSeviceImpl instance = new ContentNegotiationSeviceImpl();
+        Optional<String> result = instance.getAcceptableMediaType(acceptableMediaTypes, allowedMediaTypes);
+
+        assertEquals(expResult, result);
+    }
+
+    @Test
+    public void testReturnsWithHighestQuality() {
+        System.out.println("testReturnsWithHighestQuality");
+
+        String acceptableMediaTypes = "application/xhtml+xml;q=0.5,application/pdf;q=0.8";
+        List<String> allowedMediaTypes = Arrays.asList("application/xhtml+xml", "application/pdf");
+        Optional<String> expResult = Optional.of("application/pdf");
+
+        ContentNegotiationSeviceImpl instance = new ContentNegotiationSeviceImpl();
+        Optional<String> result = instance.getAcceptableMediaType(acceptableMediaTypes, allowedMediaTypes);
+
+        assertEquals(expResult, result);
+    }
+
+    @Test
+    public void testCantReturnMediaType() {
+        System.out.println("testCantReturnMediaType");
+
+        String acceptableMediaTypes = "application/xhtml+xml";
+        List<String> allowedMediaTypes = Arrays.asList("application/xml", "application/pdf");
+        Optional<String> expResult = Optional.empty();
+
+        ContentNegotiationSeviceImpl instance = new ContentNegotiationSeviceImpl();
+        Optional<String> result = instance.getAcceptableMediaType(acceptableMediaTypes, allowedMediaTypes);
+
+        assertEquals(expResult, result);
     }
 
 }

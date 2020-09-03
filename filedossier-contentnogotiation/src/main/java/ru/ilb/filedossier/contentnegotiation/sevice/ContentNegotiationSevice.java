@@ -24,6 +24,7 @@ import java.util.Optional;
  */
 public interface ContentNegotiationSevice {
 
+    // TODO: fix all usages of MediaType.toString(), as result can be ambiguous
     /**
      * get acceptable media type based on accept header
      * @param acceptableMediaTypes client's accept header value, e.g. text/html,application/xhtml+xml,application/xml;q=0.9
