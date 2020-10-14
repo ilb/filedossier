@@ -17,8 +17,8 @@ package ru.ilb.filedossier.ddl;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Test;
 
 /**
  *
@@ -71,12 +71,12 @@ public class FileDossierDefinitionRepositoryTest {
         assertEquals("Тестовое досье", dossierDefinition.getName());
         assertEquals(2, dossierDefinition.getDossierFiles().size());
 
-        String fileCode="fairpricecalc";
+        String fileCode = "fairpricecalc";
 
         DossierFileDefinition dossierFileDefinition = dossierDefinition.getDossierFiles().stream()
                 .filter(d -> d.getCode().equals(fileCode)).findFirst().orElseThrow(() -> new DossierNotFoundException(dossierCode));
 
-        assertEquals(true,dossierFileDefinition.getRequired());
+        assertTrue(dossierFileDefinition.getRequired());
     }
 
     @Test
@@ -97,12 +97,12 @@ public class FileDossierDefinitionRepositoryTest {
         assertEquals("Тестовое досье", dossierDefinition.getName());
         assertEquals(2, dossierDefinition.getDossierFiles().size());
 
-        String fileCode="fairpricecalc";
+        String fileCode = "fairpricecalc";
 
         DossierFileDefinition dossierFileDefinition = dossierDefinition.getDossierFiles().stream()
                 .filter(d -> d.getCode().equals(fileCode)).findFirst().orElseThrow(() -> new DossierNotFoundException(dossierCode));
 
-        assertEquals(false,dossierFileDefinition.getRequired());
+        assertFalse(dossierFileDefinition.getRequired());
     }
 
 }

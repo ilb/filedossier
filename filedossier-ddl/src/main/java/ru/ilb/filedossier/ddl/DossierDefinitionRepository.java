@@ -15,7 +15,6 @@
  */
 package ru.ilb.filedossier.ddl;
 
-
 /**
  * Репозиторий моделей досье
  *
@@ -23,6 +22,6 @@ package ru.ilb.filedossier.ddl;
  */
 public interface DossierDefinitionRepository {
 
-    public PackageDefinition getDossierPackage(String dossierPackage, String dossierMode);
+    PackageDefinition getDossierPackage(String dossierPackage, String dossierMode);
 
 }

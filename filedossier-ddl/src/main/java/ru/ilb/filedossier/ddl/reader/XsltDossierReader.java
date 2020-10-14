@@ -30,12 +30,11 @@ import ru.ilb.filedossier.ddl.PackageDefinition;
  *
  * @author slavb
  */
-public class XsltDossierReader implements DossierReader{
-
-    private static final TransformerFactory TRANSFORMER_FACTORY = TransformerFactory.newInstance();
+public class XsltDossierReader implements DossierReader {
 
     public static final String MODEL_FILE_EXTENSION = ".dossier.xsl";
 
+    private static final TransformerFactory TRANSFORMER_FACTORY = TransformerFactory.newInstance();
     private final XmlDossierReader xmlDossierReader = new XmlDossierReader();
 
     @Override
@@ -53,8 +52,9 @@ public class XsltDossierReader implements DossierReader{
         } catch (TransformerException ex) {
             throw new RuntimeException(ex);
         }
-        return xmlDossierReader.read(sw.toString(),dossierMode);
+        return xmlDossierReader.read(sw.toString(), dossierMode);
     }
+
     @Override
     public String modelFileExtension() {
         return MODEL_FILE_EXTENSION;

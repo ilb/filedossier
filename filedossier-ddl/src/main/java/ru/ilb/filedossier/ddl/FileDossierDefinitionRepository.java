@@ -34,10 +34,10 @@ import ru.ilb.filedossier.utils.FSUtils;
  * @author slavb
  */
 public class FileDossierDefinitionRepository implements DossierDefinitionRepository {
+    private static final List<DossierReader> DOSSIER_READERS = Arrays.asList(new XmlDossierReader(), new XsltDossierReader());
 
     private final URI dossierModelsBaseUri;
 
-    private final static List<DossierReader> DOSSIER_READERS = Arrays.asList(new XmlDossierReader(), new XsltDossierReader());
 
     /**
      *
