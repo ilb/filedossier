@@ -145,5 +145,6 @@
         <module>filedossier-document-merger</module>
         <module>filedossier-contentnogotiation</module>
         <module>filedossier-filesystems</module>
+        <module>filedossier-computervision</module>
     </modules>
 </project>

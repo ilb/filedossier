@@ -25,6 +25,7 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import ru.ilb.filedossier.computervision.barcodedetectrequest.*;
 import ru.ilb.filedossier.computervision.process.ComputerVistionProcesss;
@@ -34,6 +35,7 @@ import ru.ilb.filedossier.computervision.signaturedetectrequest.*;
  *
  * @author kudrin
  */
+@Ignore
 public class CVCommandExecuteTest {
 
     public CVCommandExecuteTest() {
