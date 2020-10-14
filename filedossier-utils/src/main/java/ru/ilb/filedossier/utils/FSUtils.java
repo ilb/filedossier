@@ -25,7 +25,11 @@ import java.util.Collections;
  *
  * @author slavb
  */
-public class FSUtils {
+public final class FSUtils {
+
+    private FSUtils() {
+    }
+
 
     /**
      * hot fix to open uri from different filesystems https://stackoverflow.com/a/48298758

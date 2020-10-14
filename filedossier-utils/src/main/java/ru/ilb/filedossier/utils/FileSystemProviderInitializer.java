@@ -29,7 +29,10 @@ import java.util.ServiceLoader;
  *
  * @author slavb
  */
-class FileSystemProviderInitializer {
+final class FileSystemProviderInitializer {
+
+    private FileSystemProviderInitializer() {
+    }
 
     /*
 * This is a very dirty hack to get around the fact that FileSystemProvider uses
@@ -53,9 +56,8 @@ class FileSystemProviderInitializer {
                             return threadClassLoaderInstalledProviders();
                         }
                     });
-
-            installedProvidersField.set(null, installedProviders);  // overwrite the current list of installed file system providers
-
+            // overwrite the current list of installed file system providers
+            installedProvidersField.set(null, installedProviders);
             loadingProvidersField.set(null, false);
 
             loadingProvidersField.setAccessible(false);
@@ -74,12 +76,14 @@ class FileSystemProviderInitializer {
 
         FileSystemProvider defaultProvider = FileSystems.getDefault().provider();
 
-        ServiceLoader<FileSystemProvider> sl = ServiceLoader.load(FileSystemProvider.class, ClassLoader.getSystemClassLoader());
+        ServiceLoader<FileSystemProvider> sl
+                = ServiceLoader.load(FileSystemProvider.class, ClassLoader.getSystemClassLoader());
         for (FileSystemProvider provider : sl) {
             addProviderToList(list, provider);
         }
 
-        ServiceLoader<FileSystemProvider> tsl = ServiceLoader.load(FileSystemProvider.class, Thread.currentThread().getContextClassLoader());
+        ServiceLoader<FileSystemProvider> tsl
+                = ServiceLoader.load(FileSystemProvider.class, Thread.currentThread().getContextClassLoader());
         for (FileSystemProvider provider : tsl) {
             addProviderToList(list, provider);
         }
@@ -94,7 +98,7 @@ class FileSystemProviderInitializer {
         String scheme = provider.getScheme();
 
         // add to list if the provider is not "file" and isn't a duplicate
-        if (!scheme.equalsIgnoreCase("file")) {
+        if (!"file".equalsIgnoreCase(scheme)) {
             boolean found = false;
             for (FileSystemProvider p : list) {
                 if (p.getScheme().equalsIgnoreCase(scheme)) {

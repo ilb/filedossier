@@ -16,7 +16,6 @@
 package ru.ilb.filedossier.mimetype;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -37,14 +36,13 @@ public class MimeTypeRepository {
     MimeTypeRepository() {
         List<String> lines = new ArrayList<>();
         try {
-            //lines = Files.readAllLines(Paths.get(MimeTypeUtil.class.getClassLoader().getResource("mimetype/mime.types").toURI()));
             lines = Files.readAllLines(Paths.get("/etc/mime.types"));
         } catch (IOException ex) { //URISyntaxException
             throw new RuntimeException(ex);
         }
         mimeTypes = lines.stream()
                 .filter(l -> !l.startsWith("#"))
-                .filter(l->(!l.isEmpty()))
+                .filter(l->!l.isEmpty())
                 .map(l -> l.split("\\s+"))
                 .collect(Collectors.toMap(l -> l[0], l -> Arrays.asList(Arrays.copyOfRange(l, 1, l.length))));
     }
