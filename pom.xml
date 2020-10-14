@@ -25,8 +25,8 @@
     <scm>
         <connection>scm:git:https://git.ilb.ru/ilb.ru/filedossier.git</connection>
         <url>https://git.ilb.ru/ilb.ru/filedossier</url>
-      <tag>HEAD</tag>
-  </scm>
+        <tag>HEAD</tag>
+    </scm>
     <distributionManagement>
         <site>
             <id>site</id>
@@ -42,6 +42,7 @@
         <eclipselink.version>2.7.4</eclipselink.version>
         <javax-persistence.version>2.2.1</javax-persistence.version>
         <javax.ws.rs-api.version>2.1.1</javax.ws.rs-api.version>
+        <junit.version>4.13.1</junit.version>
         <ilb-common.version>1.32</ilb-common.version>
         <javax-xml-bind-jaxb-api.version>2.3.1</javax-xml-bind-jaxb-api.version>
         <spring.boot.version>2.1.9.RELEASE</spring.boot.version>
