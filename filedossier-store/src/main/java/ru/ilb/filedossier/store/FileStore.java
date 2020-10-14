@@ -15,9 +15,6 @@
  */
 package ru.ilb.filedossier.store;
 
-import ru.ilb.filedossier.entities.Store;
-import ru.ilb.filedossier.mimetype.MimeTypeUtil;
-
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
@@ -34,6 +31,8 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
+import ru.ilb.filedossier.entities.Store;
+import ru.ilb.filedossier.mimetype.MimeTypeUtil;
 
 /**
  * Store using files
@@ -48,7 +47,7 @@ class FileStore implements Store {
 
     private final URI storeRoot;
 
-    public FileStore(URI storeRoot, String storeKey) {
+    FileStore(URI storeRoot, String storeKey) {
         this.storeKey = storeKey;
         this.storeRoot = URI.create(storeRoot.toString() + "/");
     }
@@ -108,7 +107,7 @@ class FileStore implements Store {
     @Override
     public int getObjectsCount() {
         String[] allObjects = getStorePath().toFile().list();
-        if (allObjects == null){
+        if (allObjects == null) {
             return 0;
         }
         return allObjects.length;
@@ -128,7 +127,7 @@ class FileStore implements Store {
     @Override
     public String getFileMimeType(String code) throws IOException {
         Path path = getFilePath(code);
-        if (Files.isDirectory(path)){
+        if (Files.isDirectory(path)) {
             File dir = new File(path.toString());
             byte[] firstFileContents = Files.readAllBytes(dir.listFiles()[0].toPath());
             return MimeTypeUtil.guessMimeTypeFromByteArray(firstFileContents);

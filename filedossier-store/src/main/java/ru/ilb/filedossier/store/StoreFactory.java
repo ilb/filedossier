@@ -27,7 +27,7 @@ public class StoreFactory {
 
     private final URI storeRoot;
 
-    private StoreFactory(URI storeRoot) {
+    protected StoreFactory(URI storeRoot) {
         this.storeRoot = storeRoot;
     }
 
