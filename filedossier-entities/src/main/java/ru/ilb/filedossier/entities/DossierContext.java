@@ -29,11 +29,11 @@ public interface DossierContext {
     /**
      * @return context values as map
      */
-    public Map<String, Object> asMap();
+    Map<String, Object> asMap();
 
-    public boolean containsProperty(String propertyName);
+    boolean containsProperty(String propertyName);
 
-    public Object getProperty(String propertyName);
+    Object getProperty(String propertyName);
 
-    public void setProperty(String propertyName, Object propertyValue);
+    void setProperty(String propertyName, Object propertyValue);
 }

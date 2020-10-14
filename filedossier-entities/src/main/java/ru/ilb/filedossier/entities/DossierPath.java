@@ -25,20 +25,20 @@ public interface DossierPath {
     /**
      * @return physical name of file/dir
      */
-    public String getCode();
+    String getCode();
 
     /**
      * @return name, displayed to the user
      */
-    public String getName();
+    String getName();
 
     /**
      * @return parent DossierPath
      */
-    public DossierPath getParent();
+    DossierPath getParent();
 
     /**
      * Sets parent DossierPath.
      */
-    public void setParent(DossierPath parent);
+    void setParent(DossierPath parent);
 }

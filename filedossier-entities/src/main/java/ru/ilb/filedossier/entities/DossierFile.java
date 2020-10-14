@@ -16,7 +16,6 @@
 package ru.ilb.filedossier.entities;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 /**
  * Dossier file is an extension of DossierContents, it is the abstract dossier file, that contains representation, context, and abstract flags of file.
@@ -56,8 +55,8 @@ public interface DossierFile extends DossierContents {
     String getContextKey();
 
     /**
-     * Returns last modified date of latest version
-     * FIXME лучше использовать LocalDateTime
+     * Returns last modified date of latest version FIXME лучше использовать LocalDateTime
+     *
      * @return millis
      */
     LocalDateTime lastModified();
@@ -67,10 +66,9 @@ public interface DossierFile extends DossierContents {
      */
     Integer getVersionsCount();
 
-
-
     /**
      * Creates new dossier file version
+     *
      * @param mediaType
      * @return
      */

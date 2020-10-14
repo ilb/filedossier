@@ -15,7 +15,6 @@
  */
 package ru.ilb.filedossier.entities;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -48,17 +47,17 @@ public interface DossierContents extends DossierPath {
     /**
      * @return list with media types, allowed to store in current item. first one is default
      */
-    public List<String> getAllowedMediaTypes();
-    
+    List<String> getAllowedMediaTypes();
+
     /**
      * @return file extension using default representation
      */
-    public String getExtension();
+    String getExtension();
 
     /**
      * @return file name that contains name and extension
      */
-    default public String getFileName() {
+    default String getFileName() {
         String extension = getExtension();
         return extension == null ? getCode() : getCode() + "." + getExtension();
     }
