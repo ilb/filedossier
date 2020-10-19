@@ -52,6 +52,7 @@
         <javax-xml-bind-jaxb-api.version>2.3.1</javax-xml-bind-jaxb-api.version>
         <spring.boot.version>2.1.9.RELEASE</spring.boot.version>
         <maven.test.skip>false</maven.test.skip>
+        <containeraccessor.version>1.1-SNAPSHOT</containeraccessor.version>
     </properties>
     <build>
         <pluginManagement>
@@ -130,7 +131,7 @@
         <profile>
             <id>sourcecheck</id>
             <activation>
-                <activeByDefault>true</activeByDefault>
+                <activeByDefault>false</activeByDefault>
             </activation>
             <build>
                 <plugins>
