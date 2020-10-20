@@ -24,8 +24,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
-import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Test;
 
 /**
  *
@@ -45,7 +45,7 @@ public class PdfFileSystemProviderTest {
         try (FileSystem fs = FileSystems.newFileSystem(fsUri, attributes);) {
             Path path = fs.getPath("page-1.jpg");
             byte[] content = Files.readAllBytes(path);
-            assertEquals(227037, content.length);
+            assertEquals(30992, content.length);
             contentsPath = ((PdfFileSystem) fs).getContentsPath();
         }
         assertFalse("Directory still exists", Files.exists(contentsPath));
