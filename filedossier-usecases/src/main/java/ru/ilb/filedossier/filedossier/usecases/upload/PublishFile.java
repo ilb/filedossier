@@ -15,16 +15,15 @@
  */
 package ru.ilb.filedossier.filedossier.usecases.upload;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
+import javax.inject.Inject;
+import javax.inject.Named;
 import ru.ilb.filedossier.document.merger.DocumentMergerExecutor;
 import ru.ilb.filedossier.entities.DossierFile;
 import ru.ilb.filedossier.entities.DossierFileVersion;
 import ru.ilb.filedossier.mimetype.MimeTypeUtil;
-
-import javax.inject.Inject;
-import javax.inject.Named;
-import java.io.File;
-import java.io.IOException;
-import java.util.List;
 
 /**
  *
@@ -40,7 +39,6 @@ public class PublishFile {
     public PublishFile(PublishFileNewVersion publishNewVersion) {
         this.publishNewVersion = publishNewVersion;
     }
-
 
     public void publish(File file, DossierFile dossierFile) {
         executor = DocumentMergerExecutor.getInstance();
@@ -59,8 +57,8 @@ public class PublishFile {
             //FIXME не должна изменяться существующая версия
             version.setMediaType(MimeTypeUtil.guessMimeTypeFromByteArray(mergedDocument));
             version.setContents(mergedDocument);
-        } catch (IOException e) {
-            throw new RuntimeException("Error while merging current dossier file with new file: " + e);
+        } catch (IOException ex) {
+            throw new RuntimeException("Error while merging current dossier file with new file", ex);
         }
     }
 
@@ -79,8 +77,8 @@ public class PublishFile {
             byte[] mergedDocument = executor.executeMerge();
             version.setMediaType(MimeTypeUtil.guessMimeTypeFromByteArray(mergedDocument));
             version.setContents(mergedDocument);
-        } catch (IOException e) {
-            throw new RuntimeException("Error while merging current dossier with new files: " + e);
+        } catch (IOException ex) {
+            throw new RuntimeException("Error while merging current dossier with new files", ex);
         }
     }
 }
