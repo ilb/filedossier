@@ -15,23 +15,21 @@
  */
 package ru.ilb.filedossier.core;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
+import javax.inject.Inject;
+import javax.inject.Named;
 import ru.ilb.filedossier.context.DossierContextService;
 import ru.ilb.filedossier.ddl.DossierDefinition;
 import ru.ilb.filedossier.ddl.DossierDefinitionRepository;
 import ru.ilb.filedossier.ddl.DossierFileDefinition;
-import ru.ilb.filedossier.entities.*;
-import ru.ilb.filedossier.representation.RepresentationFactory;
-import ru.ilb.filedossier.scripting.TemplateEvaluator;
-import ru.ilb.filedossier.store.StoreFactory;
-
-import javax.inject.Inject;
-import javax.inject.Named;
-import java.io.IOException;
-import java.net.URI;
-import java.util.List;
-import java.util.stream.Collectors;
 import ru.ilb.filedossier.ddl.DossierNotFoundException;
 import ru.ilb.filedossier.ddl.PackageDefinition;
+import ru.ilb.filedossier.entities.*;
+import ru.ilb.filedossier.representation.RepresentationFactory;
+import ru.ilb.filedossier.store.StoreFactory;
+import ru.ilb.scripting.evaluator.TemplateEvaluator;
 
 /**
  *
