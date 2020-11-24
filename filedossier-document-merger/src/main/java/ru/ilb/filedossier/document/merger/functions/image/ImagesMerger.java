@@ -10,11 +10,10 @@ import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.AreaBreak;
 import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.property.AreaBreakType;
-import ru.ilb.filedossier.document.merger.functions.DocumentMerger;
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Comparator;
+import ru.ilb.filedossier.document.merger.functions.DocumentMerger;
 
 /**
  * Merges two images to PDF document.
@@ -45,6 +44,7 @@ public class ImagesMerger implements DocumentMerger {
 
     /**
      * Calculates biggest page size from specified images, to choose as default for all new pages.
+     *
      * @return page size
      */
     private Rectangle calculateDefaultRectangle(Image image1, Image image2) {
@@ -63,6 +63,6 @@ public class ImagesMerger implements DocumentMerger {
     private Image buildImage(byte[] rawImage) {
         ImageData imageData = ImageDataFactory.create(rawImage);
         return new Image(imageData)
-                .setFixedPosition(0,0);
+                .setFixedPosition(0, 0);
     }
 }

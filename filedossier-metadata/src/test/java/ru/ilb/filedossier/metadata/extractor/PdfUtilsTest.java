@@ -15,7 +15,6 @@
  */
 package ru.ilb.filedossier.metadata.extractor;
 
-import ru.ilb.filedossier.metadata.extractor.PdfUtils;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;

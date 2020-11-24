@@ -15,6 +15,10 @@
  */
 package ru.ilb.filedossier.core;
 
+import java.net.URISyntaxException;
+import javax.naming.Context;
+import javax.naming.NamingException;
+import static org.junit.Assert.assertEquals;
 import org.junit.ClassRule;
 import org.junit.Test;
 import ru.ilb.filedossier.context.DossierContextImpl;
@@ -24,12 +28,6 @@ import ru.ilb.filedossier.entities.Dossier;
 import ru.ilb.filedossier.entities.DossierContext;
 import ru.ilb.filedossier.jndi.JndiRule;
 import ru.ilb.filedossier.store.StoreFactory;
-
-import javax.naming.Context;
-import javax.naming.NamingException;
-import java.net.URISyntaxException;
-
-import static org.junit.Assert.assertEquals;
 import ru.ilb.jndicontext.core.SimpleInitialContext;
 
 /**
@@ -37,8 +35,6 @@ import ru.ilb.jndicontext.core.SimpleInitialContext;
  * @author slavb
  */
 public class DossierFactoryTest {
-
-    private final DossierFactory dossierFactory;
 
     @ClassRule
     public static JndiRule jndi = new JndiRule() {
@@ -48,6 +44,11 @@ public class DossierFactoryTest {
         }
 
     };
+    private final DossierFactory dossierFactory;
+
+    public DossierFactoryTest() throws NamingException {
+        dossierFactory = getDossierFactory();
+    }
 
     public static DossierFactory getDossierFactory() {
         FileDossierDefinitionRepository dossierModelRepository;
@@ -80,10 +81,6 @@ public class DossierFactoryTest {
             }
         } /*, templateEvaluator*/);
 
-    }
-
-    public DossierFactoryTest() throws NamingException {
-        dossierFactory = getDossierFactory();
     }
 
     /**

@@ -16,15 +16,16 @@
 package ru.ilb.filedossier.core;
 
 import java.io.IOException;
-import ru.ilb.filedossier.entities.*;
-import ru.ilb.filedossier.entities.DossierFileVersion;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import ru.ilb.filedossier.entities.Dossier;
+import ru.ilb.filedossier.entities.DossierFile;
+import ru.ilb.filedossier.entities.DossierFileVersion;
+import ru.ilb.filedossier.entities.DossierPath;
+import ru.ilb.filedossier.entities.Store;
 
 /**
  *
@@ -32,25 +33,25 @@ import java.util.stream.Collectors;
  */
 public class DossierFileImpl implements DossierFile {
 
-    private Dossier parent;
+    protected Dossier parent;
 
-    private Store store;
+    protected Store store;
 
-    private final String code;
+    protected final String code;
 
     protected final String name;
 
     protected final boolean required;
 
-    private final boolean readonly;
+    protected final boolean readonly;
 
-    private final boolean hidden;
+    protected final boolean hidden;
 
-    private final boolean allowedMultiple;
+    protected final boolean allowedMultiple;
 
-    private List<DossierFileVersion> versions;
+    protected List<DossierFileVersion> versions;
 
-    private Map<String, DossierFileVariation> variations;
+    protected Map<String, DossierFileVariation> variations;
 
     DossierFileImpl(Store store, String code, String name,
             boolean required, boolean readonly,
@@ -155,7 +156,7 @@ public class DossierFileImpl implements DossierFile {
 
     @Override
     public DossierFileVersion getLatestVersion() {
-        if (versions.size() > 0) {
+        if (!versions.isEmpty()) {
             return versions.get(versions.size() - 1);
         } else {
             return null;

@@ -19,7 +19,6 @@ import javax.inject.Inject;
 import javax.ws.rs.container.ResourceContext;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
-
 import org.springframework.context.ApplicationContext;
 import ru.ilb.filedossier.api.DossierFileResource;
 import ru.ilb.filedossier.api.DossierResource;
@@ -67,7 +66,7 @@ public class DossierResourceImpl implements DossierResource {
     @Override
     public DossierView getDossier() {
         return dossierMapper
-                .map(dossier,uriInfo.getRequestUri());
+                .map(dossier, uriInfo.getRequestUri());
     }
 
     @Override

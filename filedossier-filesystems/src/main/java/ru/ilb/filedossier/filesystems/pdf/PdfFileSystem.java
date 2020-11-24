@@ -185,10 +185,7 @@ public class PdfFileSystem extends FileSystem {
             return false;
         }
         final PdfFileSystem other = (PdfFileSystem) obj;
-        if (!Objects.equals(this.uri, other.uri)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.uri, other.uri);
     }
 
     public URI getUri() {

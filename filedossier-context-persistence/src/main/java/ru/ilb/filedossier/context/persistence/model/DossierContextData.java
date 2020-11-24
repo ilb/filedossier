@@ -24,7 +24,7 @@ import org.springframework.data.annotation.Id;
 public class DossierContextData {
 
     @Id
-    private Long Id;
+    private Long id;
 
     private String dataKey;
 
@@ -33,6 +33,14 @@ public class DossierContextData {
     DossierContextData(String dataKey, Object dataValue) {
         this.dataKey = dataKey;
         this.dataValue = dataValue;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getDataKey() {

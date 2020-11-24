@@ -22,9 +22,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URI;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  *
@@ -33,6 +30,8 @@ import java.util.List;
 public class RuntimeFunction implements ByteFunction {
 
     private final String[] command;
+
+    private Process p;
 
     public RuntimeFunction(URI command) {
         File commandFile = Paths.get(command.getPath()).toFile();
@@ -48,8 +47,6 @@ public class RuntimeFunction implements ByteFunction {
     public RuntimeFunction(String... command) {
         this.command = command;
     }
-
-    private Process p;
 
     @Override
     public byte[] apply(byte[] t) {

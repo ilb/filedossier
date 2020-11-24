@@ -22,11 +22,10 @@ import javax.ws.rs.WebApplicationException;
  *
  * @author slavb
  */
-public class NotAcceptableMediaType extends WebApplicationException{
+public class NotAcceptableMediaType extends WebApplicationException {
 
     public NotAcceptableMediaType(List<String> allowedMediaTypes) {
         super("Not acceptable, allowed media types " + allowedMediaTypes.toString(), 456);
     }
-
 
 }

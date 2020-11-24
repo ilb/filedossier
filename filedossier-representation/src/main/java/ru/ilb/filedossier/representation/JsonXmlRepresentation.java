@@ -16,12 +16,9 @@
 
 package ru.ilb.filedossier.representation;
 
+import java.io.IOException;
 import org.json.JSONObject;
 import org.json.XML;
-
-import ru.ilb.filedossier.entities.Store;
-
-import java.io.IOException;
 
 /**
  * Json to XML conversion.

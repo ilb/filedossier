@@ -41,7 +41,9 @@ public class SignatureValidationStrategy implements ValidationStrategy {
 
         int i = 1;
         for (boolean isSignatureExist : signatures) {
-            if (isSignatureExist == false) report.addError(SIGN_NOT_EXIST_ERR + i++);
+            if (!isSignatureExist) {
+                report.addError(SIGN_NOT_EXIST_ERR + i++);
+            }
         }
         return report;
     }

@@ -2,9 +2,6 @@ package ru.ilb.filedossier.document.merger;
 
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfReader;
-import org.junit.Before;
-import org.junit.Test;
-
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
@@ -14,8 +11,9 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-
 import static org.junit.Assert.assertEquals;
+import org.junit.Before;
+import org.junit.Test;
 
 public class DocumentMergerExecutorTest {
 
@@ -37,13 +35,13 @@ public class DocumentMergerExecutorTest {
     }
 
     @Test
-    public void testGetFromList(){
-        DocumentMergerExecutor instance = DocumentMergerExecutor.fromList(filesDocuments);
+    public void testGetFromList() {
+        DocumentMergerExecutor.fromList(filesDocuments);
     }
 
     @Test
-    public void testGetFromRawList(){
-        DocumentMergerExecutor instance = DocumentMergerExecutor.fromRawList(rawDocuments);
+    public void testGetFromRawList() {
+        DocumentMergerExecutor.fromRawList(rawDocuments);
     }
 
     @Test

@@ -18,10 +18,10 @@ package ru.ilb.filedossier.context;
 import java.util.Map;
 import org.junit.After;
 import org.junit.AfterClass;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 import ru.ilb.filedossier.entities.DossierContext;
 
 /**
@@ -57,7 +57,6 @@ public class DossierContextImplTest {
         System.out.println("asMap");
         DossierContext instance = new DossierContextImpl();
         instance.setProperty("testkey", "testvalue");
-        Map<String, Object> expResult = null;
         Map<String, Object> result = instance.asMap();
         assertEquals("testvalue", result.get("testkey"));
     }

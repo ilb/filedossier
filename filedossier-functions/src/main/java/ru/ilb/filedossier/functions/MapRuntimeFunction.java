@@ -34,13 +34,14 @@ public class MapRuntimeFunction implements MapFunction {
 
     private final URI commandUri;
 
-    public MapRuntimeFunction(URI commandUri) {
-        this.commandUri = commandUri;
-    }
 
     private Process p;
 
     private final JsonMapObjectReaderWriter jsonreaderwriter = new JsonMapObjectReaderWriter();
+
+    public MapRuntimeFunction(URI commandUri) {
+        this.commandUri = commandUri;
+    }
 
     private void marshall(Map<String, Object> map, OutputStream os) throws FileNotFoundException {
         jsonreaderwriter.toJson(new JsonMapObject(map), os);

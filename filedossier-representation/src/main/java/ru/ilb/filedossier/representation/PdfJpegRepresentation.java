@@ -1,13 +1,12 @@
 package ru.ilb.filedossier.representation;
 
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.rendering.ImageType;
-import org.apache.pdfbox.rendering.PDFRenderer;
-
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import javax.imageio.ImageIO;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.rendering.ImageType;
+import org.apache.pdfbox.rendering.PDFRenderer;
 
 public class PdfJpegRepresentation extends IdentityRepresentation {
 
@@ -17,7 +16,7 @@ public class PdfJpegRepresentation extends IdentityRepresentation {
 
     @Override
     public byte[] getContents() throws IOException {
-        try (PDDocument pdfDocument = PDDocument.load(parent.getContents()); ByteArrayOutputStream outputStream = new ByteArrayOutputStream()){
+        try (PDDocument pdfDocument = PDDocument.load(parent.getContents()); ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
             if (!isSinglePage()) {
                 return parent.getContents();
             }
@@ -29,7 +28,7 @@ public class PdfJpegRepresentation extends IdentityRepresentation {
     }
 
     private boolean isSinglePage() {
-        try (PDDocument pdfDocument = PDDocument.load(parent.getContents())){
+        try (PDDocument pdfDocument = PDDocument.load(parent.getContents())) {
             return pdfDocument.getNumberOfPages() == 1;
         } catch (IOException e) {
             throw new RuntimeException("Corrupted PDF document");

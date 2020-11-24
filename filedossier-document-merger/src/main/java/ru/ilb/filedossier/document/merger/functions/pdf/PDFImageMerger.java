@@ -5,14 +5,16 @@ import com.itextpdf.io.image.ImageDataFactory;
 import com.itextpdf.kernel.geom.AffineTransform;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.geom.Rectangle;
-import com.itextpdf.kernel.pdf.*;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfPage;
+import com.itextpdf.kernel.pdf.PdfReader;
+import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
-import ru.ilb.filedossier.document.merger.functions.DocumentMerger;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import ru.ilb.filedossier.document.merger.functions.DocumentMerger;
 
 /**
  * Merges PDF document and image, i.e. adds image to PDF.
@@ -23,6 +25,7 @@ public class PDFImageMerger implements DocumentMerger {
 
     /**
      * Basic constructor, creates pdf/image merger with merge direction.
+     *
      * @see ru.ilb.filedossier.document.merger.functions.DocumentMerger.MergeDirection
      */
     public PDFImageMerger(MergeDirection direction) {
@@ -54,7 +57,7 @@ public class PDFImageMerger implements DocumentMerger {
         }
 
         try (ByteArrayOutputStream os = new ByteArrayOutputStream();
-            InputStream is = new ByteArrayInputStream(pdf)) {
+                InputStream is = new ByteArrayInputStream(pdf)) {
 
             PdfReader reader = new PdfReader(is);
             PdfWriter writer = new PdfWriter(os);
@@ -74,9 +77,13 @@ public class PDFImageMerger implements DocumentMerger {
         PdfPage newPage = null;
 
         switch (direction) {
-            case TO_START: newPage = document.addNewPage(1, new PageSize(documentBox));
+            case TO_START:
+                newPage = document.addNewPage(1, new PageSize(documentBox));
                 break;
-            case TO_END: newPage = document.addNewPage(new PageSize(documentBox));
+            case TO_END:
+                newPage = document.addNewPage(new PageSize(documentBox));
+                break;
+            default:
         }
 
         AffineTransform at = AffineTransform.getTranslateInstance(

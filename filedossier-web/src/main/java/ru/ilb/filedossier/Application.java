@@ -17,7 +17,6 @@ package ru.ilb.filedossier;
 
 import java.net.URI;
 import java.nio.file.Paths;
-
 import org.apache.cxf.ext.logging.LoggingFeature;
 import org.apache.cxf.jaxrs.provider.json.JsonMapObjectProvider;
 import org.springframework.beans.factory.annotation.Value;
@@ -75,9 +74,9 @@ public class Application {
     public DossierDefinitionRepository dossierDefinitionRepository() {
         return new FileDossierDefinitionRepository(Paths.get(dossierRepository).resolve("packages").toUri());
     }
-    
+
     @Bean
-    public ContainersResource containersResource(){
+    public ContainersResource containersResource() {
         return new ContainersResourceImpl();
     }
 
@@ -87,7 +86,6 @@ public class Application {
     //    context.bind("ru.bystrobank.apps.meta.url", "https://devel.net.ilb.ru/meta");
     //    return context;
     //}
-
 //    @Bean
 //    @ConditionalOnExpression("'${ILB_SYSID}'=='DEVEL'")
 //    public XSLTRequestFilter xsltRequestFilter() {

@@ -15,7 +15,6 @@
  */
 package ru.ilb.filedossier.functions;
 
-import java.io.File;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.Paths;
@@ -24,10 +23,10 @@ import java.util.Map;
 import org.apache.cxf.jaxrs.json.basic.JsonMapObject;
 import org.junit.After;
 import org.junit.AfterClass;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *

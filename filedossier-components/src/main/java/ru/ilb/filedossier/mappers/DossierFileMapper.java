@@ -15,10 +15,8 @@
  */
 package ru.ilb.filedossier.mappers;
 
-import ru.ilb.filedossier.entities.DossierFile;
-import ru.ilb.filedossier.view.DossierFileView;
-
 import java.net.URI;
+import ru.ilb.filedossier.entities.DossierFile;
 
 /**
  * Builds dossier response view

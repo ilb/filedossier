@@ -15,7 +15,6 @@
  */
 package ru.ilb.filedossier.metadata.extractor;
 
-import ru.ilb.filedossier.metadata.extractor.ImageUtils;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import org.junit.Assert;

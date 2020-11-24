@@ -15,18 +15,17 @@
  */
 package ru.ilb.filedossier.mappers;
 
-import ru.ilb.filedossier.core.ContentDispositionMode;
-import ru.ilb.filedossier.entities.DossierFile;
-import ru.ilb.filedossier.entities.DossierFileVersion;
-import ru.ilb.filedossier.view.DossierFileView;
-
-import javax.inject.Named;
-import javax.ws.rs.core.Link;
-import javax.ws.rs.core.UriBuilder;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
+import javax.inject.Named;
+import javax.ws.rs.core.Link;
+import javax.ws.rs.core.UriBuilder;
+import ru.ilb.filedossier.core.ContentDispositionMode;
+import ru.ilb.filedossier.entities.DossierFile;
+import ru.ilb.filedossier.entities.DossierFileVersion;
+import ru.ilb.filedossier.view.DossierFileView;
 
 @Named
 public class DossierFileMapperImpl implements DossierFileMapper {
@@ -88,7 +87,7 @@ public class DossierFileMapperImpl implements DossierFileMapper {
                 .rel("context")
                 .build();
         links.add(context);
-        
+
         Link container = Link
                 .fromUri(UriBuilder.fromUri(dossierFileResourceUri).path("container").build())
                 .rel("container")

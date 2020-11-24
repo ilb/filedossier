@@ -17,8 +17,20 @@ package ru.ilb.filedossier.components;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.nio.file.Paths;
+import java.text.ParseException;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
+import javax.inject.Inject;
+import javax.ws.rs.core.Response;
 import org.apache.cxf.jaxrs.client.JAXRSClientFactory;
+import org.apache.cxf.jaxrs.client.WebClient;
+import org.apache.cxf.jaxrs.ext.multipart.Attachment;
+import org.apache.cxf.jaxrs.ext.multipart.MultipartBody;
 import org.apache.cxf.jaxrs.provider.json.JsonMapObjectProvider;
+import org.apache.cxf.transport.http.HTTPConduit;
 import org.junit.Assert;
 import org.junit.FixMethodOrder;
 import org.junit.runner.RunWith;
@@ -28,19 +40,6 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.junit4.SpringRunner;
 import ru.ilb.filedossier.api.DossierFileResource;
 import ru.ilb.filedossier.api.DossiersResource;
-import javax.inject.Inject;
-import javax.ws.rs.core.Response;
-import java.net.URISyntaxException;
-import java.nio.file.Paths;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
-import org.apache.cxf.jaxrs.client.WebClient;
-import org.apache.cxf.jaxrs.ext.multipart.Attachment;
-import org.apache.cxf.jaxrs.ext.multipart.MultipartBody;
-import org.apache.cxf.transport.http.HTTPConduit;
 import ru.ilb.filedossier.view.DossierFileView;
 import ru.ilb.filedossier.view.DossierView;
 
@@ -99,6 +98,7 @@ public class DossierFileResourceImplTest {
 
     /**
      * Test of getDossierResource method, of class DossiersResourceImpl.
+     *
      * @throws java.net.URISyntaxException
      */
     @org.junit.Test
@@ -128,10 +128,10 @@ public class DossierFileResourceImplTest {
     }
 
     @org.junit.Test
-    public void testUpdateContents() throws URISyntaxException, IOException, ParseException, InterruptedException{
+    public void testUpdateContents() throws URISyntaxException, IOException, ParseException, InterruptedException {
         DossiersResource dossiersResource = getDossiersResource();
         DossierView dossierView = dossiersResource.getDossierResource("teststorekey", "testmodel", "TEST", "mode1").getDossier();
-        DossierFileView dfv = dossierView.getDossierFiles().stream().filter(x->x.getCode().equals("image1")).findFirst().orElse(null);
+        DossierFileView dfv = dossierView.getDossierFiles().stream().filter(x -> x.getCode().equals("image1")).findFirst().orElse(null);
         File file = Paths.get(getClass().getClassLoader().getResource("page1.jpg").toURI()).toFile();
         List<Attachment> updateAtts = new LinkedList<Attachment>();
         updateAtts.add(new Attachment("updatefile", "image/jpeg", file));
@@ -140,7 +140,7 @@ public class DossierFileResourceImplTest {
         dossierFileResource.update(new MultipartBody(updateAtts, true));
         DossiersResource updatedDossiersResource = getDossiersResource();
         DossierView updatedDossierView = updatedDossiersResource.getDossierResource("teststorekey", "testmodel", "TEST", "mode1").getDossier();
-        DossierFileView updatedDfv = updatedDossierView.getDossierFiles().stream().filter(x->x.getCode().equals("image1")).findFirst().orElse(null);
+        DossierFileView updatedDfv = updatedDossierView.getDossierFiles().stream().filter(x -> x.getCode().equals("image1")).findFirst().orElse(null);
         Assert.assertNotEquals(dfv.getLastModified(), updatedDfv.getLastModified());
     }
 

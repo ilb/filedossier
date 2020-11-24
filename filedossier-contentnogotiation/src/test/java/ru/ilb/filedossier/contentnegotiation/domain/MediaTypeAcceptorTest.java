@@ -19,10 +19,10 @@ import java.util.Optional;
 import javax.ws.rs.core.MediaType;
 import org.junit.After;
 import org.junit.AfterClass;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -119,7 +119,7 @@ public class MediaTypeAcceptorTest {
         assertEquals(expResult, result);
     }
 
-  @Test
+    @Test
     public void testIsAcceptDefaultRepresentation3() {
         System.out.println("isAcceptDefaultRepresentation3");
         String acceptableMediaTypes = "application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8";

@@ -15,16 +15,15 @@
  */
 package ru.ilb.filedossier.core;
 
-import ru.ilb.filedossier.core.DossierFactory;
-import ru.ilb.filedossier.entities.DossierFile;
-import ru.ilb.filedossier.entities.Dossier;
 import java.util.List;
 import javax.naming.Context;
 import javax.naming.NamingException;
-import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.ClassRule;
+import org.junit.Test;
 import static ru.ilb.filedossier.core.DossierFactoryTest.getDossierFactory;
+import ru.ilb.filedossier.entities.Dossier;
+import ru.ilb.filedossier.entities.DossierFile;
 import ru.ilb.filedossier.jndi.JndiRule;
 
 /**
@@ -32,10 +31,6 @@ import ru.ilb.filedossier.jndi.JndiRule;
  * @author slavb
  */
 public class DossierImplTest {
-
-    private final DossierFactory dossierFactory;
-
-    private final Dossier dossier;
 
     @ClassRule
     public static JndiRule jndi = new JndiRule() {
@@ -45,6 +40,11 @@ public class DossierImplTest {
         }
 
     };
+
+    private final DossierFactory dossierFactory;
+
+    private final Dossier dossier;
+
 
     public DossierImplTest() throws NamingException {
         dossierFactory = getDossierFactory();

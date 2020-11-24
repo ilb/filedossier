@@ -13,11 +13,9 @@
    See the License for the specific language governing permissions and
    limitations under the License.
  */
-
 package ru.ilb.filedossier.filesystems.pdf;
 
 import java.io.File;
-import java.io.IOError;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -29,19 +27,17 @@ import java.nio.file.WatchEvent.Modifier;
 import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
 import java.util.Arrays;
-import java.util.Deque;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.StringTokenizer;
 
 /**
  * Denotes a Pdf Path.
  */
 public class PdfPath implements Path {
 
-    private static final String NEED_TO_BE_AN_INSTANCE_OF_Pdf_PATH = "Need to be an instance of PdfPath";
-    private static final String PARENT_PATH = "..";
+    private static final String NEED_TO_BE_AN_INSTANCE_OF_PDF_PATH = "Need to be an instance of PdfPath";
+//    private static final String PARENT_PATH = "..";
     private static final String PATH_SEP = "/";
     private static final String DEFAULT_ROOT_PATH = PATH_SEP;
     private final String path;
@@ -168,7 +164,7 @@ public class PdfPath implements Path {
     @Override
     public Path relativize(Path other) {
         if (!(other instanceof PdfPath)) {
-            throw new IllegalArgumentException(NEED_TO_BE_AN_INSTANCE_OF_Pdf_PATH);
+            throw new IllegalArgumentException(NEED_TO_BE_AN_INSTANCE_OF_PDF_PATH);
         }
 
         if (!other.getFileSystem().equals(this.getFileSystem())) {
@@ -176,7 +172,7 @@ public class PdfPath implements Path {
         }
 
         Path base = this;
-        PdfPath current = (PdfPath)other;
+        PdfPath current = (PdfPath) other;
 
         String[] bParts = this.path.split(PATH_SEP);
         String[] cParts = current.path.split(PATH_SEP);
@@ -280,7 +276,7 @@ public class PdfPath implements Path {
         } catch(URISyntaxException e) {
             throw new IOError(e);
         }
-*/
+         */
     }
 
     @Override

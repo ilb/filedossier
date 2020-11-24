@@ -27,11 +27,11 @@ interface MetadataExtractor {
      * get property value
      * @return
      */
-    public String getProperty();
+    String getProperty();
 
     /**
      * get all properties as map
      * @return
      */
-    public Map<String, String> asMap();
+    Map<String, String> asMap();
 }

@@ -22,8 +22,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
-import ru.ilb.filedossier.entities.Store;
-import ru.ilb.filedossier.store.StoreFactory;
 
 /**
  *
@@ -49,7 +47,7 @@ public class PdfGenRepresentationTest {
     @Test
     public void testGenerateRepresentation() throws URISyntaxException, IOException {
         System.out.println("getContents");
-        Store store = StoreFactory.newInstance(Files.createTempDirectory("storeroot").toUri()).getStore("storekey");
+//        Store store = StoreFactory.newInstance(Files.createTempDirectory("storeroot").toUri()).getStore("storekey");
         PdfGenRepresentation instance = new PdfGenRepresentation("application/pdf", URI.create(xsl),
                 URI.create(xsd), URI.create(meta));
 

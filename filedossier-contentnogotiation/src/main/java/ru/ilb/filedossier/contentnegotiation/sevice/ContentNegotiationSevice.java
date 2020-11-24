@@ -20,6 +20,7 @@ import java.util.Optional;
 
 /**
  * Service to negotiate content based on accept header
+ *
  * @author slavb
  */
 public interface ContentNegotiationSevice {
@@ -27,10 +28,11 @@ public interface ContentNegotiationSevice {
     // TODO: fix all usages of MediaType.toString(), as result can be ambiguous
     /**
      * get acceptable media type based on accept header
+     *
      * @param acceptableMediaTypes client's accept header value, e.g. text/html,application/xhtml+xml,application/xml;q=0.9
      * @param allowedMediaTypes list of allowed media types to serve
      * @return
      */
-    public Optional<String> getAcceptableMediaType(String acceptableMediaTypes, List<String> allowedMediaTypes);
+    Optional<String> getAcceptableMediaType(String acceptableMediaTypes, List<String> allowedMediaTypes);
 
 }

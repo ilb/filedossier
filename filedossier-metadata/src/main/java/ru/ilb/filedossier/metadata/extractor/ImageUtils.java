@@ -31,7 +31,10 @@ import ru.ilb.filedossier.mimetype.MimeTypeUtil;
  *
  * @author kuznetsov_me
  */
-public class ImageUtils {
+public final class ImageUtils {
+
+    private ImageUtils() {
+    }
 
     public static String extractXMPMetadata(byte[] rawImage, String propName) throws
             IOException, ImageProcessingException {

@@ -22,7 +22,7 @@ import ru.ilb.filedossier.api.DossierStoreResource;
  *
  * @author slavb
  */
-public class DossierStoreResourceImpl implements DossierStoreResource{
+public class DossierStoreResourceImpl implements DossierStoreResource {
 
     @Override
     public Response storeIndex(Integer version, String accept) {

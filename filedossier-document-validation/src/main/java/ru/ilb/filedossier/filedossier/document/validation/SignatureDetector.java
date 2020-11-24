@@ -40,7 +40,7 @@ import ru.ilb.filedossier.functions.MapRuntimeFunction;
  * @see ru.ilb.filedossier.functions.MapRuntimeFunction
  * @author kuznetsov_me
  */
-public class SignatureDetector {
+public final class SignatureDetector {
 
     /**
      * URI of the signature detector script.
@@ -86,7 +86,7 @@ public class SignatureDetector {
     /**
      * Builds SignatureDetector with request arguments map.
      */
-    public class RequestBuilder {
+    public final class RequestBuilder {
 
         /**
          * Original PDF page path

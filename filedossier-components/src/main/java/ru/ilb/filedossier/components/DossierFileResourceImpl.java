@@ -17,6 +17,7 @@ package ru.ilb.filedossier.components;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.inject.Inject;
@@ -37,7 +38,6 @@ import ru.ilb.filedossier.exceptions.NotAcceptableMediaType;
 import ru.ilb.filedossier.filedossier.usecases.upload.PublishFile;
 import ru.ilb.filedossier.filedossier.usecases.upload.PublishFileNewVersion;
 import ru.ilb.uriaccessor.URIStorageFactory;
-import java.net.URI;
 
 public class DossierFileResourceImpl implements DossierFileResource {
 
@@ -129,13 +129,13 @@ public class DossierFileResourceImpl implements DossierFileResource {
         if (body.getAllAttachments().size() < 1) {
             publishFile.publish(body.getRootAttachment().getObject(File.class), dossierFile);
         } else {
-                publishFile.mergeAndPublish(body.getAllAttachments().stream()
-                        .map(att -> att.getObject(File.class))
-                        .collect(Collectors.toList()),
-                        dossierFile);
+            publishFile.mergeAndPublish(body.getAllAttachments().stream()
+                    .map(att -> att.getObject(File.class))
+                    .collect(Collectors.toList()),
+                    dossierFile);
         }
         //dossierFile.lastModified() should be updated?
-        
+
     }
 
     @Override
@@ -169,7 +169,7 @@ public class DossierFileResourceImpl implements DossierFileResource {
         redirect.append(uriStorageFactory.getURIStorage().registerUri(dossierFile.getLatestVersion().getFilePath().toUri(), dossierFile.getLatestVersion().getMediaType()));
         if (path != null && !path.isEmpty()) {
             if (!path.startsWith("/")) {
-                redirect.append("/");
+                redirect.append('/');
             }
             redirect.append(path);
         }

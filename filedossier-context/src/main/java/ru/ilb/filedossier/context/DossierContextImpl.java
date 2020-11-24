@@ -70,10 +70,7 @@ public class DossierContextImpl implements Serializable, DossierContext {
             return false;
         }
         final DossierContextImpl other = (DossierContextImpl) obj;
-        if (!Objects.equals(this.values, other.values)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.values, other.values);
     }
 
     @Override

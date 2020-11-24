@@ -29,7 +29,10 @@ import org.apache.pdfbox.rendering.PDFRenderer;
  *
  * @author kuznetsov_me
  */
-public class PdfUtils {
+public final class PdfUtils {
+
+    private PdfUtils() {
+    }
 
     public static Map<String, String> extractMetadata(byte[] document) {
 

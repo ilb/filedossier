@@ -40,20 +40,6 @@ public class DossierImpl implements Dossier {
 
     private final String contextRoot;
 
-    // validate all dossier files for dossier validation
-    @Override
-    public boolean isValid() {
-        List<Boolean> dossierFilesValids = new ArrayList();
-
-        dossierFiles.forEach((name, dossierFile)
-                -> dossierFilesValids.add(true/*dossierFile.isValid())*/));
-
-        return dossierFilesValids.stream()
-                .filter(dossierFileValid -> !dossierFileValid)
-                .findFirst()
-                .orElse(true);
-    }
-
     public DossierImpl(String code, String name, String dossierPackage, String dossierKey) {
         this.code = code;
         this.name = name;
@@ -68,6 +54,20 @@ public class DossierImpl implements Dossier {
                 .collect(Collectors.toMap(DossierPath::getCode, df -> df));
 
         this.contextRoot = String.format("%s/%s", dossierKey, code);
+    }
+
+    // validate all dossier files for dossier validation
+    @Override
+    public boolean isValid() {
+        List<Boolean> dossierFilesValids = new ArrayList();
+
+        dossierFiles.forEach((name, dossierFile)
+                -> dossierFilesValids.add(true/*dossierFile.isValid())*/));
+
+        return dossierFilesValids.stream()
+                .filter(dossierFileValid -> !dossierFileValid)
+                .findFirst()
+                .orElse(true);
     }
 
     @Override

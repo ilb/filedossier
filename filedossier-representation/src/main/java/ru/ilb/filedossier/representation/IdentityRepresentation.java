@@ -15,13 +15,12 @@
  */
 package ru.ilb.filedossier.representation;
 
-import ru.ilb.filedossier.entities.*;
-
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.List;
+import ru.ilb.filedossier.entities.DossierContents;
+import ru.ilb.filedossier.entities.DossierPath;
+import ru.ilb.filedossier.entities.Representation;
 
 /**
  * Represents raw file contents

@@ -22,8 +22,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import static org.junit.Assert.*;
 import org.junit.Test;
-import ru.ilb.filedossier.entities.Store;
-import ru.ilb.filedossier.store.StoreFactory;
 
 /**
  *
@@ -45,7 +43,7 @@ public class PdfXsltRepresentationTest {
         DossierContentsHolder contents = new DossierContentsHolder(source, "application/pdf", "projectteam", "Отчет",
                 "pdf");
 
-        Store store = StoreFactory.newInstance(Files.createTempDirectory("storeroot").toUri()).getStore("storekey");
+//        Store store = StoreFactory.newInstance(Files.createTempDirectory("storeroot").toUri()).getStore("storekey");
         PdfXsltRepresentation instance = new PdfXsltRepresentation("application/pdf", stylesheetUri, dataUri);
         instance.setParent(contents);
 

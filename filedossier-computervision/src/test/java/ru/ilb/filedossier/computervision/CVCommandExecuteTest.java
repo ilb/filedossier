@@ -27,9 +27,14 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
-import ru.ilb.filedossier.computervision.barcodedetectrequest.*;
+import ru.ilb.filedossier.computervision.barcodedetectrequest.AreaType;
+import ru.ilb.filedossier.computervision.barcodedetectrequest.BarcodeDetectRequest;
+import ru.ilb.filedossier.computervision.barcodedetectrequest.BarcodeType;
+import ru.ilb.filedossier.computervision.barcodedetectrequest.PagesType;
+import ru.ilb.filedossier.computervision.barcodedetectrequest.SourceType;
 import ru.ilb.filedossier.computervision.process.ComputerVistionProcesss;
-import ru.ilb.filedossier.computervision.signaturedetectrequest.*;
+import ru.ilb.filedossier.computervision.signaturedetectrequest.Signature;
+import ru.ilb.filedossier.computervision.signaturedetectrequest.SignatureDetectRequest;
 
 /**
  *

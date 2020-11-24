@@ -36,11 +36,6 @@ import ru.ilb.filedossier.jndi.JndiRule;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class DossierFileImplTest {
 
-    private final DossierFactory dossierFactory;
-
-    private final Dossier dossier;
-
-    private final DossierFile dossierFile1;
 
     @ClassRule
     public static JndiRule jndi = new JndiRule() {
@@ -50,6 +45,13 @@ public class DossierFileImplTest {
         }
 
     };
+
+    private final DossierFactory dossierFactory;
+
+    private final Dossier dossier;
+
+    private final DossierFile dossierFile1;
+
 
     public DossierFileImplTest() throws NamingException {
         dossierFactory = getDossierFactory();
@@ -127,7 +129,7 @@ public class DossierFileImplTest {
      * Test of getContents method, of class DossierFileImpl.
      */
     @Test // (expected = FileNotExistsException.class)
-    public void ztestGetContents_0args() throws Exception {
+    public void ztestGetContentsZeroargs() throws Exception {
         System.out.println("getContents");
         byte[] expResult = "test".getBytes();
         //byte[] result = dossierFile1.getContents();

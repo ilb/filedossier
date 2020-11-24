@@ -24,7 +24,10 @@ import ru.ilb.filedossier.computervision.process.SignatureDetection;
  *
  * @author kudrin
  */
-public class ComputerVistionProcessFactory {
+public final class ComputerVistionProcessFactory {
+
+    private ComputerVistionProcessFactory() {
+    }
 
     public static ComputerVistionProcesss createProcess(ComputerVistionProcessType processType, File inputFile) {
         switch (processType) {

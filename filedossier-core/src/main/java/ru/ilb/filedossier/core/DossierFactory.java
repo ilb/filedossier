@@ -26,11 +26,12 @@ import ru.ilb.filedossier.ddl.DossierDefinitionRepository;
 import ru.ilb.filedossier.ddl.DossierFileDefinition;
 import ru.ilb.filedossier.ddl.DossierNotFoundException;
 import ru.ilb.filedossier.ddl.PackageDefinition;
-import ru.ilb.filedossier.entities.*;
+import ru.ilb.filedossier.entities.Dossier;
+import ru.ilb.filedossier.entities.DossierContext;
+import ru.ilb.filedossier.entities.DossierFile;
+import ru.ilb.filedossier.entities.Store;
 import ru.ilb.filedossier.representation.RepresentationFactory;
 import ru.ilb.filedossier.store.StoreFactory;
-import ru.ilb.scripting.evaluator.TemplateEvaluator;
-
 /**
  *
  * @author slavb
@@ -48,7 +49,7 @@ public class DossierFactory {
 
     private String contextRoot;
 
-    private TemplateEvaluator templateEvaluator;
+//    private TemplateEvaluator templateEvaluator;
 
     @Inject
     public DossierFactory(DossierDefinitionRepository dossierDefinitionRepository,

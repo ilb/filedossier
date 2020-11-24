@@ -29,11 +29,11 @@ import ru.ilb.filedossier.computervision.os.OSCommand;
  */
 public abstract class ComputerVistionProcesss {
 
-    protected File m_inputFile;
-    protected OSCommand m_osCommand;
+    protected File inputFile;
+    protected OSCommand osCommand;
 
     ComputerVistionProcesss() {
-        m_osCommand = new OSCommand();
+        osCommand = new OSCommand();
     }
 
     /**
@@ -46,7 +46,7 @@ public abstract class ComputerVistionProcesss {
     public abstract String execute() throws IOException, InterruptedException;
 
     public ComputerVistionProcesss withInputFile(File inputFile) {
-        this.m_inputFile = inputFile;
+        this.inputFile = inputFile;
         return this;
     }
 }

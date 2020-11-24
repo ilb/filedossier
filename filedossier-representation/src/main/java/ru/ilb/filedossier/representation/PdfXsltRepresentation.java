@@ -35,7 +35,7 @@ import org.apache.fop.apps.FOUserAgent;
 import org.apache.fop.apps.Fop;
 import org.apache.fop.apps.FopFactory;
 import org.xml.sax.SAXException;
-import ru.ilb.filedossier.entities.Store;
+
 
 /**
  *
@@ -43,13 +43,13 @@ import ru.ilb.filedossier.entities.Store;
  */
 public class PdfXsltRepresentation extends IdentityRepresentation {
 
-    private final static String OUTPUT_FORMAT = "application/pdf";
+    private static final String OUTPUT_FORMAT = "application/pdf";
+
+    private static FopFactory fopFactory;
 
     protected final URI stylesheetUri;
 
     protected final URI contentUri;
-
-    private static FopFactory fopFactory = null;
 
     public PdfXsltRepresentation(String mediaType, URI stylesheetUri, URI contentUri) {
         super(mediaType);

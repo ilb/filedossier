@@ -39,7 +39,7 @@ import ru.ilb.filedossier.functions.MapRuntimeFunction;
  * @see ru.ilb.filedossier.functions.MapRuntimeFunction
  * @author kuznetsov_me
  */
-public class BarcodeScanner {
+public final class BarcodeScanner {
 
     /**
      * URI of the bar code scanner script.
@@ -49,7 +49,7 @@ public class BarcodeScanner {
     /**
      * Request data for the script in the form of {@code Map<String, Object>}. Such a structure is easy to convert to/from JSON.
      */
-    Map<String, Object> requestMap;
+    private Map<String, Object> requestMap;
 
     private BarcodeScanner() {
     }
@@ -73,7 +73,7 @@ public class BarcodeScanner {
 
         Map<String, String> barcodeDatas = new HashMap<>();
 
-        responseObjects.stream().forEach((responseObject) -> {
+        responseObjects.stream().forEach(responseObject -> {
 
             String barcodeKey = (String) responseObject.get("file");
             String barcode = (String) responseObject.get("barcode");
@@ -91,7 +91,7 @@ public class BarcodeScanner {
     /**
      * RequestBuilder builds the request map from the specified arguments.
      */
-    public class RequestBuilder {
+    public final class RequestBuilder {
 
         /**
          * Original PDF document URI.

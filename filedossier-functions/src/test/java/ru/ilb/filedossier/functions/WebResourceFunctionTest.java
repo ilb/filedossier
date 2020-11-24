@@ -27,8 +27,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.junit.After;
 import org.junit.Assert;
-import org.junit.Test;
 import org.junit.Before;
+import org.junit.Test;
 
 /**
  *
@@ -42,7 +42,7 @@ public class WebResourceFunctionTest {
     }
 
     @Before
-    public void setup() throws IOException {
+    public void setUp() throws IOException {
         httpServer = HttpServer.create(new InetSocketAddress(62478), 0);
         httpServer.createContext("/api/endpoint", new HttpHandler() {
             public void handle(HttpExchange exchange) throws IOException {
@@ -57,7 +57,7 @@ public class WebResourceFunctionTest {
     }
 
     @After
-    public void cleanup() {
+    public void tearDown() {
         httpServer.stop(0);
     }
 

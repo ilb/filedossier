@@ -21,7 +21,7 @@ import java.util.List;
  *
  * @author kuznetsov_me
  */
-public class SignaturesNotDetectedException extends RuntimeException{
+public class SignaturesNotDetectedException extends RuntimeException {
 
     List<String> notDetectedSignatures;
 

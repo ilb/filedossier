@@ -23,7 +23,6 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
-import ru.ilb.filedossier.entities.Store;
 import ru.ilb.filedossier.functions.WebResourceFunction;
 
 /**
@@ -33,11 +32,11 @@ import ru.ilb.filedossier.functions.WebResourceFunction;
  */
 public class PdfGenRepresentation extends IdentityRepresentation {
 
-    private final static String OUTPUT_FORMAT = "application/pdf";
+    private static final String OUTPUT_FORMAT = "application/pdf";
 
     // base uri, contains three %s format flags - for stylesheet, scheme and
     // meta uri's
-    private final static String BASE_URI = "http://devel.net.ilb.ru:8080/pdfgen/fopservlet?xslt=%s&xsd=%s&metaUrl=%s";
+    private static final String BASE_URI = "http://devel.net.ilb.ru:8080/pdfgen/fopservlet?xslt=%s&xsd=%s&metaUrl=%s";
 
     private final WebResourceFunction webResourceFunction;
 
@@ -46,8 +45,8 @@ public class PdfGenRepresentation extends IdentityRepresentation {
         super(mediaType);
 
         URL resourceUrl = new URL(
-            String.format(BASE_URI, stylesheetUri.toString(), schemeUri.toString(),
-                          metaUri.toString()));
+                String.format(BASE_URI, stylesheetUri.toString(), schemeUri.toString(),
+                        metaUri.toString()));
         webResourceFunction = new WebResourceFunction(resourceUrl);
 
         if (!mediaType.equals(OUTPUT_FORMAT)) {

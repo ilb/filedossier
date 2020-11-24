@@ -22,8 +22,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import static org.junit.Assert.*;
 import org.junit.Test;
-import ru.ilb.filedossier.entities.Store;
-import ru.ilb.filedossier.store.StoreFactory;
 
 /**
  *
@@ -46,7 +44,7 @@ public class JsonXmlRepresentationTest {
         byte[] source = Files.readAllBytes(Paths.get(dataUri));
         DossierContentsHolder contents = new DossierContentsHolder(source, "application/json", "fairpriceorder", "Отчет", "json");
 
-        Store store = StoreFactory.newInstance(Files.createTempDirectory("storeroot").toUri()).getStore("storekey");
+//        Store store = StoreFactory.newInstance(Files.createTempDirectory("storeroot").toUri()).getStore("storekey");
 
         JsonXmlRepresentation instance = new JsonXmlRepresentation();
         instance.setParent(contents);

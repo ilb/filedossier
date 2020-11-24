@@ -6,7 +6,11 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import ru.ilb.filedossier.entities.*;
+import ru.ilb.filedossier.entities.DossierFile;
+import ru.ilb.filedossier.entities.DossierFileVersion;
+import ru.ilb.filedossier.entities.DossierPath;
+import ru.ilb.filedossier.entities.Representation;
+import ru.ilb.filedossier.entities.Store;
 import ru.ilb.filedossier.mimetype.MimeTypeUtil;
 import ru.ilb.filedossier.representation.IdentityRepresentation;
 

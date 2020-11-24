@@ -21,7 +21,6 @@ import java.util.stream.Collectors;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.ws.rs.core.UriBuilder;
-
 import ru.ilb.filedossier.api.DossierResource;
 import ru.ilb.filedossier.entities.Dossier;
 import ru.ilb.filedossier.entities.DossierFile;
@@ -51,7 +50,7 @@ public class DossierMapperImpl implements DossierMapper {
     private List<DossierFileView> buildDossierFiles(List<DossierFile> dossierFilesModels, URI dossierResourceUri) {
         return dossierFilesModels.stream()
                 .map(fileModel -> dossierFileMapper
-                .map(fileModel,getDossierFileResourceUri(dossierResourceUri, fileModel.getCode())))
+                .map(fileModel, getDossierFileResourceUri(dossierResourceUri, fileModel.getCode())))
                 .collect(Collectors.toList());
     }
 

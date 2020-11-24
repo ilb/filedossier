@@ -15,7 +15,7 @@ public class PublishFileNewVersion {
 
     DocumentMergerExecutor mergerExecutor;
 
-    public void publish(File file, DossierFile dossierFile){
+    public void publish(File file, DossierFile dossierFile) {
         String mediaType = MimeTypeUtil.guessMimeTypeFromFile(file);
         DossierFileVersion version = dossierFile.createNewVersion(mediaType);
         try {
@@ -23,7 +23,7 @@ public class PublishFileNewVersion {
         } catch (IOException ex) {
             throw new RuntimeException("Error while saving new dossier file version", ex);
         }
-    };
+    }
 
     public void mergeAndPublish(List<File> files, DossierFile dossierFile) {
         mergerExecutor = DocumentMergerExecutor.fromList(files);

@@ -102,7 +102,7 @@ public class PdfFileSystemProvider extends FileSystemProvider {
             PdfFileSystem fs = fscache.get(uri);
             if (fs == null && create) {
                 URI fileUri = URI.create(uri.toString().substring(6));
-                fs = new PdfFileSystem(this, uri,  containerAccessorFactory.getContainerAccessor(fileUri));
+                fs = new PdfFileSystem(this, uri, containerAccessorFactory.getContainerAccessor(fileUri));
                 fscache.put(uri, fs);
             }
             return fs;

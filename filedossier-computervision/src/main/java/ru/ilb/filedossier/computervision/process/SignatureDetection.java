@@ -34,7 +34,7 @@ public class SignatureDetection extends ComputerVistionProcesss {
         // TODO: отвязать от ОС и путей.
         command.add("python");
         command.add("D:\\citycard\\projects\\ComputerVision\\DocumentSignatureDetector\\documentsignaturedetector\\__main__.py");
-        return m_osCommand.execute(command, m_inputFile);
+        return osCommand.execute(command, inputFile);
     }
 
 }

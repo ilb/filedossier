@@ -23,7 +23,7 @@ public class Barcode {
 
     private String docType;
 
-    private String UID;
+    private String uid;
 
     private int pageNumber;
 
@@ -36,7 +36,7 @@ public class Barcode {
         // doctree:11f462ebdb14a5673ff41a5c75c5176552fad343:1:5
         if (barcodeElements.length == 4) {
             this.docType = barcodeElements[0];
-            this.UID = barcodeElements[1];
+            this.uid = barcodeElements[1];
             this.pageNumber = Integer.parseInt(barcodeElements[2]);
             this.numberOfPages = Integer.parseInt(barcodeElements[3]);
         }
@@ -46,8 +46,8 @@ public class Barcode {
         return docType;
     }
 
-    public String getUID() {
-        return UID;
+    public String getUid() {
+        return uid;
     }
 
     public int getPageNumber() {
@@ -60,6 +60,6 @@ public class Barcode {
 
     @Override
     public String toString() {
-        return UID + ":" + pageNumber + ":" + numberOfPages;
+        return uid + ":" + pageNumber + ":" + numberOfPages;
     }
 }

@@ -20,10 +20,10 @@ import java.util.List;
 import java.util.Optional;
 import org.junit.After;
 import org.junit.AfterClass;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -49,6 +49,7 @@ public class ContentNegotiationSeviceImplTest {
     @After
     public void tearDown() {
     }
+
     /**
      * Test of getAcceptableMediaType method, of class ContentNegotiationSeviceImpl.
      */
@@ -65,13 +66,12 @@ public class ContentNegotiationSeviceImplTest {
 
     }
 
-
     @Test
     public void testReturnsDefaultRepresentation() {
         System.out.println("testReturnsDefaultRepresentation");
 
         String acceptableMediaTypes = "text/html,application/xhtml+xml";
-        List<String> allowedMediaTypes = Arrays.asList("text/html","application/pdf", "application/xml");
+        List<String> allowedMediaTypes = Arrays.asList("text/html", "application/pdf", "application/xml");
         Optional<String> expResult = Optional.of("text/html");
 
         ContentNegotiationSeviceImpl instance = new ContentNegotiationSeviceImpl();

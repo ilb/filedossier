@@ -15,22 +15,19 @@
  */
 package ru.ilb.filedossier.core;
 
-import java.io.File;
 import org.apache.pdfbox.io.IOUtils;
 import org.junit.After;
 import org.junit.AfterClass;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
-import org.junit.Ignore;
 import static ru.ilb.filedossier.core.DossierFactoryTest.getDossierFactory;
 import ru.ilb.filedossier.entities.Dossier;
 import ru.ilb.filedossier.entities.DossierFile;
 import ru.ilb.filedossier.entities.DossierFileVersion;
 import ru.ilb.filedossier.entities.DossierPath;
 import ru.ilb.filedossier.entities.Representation;
-import ru.ilb.filedossier.entities.Store;
 
 /**
  *
@@ -92,7 +89,7 @@ public class ConcreteDossierFileVersionTest {
     @Test
     public void testSetStore() {
         System.out.println("setStore");
-        Store store = null;
+//        Store store = null;
 //        ConcreteDossierFileVersion instance = null;
 //        instance.setStore(store);
     }
@@ -103,8 +100,8 @@ public class ConcreteDossierFileVersionTest {
     @Test
     public void testSetMediaType() {
         System.out.println("setMediaType");
-        String mediaType = "";
-        ConcreteDossierFileVersion instance = null;
+//        String mediaType = "";
+//        ConcreteDossierFileVersion instance = null;
 //        instance.setMediaType(mediaType);
 //        // TODO review the generated test code and remove the default call to fail.
 //        fail("The test case is a prototype.");
@@ -148,7 +145,7 @@ public class ConcreteDossierFileVersionTest {
     @Test
     public void testSetParent() {
         System.out.println("setParent");
-        DossierPath parent = null;
+//        DossierPath parent = null;
 //        ConcreteDossierFileVersion instance = null;
 //        instance.setParent(parent);
 //        // TODO review the generated test code and remove the default call to fail.
@@ -183,7 +180,7 @@ public class ConcreteDossierFileVersionTest {
      * Test of getRepresentation method, of class ConcreteDossierFileVersion.
      */
     @Test
-    public void testGetRepresentation_0args() {
+    public void testGetRepresentationZeroargs() {
         System.out.println("getRepresentation");
         //Representation expResult = null;
         Representation result = instance.getRepresentation();
@@ -194,7 +191,7 @@ public class ConcreteDossierFileVersionTest {
      * Test of getRepresentation method, of class ConcreteDossierFileVersion.
      */
     @Test
-    public void testGetRepresentation_String() {
+    public void testGetRepresentationString() {
         System.out.println("getRepresentation");
         String mediaType = "application/xml";
         //Representation expResult = null;
