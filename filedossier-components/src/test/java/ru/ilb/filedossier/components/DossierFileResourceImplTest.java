@@ -21,6 +21,7 @@ import java.net.URISyntaxException;
 import java.nio.file.Paths;
 import java.text.ParseException;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -34,7 +35,6 @@ import org.apache.cxf.jaxrs.provider.json.JsonMapObjectProvider;
 import org.apache.cxf.transport.http.HTTPConduit;
 import org.junit.Assert;
 import org.junit.FixMethodOrder;
-import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -133,7 +133,9 @@ public class DossierFileResourceImplTest {
     @org.junit.Test
     public void testUpdateContents() throws URISyntaxException, IOException, ParseException, InterruptedException {
         DossiersResource dossiersResource = getDossiersResource();
-        DossierView dossierView = dossiersResource.getDossierResource("teststorekey", "testmodel", "TEST", "mode1").getDossier();
+        DossierView dossierView = dossiersResource
+                .getDossierResource("teststorekey", "testmodel", "TEST", "mode1")
+                .getDossier(Collections.emptyList());
         DossierFileView dfv = dossierView.getDossierFiles().stream().filter(x -> x.getCode().equals("image1")).findFirst().orElse(null);
         File file = Paths.get(getClass().getClassLoader().getResource("page1.jpg").toURI()).toFile();
         List<Attachment> updateAtts = new LinkedList<Attachment>();
@@ -142,7 +144,9 @@ public class DossierFileResourceImplTest {
         Thread.sleep(1000);
         dossierFileResource.update(new MultipartBody(updateAtts, true));
         DossiersResource updatedDossiersResource = getDossiersResource();
-        DossierView updatedDossierView = updatedDossiersResource.getDossierResource("teststorekey", "testmodel", "TEST", "mode1").getDossier();
+        DossierView updatedDossierView = updatedDossiersResource
+                .getDossierResource("teststorekey", "testmodel", "TEST", "mode1")
+                .getDossier(Collections.emptyList());
         DossierFileView updatedDfv = updatedDossierView.getDossierFiles().stream().filter(x -> x.getCode().equals("image1")).findFirst().orElse(null);
         Assert.assertNotEquals(dfv.getLastModified(), updatedDfv.getLastModified());
     }
@@ -162,13 +166,5 @@ public class DossierFileResourceImplTest {
         fileResource = getDossierFileResource("jurnals");
         response = fileResource.download(null, null, BROWSER_ACCEPT);
         Assert.assertEquals("application/pdf", response.getMediaType().toString());
-    }
-
-    @Test
-    public void testGetDossierFileContents() {
-        DossierFileResource fileResource = getDossierFileResource("fairpricecalc");
-        DossierFileView response = fileResource.getDossierFile();
-        Assert.assertEquals(response.getCode(), "fairpricecalc");
-        Assert.assertTrue(response.isExists());
     }
 }

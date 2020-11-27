@@ -22,12 +22,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.inject.Inject;
-import javax.validation.Valid;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.container.ResourceContext;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriInfo;
 import org.apache.cxf.jaxrs.ext.multipart.MultipartBody;
 import org.springframework.context.ApplicationContext;
 
@@ -41,8 +39,6 @@ import ru.ilb.filedossier.entities.Representation;
 import ru.ilb.filedossier.exceptions.NotAcceptableMediaType;
 import ru.ilb.filedossier.filedossier.usecases.upload.PublishFile;
 import ru.ilb.filedossier.filedossier.usecases.upload.PublishFileNewVersion;
-import ru.ilb.filedossier.mappers.DossierFileMapper;
-import ru.ilb.filedossier.view.DossierFileView;
 import ru.ilb.uriaccessor.URIStorageFactory;
 
 public class DossierFileResourceImpl implements DossierFileResource {
@@ -87,19 +83,8 @@ public class DossierFileResourceImpl implements DossierFileResource {
      */
     private DossierFile dossierFile;
 
-    @Inject
-    private DossierFileMapper dossierFileMapper;
-
-    @Context
-    private UriInfo uriInfo;
-
     final void setDossierFile(DossierFile dossierFile) {
         this.dossierFile = dossierFile;
-    }
-
-    @Override
-    public @Valid DossierFileView getDossierFile() {
-        return dossierFileMapper.map(dossierFile, uriInfo.getRequestUri());
     }
 
     @Override

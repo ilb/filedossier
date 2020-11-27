@@ -15,11 +15,15 @@
  */
 package ru.ilb.filedossier.components;
 
+import java.util.List;
+import java.util.function.Predicate;
+
 import javax.inject.Inject;
 import javax.ws.rs.container.ResourceContext;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import org.springframework.context.ApplicationContext;
+
 import ru.ilb.filedossier.api.DossierFileResource;
 import ru.ilb.filedossier.api.DossierResource;
 import ru.ilb.filedossier.api.DossierStoreResource;
@@ -64,9 +68,9 @@ public class DossierResourceImpl implements DossierResource {
     }
 
     @Override
-    public DossierView getDossier() {
-        return dossierMapper
-                .map(dossier, uriInfo.getRequestUri());
+    public DossierView getDossier(final List<String> codes) {
+        Predicate<DossierFile> fileFilter = dossierFile -> codes.isEmpty() || codes.contains(dossierFile.getCode());
+        return dossierMapper.map(dossier, uriInfo.getRequestUri(), fileFilter);
     }
 
     @Override
@@ -80,6 +84,7 @@ public class DossierResourceImpl implements DossierResource {
 
     @Override
     public DossierStoreResource getDossierStoreResource() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException(
+                "Not supported yet."); // To change body of generated methods, choose Tools | Templates.
     }
 }

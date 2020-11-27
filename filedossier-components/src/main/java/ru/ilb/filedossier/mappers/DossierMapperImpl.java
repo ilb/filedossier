@@ -17,10 +17,13 @@ package ru.ilb.filedossier.mappers;
 
 import java.net.URI;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
+
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.ws.rs.core.UriBuilder;
+
 import ru.ilb.filedossier.api.DossierResource;
 import ru.ilb.filedossier.entities.Dossier;
 import ru.ilb.filedossier.entities.DossierFile;
@@ -38,19 +41,21 @@ public class DossierMapperImpl implements DossierMapper {
     }
 
     @Override
-    public DossierView map(Dossier model, URI dossierResourceUri) {
+    public DossierView map(Dossier model, URI dossierResourceUri, Predicate<DossierFile> predicate) {
         DossierView view = new DossierView();
         view.setCode(model.getCode());
         view.setName(model.getName());
         view.setValid(String.valueOf(model.isValid()));
-        view.setDossierFiles(buildDossierFiles(model.getDossierFiles(), dossierResourceUri));
+        view.setDossierFiles(buildDossierFiles(model.getDossierFiles(), dossierResourceUri, predicate));
         return view;
     }
 
-    private List<DossierFileView> buildDossierFiles(List<DossierFile> dossierFilesModels, URI dossierResourceUri) {
+    private List<DossierFileView> buildDossierFiles(
+            List<DossierFile> dossierFilesModels, URI dossierResourceUri, Predicate<DossierFile> predicate) {
         return dossierFilesModels.stream()
-                .map(fileModel -> dossierFileMapper
-                .map(fileModel, getDossierFileResourceUri(dossierResourceUri, fileModel.getCode())))
+                .filter(predicate)
+                .map(fileModel -> dossierFileMapper.map(
+                        fileModel, getDossierFileResourceUri(dossierResourceUri, fileModel.getCode())))
                 .collect(Collectors.toList());
     }
 

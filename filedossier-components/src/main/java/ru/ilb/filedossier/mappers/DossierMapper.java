@@ -16,7 +16,10 @@
 package ru.ilb.filedossier.mappers;
 
 import java.net.URI;
+import java.util.function.Predicate;
+
 import ru.ilb.filedossier.entities.Dossier;
+import ru.ilb.filedossier.entities.DossierFile;
 
 /**
  *
@@ -24,5 +27,5 @@ import ru.ilb.filedossier.entities.Dossier;
  */
 public interface DossierMapper {
 
-    ru.ilb.filedossier.view.DossierView map(Dossier model, URI dossierResourceUri);
+    ru.ilb.filedossier.view.DossierView map(Dossier model, URI dossierResourceUri, Predicate<DossierFile> fileFilter);
 }

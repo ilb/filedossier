@@ -16,7 +16,9 @@
 
         <method name="GET" id="getDossier">
             <doc>get dossier instance</doc>
-            <request/>
+            <request>
+                <param name="code" style="query" type="xsd:string" repeating="true"/>
+            </request>
             <response>
                 <representation mediaType="application/xml" element="view:dossier">
                     <doc>dossier data</doc>
@@ -97,18 +99,6 @@
         </resource>
     </resource_type>
     <resource_type id="dossierFileResource">
-
-        <method name="GET" id="getDossierFile">
-            <doc>Get a dossier file state</doc>
-            <response status="200">
-                <representation mediaType="application/xml" element="view:dossierFile">
-                    <doc>Dossier file state</doc>
-                </representation>
-                <representation mediaType="application/json">
-                    <doc>Dossier file state</doc>
-                </representation>
-            </response>
-        </method>
 
         <resource path="container">
             <method name="GET" id="container">
