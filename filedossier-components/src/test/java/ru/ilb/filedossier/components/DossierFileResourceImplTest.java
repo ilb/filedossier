@@ -23,6 +23,7 @@ import java.text.ParseException;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+
 import javax.inject.Inject;
 import javax.ws.rs.core.Response;
 import org.apache.cxf.jaxrs.client.JAXRSClientFactory;
@@ -33,11 +34,13 @@ import org.apache.cxf.jaxrs.provider.json.JsonMapObjectProvider;
 import org.apache.cxf.transport.http.HTTPConduit;
 import org.junit.Assert;
 import org.junit.FixMethodOrder;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.junit4.SpringRunner;
+
 import ru.ilb.filedossier.api.DossierFileResource;
 import ru.ilb.filedossier.api.DossiersResource;
 import ru.ilb.filedossier.view.DossierFileView;
@@ -159,5 +162,13 @@ public class DossierFileResourceImplTest {
         fileResource = getDossierFileResource("jurnals");
         response = fileResource.download(null, null, BROWSER_ACCEPT);
         Assert.assertEquals("application/pdf", response.getMediaType().toString());
+    }
+
+    @Test
+    public void testGetDossierFileContents() {
+        DossierFileResource fileResource = getDossierFileResource("fairpricecalc");
+        DossierFileView response = fileResource.getDossierFile();
+        Assert.assertEquals(response.getCode(), "fairpricecalc");
+        Assert.assertTrue(response.isExists());
     }
 }

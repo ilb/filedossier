@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <application xmlns="http://wadl.dev.java.net/2009/02"
              xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-             xmlns:command="urn:ru:ilb:filedossier:command"
              xmlns:view="urn:ru:ilb:filedossier:view"
              xmlns:global="urn:ru:ilb:global"
              xmlns:core="urn:ru:ilb:filedossier:core"
@@ -98,19 +97,31 @@
         </resource>
     </resource_type>
     <resource_type id="dossierFileResource">
-        
+
+        <method name="GET" id="getDossierFile">
+            <doc>Get a dossier file state</doc>
+            <response status="200">
+                <representation mediaType="application/xml" element="view:dossierFile">
+                    <doc>Dossier file state</doc>
+                </representation>
+                <representation mediaType="application/json">
+                    <doc>Dossier file state</doc>
+                </representation>
+            </response>
+        </method>
+
         <resource path="container">
             <method name="GET" id="container">
                 <doc>test</doc>
                 <request>
-                    <param name="path" style="query" type="xsd:string" />
+                    <param name="path" style="query" type="xsd:string"/>
                 </request>
                 <response status="200">
                     <param name="Container-Disposition" style="header" type="xsd:string"/>
                 </response>
             </method>
         </resource>
-        
+
         <method name="GET" id="download">
             <doc>get dossier file contents</doc>
             <request>
