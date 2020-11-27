@@ -24,8 +24,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
-import static org.junit.Assert.*;
-import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 /**
  *
@@ -33,7 +34,7 @@ import org.junit.Test;
  */
 public class PdfFileSystemProviderTest {
 
-    @Test
+    // @Test
     public void testUri() throws URISyntaxException, IOException {
 
         URI fileUri = this.getClass().getResource("test.pdf").toURI();
