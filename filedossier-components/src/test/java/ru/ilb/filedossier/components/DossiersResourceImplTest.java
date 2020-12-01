@@ -16,22 +16,26 @@
 package ru.ilb.filedossier.components;
 
 import java.util.Arrays;
+import java.util.Collections;
+
 import javax.inject.Inject;
 import org.apache.cxf.jaxrs.client.JAXRSClientFactory;
 import org.apache.cxf.jaxrs.json.basic.JsonMapObject;
 import org.apache.cxf.jaxrs.provider.json.JsonMapObjectProvider;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.junit4.SpringRunner;
+
 import ru.ilb.filedossier.api.DossierContextResource;
 import ru.ilb.filedossier.api.DossierFileResource;
 import ru.ilb.filedossier.api.DossierResource;
 import ru.ilb.filedossier.api.DossiersResource;
 import ru.ilb.filedossier.view.DossierView;
+
+import static org.junit.Assert.*;
 
 /**
  *
@@ -75,7 +79,7 @@ public class DossiersResourceImplTest {
         String dossierMode = "mode1";
         DossierResource dossierResource = getDossiersResource().getDossierResource(dossierKey, dossierPackage,
                 dossierCode, dossierMode);
-        DossierView dossier = dossierResource.getDossier();
+        DossierView dossier = dossierResource.getDossier(Collections.emptyList());
         assertNotNull(dossier);
         DossierFileResource dossierFileResource = dossierResource.getDossierFileResource("fairpricecalc");
         dossierFileResource.download(null, null, null).readEntity(String.class);
@@ -91,4 +95,15 @@ public class DossiersResourceImplTest {
         assertEquals(result, inputContext);
     }
 
+    @Test
+    public void testSelectDossierFile() {
+        DossierResource dossierResource =
+                getDossiersResource().getDossierResource("teststorekey", "testmodel", "TEST", "mode1");
+        DossierView dossier = dossierResource.getDossier(Collections.singletonList("jurnals"));
+
+        assertTrue(dossier.getDossierFiles().stream()
+                .anyMatch(dossierFile -> dossierFile.getCode().equals("jurnals")));
+        assertFalse(dossier.getDossierFiles().stream()
+                .anyMatch(dossierFile -> dossierFile.getCode().equals("fairpricecalc")));
+    }
 }

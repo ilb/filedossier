@@ -21,8 +21,10 @@ import java.net.URISyntaxException;
 import java.nio.file.Paths;
 import java.text.ParseException;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+
 import javax.inject.Inject;
 import javax.ws.rs.core.Response;
 import org.apache.cxf.jaxrs.client.JAXRSClientFactory;
@@ -38,6 +40,7 @@ import org.junit.runners.MethodSorters;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.junit4.SpringRunner;
+
 import ru.ilb.filedossier.api.DossierFileResource;
 import ru.ilb.filedossier.api.DossiersResource;
 import ru.ilb.filedossier.view.DossierFileView;
@@ -130,7 +133,9 @@ public class DossierFileResourceImplTest {
     @org.junit.Test
     public void testUpdateContents() throws URISyntaxException, IOException, ParseException, InterruptedException {
         DossiersResource dossiersResource = getDossiersResource();
-        DossierView dossierView = dossiersResource.getDossierResource("teststorekey", "testmodel", "TEST", "mode1").getDossier();
+        DossierView dossierView = dossiersResource
+                .getDossierResource("teststorekey", "testmodel", "TEST", "mode1")
+                .getDossier(Collections.emptyList());
         DossierFileView dfv = dossierView.getDossierFiles().stream().filter(x -> x.getCode().equals("image1")).findFirst().orElse(null);
         File file = Paths.get(getClass().getClassLoader().getResource("page1.jpg").toURI()).toFile();
         List<Attachment> updateAtts = new LinkedList<Attachment>();
@@ -139,7 +144,9 @@ public class DossierFileResourceImplTest {
         Thread.sleep(1000);
         dossierFileResource.update(new MultipartBody(updateAtts, true));
         DossiersResource updatedDossiersResource = getDossiersResource();
-        DossierView updatedDossierView = updatedDossiersResource.getDossierResource("teststorekey", "testmodel", "TEST", "mode1").getDossier();
+        DossierView updatedDossierView = updatedDossiersResource
+                .getDossierResource("teststorekey", "testmodel", "TEST", "mode1")
+                .getDossier(Collections.emptyList());
         DossierFileView updatedDfv = updatedDossierView.getDossierFiles().stream().filter(x -> x.getCode().equals("image1")).findFirst().orElse(null);
         Assert.assertNotEquals(dfv.getLastModified(), updatedDfv.getLastModified());
     }

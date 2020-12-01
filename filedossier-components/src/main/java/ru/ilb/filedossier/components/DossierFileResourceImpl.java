@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
+
 import javax.inject.Inject;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.container.ResourceContext;
@@ -27,6 +28,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import org.apache.cxf.jaxrs.ext.multipart.MultipartBody;
 import org.springframework.context.ApplicationContext;
+
 import ru.ilb.filedossier.api.DossierContextResource;
 import ru.ilb.filedossier.api.DossierFileResource;
 import ru.ilb.filedossier.contentnegotiation.sevice.ContentNegotiationSevice;
