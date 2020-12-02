@@ -4,7 +4,7 @@
     <parent>
         <groupId>ru.ilb.parent</groupId>
         <artifactId>parent</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0</version>
     </parent>
     <groupId>ru.ilb.filedossier</groupId>
     <artifactId>filedossier</artifactId>
@@ -52,7 +52,7 @@
         <javax-xml-bind-jaxb-api.version>2.3.1</javax-xml-bind-jaxb-api.version>
         <spring.boot.version>2.1.9.RELEASE</spring.boot.version>
         <maven.test.skip>false</maven.test.skip>
-        <containeraccessor.version>1.1-SNAPSHOT</containeraccessor.version>
+        <containeraccessor.version>1.1</containeraccessor.version>
     </properties>
     <dependencyManagement>
         <dependencies>
