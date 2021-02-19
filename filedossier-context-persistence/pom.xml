@@ -4,7 +4,7 @@
     <parent>
         <groupId>ru.ilb.filedossier</groupId>
         <artifactId>filedossier</artifactId>
-        <version>1.8</version>
+        <version>1.9-SNAPSHOT</version>
     </parent>
     <artifactId>filedossier-context-persistence</artifactId>
     <packaging>jar</packaging>

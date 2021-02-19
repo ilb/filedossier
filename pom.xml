@@ -8,7 +8,7 @@
     </parent>
     <groupId>ru.ilb.filedossier</groupId>
     <artifactId>filedossier</artifactId>
-    <version>1.8</version>
+    <version>1.9-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>filedossier</name>
     <description>filedossier components</description>
@@ -30,7 +30,7 @@
     <scm>
         <connection>scm:git:https://git.ilb.ru/ilb.ru/filedossier.git</connection>
         <url>https://git.ilb.ru/ilb.ru/filedossier</url>
-        <tag>filedossier-1.8</tag>
+        <tag>HEAD</tag>
     </scm>
     <distributionManagement>
         <site>
