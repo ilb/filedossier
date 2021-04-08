@@ -3,9 +3,11 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns="urn:ru:ilb:filedossier:ddl"
     xsi:schemaLocation="urn:ru:ilb:filedossier:ddl ../../../../../../filedossier-ddl/src/main/resources/schemas/filedossier/ddl.xsd">
-    <code>testmodel</code>
+    <code>testimg</code>
     <name>Тестовый пакет досье</name>
     <dossier>
+        <code>TEST</code>
+        <name>Тестовое досье</name>
         <dossierFile>
             <code>image1</code>
             <name>Изображение 1</name>
